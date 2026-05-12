@@ -4,7 +4,10 @@ import {
 } from 'react'
 import { useLocation } from 'react-router-dom'
 import ALL_STATES from './states.js'
-import { getPerches, sectionFromPath } from './perches.js'
+import { getPerches, sectionFromPath, nearestPerchTo } from './perches.js'
+import { useReelTriggers } from './useReelTriggers.js'
+import { pickReel } from './reelPools.js'
+import { pickThrowQuip } from './throwQuips.js'
 
 /**
  * CharacterContext — state machine + context provider.
@@ -31,6 +34,13 @@ const CHASE_DISTANCE_THRESHOLD = 150 // px
 const BUBBLE_DURATION = 5000 // ms
 const STUCK_GUARD_SECONDS = 60
 
+/* ── patch v1.4 §"Suppression": states during which a grab cannot start.
+ *    `entering` is intentionally omitted — grab may interrupt walk-in. */
+const GRAB_SUPPRESSION_LIST = new Set([
+  'summoning_reel', 'watching_reel', 'taking_reel',
+  'showcasing', 'chased', 'hiding',
+])
+
 /* ── Reduced-motion check ──────────────────────────────────────────── */
 function prefersReducedMotion() {
   return typeof window !== 'undefined'
@@ -56,6 +66,14 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   const [debugLog, setDebugLog] = useState([])
   const [activeActivity, setActiveActivity] = useState(null) // current activity name
   const [activeProps, setActiveProps] = useState({})         // { laptop: bool, mug: bool }
+  const [pixelInspect, setPixelInspect] = useState(false)    // debug 2x scale toggle
+  const [spriteRegistry, setSpriteRegistry] = useState({
+    missing: [],   // sprite names that 404'd (e.g., ['walk-a', 'walk-b'])
+    loaded: [],    // sprite names that loaded successfully (e.g., ['idle'])
+  })
+  // patch v1.4 — sway rotation surfaced to React for the sprite transform.
+  // Written every rAF tick from ctxRef.current.swayRotation.
+  const [swayRotation, setSwayRotation] = useState(0)
 
   const location = useLocation()
   const section = sectionFromPath(location.pathname)
@@ -86,6 +104,22 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   const reelFinishedRef = useRef(false)
   const pendingReelClipRef = useRef(null)
 
+  // Showcase tracking (patch-showcase.md)
+  const showcaseCountRef = useRef({})            // { '/work/foo': 1, ... }
+  const hoverStateRef = useRef(null)             // { cardId, el, startX, startY, timerId }
+
+  // Sprite registry (debug — see /character/*.png 404 / load state)
+  const spriteMissingRef = useRef(new Set())
+  const spriteLoadedRef = useRef(new Set())
+
+  // patch v1.3 §A4: reel-trigger plumbing.
+  // - seenReelsRef: session-shared set so the three triggers never repeat a clip.
+  // - currentSectionRef: lets the rAF loop sync ctx.section without a deps change.
+  // - charBubbleRef: lets the rAF loop / hook gates read live bubble state.
+  const seenReelsRef = useRef(new Set())
+  const currentSectionRef = useRef(section)
+  const charBubbleRef = useRef(null)
+
   // Viewport
   const viewportRef = useRef({
     width: typeof window !== 'undefined' ? window.innerWidth : 1200,
@@ -112,6 +146,19 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     reelShown: false,
     reelFinished: false,
     reelCarried: false,
+    // patch v1.3 §A4 + §B: contextual fields synced per frame in the rAF loop.
+    section: section,          // current section key (e.g. 'work', 'voice')
+    bubbleActive: false,       // true when charBubble != null
+    lastActivity: null,        // name of last activity (for no-repeat + sequencing)
+    // patch v1.4 — grab/throw scratchpad. Written by grabbed.tick (sway),
+    // read by mouseup handler on release, consumed by thrown.tick.
+    swayVelocityX: 0,
+    swayVelocityY: 0,
+    swayRotation: 0,
+    swayRotationVelocity: 0,
+    releaseVelocityX: 0,
+    releaseVelocityY: 0,
+    releaseRotation: 0,
     stateData: {},
     // Methods filled below
     speakIdle: () => {},
@@ -171,12 +218,20 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   }, [])
 
   /* ── Idle speech ────────────────────────────────────────────────── */
+  // patch v1.3 §C4 — one bubble at a time: if a bubble is already on
+  // screen, drop the new line silently. Matches the patch's "Option B:
+  // drop" recommendation — rarer and quieter than queueing.
   const speakIdle = useCallback((text) => {
+    if (charBubbleRef.current) return false
     if (bubbleTimerRef.current) clearTimeout(bubbleTimerRef.current)
     const id = `char-${Date.now()}`
     setCharBubble({ text, id })
     bubbleTimerRef.current = setTimeout(() => setCharBubble(null), BUBBLE_DURATION)
+    return true
   }, [])
+
+  const speakIdleRef = useRef(speakIdle)
+  useEffect(() => { speakIdleRef.current = speakIdle }, [speakIdle])
 
   /* ── Reel controls ──────────────────────────────────────────────── */
   const triggerReel = useCallback(() => {
@@ -197,6 +252,28 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   const markReelShown = useCallback(() => {
     reelShownRef.current = true
   }, [])
+
+  /* ── Contextual reel firing (patch v1.3 §A4) ────────────────────── */
+  // useReelTriggers fires { triggerType, section } when one of its three
+  // detectors (bottom-of-page, section dwell, deep idle) crosses its
+  // threshold. We pick a clip from the right pool, dedupe against the
+  // session-shared seenReelsRef, and transition into the reel sequence.
+  const fireContextualReel = useCallback(({ triggerType, section: sec }) => {
+    const clip = pickReel(triggerType, sec, seenReelsRef.current)
+    if (!clip) {
+      console.log(`[CHARACTER] reel trigger ${triggerType} fired but pool exhausted`)
+      return
+    }
+    seenReelsRef.current.add(clip)
+    pendingReelClipRef.current = clip
+    console.log(`[CHARACTER] reel trigger: ${triggerType} (${sec || '-'}) → ${clip}`)
+    // transition is stable (defined below); refer through ref-less reference
+    // is fine because useCallback below has empty deps for the same reason.
+    transitionRef.current?.('summoning_reel')
+  }, [])
+
+  // Forward ref so fireContextualReel (declared before transition) can call it.
+  const transitionRef = useRef(null)
 
   /* ── Transition function ────────────────────────────────────────── */
   const transition = useCallback((nextStateName) => {
@@ -232,6 +309,23 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     console.log(`[CHARACTER] ${entry}`)
     setDebugLog(prev => [...prev.slice(-19), entry])
   }, [])
+
+  // Keep the ref pointed at the latest transition for fireContextualReel.
+  useEffect(() => { transitionRef.current = transition }, [transition])
+
+  /* ── Wire reel triggers (patch v1.3 §A1+§A4) ────────────────────── */
+  // Enabled only after spawn, on desktop. The hook's internal `canFire`
+  // gate filters out reel-blocking states (chased/hiding/showcasing/the
+  // three reel states) and defers deep-idle while a bubble is reading.
+  const getStateName = useCallback(() => stateModuleRef.current?.name || 'inactive', [])
+  const getBubbleActive = useCallback(() => charBubbleRef.current != null, [])
+  useReelTriggers({
+    section,
+    enabled: visible && !isMobileRef.current,
+    getState: getStateName,
+    isBubbleActive: getBubbleActive,
+    fire: fireContextualReel,
+  })
 
   /* ── Spawn logic ────────────────────────────────────────────────── */
   useEffect(() => {
@@ -283,6 +377,13 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     ctxRef.current.setReelShown = markReelShown
   }, [speakIdle, triggerReel, dismissReel, markReelShown])
 
+  /* ── Mirror charBubble into a ref ───────────────────────────────── */
+  // The rAF loop and useReelTriggers read live bubble state without
+  // re-binding listeners or rebuilding the loop.
+  useEffect(() => {
+    charBubbleRef.current = charBubble
+  }, [charBubble])
+
   /* ── Main rAF loop ──────────────────────────────────────────────── */
   useEffect(() => {
     if (!visible) return
@@ -309,13 +410,19 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
         : 0
       ctx.reelShown = reelShownRef.current
       ctx.reelFinished = reelFinishedRef.current
+      // patch v1.3 §A4 + §B: contextual fields pulled from refs each frame.
+      ctx.section = currentSectionRef.current
+      ctx.bubbleActive = charBubbleRef.current != null
       ctx.elapsed += dt
 
       const currentState = stateModuleRef.current.name
 
       // ── Global chase detection ──
+      // patch v1.3 cross-system: suppress chase while a bubble is reading.
+      // The visitor should be able to finish a bubble without the character
+      // bolting mid-sentence.
       const chasableStates = ['idling', 'wandering', 'curious']
-      if (chasableStates.includes(currentState)) {
+      if (chasableStates.includes(currentState) && !ctx.bubbleActive) {
         const dist = Math.hypot(
           ctx.position.x - ctx.cursorPos.x,
           ctx.position.y - ctx.cursorPos.y
@@ -332,7 +439,13 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
       }
 
       // ── Stuck guard ──
-      if (ctx.elapsed > STUCK_GUARD_SECONDS && currentState !== 'inactive') {
+      // patch v1.4 §"Edge cases": exempt `grabbed` — long holds are valid
+      // (the visitor may be dragging across the page for many seconds).
+      if (
+        ctx.elapsed > STUCK_GUARD_SECONDS
+        && currentState !== 'inactive'
+        && currentState !== 'grabbed'
+      ) {
         console.warn(`[CHARACTER] Stuck guard: ${currentState} for ${ctx.elapsed.toFixed(0)}s`)
         transition('idling')
         rafRef.current = requestAnimationFrame(loop)
@@ -355,6 +468,10 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
       // Sync activity state
       setActiveActivity(ctx.stateData?.activeActivity?.name || null)
       setActiveProps(ctx.activeProps || {})
+      // patch v1.4 — surface sway rotation so the sprite can rotate. Only
+      // grabbed/thrown ever write nonzero values; in every other state the
+      // value sits at 0 and this set is a no-op for React (same value).
+      setSwayRotation(ctx.swayRotation || 0)
 
       rafRef.current = requestAnimationFrame(loop)
     }
@@ -368,6 +485,10 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   /* ── Section change: fade out and reposition ────────────────────── */
   const prevSectionRef = useRef(section)
   useEffect(() => {
+    // patch v1.3 §A4: keep currentSectionRef live every render even before
+    // spawn, so useReelTriggers reads the right section on its first fire.
+    currentSectionRef.current = section
+
     if (!visible || !spawnedRef.current) return
     if (prevSectionRef.current === section) return
     prevSectionRef.current = section
@@ -394,23 +515,35 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   /* ── External API ───────────────────────────────────────────────── */
 
   /** Called by CompanionContext when a section bubble fires */
+  // patch v1.3 §C4 + cross-system priority: bubble triggers (priority 4)
+  // drop while a higher-priority moment is on-screen — any reel state or
+  // showcase. One bubble at a time also applies.
+  const BUBBLE_BLOCKING_STATES = useMemo(() => new Set([
+    'chased', 'hiding', 'showcasing',
+    'summoning_reel', 'watching_reel', 'taking_reel',
+    // patch v1.4: bubbles must not spawn during the grab/throw flow.
+    'grabbed', 'thrown', 'running_away',
+  ]), [])
+
   const speakBubble = useCallback((text, id) => {
+    if (charBubbleRef.current) return false
+    const stateName = stateModuleRef.current?.name
+    if (stateName && BUBBLE_BLOCKING_STATES.has(stateName)) return false
     if (bubbleTimerRef.current) clearTimeout(bubbleTimerRef.current)
     setCharBubble({ text, id })
     bubbleTimerRef.current = setTimeout(() => setCharBubble(null), BUBBLE_DURATION)
-  }, [])
+    return true
+  }, [BUBBLE_BLOCKING_STATES])
 
   /** Called by App.jsx idle detection */
   const handleIdleContent = useCallback((content) => {
     if (!content) return
-    if (content.type === 'reel') {
-      pendingReelClipRef.current = content.clip || null
-      // Character will transition to summoning_reel on next tick
-      // (idling/wandering states check ctx.isIdle)
-    } else {
-      // Quip or fact — speak it
-      speakIdle(content.text)
-    }
+    // patch v1.3 §A2: reels now fire exclusively through useReelTriggers
+    // (bottom-of-page / section-dwell / deep-idle). Silently drop any reel
+    // items the idle quip-cycle hands us so the priority hierarchy holds.
+    if (content.type === 'reel') return
+    // Quip or fact — speak it
+    speakIdle(content.text)
   }, [speakIdle])
 
   /** Called by idle detection in App.jsx */
@@ -426,6 +559,200 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   const getPosition = useCallback(() => {
     return ctxRef.current.position
   }, [])
+
+  /* ── Sprite registry ───────────────────────────────────────────── */
+
+  const markSpriteMissing = useCallback((name) => {
+    if (spriteMissingRef.current.has(name)) return
+    spriteMissingRef.current.add(name)
+    setSpriteRegistry({
+      missing: Array.from(spriteMissingRef.current),
+      loaded: Array.from(spriteLoadedRef.current),
+    })
+  }, [])
+
+  const markSpriteLoaded = useCallback((name) => {
+    if (spriteLoadedRef.current.has(name)) return
+    spriteLoadedRef.current.add(name)
+    setSpriteRegistry({
+      missing: Array.from(spriteMissingRef.current),
+      loaded: Array.from(spriteLoadedRef.current),
+    })
+  }, [])
+
+  const togglePixelInspect = useCallback(() => {
+    setPixelInspect(v => !v)
+  }, [])
+
+  /* ── Hover-on-project showcase trigger ─────────────────────────── */
+  /* Per character-spec-patch-showcase.md §"Trigger logic":            */
+  /*   Visitor dwells on a Work card ≥2000ms with cursor moving <30px. */
+  /*   Frequency cap: 2 showcase moments per project per session.      */
+  /*   Skipped: on mobile, while chased/hidden/already-showcasing.     */
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    if (isMobileRef.current) return
+
+    const SHOWCASE_CAP = 2
+    const DWELL_MS = 2000
+    const MOVE_THRESHOLD_PX = 30
+    const SELECTOR = 'a.card-lift[href^="/work/"]'
+
+    const cancelHover = () => {
+      const h = hoverStateRef.current
+      if (h?.timerId) clearTimeout(h.timerId)
+      hoverStateRef.current = null
+    }
+
+    const fireShowcase = (cardEl) => {
+      const rect = cardEl.getBoundingClientRect()
+      const perch = nearestPerchTo(rect, perchesRef.current)
+      if (!perch) return
+      const cardId = cardEl.getAttribute('href') || cardEl.id || 'unknown'
+      ctxRef.current.stateData.showcaseTarget = {
+        perch,
+        cardId,
+        cardRect: rect,
+        skipApproach: reducedMotionRef.current,
+      }
+      showcaseCountRef.current[cardId] = (showcaseCountRef.current[cardId] || 0) + 1
+      transition('showcasing')
+    }
+
+    const onOver = (e) => {
+      const card = e.target?.closest?.(SELECTOR)
+      if (!card) return
+      if (hoverStateRef.current?.el === card) return
+
+      cancelHover()
+
+      const cardId = card.getAttribute('href') || ''
+      if ((showcaseCountRef.current[cardId] || 0) >= SHOWCASE_CAP) return
+
+      const cur = stateModuleRef.current?.name
+      if (cur === 'chased' || cur === 'hiding' || cur === 'showcasing') return
+      if (cur === 'taking_reel' || cur === 'watching_reel' || cur === 'summoning_reel') return
+      // patch v1.4: showcase must not fire while a grab/throw is mid-flight.
+      if (cur === 'grabbed' || cur === 'thrown' || cur === 'running_away') return
+
+      const startX = cursorPosRef.current.x
+      const startY = cursorPosRef.current.y
+
+      const timerId = setTimeout(() => {
+        const dx = cursorPosRef.current.x - startX
+        const dy = cursorPosRef.current.y - startY
+        if (Math.hypot(dx, dy) > MOVE_THRESHOLD_PX) return
+        // Re-check cap and state at fire time
+        if ((showcaseCountRef.current[cardId] || 0) >= SHOWCASE_CAP) return
+        const stateName = stateModuleRef.current?.name
+        if (stateName === 'chased' || stateName === 'hiding' || stateName === 'showcasing') return
+        // patch v1.4: don't fire showcase mid grab/throw/recovery.
+        if (stateName === 'grabbed' || stateName === 'thrown' || stateName === 'running_away') return
+        fireShowcase(card)
+      }, DWELL_MS)
+
+      hoverStateRef.current = { cardId, el: card, startX, startY, timerId }
+    }
+
+    const onOut = (e) => {
+      const card = e.target?.closest?.(SELECTOR)
+      if (card && hoverStateRef.current?.el === card) {
+        cancelHover()
+      }
+    }
+
+    document.addEventListener('mouseover', onOver)
+    document.addEventListener('mouseout', onOut)
+    return () => {
+      document.removeEventListener('mouseover', onOver)
+      document.removeEventListener('mouseout', onOut)
+      cancelHover()
+    }
+  }, [transition])
+
+  /* ── Grab / Throw input wiring (patch v1.4) ────────────────────── */
+  /* mousedown on Character.jsx calls enterGrab. Release: window        */
+  /* mouseup + pointerup (same handler) so the drop always runs.        */
+  const enterGrab = useCallback(({ clientX, clientY }) => {
+    if (isMobileRef.current) return
+    const stateName = stateModuleRef.current?.name
+    if (stateName && GRAB_SUPPRESSION_LIST.has(stateName)) return
+    cursorPosRef.current = { x: clientX, y: clientY }
+    ctxRef.current.cursorPos = { x: clientX, y: clientY }
+    transition('grabbed')
+  }, [transition])
+
+  /* Window-level mouseup. The visitor can release ANYWHERE on the     */
+  /* page; bound to window so we don't lose the release if the cursor  */
+  /* drifts off the character element while dragging.                  */
+  useEffect(() => {
+    const endGrab = (e) => {
+      if (stateModuleRef.current?.name !== 'grabbed') return
+      if (e && typeof e.button === 'number' && e.button !== 0) return
+      document.body.style.cursor = ''
+      const ctx = ctxRef.current
+      ctx.releaseVelocityX = ctx.swayVelocityX
+      ctx.releaseVelocityY = ctx.swayVelocityY
+      ctx.releaseRotation = ctx.swayRotation
+      ctx.stateData.dropPoint = {
+        x: ctx.position.x,
+        y: ctx.position.y,
+      }
+      if (!charBubbleRef.current) {
+        speakIdleRef.current(pickThrowQuip())
+      }
+      transitionRef.current?.('thrown')
+    }
+    window.addEventListener('mouseup', endGrab)
+    window.addEventListener('pointerup', endGrab)
+    return () => {
+      window.removeEventListener('mouseup', endGrab)
+      window.removeEventListener('pointerup', endGrab)
+    }
+  }, [])
+
+  /** Force a full grab → thrown → running_away sequence (debug). */
+  // Synthesizes a grab at the current cursor position, then dispatches
+  // a real `mouseup` after ~600ms so the natural release path runs.
+  const forceGrab = useCallback(() => {
+    if (isMobileRef.current) {
+      console.log('[CHARACTER DEBUG] Grab disabled on mobile.')
+      return
+    }
+    const stateName = stateModuleRef.current?.name
+    if (stateName && GRAB_SUPPRESSION_LIST.has(stateName)) {
+      console.log(`[CHARACTER DEBUG] Grab blocked: state '${stateName}' is in suppression list.`)
+      return
+    }
+    const { x, y } = cursorPosRef.current
+    document.body.style.cursor = 'grabbing'
+    enterGrab({ clientX: x, clientY: y })
+    setTimeout(() => {
+      window.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }))
+    }, 600)
+  }, [enterGrab])
+
+  /** Force a showcase moment on the first available project card (debug). */
+  const forceShowcase = useCallback(() => {
+    if (typeof document === 'undefined') return
+    const card = document.querySelector('a.card-lift[href^="/work/"]')
+    if (!card) {
+      console.log('[CHARACTER DEBUG] No project card on page. Navigate to /work first.')
+      return
+    }
+    const rect = card.getBoundingClientRect()
+    const perch = nearestPerchTo(rect, perchesRef.current)
+    if (!perch) return
+    const cardId = card.getAttribute('href') || 'debug-card'
+    ctxRef.current.stateData.showcaseTarget = {
+      perch,
+      cardId,
+      cardRect: rect,
+      skipApproach: reducedMotionRef.current,
+    }
+    showcaseCountRef.current[cardId] = (showcaseCountRef.current[cardId] || 0) + 1
+    transition('showcasing')
+  }, [transition])
 
   /** Force a specific activity (debug only) */
   const forceActivity = useCallback((activityName) => {
@@ -474,19 +801,29 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     debugLog,
     activeActivity,
     activeProps,
+    pixelInspect,
+    spriteRegistry,
+    swayRotation,
     speakBubble,
     handleIdleContent,
     setIdleState,
     getPosition,
     dismissReel,
+    enterGrab,
     forceActivity,
+    forceShowcase,
+    forceGrab,
+    togglePixelInspect,
+    markSpriteMissing,
+    markSpriteLoaded,
     reelShown: reelShownRef.current,
   }), [
     state, position, facing, posture, charBubble,
     reelActive, reelClip, reelCarried, visible, debugLog,
-    activeActivity, activeProps,
+    activeActivity, activeProps, pixelInspect, spriteRegistry, swayRotation,
     speakBubble, handleIdleContent, setIdleState, getPosition, dismissReel,
-    forceActivity,
+    enterGrab, forceActivity, forceShowcase, forceGrab, togglePixelInspect,
+    markSpriteMissing, markSpriteLoaded,
   ])
 
   return (

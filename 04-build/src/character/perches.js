@@ -131,6 +131,37 @@ export function nearestPerch(perches, x, y) {
 }
 
 /**
+ * Find the nearest perch to a DOMRect (project card hover targets).
+ * Per character-spec-patch-showcase.md §"showcasing" enter step.
+ */
+export function nearestPerchTo(rect, perches) {
+  if (!rect || !perches || perches.length === 0) return null
+  const cx = rect.left + rect.width / 2
+  const cy = rect.top + rect.height / 2
+  return nearestPerch(perches, cx, cy)
+}
+
+/**
+ * Find the perch farthest from a point.
+ * Per character-spec-patch-grab-and-throw.md §"Running away" — destination
+ * selection. After release, the character runs to the perch furthest from
+ * where it was dropped so the recovery reads as "running away".
+ */
+export function farthestPerchFrom(point, perches) {
+  if (!point || !perches || perches.length === 0) return null
+  let best = perches[0]
+  let bestDist = 0
+  for (const p of perches) {
+    const d = Math.hypot(p.x - point.x, p.y - point.y)
+    if (d > bestDist) {
+      bestDist = d
+      best = p
+    }
+  }
+  return best
+}
+
+/**
  * Default settle perch — used for initial entry.
  * Bottom-right area for most sections.
  */

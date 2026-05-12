@@ -214,3 +214,16 @@ body::after {
   0%, 100% { opacity: 0.15; }
   50% { opacity: 0.5; }
 }
+
+/* -----------------------------------------------------------------------
+   Pixel-art rendering for the character sprite.
+   Per character-spec-v2-pixel.md §"Pixel discipline" — pixelated wins
+   on modern browsers; crisp-edges fallback for older engines.
+   ----------------------------------------------------------------------- */
+.pixel-sprite {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;
+}
