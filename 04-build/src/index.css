@@ -1,0 +1,216 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -----------------------------------------------------------------------
+   Base — 2am studio register
+   Dark surfaces, restrained motion, accent.glow on focus.
+   See /01-brand-book/06-visual-direction.md
+   ----------------------------------------------------------------------- */
+
+:root {
+  --visitor-color: theme('colors.visitor.slate');
+  color-scheme: dark;
+  /* When the visitor's identity is set or reset, --visitor-color flips. The
+     smooth transition is achieved on consumers (selection, borders) — this
+     CSS-var doesn't transition itself, but elements that bind to it via
+     `transition: border-color 400ms` will. The custom cursor's color uses
+     framer-motion spring instead, so it animates separately. */
+}
+
+html, body, #root {
+  height: 100%;
+  background-color: theme('colors.surface.deep');
+  color: theme('colors.text.primary');
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-feature-settings: 'cv02', 'cv11', 'ss01';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* The 2am studio world — three layered atmospherics on top of surface.deep:
+   1. Low-frequency noise texture (so the dark doesn't read as flat #0F1112)
+   2. Soft monitor-glow gradient bleeding from the upper-left
+   3. Edge vignette that pulls toward the center
+   All fixed-position, pointer-events: none — content sits cleanly on top. */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  /* Monitor-glow + vignette — accent.glow warm bleed in upper-left,
+     edge-darkening radial pulling toward center */
+  background:
+    radial-gradient(
+      ellipse 80% 60% at 15% 10%,
+      rgba(232, 184, 106, 0.06) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 120% 100% at 50% 50%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
+}
+
+body::after {
+  /* Subtle noise — inline SVG turbulence at low opacity.
+     Adds tooth without reading as "grain effect". */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+}
+
+/* Ensure all real content sits above the atmospherics */
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* Selection — visitor color, low opacity */
+::selection {
+  background-color: var(--visitor-color);
+  color: theme('colors.surface.deep');
+}
+
+/* Focus rings — accent.glow per visual direction */
+*:focus-visible {
+  outline: 2px solid theme('colors.accent.glow');
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Hide native cursor on desktop fine pointers — the custom cursor in
+   <Companion /> takes over. Mobile / coarse pointer keeps native cursor. */
+@media (pointer: fine) {
+  html, body {
+    cursor: none;
+  }
+  /* Restore pointer cursor on interactives so affordance still reads */
+  a, button, input, textarea, select, [role="button"], [tabindex]:not([tabindex="-1"]) {
+    cursor: none;
+  }
+}
+
+/* Reduced motion — respect the user's preference.
+   Custom cursor stays (it's a presence, not motion-decoration), but its
+   spring tracking becomes near-instant via the spring config in JS. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  body::after { opacity: 0; } /* drop the noise overlay too */
+}
+
+/* Scrollbar styling — quiet, dark register */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: theme('colors.surface.deep');
+}
+::-webkit-scrollbar-thumb {
+  background: theme('colors.surface.raised');
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.text.faint');
+}
+
+/* -----------------------------------------------------------------------
+   Components — small reusable patterns
+   ----------------------------------------------------------------------- */
+
+@layer components {
+  /* Section breadcrumb row — appears at the top of every interior page */
+  .breadcrumb {
+    @apply flex items-center gap-2 text-text-muted text-sm font-mono;
+  }
+
+  /* Section page header — the consistent "Section name + frame line" pattern */
+  .section-header {
+    @apply pb-12 mb-12 border-b border-surface-raised;
+  }
+  .section-header h1 {
+    @apply text-display-xl font-display mb-4;
+  }
+  .section-header p {
+    @apply text-text-muted text-lg max-w-prose;
+  }
+
+  /* Section content wrapper */
+  .section-page {
+    @apply max-w-3xl mx-auto px-6 py-12;
+  }
+
+  /* Card lift — used on Home section cards and Work project cards.
+     Mechanical-precise feel: 200ms ease-out, accent.glow sliver on left,
+     content shifts 1px right (subtle parallax). No scale.
+     Inner glow on hover for depth. */
+  .card-lift {
+    @apply relative transition-all duration-200 ease-kash-out;
+    @apply border-l border-l-transparent;
+    box-shadow: inset 0 0 0 0 rgba(232, 184, 106, 0);
+  }
+  .card-lift:hover {
+    transform: translateY(-2px);
+    @apply border-l-accent-glow;
+    box-shadow: inset 0 0 40px rgba(232, 184, 106, 0.03);
+  }
+  .card-lift:hover > * {
+    transform: translateX(1px);
+    transition: transform 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  /* Card label — letter-spacing tightens subtly on hover */
+  .card-lift:hover h3 {
+    letter-spacing: -0.01em;
+    transition: letter-spacing 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  /* Arrow slide — used on work/home cards. Arrow translateX on hover. */
+  .arrow-slide {
+    @apply transition-transform duration-200 ease-kash-out;
+  }
+  .card-lift:hover .arrow-slide {
+    transform: translateX(4px);
+  }
+
+  /* Footer ambient LED — thin pulsing gradient at the top of the footer.
+     Evokes a monitor standby LED. 8s cycle. */
+  .footer-ambient-line {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(232, 184, 106, 0.2) 50%,
+      transparent 100%
+    );
+    animation: footerPulse 8s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-ambient-line {
+      animation: none;
+      opacity: 0.15;
+    }
+  }
+}
+
+@keyframes footerPulse {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.5; }
+}

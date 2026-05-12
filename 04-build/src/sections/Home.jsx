@@ -1,0 +1,144 @@
+import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
+import { motion, useInView } from 'framer-motion'
+import { useCompanion } from '../companion/CompanionContext.jsx'
+import CursorGlow from '../components/CursorGlow.jsx'
+import { RevealGroup } from '../components/Reveal.jsx'
+import Reveal from '../components/Reveal.jsx'
+
+/**
+ * <Home /> — landing surface.
+ * Per /02-wireframes/02-home.md.
+ *
+ * Hero treatment: words stagger in 80ms apart on first mount.
+ * Section cards use the .card-lift utility (200ms lift + accent.glow sliver).
+ * CursorGlow wraps the hero for "monitor light on desk" feel.
+ * Cards cascade via RevealGroup on scroll.
+ */
+
+const HEADLINE = ['Ambitious', 'but', 'executioneery.']
+
+export default function Home() {
+  const { fire } = useCompanion()
+
+  // E3 — fires 3s after Home is rendered (post-onboarding)
+  useEffect(() => {
+    const t = setTimeout(() => fire('E3', { elementId: 'home-entry-after-3s' }), 3000)
+    return () => clearTimeout(t)
+  }, [fire])
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      {/* Top bar — name only, no traditional nav */}
+      <Reveal delay={0.1} y={6}>
+        <header className="px-6 pt-8 pb-4 flex items-baseline justify-between max-w-6xl mx-auto w-full">
+          <span className="text-text-primary font-mono text-sm">kashfi rashid</span>
+          <span className="text-text-faint text-xs">↓ scroll for more</span>
+        </header>
+      </Reveal>
+
+      {/* Hero — wrapped in CursorGlow for the monitor-light-on-desk feel */}
+      <CursorGlow>
+        <section className="px-6 py-24 md:py-32 max-w-3xl mx-auto w-full">
+          <h1
+            className="text-display-xl font-display leading-tight mb-8 tracking-tight transition-[letter-spacing] duration-500"
+            onMouseEnter={(e) => {
+              e.currentTarget.style.letterSpacing = '-0.04em'
+              fire('H1', { elementId: 'home-headline' })
+            }}
+            onMouseLeave={(e) => { e.currentTarget.style.letterSpacing = '' }}
+          >
+            {HEADLINE.map((word, i) => (
+              <motion.span
+                key={`${word}-${i}`}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 0.61, 0.36, 1] }}
+                className="inline-block mr-[0.25em]"
+              >
+                {word}
+              </motion.span>
+            ))}
+          </h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-text-muted text-lg leading-relaxed max-w-prose mb-12"
+          >
+            {/* Sub-line — calibrated voice. [NEEDS KASH INPUT to confirm] */}
+            I design and ship. Mostly at 2am. Mostly with AI as the orchestra and me as the conductor.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="text-text-faint text-sm font-mono"
+          >
+            {/* [NEEDS KASH INPUT — confirm exact phrasing] */}
+            Currently at FIC IT Squad · graduating SFU SIAT June 10 · Delta, BC
+          </motion.p>
+        </section>
+      </CursorGlow>
+
+      {/* Section entry row — 6 small cards, staggered reveal on scroll */}
+      <section className="px-6 py-12 max-w-6xl mx-auto w-full">
+        <RevealGroup staggerMs={60} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+          <SectionCard to="/voice"   label="Voice"   preview="opinions i'd actually defend."          bubbleId="H2" elementId="home-card-voice" />
+          <SectionCard to="/eye"     label="Eye"     preview="things i find quietly beautiful."       bubbleId="H3" elementId="home-card-eye" />
+          <SectionCard to="/work"    label="Work"    preview="six projects. each one taught me something specific." bubbleId="H4" elementId="home-card-work" />
+          <SectionCard to="/process" label="Process" preview="how i conduct the orchestra."           bubbleId="H5" elementId="home-card-process" />
+          <SectionCard to="/people"  label="People"  preview="named credits."                          bubbleId="H6" elementId="home-card-people" />
+          <SectionCard to="/origin"  label="Origin"  preview="dhaka → delta. the long route."         bubbleId="H7" elementId="home-card-origin" />
+        </RevealGroup>
+
+        {/* Hall of Fame — full-width, distinct */}
+        <Reveal delay={0.1}>
+          <Link
+            to="/hall-of-fame"
+            className="card-lift block bg-surface-mid hover:bg-surface-raised px-6 py-8 rounded-sm border border-surface-raised group"
+            onMouseEnter={() => fire('H8', { elementId: 'home-card-hof' })}
+          >
+            <div className="flex items-baseline justify-between">
+              <div>
+                <h2 className="text-display-md font-display mb-2">Hall of Fame</h2>
+                <p className="text-text-muted text-sm">the site got better because these people showed up.</p>
+              </div>
+              <span className="text-text-muted group-hover:text-accent-glow arrow-slide transition-colors duration-200">→</span>
+            </div>
+          </Link>
+        </Reveal>
+      </section>
+
+      {/* Quiet moment line */}
+      <Reveal delay={0.2}>
+        <section className="px-6 py-8 max-w-3xl mx-auto w-full">
+          <p className="text-text-faint text-sm leading-relaxed">
+            the site updates when someone helps make it better.{' '}
+            <Link to="/hall-of-fame" className="hover:text-text-muted underline-offset-4 hover:underline">
+              see what&apos;s shipped
+            </Link>
+          </p>
+        </section>
+      </Reveal>
+    </div>
+  )
+}
+
+function SectionCard({ to, label, preview, bubbleId, elementId }) {
+  const { fire } = useCompanion()
+  return (
+    <Link
+      to={to}
+      onMouseEnter={() => fire(bubbleId, { elementId })}
+      className="card-lift block bg-surface-mid hover:bg-surface-raised px-4 py-5 rounded-sm border border-surface-raised group"
+    >
+      <h3 className="text-display-md font-display mb-2 group-hover:text-accent-glow transition-colors duration-200">
+        {label}
+      </h3>
+      <p className="text-text-muted text-xs leading-snug">{preview}</p>
+    </Link>
+  )
+}

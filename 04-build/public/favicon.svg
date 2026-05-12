@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Quiet square + monitor-glow accent. Replace with real mark when ready. -->
+  <rect width="32" height="32" fill="#0F1112"/>
+  <rect x="9" y="9" width="14" height="14" fill="none" stroke="#E8B86A" stroke-width="1.5"/>
+</svg>
