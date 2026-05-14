@@ -1,46 +1,27 @@
 import { SectionHead, AssetPlaceholder } from '../primitives.jsx'
+import UserFlowDiagram from '../diagrams/UserFlowDiagram.jsx'
 
 const ACTIONS = [
   {
     label: 'ACTION 01',
     title: 'Wrote the three laws before any components shipped',
-    body: "Open Ground starts with three design laws. Earn Your Pixel, Ground Before Signal, Connect Don't Decorate. Every component the team built afterward was evaluated against them. The laws weren't decoration. They were the contract.",
-    asset: {
-      kind: 'SCREENSHOT',
-      slotId: 'Slot 2, Three Laws',
-      dimensions: '2400 × 1200 · 2:1',
-      description:
-        'Visual of the three design laws as numbered cards or a documented section from Open Ground.',
-    },
+    body: "Open Ground starts with three design laws: Earn Your Pixel, Ground Before Signal, Connect Don't Decorate. Every component got measured against them. The laws weren't decoration. They were the contract.",
   },
   {
     label: 'ACTION 02',
     title: "Defined the token system the team didn't have to negotiate",
-    body: 'Color, type, spacing, radius, shadow, motion. Every value got a token name so nobody hardcoded anything twice. DM Sans for doing, Instrument Serif for reading, DM Mono for knowing. Signal green for brand, ink scale for text, mist for surface ground.',
-    asset: {
-      kind: 'SCREENSHOT',
-      slotId: 'Slot 3, Tokens',
-      dimensions: '2400 × 1500 · 16:10',
-      description:
-        'Palette swatches, type ramp, spacing scale documented as a single visual or the Open Ground tokens page.',
-    },
+    body: 'Color, type, spacing, radius, shadow, motion. Every value got a token name, so nobody hardcoded anything twice. DM Sans for doing, Instrument Serif for reading, DM Mono for knowing.',
   },
   {
     label: 'ACTION 03',
     title: 'Built and documented 16 components',
-    body: 'The component library covered every surface the product would need: LatticeMark, Wordmark, Navbar, SearchBar, Hero, Principles, Stats, DirectoryPreview, BusinessCard, IndustryTag, StatusBadge, FilterPills, JobCard, JobsSection, CTA, Footer. Every one documented with its props, states, and motion rules. No transforms on hover. Opacity-only entrances. Max animation duration 500ms.',
-    asset: {
-      kind: 'SCREENSHOT',
-      slotId: 'Slot 4, Components',
-      dimensions: '2400 × 1500 · 16:10',
-      description:
-        'Component library page or a screenshot of multiple components rendered together.',
-    },
+    body: 'Sixteen components, covering every surface the product needed. Each documented with its props, states, and motion rules. No transforms on hover, opacity-only entrances, a 500ms animation ceiling.',
   },
   {
     label: 'ACTION 04',
     title: 'Integrated the system across every flow the product shipped',
-    body: 'Landing, directory with hybrid cards and Google Maps, business detail with industry-gradient hero, sliding-tab auth, member dashboard with saved and recommendations, admin moderation surface. Six flows, one system underneath. The cards in the directory and the cards in the dashboard are the same primitive. The map view inherits the spacing tokens that govern the rest of the surface.',
+    body: "Six flows, one system underneath: landing, directory, detail, auth, dashboard, admin. Two integration moves were mine. Every business detail page generates its own SVG hero from the industry tag, one primitive across seven variants. The directory runs Near Me: geolocation plus the Haversine formula, sorting cards by distance. The geocoding pipeline behind it went to Abdul.",
+    showUserFlow: true,
     asset: {
       kind: 'SCREENSHOT',
       slotId: 'Slot 5, Integration',
@@ -74,12 +55,22 @@ export default function Solution() {
                 {action.body}
               </p>
             </div>
-            <AssetPlaceholder
-              kind={action.asset.kind}
-              slotId={action.asset.slotId}
-              dimensions={action.asset.dimensions}
-              description={action.asset.description}
-            />
+            {action.showUserFlow ? (
+              <div>
+                <UserFlowDiagram />
+                <p className="mt-4 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.14em] text-zinc-500">
+                  Three roles. Three surfaces. Progressive disclosure as architecture.
+                </p>
+              </div>
+            ) : null}
+            {action.asset ? (
+              <AssetPlaceholder
+                kind={action.asset.kind}
+                slotId={action.asset.slotId}
+                dimensions={action.asset.dimensions}
+                description={action.asset.description}
+              />
+            ) : null}
           </article>
         ))}
       </div>

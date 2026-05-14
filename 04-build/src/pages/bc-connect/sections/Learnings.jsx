@@ -1,9 +1,42 @@
-﻿export default function Learnings() {
+import { SectionHead } from '../primitives.jsx'
+
+const LEARNINGS = [
+  {
+    kicker: '01',
+    title: 'I was the only one thinking about the interface the whole time.',
+    body: 'My teammates were solving real backend problems. Auth, MongoDB schema, API design. Nobody was going to stop and ask whether the card hover state felt right. That was mine to hold. I made restraint calls and had no one to pressure-test them with. I just had to trust them. The system was the easy part. Holding the design vision alone, fast, while also trying to ship, was the work.',
+  },
+  {
+    kicker: '02',
+    title: 'I shipped a model I believe in but never validated.',
+    body: "What the time pressure cost me: I wanted to do real user testing on the auth gate. Whether people understood why they were hitting a wall before they could save a startup or submit one. I never got that. The progressive disclosure model is sound on paper. Whether visitors hit the wall and turn around or hit the wall and sign up, I genuinely don't know.",
+  },
+  {
+    kicker: '03',
+    title: "I'd do this again. With one negotiation.",
+    body: `Yes, I'd take the design system lead role again. The work was good and I'd take it again. But I'd negotiate one thing going in: a weekly 30-minute design review with at least one teammate, even if they're not a designer. Just someone to say "this feels off" or "this makes sense." Flying solo the whole time is what I'd do differently. Restraint without pressure-testing is faith. Restraint after pressure-testing is rigor.`,
+  },
+]
+
+export default function Learnings() {
   return (
     <section id="learnings" className="scroll-mt-28 py-20 lg:py-32">
-      <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.2em] text-zinc-600">
-        Learnings · Phase 2+
-      </p>
+      <SectionHead kicker="LEARNINGS" title="What I learned, in my own words." />
+      <div className="space-y-10">
+        {LEARNINGS.map((learning) => (
+          <div key={learning.kicker}>
+            <p className="font-[family-name:var(--font-mono)] text-sm uppercase tracking-[0.2em] text-[#1B6B4F]">
+              {learning.kicker}
+            </p>
+            <h3 className="mt-2 font-[family-name:var(--font-display)] text-[22px] font-normal tracking-[-0.02em] text-white lg:text-[26px]">
+              {learning.title}
+            </h3>
+            <p className="mt-3 max-w-[720px] font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-300">
+              {learning.body}
+            </p>
+          </div>
+        ))}
+      </div>
     </section>
   )
 }

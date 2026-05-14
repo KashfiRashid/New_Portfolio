@@ -1,4 +1,5 @@
 import { SectionHead, MonoKicker } from '../primitives.jsx'
+import SystemInheritanceDiagram from '../diagrams/SystemInheritanceDiagram.jsx'
 
 const LAWS = [
   {
@@ -73,6 +74,14 @@ export default function TheSystem() {
             </p>
           </article>
         ))}
+      </div>
+
+      {/* System inheritance diagram */}
+      <div className="mt-12">
+        <SystemInheritanceDiagram />
+        <p className="mt-4 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.14em] text-zinc-500">
+          Each layer is constrained by the one above.
+        </p>
       </div>
 
       {/* PART B: palette swatches */}

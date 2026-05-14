@@ -1,5 +1,6 @@
 import { SectionHead } from '../primitives.jsx'
 import EcosystemMap from '../diagrams/EcosystemMap.jsx'
+import DataNormalizationDiagram from '../diagrams/DataNormalizationDiagram.jsx'
 
 export default function Background() {
   return (
@@ -18,6 +19,12 @@ export default function Background() {
         <p className="mt-4 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">
           Eight regions. Two open-data portals. Zero shared directory.
         </p>
+        <div className="mt-12">
+          <DataNormalizationDiagram />
+          <p className="mt-4 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">
+            Two schemas in. One queryable surface out.
+          </p>
+        </div>
       </div>
     </section>
   )

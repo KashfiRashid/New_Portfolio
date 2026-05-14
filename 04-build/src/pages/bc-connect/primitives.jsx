@@ -8,7 +8,7 @@ export const BC_CONNECT_NAV = [
   { id: 'designers-mind', label: "The Designer's Mind" },
   { id: 'solution', label: 'Solution' },
   { id: 'the-system', label: 'The System' },
-  { id: 'the-exception', label: 'The Exception' },
+  { id: 'the-exception', label: 'Restraint' },
   { id: 'beyond-design', label: 'Beyond Design' },
   { id: 'results', label: 'Results' },
   { id: 'learnings', label: 'Learnings' },

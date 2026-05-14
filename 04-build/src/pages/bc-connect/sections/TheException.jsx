@@ -1,18 +1,18 @@
 import { SectionHead } from '../primitives.jsx'
 
 const PARAGRAPHS = [
-  "It was late. Probably 11pm or midnight before the demo. The hero had two restrained pill-shaped buttons, black and green, completely on-system. It worked. But it didn't pull. The page was so visually quiet that the primary CTA just sat there. It wasn't earning the conversion it needed to.",
-  "It was mostly a solo call. I showed the team the before and after, the restrained version next to the gradient one, and asked if it felt out of place. The consensus was that it didn't, because everything around it stayed restrained. The button's energy worked because the rest of the page didn't compete with it. But I won't pretend it was a deeply deliberated team design session. It wasn't.",
-  "Not much pushback in the moment, which I actually think was the problem. When I came back to it for the Style Guide write-up, I had to sit with the uncomfortable reality that it violated all three of my own design laws. That's when I had to ask myself: am I defending this because it's actually correct, or because I shipped it? I landed on: it's defensible, but it's an exception, not a principle. The Style Guide removes it from the component set entirely for that reason. It's documented as a production experiment, not a system element.",
-  "I'd test whether a single-color animated glow, just the signal green pulsing outward, could create the same pull without touching the gradient. That would stay inside the system. The rainbow gradient works, but it's doing a lot. The question I didn't ask rigorously enough at the time was: what's the minimum amount of exception I need here?",
+  "It was late. Probably 11pm or midnight before the demo. The hero had two restrained pill buttons, black and signal green, completely on-system. They worked. But I wasn't sure they'd pull.",
+  "So I built the alternative. A full-spectrum animated gradient. A spinning conic ring around the border. Shimmer sweep, particles, glow. Every color in the system flowing through one element. I wrote the entire CSS class for it. It still lives in globals.css between lines 394 and 531.",
+  "I never applied it. I looked at the gradient version on the page next to everything else and the maximalism didn't make the page convert harder. It made the page louder. Loud is not the same as effective. And the gradient violated all three of my own design laws in one component. I shipped the restrained pair.",
+  "The dead CSS is the record of a question I asked and answered. You can grep for btn-creative in the BC Connect codebase. You will find the definition. You will not find a single component using it. That gap is the work. The decision to not ship something is design too.",
 ]
 
 export default function TheException() {
   return (
     <section id="the-exception" className="scroll-mt-28 py-20 lg:py-32">
       <SectionHead
-        kicker="THE EXCEPTION"
-        title="The one rule I broke. And why I kept it out of the system."
+        kicker="RESTRAINT"
+        title="The one rule I almost broke. And why I didn't."
       />
       <div className="max-w-[720px] space-y-6 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200">
         {PARAGRAPHS.map((para, i) => (
@@ -20,7 +20,7 @@ export default function TheException() {
         ))}
       </div>
       <blockquote className="mx-auto mt-12 max-w-[900px] text-center font-[family-name:var(--font-display)] text-[28px] italic leading-snug text-[#1B6B4F] lg:text-[36px]">
-        A good exception doesn't become a rule.
+        The best exception is the one you don't make.
       </blockquote>
     </section>
   )
