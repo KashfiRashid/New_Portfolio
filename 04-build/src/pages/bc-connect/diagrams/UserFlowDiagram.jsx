@@ -1,116 +1,185 @@
 /**
- * UserFlowDiagram — three roles, three surfaces, progressive disclosure.
+ * UserFlowDiagram — three roles, progressive access.
  *
- * Engineering-diagram register. Three horizontal lanes (Visitor, Member,
- * Admin). Each lane is the surfaces that role reaches, connected left to
- * right. Short downward arrows between the lanes carry the two role
- * transitions. No sub-label text: the box titles carry the meaning, the
- * diagram reads at a glance.
+ * Engineering-diagram register, Abdul-quality polish. Three stacked tiers
+ * read top to bottom: Visitor, Member, Admin. Each tier carries a one-line
+ * descriptor of how that role works and the surfaces it unlocks as chips.
+ * The "inherits +" tag on Member and Admin makes the progressive-
+ * disclosure mechanic explicit: every role is the one above it, plus more.
+ *
+ * Between tiers, a centered signal-green connector with a bordered "gate"
+ * pill marks the transition (sign up, role promotion). The gates are the
+ * point: you do not get the next tier for free, you cross into it.
  *
  * Pure inline SVG. viewBox width 800 to match the other case-study
- * diagrams, capped at max-w-[720px] so it does not balloon. Tailwind
- * intent translated to SVG: zinc-700 #3f3f46 (box stroke), zinc-800
- * #27272a (lane dividers), zinc-200 #e4e4e7 (box titles), zinc-500
- * #71717a (transition labels), signal #1B6B4F (arrows, lane labels).
+ * diagrams, capped at max-w-[640px]. Colors: zinc-700 #3f3f46 (tier and
+ * chip strokes), zinc-500 #71717a (inherits tag), zinc-300 #d4d4d8
+ * (descriptor), zinc-200 #e4e4e7 (chip text), signal #1B6B4F (role
+ * labels, connectors, gate pills), surface #15171C (tier fill).
  */
 
-const LANES = [
-  { label: 'VISITOR', boxes: ['Home', 'Directory (read-only)', 'Auth gate'] },
-  { label: 'MEMBER', boxes: ['Saved', 'Submit startup', 'Recommendations'] },
-  { label: 'ADMIN', boxes: ['Moderation queue', 'Approve / reject', 'Audit log'] },
+const TIERS = [
+  {
+    role: 'VISITOR',
+    inherits: null,
+    descriptor: 'Browse the directory. Read-only, no account.',
+    surfaces: ['Home', 'Directory', 'Auth gate'],
+  },
+  {
+    role: 'MEMBER',
+    inherits: 'VISITOR ACCESS +',
+    descriptor: 'Save listings, submit startups, get matched.',
+    surfaces: ['Saved', 'Submit startup', 'Recommendations'],
+  },
+  {
+    role: 'ADMIN',
+    inherits: 'MEMBER ACCESS +',
+    descriptor: 'Moderate submissions and audit every action.',
+    surfaces: ['Moderation queue', 'Approve / reject', 'Audit log'],
+  },
 ]
 
-const BOX_X = [170, 385, 600]
-const BOX_W = 185
-const BOX_H = 44
-const LANE_CENTERS = [60, 150, 240]
+const TRANSITIONS = [
+  { label: 'SIGN UP', width: 84 },
+  { label: 'ROLE PROMOTION', width: 146 },
+]
+
+const TIER_Y = [20, 214, 408]
+const TIER_X = 80
+const TIER_W = 640
+const TIER_H = 130
+const CHIP_X = [108, 312, 516]
+const CHIP_W = 188
+const CHIP_H = 30
 const MONO = '"DM Mono", ui-monospace, monospace'
 const SANS = '"DM Sans", system-ui, sans-serif'
 
 export default function UserFlowDiagram() {
   return (
     <svg
-      viewBox="0 0 800 300"
+      viewBox="0 0 800 560"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       aria-labelledby="userflow-title userflow-desc"
-      className="mx-auto block h-auto w-full max-w-[720px]"
+      className="mx-auto block h-auto w-full max-w-[640px]"
       shapeRendering="geometricPrecision"
     >
-      <title id="userflow-title">BC Connect user flow across three roles</title>
+      <title id="userflow-title">BC Connect roles and progressive access</title>
       <desc id="userflow-desc">
-        Three lanes. The Visitor lane reaches Home, a read-only directory,
-        and an auth gate. Signing up opens the Member lane: saved startups,
-        submissions, recommendations. Role promotion opens the Admin lane:
-        moderation queue, approve and reject, audit log.
+        Three stacked tiers. A Visitor browses the read-only directory.
+        Signing up crosses into the Member tier, which inherits Visitor
+        access and adds saved listings, submissions, and recommendations.
+        Role promotion crosses into the Admin tier, which inherits Member
+        access and adds the moderation queue, approvals, and the audit log.
       </desc>
 
-      {/* Lane dividers */}
-      <line x1="0" y1="105" x2="800" y2="105" stroke="#27272a" strokeWidth="1" />
-      <line x1="0" y1="195" x2="800" y2="195" stroke="#27272a" strokeWidth="1" />
-
-      {/* Role-transition arrows: short, downward, between the lanes */}
-      <g stroke="#1B6B4F" strokeWidth="2" fill="none">
-        <line x1="58" y1="88" x2="58" y2="118" />
-        <path d="M 58 118 l -4 -6 m 4 6 l 4 -6" />
-        <line x1="58" y1="178" x2="58" y2="208" />
-        <path d="M 58 208 l -4 -6 m 4 6 l 4 -6" />
-      </g>
-      <text x="70" y="107" fill="#71717a" fontFamily={MONO} fontSize="8" letterSpacing="1">
-        SIGN UP
-      </text>
-      <text x="70" y="197" fill="#71717a" fontFamily={MONO} fontSize="8" letterSpacing="1">
-        ROLE PROMOTION
-      </text>
-
-      {LANES.map((lane, li) => {
-        const cy = LANE_CENTERS[li]
-        const by = cy - BOX_H / 2
+      {/* Connectors and transition gates, drawn first so tiers sit on top */}
+      {TRANSITIONS.map((transition, i) => {
+        const lineTop = TIER_Y[i] + TIER_H + 4
+        const lineBottom = TIER_Y[i + 1] - 6
+        const midY = (lineTop + lineBottom) / 2
         return (
-          <g key={lane.label}>
+          <g key={transition.label}>
+            <g stroke="#1B6B4F" strokeWidth="2" fill="none">
+              <line x1="400" y1={lineTop} x2="400" y2={lineBottom} />
+              <path d={`M 400 ${lineBottom} l -5 -7 m 5 7 l 5 -7`} />
+            </g>
+            <rect
+              x={400 - transition.width / 2}
+              y={midY - 13}
+              width={transition.width}
+              height="26"
+              rx="13"
+              fill="#0F1216"
+              stroke="#1B6B4F"
+              strokeWidth="1"
+            />
             <text
-              x="22"
-              y={cy + 4}
+              x="400"
+              y={midY + 4}
+              textAnchor="middle"
               fill="#1B6B4F"
               fontFamily={MONO}
-              fontSize="11"
-              letterSpacing="2"
+              fontSize="9"
+              letterSpacing="1.5"
             >
-              {lane.label}
+              {transition.label}
             </text>
-            {lane.boxes.map((title, bi) => {
-              const bx = BOX_X[bi]
-              return (
-                <g key={title}>
-                  <rect
-                    x={bx}
-                    y={by}
-                    width={BOX_W}
-                    height={BOX_H}
-                    rx="6"
-                    fill="none"
-                    stroke="#3f3f46"
-                    strokeWidth="1"
-                  />
-                  <text
-                    x={bx + BOX_W / 2}
-                    y={cy + 4}
-                    textAnchor="middle"
-                    fill="#e4e4e7"
-                    fontFamily={SANS}
-                    fontSize="12"
-                  >
-                    {title}
-                  </text>
-                  {bi < 2 ? (
-                    <g stroke="#1B6B4F" strokeWidth="2" fill="none">
-                      <line x1={bx + BOX_W} y1={cy} x2={BOX_X[bi + 1] - 6} y2={cy} />
-                      <path d={`M ${BOX_X[bi + 1] - 6} ${cy} l -5 -4 m 5 4 l -5 4`} />
-                    </g>
-                  ) : null}
-                </g>
-              )
-            })}
+          </g>
+        )
+      })}
+
+      {/* Role tiers */}
+      {TIERS.map((tier, i) => {
+        const ty = TIER_Y[i]
+        return (
+          <g key={tier.role}>
+            <rect
+              x={TIER_X}
+              y={ty}
+              width={TIER_W}
+              height={TIER_H}
+              rx="10"
+              fill="#15171C"
+              stroke="#3f3f46"
+              strokeWidth="1"
+            />
+            <text
+              x="108"
+              y={ty + 40}
+              fill="#1B6B4F"
+              fontFamily={MONO}
+              fontSize="14"
+              letterSpacing="2.5"
+            >
+              {tier.role}
+            </text>
+            {tier.inherits ? (
+              <text
+                x="692"
+                y={ty + 40}
+                textAnchor="end"
+                fill="#71717a"
+                fontFamily={MONO}
+                fontSize="9"
+                letterSpacing="1.5"
+              >
+                {tier.inherits}
+              </text>
+            ) : null}
+            <text
+              x="108"
+              y={ty + 66}
+              fill="#d4d4d8"
+              fontFamily={SANS}
+              fontSize="13"
+            >
+              {tier.descriptor}
+            </text>
+            {tier.surfaces.map((surface, si) => (
+              <g key={surface}>
+                <rect
+                  x={CHIP_X[si]}
+                  y={ty + 86}
+                  width={CHIP_W}
+                  height={CHIP_H}
+                  rx="15"
+                  fill="none"
+                  stroke="#3f3f46"
+                  strokeWidth="1"
+                />
+                <text
+                  x={CHIP_X[si] + CHIP_W / 2}
+                  y={ty + 86 + 20}
+                  textAnchor="middle"
+                  fill="#e4e4e7"
+                  fontFamily={SANS}
+                  fontSize="11"
+                >
+                  {surface}
+                </text>
+              </g>
+            ))}
           </g>
         )
       })}

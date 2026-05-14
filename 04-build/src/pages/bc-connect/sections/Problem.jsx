@@ -23,6 +23,14 @@ export default function Problem() {
           The Open Data portals only cover the cities that publish. A startup outside the Lower Mainland doesn't just rank low. It doesn't appear anywhere at all.
         </PainPointCard>
       </div>
+      <div className="mx-auto mt-16 max-w-[760px] text-center">
+        <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.2em] text-zinc-500">
+          The design challenge
+        </p>
+        <p className="mt-4 font-[family-name:var(--font-display)] text-[26px] font-normal leading-snug tracking-[-0.01em] text-white lg:text-[34px]">
+          How might we build a single directory of BC's startup ecosystem that respects the data, surfaces the invisible regions, and gets out of the user's way?
+        </p>
+      </div>
     </section>
   )
 }

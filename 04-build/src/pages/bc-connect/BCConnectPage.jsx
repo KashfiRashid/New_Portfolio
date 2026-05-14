@@ -6,27 +6,27 @@ import Hero from './sections/Hero.jsx'
 import Overview from './sections/Overview.jsx'
 import Background from './sections/Background.jsx'
 import Problem from './sections/Problem.jsx'
-import DesignChallenge from './sections/DesignChallenge.jsx'
 import DesignersMind from './sections/DesignersMind.jsx'
 import Solution from './sections/Solution.jsx'
 import TheSystem from './sections/TheSystem.jsx'
 import TheException from './sections/TheException.jsx'
-import BeyondDesign from './sections/BeyondDesign.jsx'
 import Results from './sections/Results.jsx'
+import Reflection from './sections/Reflection.jsx'
 import Learnings from './sections/Learnings.jsx'
 import Credits from './sections/Credits.jsx'
 
+// Design Challenge folded into Problem; Beyond Design folded into Solution.
+// Reflection added between Results and Learnings (targeted-consolidation pass).
 const SECTION_IDS = [
   'overview',
   'background',
   'problem',
-  'design-challenge',
   'designers-mind',
   'solution',
   'the-system',
   'the-exception',
-  'beyond-design',
   'results',
+  'reflection',
   'learnings',
   'credits',
 ]
@@ -73,13 +73,12 @@ export default function BCConnectPage() {
         <Overview />
         <Background />
         <Problem />
-        <DesignChallenge />
         <DesignersMind />
         <Solution />
         <TheSystem />
         <TheException />
-        <BeyondDesign />
         <Results />
+        <Reflection />
         <Learnings />
         <Credits />
       </main>

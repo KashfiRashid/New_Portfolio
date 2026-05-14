@@ -74,6 +74,11 @@ export default function Solution() {
           </article>
         ))}
       </div>
+      <div className="max-w-[720px] border-t border-zinc-800 pt-12">
+        <p className="font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-300">
+          Some of the work didn't fit any section header. The .env.local config bug that was masking 90,000 records as 12, found in a routine API trace, fixed in a single var change. The map race condition where markers tried to render before Google Maps mounted, solved with a ready-state gate. Reaching out to Helmine on Discord for the production card-image spec so we'd stop shipping placeholders. Cleanup work on primitives.jsx, removing 13 components that had drifted out of the active surface. None of it shows up in the demo, but the demo doesn't ship without it.
+        </p>
+      </div>
     </section>
   )
 }

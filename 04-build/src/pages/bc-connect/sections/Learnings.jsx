@@ -8,8 +8,8 @@ const LEARNINGS = [
   },
   {
     kicker: '02',
-    title: 'I shipped a model I believe in but never validated.',
-    body: "What the time pressure cost me: I wanted to do real user testing on the auth gate. Whether people understood why they were hitting a wall before they could save a startup or submit one. I never got that. The progressive disclosure model is sound on paper. Whether visitors hit the wall and turn around or hit the wall and sign up, I genuinely don't know.",
+    title: 'A system is the cheapest decision a team can make.',
+    body: 'Open Ground took maybe a week of front-loaded work. Every component built afterward took a fraction of what it would have without it. The cards in the directory are the cards in the dashboard. The auth surface inherits the same tokens as everything else. Front-loaded restraint pays itself back at compounding rates. Build the system first.',
   },
   {
     kicker: '03',
