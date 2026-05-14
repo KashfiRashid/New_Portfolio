@@ -26,6 +26,12 @@ import People from './sections/People.jsx'
 import Origin from './sections/Origin.jsx'
 import HallOfFame from './sections/HallOfFame.jsx'
 
+// BC Connect case study — standalone page, mounted via the surgical conditional
+// below per the cowork-bcconnect-build-v2 brief. Kept outside the existing
+// Routes block to keep this addition reversible and to avoid touching the
+// section routing pattern.
+import BCConnectPage from './pages/bc-connect/index.jsx'
+
 /**
  * App — top-level shell.
  *
@@ -112,6 +118,17 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
   const { setIdleState } = useCharacter()
   const location = useLocation()
   const idleSeenRef = useRef(new Set())
+
+  // -----------------------------------------------------------------------
+  // BC Connect case study — surgical URL preempt.
+  // Per the cowork-bcconnect-build-v2 brief (option c): mount the standalone
+  // case study page directly when the path matches, BEFORE the section
+  // routing layer below. Providers (CharacterProvider, CompanionProvider)
+  // still wrap this — the path check just decides what renders inside them.
+  // Reversible: delete these three lines and the import to fully revert.
+  // -----------------------------------------------------------------------
+  if (location.pathname.startsWith('/projects/bc-connect')) return <BCConnectPage />
+
 
   // E1 / E2 fire once when identity becomes available (post-onboarding)
   useEffect(() => {
