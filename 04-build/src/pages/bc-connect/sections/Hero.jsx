@@ -17,8 +17,7 @@ export default function Hero() {
         </header>
         <MetaBlock
           rows={[
-            { label: 'Team', value: 'Abdul Aziz Hamoui (Backend), Veeraj Mishra (Backend & Data), Kashfi Rashid (Design System & Frontend Lead)' },
-            { label: 'My Roles', value: 'Design System Lead · Frontend Architecture Lead' },
+            { label: 'Team', value: 'Abdul Aziz Hamoui, Veeraj Mishra, Kashfi Rashid' },
             { label: 'Stack', value: 'Next.js · React · Tailwind · MongoDB · JWT' },
             { label: 'Duration', value: 'Spring 2026 · 8 weeks' },
           ]}
