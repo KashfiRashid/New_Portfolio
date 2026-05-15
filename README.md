@@ -1,9 +1,4 @@
-# portfolio-2026 — AI agent handoff README
 
-> **You are an AI agent (Cursor, Antigravity, Claude, or similar) that has been handed this repository.**
-> Read this entire file before touching anything. It encodes a lot of context that was hard-won across many conversations. Skipping it will cause you to repeat mistakes, override decisions, or rebuild things that already work.
-
----
 
 ## 0. Project at a glance
 
