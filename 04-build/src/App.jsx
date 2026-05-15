@@ -21,20 +21,17 @@ import Home from './sections/Home.jsx'
 import Voice from './sections/Voice.jsx'
 import Eye from './sections/Eye.jsx'
 import Work from './sections/Work.jsx'
-import ProjectPage from './sections/ProjectPage.jsx'
 import Process from './sections/Process.jsx'
 import People from './sections/People.jsx'
 import Origin from './sections/Origin.jsx'
 import HallOfFame from './sections/HallOfFame.jsx'
 
-// BC Connect case study — standalone page, mounted via the surgical conditional
-// below per the cowork-bcconnect-build-v2 brief. Kept outside the existing
-// Routes block to keep this addition reversible and to avoid touching the
-// section routing pattern.
-import BCConnectPage from './pages/bc-connect/index.jsx'
-
-// BLU case study. Same pattern as BC Connect (URL preempt before Routes).
-import BLUPage from './pages/blu/index.jsx'
+// Case studies are routed through one shared route, /projects/:slug, which
+// reads the project registry (pages/projects.js) and renders the matching
+// case study component. This replaces the old hardcoded per-project URL
+// conditionals — adding a new case study is now a registry entry, not an
+// App.jsx change.
+import ProjectRoute from './pages/ProjectRoute.jsx'
 
 /**
  * App — top-level shell.
@@ -122,32 +119,6 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
   const { setIdleState } = useCharacter()
   const location = useLocation()
   const idleSeenRef = useRef(new Set())
-
-  // -----------------------------------------------------------------------
-  // BC Connect case study — surgical URL preempt.
-  // Mounts the standalone case study page directly when the path matches,
-  // BEFORE the section routing layer below. This also preempts the generic
-  // /work/:slug ProjectPage route for the bc-connect slug specifically.
-  // Primary route: /work/bc-connect (linked from the Work index card).
-  // Legacy alias: /projects/bc-connect still resolves so old links work.
-  // Providers (CharacterProvider, CompanionProvider) still wrap this — the
-  // path check just decides what renders inside them.
-  // Reversible: delete this conditional and the import to fully revert.
-  // -----------------------------------------------------------------------
-  if (
-    location.pathname.startsWith('/work/bc-connect') ||
-    location.pathname.startsWith('/projects/bc-connect')
-  ) {
-    return <BCConnectPage />
-  }
-
-  if (
-    location.pathname.startsWith('/work/blu') ||
-    location.pathname.startsWith('/projects/blu')
-  ) {
-    return <BLUPage />
-  }
-
 
   // E1 / E2 fire once when identity becomes available (post-onboarding)
   useEffect(() => {
@@ -238,7 +209,7 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
             <Route path="/voice"          element={<Voice />} />
             <Route path="/eye"            element={<Eye />} />
             <Route path="/work"           element={<Work />} />
-            <Route path="/work/:slug"     element={<ProjectPage />} />
+            <Route path="/projects/:slug" element={<ProjectRoute />} />
             <Route path="/process"        element={<Process />} />
             <Route path="/people"         element={<People />} />
             <Route path="/origin"         element={<Origin />} />

@@ -5,6 +5,7 @@ import { useCompanion } from '../companion/CompanionContext.jsx'
 import CursorGlow from '../components/CursorGlow.jsx'
 import { RevealGroup } from '../components/Reveal.jsx'
 import Reveal from '../components/Reveal.jsx'
+import { PROJECTS } from '../pages/projects.js'
 
 /**
  * <Home /> — landing surface.
@@ -110,6 +111,43 @@ export default function Home() {
             </div>
           </Link>
         </Reveal>
+      </section>
+
+      {/* Featured Work — the projects worth leading with. Reads the same
+          project registry as the Work archive; each card links straight
+          to /projects/<slug>. */}
+      <section className="px-6 py-12 max-w-6xl mx-auto w-full">
+        <Reveal>
+          <div className="flex items-baseline justify-between mb-4">
+            <h2 className="text-text-muted text-sm uppercase tracking-wider">— featured work —</h2>
+            <Link
+              to="/work"
+              className="text-text-faint text-xs hover:text-text-muted underline-offset-4 hover:underline"
+            >
+              see all work →
+            </Link>
+          </div>
+        </Reveal>
+        <RevealGroup staggerMs={80} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {PROJECTS.filter((p) => p.featured).map((p) => (
+            <Link
+              key={p.slug}
+              to={`/projects/${p.slug}`}
+              onMouseEnter={() => fire(p.bubbleId, { elementId: `home-featured-${p.slug}` })}
+              className="card-lift block bg-surface-mid hover:bg-surface-raised px-6 py-6 rounded-sm border border-surface-raised group"
+            >
+              <div className="flex items-baseline justify-between">
+                <div>
+                  <h3 className="text-display-md font-display mb-2 group-hover:text-accent-glow transition-colors duration-200">
+                    {p.name}
+                  </h3>
+                  <p className="text-text-muted text-sm leading-snug max-w-prose">{p.blurb}</p>
+                </div>
+                <span className="text-text-muted group-hover:text-accent-glow arrow-slide transition-colors duration-200 ml-4">→</span>
+              </div>
+            </Link>
+          ))}
+        </RevealGroup>
       </section>
 
       {/* Quiet moment line */}

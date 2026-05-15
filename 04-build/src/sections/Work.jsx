@@ -5,60 +5,17 @@ import { useCompanion } from '../companion/CompanionContext.jsx'
 import Breadcrumb from '../components/Breadcrumb.jsx'
 import Reveal from '../components/Reveal.jsx'
 import { RevealGroup } from '../components/Reveal.jsx'
+import { PROJECTS, OLDER_WORK } from '../pages/projects.js'
 
 /**
- * <Work /> — project index.
+ * <Work /> — the project archive.
  * Per /02-wireframes/05-work.md.
  *
- * v1 featured: BLU · Spectral Bloom · Something Lurking · BC Connect ·
- * PitchFlow · ForeSee. Us Among AI deferred until [NEEDS KASH INPUT —
- * Kash's role is locked].
+ * Reads the project registry (pages/projects.js) — the single source of
+ * truth shared with Home's Featured Work. Every project links to
+ * /projects/<slug>; ProjectRoute resolves that to the case study, or a
+ * graceful "coming soon" for projects without a page yet.
  */
-
-const PROJECTS = [
-  {
-    slug: 'blu',
-    name: 'BLU',
-    voiceLine: "proudest of the sound. the moment that matters is 0:42.",
-    bubbleId: 'H17',
-  },
-  {
-    slug: 'spectral-bloom',
-    name: 'Spectral Bloom',
-    voiceLine: 'visuals that listen.',
-    bubbleId: 'H18',
-  },
-  {
-    slug: 'something-lurking',
-    name: 'Something Lurking',
-    voiceLine: "the brief said calm. i shipped quietly unsettling.", // [NEEDS KASH INPUT]
-    bubbleId: 'H19',
-  },
-  {
-    slug: 'bc-connect',
-    name: 'BC Connect',
-    voiceLine: 'open ground design system + six frontend features built in antigravity.',
-    bubbleId: 'H20',
-  },
-  {
-    slug: 'pitchflow',
-    name: 'PitchFlow',
-    voiceLine: 'the pitch deck that won the room.', // [NEEDS KASH INPUT]
-    bubbleId: 'H21',
-  },
-  {
-    slug: 'foresee',
-    name: 'ForeSee',
-    voiceLine: '[real description needed].', // [NEEDS KASH INPUT — placeholder]
-    bubbleId: 'H22',
-  },
-]
-
-const OLDER = [
-  { slug: 'documentor-app',  name: 'Documentor App'   },
-  { slug: 'parpro',          name: 'Parpro Consulting' },
-  { slug: 'trucking-academy', name: 'Trucking Academy' },
-]
 
 export default function Work() {
   const { fire } = useCompanion()
@@ -86,7 +43,7 @@ export default function Work() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          six projects. each one taught me something specific.
+          the full archive. each one taught me something specific.
         </motion.p>
       </header>
 
@@ -94,7 +51,7 @@ export default function Work() {
         {PROJECTS.map((p) => (
           <Link
             key={p.slug}
-            to={`/work/${p.slug}`}
+            to={`/projects/${p.slug}`}
             onMouseEnter={() => fire(p.bubbleId, { elementId: `work-card-${p.slug}` })}
             className="card-lift block bg-surface-mid hover:bg-surface-raised border border-surface-raised rounded-sm group"
           >
@@ -105,7 +62,7 @@ export default function Work() {
             <div className="px-6 py-5 flex items-baseline justify-between">
               <div>
                 <h2 className="text-display-md font-display mb-2">{p.name}</h2>
-                <p className="text-text-muted leading-snug max-w-prose">{p.voiceLine}</p>
+                <p className="text-text-muted leading-snug max-w-prose">{p.blurb}</p>
               </div>
               <span className="text-text-muted group-hover:text-accent-glow arrow-slide transition-colors duration-250 ml-4">→</span>
             </div>
@@ -118,7 +75,7 @@ export default function Work() {
         <section className="mt-16 pt-8 border-t border-surface-raised">
           <h2 className="text-text-muted text-sm uppercase tracking-wider mb-4">— older work —</h2>
           <ul className="space-y-2">
-            {OLDER.map((p) => (
+            {OLDER_WORK.map((p) => (
               <li key={p.slug} className="flex items-baseline justify-between text-text-muted hover:text-text-primary transition-colors duration-250">
                 <span>{p.name}</span>
                 <span className="text-text-faint text-xs italic">[NEEDS KASH INPUT — keep / retire / refresh]</span>
