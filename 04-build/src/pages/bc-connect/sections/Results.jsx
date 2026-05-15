@@ -1,4 +1,4 @@
-import { SectionHead } from '../primitives.jsx'
+import { SectionHead, AssetPlaceholder } from '../primitives.jsx'
 
 const RESULTS = [
   '90,000+ businesses unified from fragmented municipal open data',
@@ -31,7 +31,16 @@ export default function Results() {
           BC Connect shipped on time, demoed live to the IAT 459 cohort, and went on to receive an A grade. The directory now surfaces 90,000+ businesses across eight BC regions, behind one searchable interface, with three user roles and a complete admin moderation surface.
         </p>
       </div>
-      <ul className="mt-8 max-w-[720px] space-y-2 font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-300">
+      <div className="mt-10">
+        <AssetPlaceholder
+          kind="SCREENSHOT OR VIDEO"
+          slotId="Slot 4 — Shipped directory"
+          filename="/bc-connect/directory-shipped.png  (or .mp4)"
+          dimensions="2400 × 1500 · 16:10 · still, or a short clip"
+          description="The directory page in use: the card grid, the FilterPills row, the search bar, the map toggle. A short screen recording of filtering in action is stronger than a still here, since it shows the product actually working."
+        />
+      </div>
+      <ul className="mt-12 max-w-[720px] space-y-2 font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-300">
         {RESULTS.map((result, i) => (
           <li key={i}>{result}</li>
         ))}

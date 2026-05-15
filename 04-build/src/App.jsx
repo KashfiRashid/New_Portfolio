@@ -15,6 +15,7 @@ import Companion from './companion/Companion.jsx'
 import OnboardingModal from './components/OnboardingModal.jsx'
 import Footer from './components/Footer.jsx'
 import ScrollProgress from './components/ScrollProgress.jsx'
+import GridBackground from './components/GridBackground.jsx'
 
 import Home from './sections/Home.jsx'
 import Voice from './sections/Voice.jsx'
@@ -31,6 +32,9 @@ import HallOfFame from './sections/HallOfFame.jsx'
 // Routes block to keep this addition reversible and to avoid touching the
 // section routing pattern.
 import BCConnectPage from './pages/bc-connect/index.jsx'
+
+// BLU case study. Same pattern as BC Connect (URL preempt before Routes).
+import BLUPage from './pages/blu/index.jsx'
 
 /**
  * App — top-level shell.
@@ -121,13 +125,28 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
 
   // -----------------------------------------------------------------------
   // BC Connect case study — surgical URL preempt.
-  // Per the cowork-bcconnect-build-v2 brief (option c): mount the standalone
-  // case study page directly when the path matches, BEFORE the section
-  // routing layer below. Providers (CharacterProvider, CompanionProvider)
-  // still wrap this — the path check just decides what renders inside them.
-  // Reversible: delete these three lines and the import to fully revert.
+  // Mounts the standalone case study page directly when the path matches,
+  // BEFORE the section routing layer below. This also preempts the generic
+  // /work/:slug ProjectPage route for the bc-connect slug specifically.
+  // Primary route: /work/bc-connect (linked from the Work index card).
+  // Legacy alias: /projects/bc-connect still resolves so old links work.
+  // Providers (CharacterProvider, CompanionProvider) still wrap this — the
+  // path check just decides what renders inside them.
+  // Reversible: delete this conditional and the import to fully revert.
   // -----------------------------------------------------------------------
-  if (location.pathname.startsWith('/projects/bc-connect')) return <BCConnectPage />
+  if (
+    location.pathname.startsWith('/work/bc-connect') ||
+    location.pathname.startsWith('/projects/bc-connect')
+  ) {
+    return <BCConnectPage />
+  }
+
+  if (
+    location.pathname.startsWith('/work/blu') ||
+    location.pathname.startsWith('/projects/blu')
+  ) {
+    return <BLUPage />
+  }
 
 
   // E1 / E2 fire once when identity becomes available (post-onboarding)
@@ -198,6 +217,10 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
 
   return (
     <>
+      {/* Ambient drifting blueprint grid — pure ground layer, behind all
+          content and the character. See components/GridBackground.jsx. */}
+      <GridBackground />
+
       {/* Section cross-fade — quiet 280ms opacity-only transition.
           mode="wait" ensures the outgoing section finishes before incoming starts. */}
       <ScrollProgress />

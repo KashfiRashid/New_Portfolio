@@ -1,4 +1,5 @@
 import { SectionHead } from '../primitives.jsx'
+import StatBlock from '../diagrams/StatBlock.jsx'
 
 export default function Overview() {
   return (
@@ -11,6 +12,9 @@ export default function Overview() {
         <p>
           I led the design system and the frontend. Open Ground came first. Everything else inherited from it. The cards, the navigation, the map view, the auth flow: none of it was guesswork, because the system was already doing the thinking before the first component shipped.
         </p>
+      </div>
+      <div className="mt-12">
+        <StatBlock />
       </div>
     </section>
   )

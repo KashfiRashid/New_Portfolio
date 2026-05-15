@@ -15,7 +15,7 @@ export default function DesignersMind() {
           BC Connect needed the LinkedIn and Coursera register. A trustworthy data surface for investors and founders making real decisions. Not Instagram's filter aesthetic. Not Reddit's rawness. The vibe had to match what the platform was for.
         </p>
         <p>
-          So I designed for that. I explored fonts. I tested palettes. I sat with the spacing until the rhythm felt right for the demographic in mind. Iteration wasn't ornament. It was how I calibrated the system to the audience it was for.
+          So I designed for that. I explored fonts, tested palettes, sat with the spacing until the rhythm felt right. Iteration wasn't ornament. It was how I tuned the system to its audience.
         </p>
         <p>
           By the time we started shipping components, the vibe was already a decision the team didn't have to remake. Cards, navigation, hero, map view, all of it inherited from the register I'd set early.

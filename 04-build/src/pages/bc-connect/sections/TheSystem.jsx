@@ -1,4 +1,4 @@
-import { SectionHead, MonoKicker } from '../primitives.jsx'
+import { SectionHead, MonoKicker, AssetPlaceholder } from '../primitives.jsx'
 import SystemInheritanceDiagram from '../diagrams/SystemInheritanceDiagram.jsx'
 
 const LAWS = [
@@ -136,6 +136,18 @@ export default function TheSystem() {
       <p className="mt-12 font-[family-name:var(--font-mono)] text-sm italic text-zinc-500">
         Sans for doing. Serif for reading. Mono for knowing.
       </p>
+
+      {/* The real artifact behind everything above */}
+      <div className="mt-12">
+        <AssetPlaceholder
+          kind="SCREENSHOT"
+          slotId="Slot 2 — Open Ground system"
+          filename="/bc-connect/open-ground-system.png"
+          dimensions="wide capture · static screenshot"
+          description="The actual Open Ground artifact: the Figma component library page, the token sheet, or the style-guide document. Everything above explains the system; this shows it. A real artifact is the strongest proof in the whole case study."
+          annotate="optional — circle one token used across two different components to make the inheritance visible."
+        />
+      </div>
     </section>
   )
 }

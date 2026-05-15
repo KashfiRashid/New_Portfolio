@@ -24,10 +24,13 @@ const ACTIONS = [
     showUserFlow: true,
     asset: {
       kind: 'SCREENSHOT',
-      slotId: 'Slot 5, Integration',
-      dimensions: '2400 × 1500 · 16:10',
+      slotId: 'Slot 3 — Integration composite',
+      filename: '/bc-connect/integration-composite.png',
+      dimensions: '2400 × 1500 · 16:10 · static screenshot',
       description:
-        'A composite or single screenshot showing two or more product surfaces (landing plus directory, or directory plus dashboard) visually demonstrating system consistency.',
+        'Two or more shipped product surfaces side by side (directory next to dashboard, or landing next to a detail page), showing the same card primitive and the same spacing across both. The point is visible consistency from one system.',
+      annotate:
+        'optional — a thin connector line between the same component as it appears on two different surfaces.',
     },
   },
 ]
@@ -67,8 +70,10 @@ export default function Solution() {
               <AssetPlaceholder
                 kind={action.asset.kind}
                 slotId={action.asset.slotId}
+                filename={action.asset.filename}
                 dimensions={action.asset.dimensions}
                 description={action.asset.description}
+                annotate={action.asset.annotate}
               />
             ) : null}
           </article>

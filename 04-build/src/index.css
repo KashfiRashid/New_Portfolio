@@ -16,6 +16,16 @@
      CSS-var doesn't transition itself, but elements that bind to it via
      `transition: border-color 400ms` will. The custom cursor's color uses
      framer-motion spring instead, so it animates separately. */
+
+  /* GridBackground tunable knobs — see components/GridBackground.jsx.
+     --grid-line-* are full colors so hue and opacity tune together.
+     The drift keyframe reads --grid-size-coarse directly, so the loop
+     stays seamless if you retune the sizes. */
+  --grid-line-fine: rgba(255, 255, 255, 0.05);
+  --grid-line-coarse: rgba(255, 255, 255, 0.025);
+  --grid-size-fine: 32px;
+  --grid-size-coarse: 128px;
+  --grid-drift-speed: 120s;
 }
 
 html, body, #root {

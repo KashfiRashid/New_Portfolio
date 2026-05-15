@@ -24,9 +24,10 @@ export default function Hero() {
         />
         <AssetPlaceholder
           kind="SCREENSHOT"
-          slotId="Slot 1, Hero"
-          dimensions="2400 × 1500 · 16:10"
-          description="Full BC Connect landing page (desktop). Hero, value prop, lattice background visible."
+          slotId="Slot 1 — Hero landing"
+          filename="/bc-connect/hero-landing.png"
+          dimensions="2400 × 1500 · 16:10 · static screenshot"
+          description="Full BC Connect landing page at desktop width. Hero headline, value proposition, search bar, and the lattice background all in frame. This is the first image the reader sees, so use the cleanest production capture you have."
         />
       </div>
     </section>
