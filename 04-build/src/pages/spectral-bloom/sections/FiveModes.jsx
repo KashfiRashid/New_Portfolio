@@ -185,12 +185,12 @@ export default function FiveModes() {
                 <ModeMedia media={mode.media} />
               </div>
 
-              {/* Description block — its own subtle gradient box, centered text */}
-              <div className="mt-6 border border-white/[0.06] bg-gradient-to-b from-white/[0.035] to-white/[0.01] px-6 py-5">
-                <p className="mx-auto max-w-[720px] text-center font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-200">
-                  {mode.desc}
-                </p>
-              </div>
+              {/* Description — caption beneath the row, no container.
+                  Tight mt-4 so it reads as belonging to the row above;
+                  the space-y-16 between modes does the row separation. */}
+              <p className="mx-auto mt-4 max-w-[680px] text-center font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-300">
+                {mode.desc}
+              </p>
             </article>
           )
         })}

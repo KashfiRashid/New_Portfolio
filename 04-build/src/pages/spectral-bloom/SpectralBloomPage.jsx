@@ -54,9 +54,12 @@ export default function SpectralBloomPage() {
     <div
       className="relative min-h-screen bg-[#0F1216] text-zinc-200 antialiased selection:bg-[#FF3D6E]/30"
       style={{
-        '--font-display': '"Instrument Serif", Georgia, serif',
-        '--font-sans': '"DM Sans", system-ui, sans-serif',
-        '--font-mono': '"DM Mono", ui-monospace, monospace',
+        // Inherit the portfolio's global font stack so the case study reads
+        // as part of the same site, not its own typographic island. Stack
+        // mirrors tailwind.config.js (font-display / font-sans / font-mono).
+        '--font-display': '"Editorial New", "Reckless Neue", Georgia, ui-serif, serif',
+        '--font-sans': 'Inter, "Söhne", "Geist Sans", system-ui, sans-serif',
+        '--font-mono': '"JetBrains Mono", "Geist Mono", ui-monospace, monospace',
       }}
     >
       <div

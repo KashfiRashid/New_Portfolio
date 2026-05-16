@@ -14,6 +14,8 @@
 import BCConnectPage from './bc-connect/index.jsx'
 import BLUPage from './blu/index.jsx'
 import SpectralBloomPage from './spectral-bloom/index.jsx'
+import SomethingLurkingPage from './something-lurking/index.jsx'
+import ParproConsultingPage from './parpro-consulting/index.jsx'
 
 export const PROJECTS = [
   {
@@ -43,10 +45,10 @@ export const PROJECTS = [
   {
     slug: 'something-lurking',
     name: 'Something Lurking',
-    blurb: 'the brief said calm. i shipped quietly unsettling.',
-    featured: false,
+    blurb: 'a VR sci-fi horror on a failing space station. the antagonist is the sound, not the model.',
+    featured: true,
     bubbleId: 'H19',
-    component: null,
+    component: SomethingLurkingPage,
   },
   {
     slug: 'pitchflow',
@@ -64,12 +66,19 @@ export const PROJECTS = [
     bubbleId: 'H22',
     component: null,
   },
+  {
+    slug: 'parpro-consulting',
+    name: 'Parpro Consulting',
+    blurb: 'a 3-day interaction design redesign for a Canadian SMB bookkeeping firm.',
+    featured: false,
+    bubbleId: 'H23',
+    component: ParproConsultingPage,
+  },
 ]
 
 /** Older work — listed by name on the Work archive, no case study pages. */
 export const OLDER_WORK = [
   { slug: 'documentor-app', name: 'Documentor App' },
-  { slug: 'parpro', name: 'Parpro Consulting' },
   { slug: 'trucking-academy', name: 'Trucking Academy' },
 ]
 
