@@ -32,9 +32,12 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Living-window hero — full viewport. Pixel-art video, time-aware
-          status, identity layer. Everything below this is the existing
-          homepage, preserved, pushed down. See components/HomeHero.jsx. */}
-      <HomeHero />
+          status, identity layer. After Kash's "try that once" exploration,
+          HomeHero now wraps the entire homepage so the pinned scene stays
+          held behind the editorial sections; the scale + vignette release
+          fires at the section's end, right before the footer takes over.
+          See components/HomeHero.jsx. */}
+      <HomeHero>
 
       {/* Top bar — name only, no traditional nav */}
       <Reveal delay={0.1} y={6}>
@@ -167,6 +170,7 @@ export default function Home() {
           </p>
         </section>
       </Reveal>
+      </HomeHero>
     </div>
   )
 }

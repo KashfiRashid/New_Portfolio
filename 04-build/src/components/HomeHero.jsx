@@ -8,27 +8,52 @@ import {
 } from './homeHeroSchedule.js'
 
 /**
- * <HomeHero /> — full-viewport living window into Kash's day.
+ * <HomeHero /> — full-viewport living window into Kash's day, now a
+ * full-page wrapper.
  *
- * Layer order (back to front):
- *   0. Poster image (instant paint, no blank frame ever)
- *   1. Looping video, time-of-day aware (mounted only on desktop +
- *      not reduced-motion; faded in on canplay; muted, loop, playsInline)
- *   2. Legibility scrim (fixed gradient, never animates)
- *   3. Identity layer (clock + status + name + identity line + voice
- *      line + status line + photo placeholder + scroll cue)
+ * Welcome-act mechanics (May 2026, "pin extends to footer" variant):
+ *   - <HomeHero> now accepts `children` and wraps the entire editorial
+ *     homepage. The outer <section>'s height is content-driven (the
+ *     children determine how tall the page is).
+ *   - A sticky 100vh frame inside holds the scene (poster, video, scrim,
+ *     vignette). Because the section is now taller than the sticky, the
+ *     scene stays pinned for the full editorial scroll.
+ *   - The identity content (clock, name, lines, scroll cue) is an
+ *     absolute overlay covering the first viewport on top of the sticky.
+ *     It scrolls naturally with the document (no transform), so once the
+ *     visitor scrolls past the first viewport the editorial cards rise
+ *     up over the held video.
+ *   - The scale + vignette release fires once in the last ~12% of the
+ *     section's scrollYProgress, landing right before the footer enters.
  *
- * Transition: scroll-driven scale + vignette darken into surface.deep
- * over the last 40% of the hero's height — the room dims and you
- * "leave" into the editorial portfolio below.
+ * Standalone fallback (when called with no children):
+ *   - Section is HOME_HERO_PIN_VH * 100vh tall (or 100svh under
+ *     reduced motion). Same sticky/identity/release behavior, but
+ *     scoped to the hero only.
+ *
+ * Layer order (back to front), inside the section:
+ *   0. Sticky frame
+ *      a. Poster (instant paint, no blank frame ever)
+ *      b. Video, time-of-day aware (desktop + not reduced-motion only;
+ *         faded in on canplay; muted, loop, playsInline)
+ *      c. Legibility scrim (fixed gradient, never animates)
+ *      d. Vignette darken (scroll-driven, fires once at release)
+ *   1. Identity content overlay (absolute, first viewport, scrolls
+ *      naturally with the document)
+ *   2. Children — the rest of the homepage, flowing after the sticky
+ *      so it rises over the held scene
  *
  * Accessibility:
- *   - prefers-reduced-motion: video does not mount; scale + bounce gated off
- *   - mobile coarse pointer < 768px: same poster-only fallback
+ *   - prefers-reduced-motion: video does not mount; scale + bounce gated
+ *     off; standalone-fallback section drops to 100svh; children-mode
+ *     section is still content-driven (release transforms are no-ops)
+ *   - mobile coarse pointer < 768px: same poster-only fallback (video off)
  *   - video is aria-hidden; the name is a real heading
  *   - clock uses tabular numerals so width does not jitter
  *   - autoplay wrapped in play().catch(() => {}); silent failure to poster
  *   - cached-asset edge case handled by readyState check
+ *   - identity overlay's outer wrapper is pointer-events: none so clicks
+ *     in the gaps fall through; only the interactive bits get auto.
  */
 
 const SURFACE_DEEP = '#0F1112'
@@ -41,7 +66,34 @@ const SCRIM_TOP = 'rgba(15, 17, 18, 0.35)'
 const SCRIM_LEFT = 'rgba(15, 17, 18, 0.85)'
 const SCRIM_FADE = 'rgba(15, 17, 18, 0.0)'
 
-/** Photo slot — honest placeholder until /home/kash.jpg lands. */
+// === Welcome-act pin distance (legacy / fallback) ===
+// Originally the hero section was `HOME_HERO_PIN_VH * 100vh` tall and
+// pinned the scene for the welcome act before releasing into the editorial
+// homepage on a clean canvas. After Kash's "try that once" exploration,
+// the scene is now pinned for the entire homepage (the editorial scrolls
+// over the held video), so the section height is content-driven through
+// `children` and this constant only kicks in if HomeHero is rendered
+// without children — i.e., it's the standalone-hero fallback height.
+//
+// One-line tunable between 1.5 (snappy) and 3.0 (lingering).
+const HOME_HERO_PIN_VH = 2.0
+
+// === Release fraction ===
+// Where the scale + vignette release fires inside the section's
+// scrollYProgress. The section's scrollYProgress runs 0..1 from "top of
+// section meets top of viewport" to "bottom of section meets top of
+// viewport" — i.e., 1 corresponds to the section being fully scrolled
+// past, which is the moment the footer would enter the viewport.
+//
+// Default 0.88 means the room dims through the last 12% of the homepage
+// scroll, landing the release right before the footer.
+const HOME_HERO_RELEASE_START = 0.88
+
+/** Photo slot — honest placeholder until /home/kash.jpg lands.
+ *  NOTE: As of the welcome-act refinement, this is no longer rendered —
+ *  the name block stands on its own. The function is kept dormant so the
+ *  visual treatment is recoverable if a real photo ships later. */
+// eslint-disable-next-line no-unused-vars
 function PhotoPlaceholder() {
   return (
     <div
@@ -64,7 +116,7 @@ function PhotoPlaceholder() {
   )
 }
 
-export default function HomeHero() {
+export default function HomeHero({ children } = {}) {
   // -------------------------------------------------------------------
   // Capability detection
   // -------------------------------------------------------------------
@@ -149,20 +201,38 @@ export default function HomeHero() {
   // Scroll-driven transition. Framer-motion's useTransform applies
   // inline styles that bypass the global "prefers-reduced-motion" CSS
   // rule, so we gate both transforms explicitly here.
+  //
+  // The outer section is HOME_HERO_PIN_VH viewport-heights tall and
+  // contains a sticky 100vh frame. scrollYProgress goes 0..1 across the
+  // full section. The content column rides upward over the pinned video
+  // for most of that range; the existing scale + vignette release fires
+  // once in the last ~18% so it lands at the unpin moment.
   // -------------------------------------------------------------------
   const wrapperRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: wrapperRef,
     offset: ['start start', 'end start'],
   })
+
+  // In the "pin extends to footer" mode (children passed), the section
+  // height is content-driven and the sticky pins the scene for the entire
+  // homepage scroll. Identity content is overlaid on the first viewport
+  // and scrolls away naturally — no contentY translation needed, the
+  // document scroll does the work.
+  //
+  // The scale + vignette release fires once at the very end of the
+  // section, just before the footer enters. That's the only thing the
+  // scroll-progress drives in this mode.
+  const RELEASE_START = HOME_HERO_RELEASE_START
+
   const sceneScale = useTransform(
     scrollYProgress,
-    [0, 1],
+    [RELEASE_START, 1],
     reducedMotion ? [1, 1] : [1, 1.06]
   )
   const vignetteOpacity = useTransform(
     scrollYProgress,
-    reducedMotion ? [0, 1] : [0.6, 1],
+    reducedMotion ? [0, 1] : [RELEASE_START, 1],
     reducedMotion ? [0, 0] : [0, 1]
   )
 
@@ -186,131 +256,203 @@ export default function HomeHero() {
     transition: { duration: 0.55, delay, ease: easing },
   })
 
+  // -------------------------------------------------------------------
+  // Clock parts — split the engine's string into a prominent time and a
+  // secondary "PST · Delta, BC" meta line. We do NOT change the engine
+  // (homeHeroSchedule.js stays exactly as it is) — we just present it
+  // with hierarchy.
+  //
+  // Timezone label is normalized to "PST" per brand preference. The Intl
+  // engine returns "PDT" in summer (Pacific Daylight) and "PST" in winter
+  // (Pacific Standard); the brand wants the static "PST" tag, so we
+  // rewrite at the display layer only — the actual displayed time stays
+  // accurate for America/Vancouver regardless of season.
+  // Format coming in: "HH:MM:SS <PDT|PST|PT> · Delta, BC".
+  // -------------------------------------------------------------------
+  const clockSpaceIdx = timeString.indexOf(' ')
+  const clockTime =
+    clockSpaceIdx > -1 ? timeString.slice(0, clockSpaceIdx) : timeString
+  const clockMetaRaw =
+    clockSpaceIdx > -1 ? timeString.slice(clockSpaceIdx + 1) : ''
+  const clockMeta = clockMetaRaw.replace(/^P(?:DT|ST|T)\b/, 'PST')
+
+  // Section sizing:
+  //   - With children (the Home wrap-everything mode): height is content-
+  //     driven. The sticky pins for the entire section, the identity
+  //     overlay rides the first viewport via natural scroll, and children
+  //     flow after the sticky so they rise over the held video.
+  //   - Without children (standalone fallback): old behavior — fixed
+  //     section height = HOME_HERO_PIN_VH * 100vh, or 100svh under
+  //     prefers-reduced-motion.
+  const hasChildren = children !== undefined && children !== null
+  const sectionStyle = hasChildren
+    ? { minHeight: '100svh', backgroundColor: SURFACE_DEEP }
+    : {
+        height: reducedMotion ? '100svh' : `${HOME_HERO_PIN_VH * 100}vh`,
+        backgroundColor: SURFACE_DEEP,
+      }
+
   return (
     <section
       ref={wrapperRef}
       className="relative w-full"
-      style={{ minHeight: '100svh', backgroundColor: SURFACE_DEEP }}
+      style={sectionStyle}
       aria-label="Kashfi Rashid — designer and developer"
     >
-      {/* The scene wrapper scales on scroll; everything visual sits inside. */}
-      <motion.div
-        className="absolute inset-0 overflow-hidden"
-        style={{ scale: sceneScale }}
-      >
-        {/* Layer 0 — poster (instant paint) */}
-        <picture aria-hidden="true">
-          <source srcSet={HOME_HERO_POSTER} type="image/webp" />
-          <img
-            src={HOME_HERO_POSTER_FALLBACK}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            draggable={false}
-            decoding="async"
-          />
-        </picture>
-
-        {/* Layer 1 — video (capable surfaces only) */}
-        {shouldMountVideo && !videoErrored && (
-          <video
-            ref={videoRef}
-            key={scene.video}
-            src={scene.video}
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            autoPlay
-            aria-hidden="true"
-            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
-            style={{ opacity: videoReady ? 1 : 0 }}
-          />
-        )}
-
-        {/* Layer 2 — legibility scrim (3 stacked gradients + floor) */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              `linear-gradient(180deg, ${SCRIM_TOP} 0%, ${SCRIM_MID} 50%, ${SCRIM_BOTTOM} 100%),` +
-              `linear-gradient(90deg, ${SCRIM_LEFT} 0%, ${SCRIM_MID} 40%, ${SCRIM_FADE} 75%),` +
-              `rgba(15, 17, 18, 0.22)`,
-          }}
-        />
-
-        {/* Vignette darken — scroll-driven (the room dimming) */}
-        <motion.div
-          aria-hidden="true"
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            opacity: vignetteOpacity,
-            background:
-              `radial-gradient(ellipse 120% 80% at 50% 70%, transparent 0%, ${SURFACE_DEEP} 75%)`,
-          }}
-        />
-      </motion.div>
-
-      {/* Layer 3 — identity content (above the scene, does NOT scale) */}
+      {/* Sticky scene — pinned for the entire section's scroll. With
+          children, this means the video stays held all the way through
+          the editorial homepage; release fires once at the bottom, just
+          before the footer takes over. Without children, it pins for the
+          old welcome-act window. */}
       <div
-        className="relative z-10 flex flex-col w-full"
-        style={{ minHeight: '100svh' }}
+        className="sticky top-0 h-screen w-full overflow-hidden z-0"
+        style={{ backgroundColor: SURFACE_DEEP }}
       >
-        {/* Top row — clock left, status right */}
+        {/* The scene wrapper scales on scroll release; everything visual
+            sits inside. */}
+        <motion.div
+          className="absolute inset-0 overflow-hidden"
+          style={{ scale: sceneScale }}
+        >
+          {/* Layer 0 — poster (instant paint) */}
+          <picture aria-hidden="true">
+            <source srcSet={HOME_HERO_POSTER} type="image/webp" />
+            <img
+              src={HOME_HERO_POSTER_FALLBACK}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
+              draggable={false}
+              decoding="async"
+            />
+          </picture>
+
+          {/* Layer 1 — video (capable surfaces only) */}
+          {shouldMountVideo && !videoErrored && (
+            <video
+              ref={videoRef}
+              key={scene.video}
+              src={scene.video}
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              autoPlay
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+              style={{ opacity: videoReady ? 1 : 0 }}
+            />
+          )}
+
+          {/* Layer 2 — legibility scrim (3 stacked gradients + floor) */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                `linear-gradient(180deg, ${SCRIM_TOP} 0%, ${SCRIM_MID} 50%, ${SCRIM_BOTTOM} 100%),` +
+                `linear-gradient(90deg, ${SCRIM_LEFT} 0%, ${SCRIM_MID} 40%, ${SCRIM_FADE} 75%),` +
+                `rgba(15, 17, 18, 0.22)`,
+            }}
+          />
+
+          {/* Vignette darken — scroll-driven (the room dimming). Fires
+              once in the last segment of the section, landing the
+              transition right before the footer enters the viewport. */}
+          <motion.div
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              opacity: vignetteOpacity,
+              background:
+                `radial-gradient(ellipse 120% 80% at 50% 70%, transparent 0%, ${SURFACE_DEEP} 75%)`,
+            }}
+          />
+        </motion.div>
+      </div>
+
+      {/* Identity content overlay — absolute, covers the first viewport on
+          top of the sticky scene. Scrolls away naturally with the
+          document (no transform), so by the time the editorial sections
+          rise up they cover the now-empty hero zone behind the held video. */}
+      <div className="absolute top-0 left-0 right-0 h-screen z-10 flex flex-col w-full pointer-events-none">
+        {/* Top row — enlarged clock left, scene status right */}
         <motion.div
           {...fadeUp(0.05)}
-          className="flex items-start justify-between gap-4 px-6 pt-8 md:px-10 md:pt-10 max-w-6xl mx-auto w-full"
+          className="flex items-start justify-between gap-4 px-6 pt-8 md:px-10 md:pt-10 max-w-6xl mx-auto w-full pointer-events-auto"
         >
-          <span
-            className="font-mono text-[11px] md:text-xs uppercase tracking-[0.18em] text-text-muted"
-            style={{ fontVariantNumeric: 'tabular-nums' }}
-          >
-            {timeString}
-          </span>
-          <span className="font-mono text-[11px] md:text-xs uppercase tracking-[0.18em] text-text-faint text-right">
+          {/* Clock — Heading 1 register per 06-visual-direction.md
+              (44–52px range). Mono, tabular-nums, flat tracking so the
+              seconds digit doesn't jitter the width. */}
+          <div className="flex flex-col items-start leading-none">
+            <span
+              className="font-mono text-[2.75rem] md:text-[3rem] lg:text-[3.25rem] font-semibold text-text-primary leading-none"
+              style={{
+                fontVariantNumeric: 'tabular-nums',
+                letterSpacing: '0',
+              }}
+              aria-label={`Current time in Delta, BC: ${clockTime} ${clockMeta}`}
+            >
+              {clockTime}
+            </span>
+            {clockMeta && (
+              <span
+                aria-hidden="true"
+                className="font-mono text-[11px] md:text-xs uppercase tracking-[0.22em] text-text-muted mt-2.5"
+              >
+                {clockMeta}
+              </span>
+            )}
+          </div>
+          {/* Scene status — Caption register (12px), faint, right-aligned.
+              Stays subordinate to the clock so the hierarchy reads. */}
+          <span className="font-mono text-[11px] md:text-xs uppercase tracking-[0.18em] text-text-faint text-right pt-2">
             {scene.status}
           </span>
         </motion.div>
 
-        {/* Center stack — the load-bearing identity */}
-        <div className="flex-1 flex items-center">
-          <div className="px-6 md:px-10 max-w-6xl mx-auto w-full py-16 md:py-24">
+        {/* Centered identity column — name, identity, voice, status, and
+            the honest fallback note share one aligned measure.
+            Type scale calibrated to 06-visual-direction.md:
+              kicker → Caption  (~12px, mono, wide tracking)
+              name   → Hero     (display-xl, 48–80px, line-height 1.05)
+              identity → Body+  (16–18px, line-height 1.55)
+              voice    → Body   (16px, line-height 1.55)
+              status   → Small  (14px, mono)
+              fallback → Caption (12px, faint)
+        */}
+        <div className="flex-1 flex items-center pointer-events-auto">
+          <div className="px-6 md:px-10 mx-auto max-w-2xl w-full py-16 md:py-24">
             <motion.p
               {...fadeUp(0.15)}
-              className="font-mono text-xs uppercase tracking-[0.22em] text-text-faint mb-4"
+              className="font-mono text-xs uppercase tracking-[0.22em] text-text-faint mb-5"
             >
               my name is
             </motion.p>
 
-            <div className="flex items-end gap-5 md:gap-6 mb-6">
-              <motion.h1
-                {...fadeUp(0.22)}
-                className="text-display-xl font-display tracking-tight text-text-primary leading-[0.95]"
-              >
-                Kashfi Rashid
-              </motion.h1>
-              <motion.div {...fadeUp(0.32)} className="pb-2 hidden sm:block">
-                <PhotoPlaceholder />
-              </motion.div>
-            </div>
+            <motion.h1
+              {...fadeUp(0.22)}
+              className="text-display-xl font-display tracking-tight text-text-primary leading-[1.05] mb-7"
+            >
+              Kashfi Rashid
+            </motion.h1>
 
             <motion.p
               {...fadeUp(0.38)}
-              className="text-text-primary text-lg md:text-xl leading-relaxed max-w-prose mb-5"
+              className="text-text-primary text-base md:text-lg leading-[1.55] max-w-prose mb-5"
             >
               {identityLine}
             </motion.p>
 
             <motion.p
               {...fadeUp(0.46)}
-              className="text-text-muted text-base md:text-lg leading-relaxed max-w-prose mb-6"
+              className="text-text-muted text-base leading-[1.55] max-w-prose mb-7"
             >
               {voiceLine}
             </motion.p>
 
             <motion.p
               {...fadeUp(0.54)}
-              className="font-mono text-xs md:text-sm text-text-faint"
+              className="font-mono text-sm text-text-faint leading-[1.5]"
             >
               {statusLine}
             </motion.p>
@@ -318,7 +460,7 @@ export default function HomeHero() {
             {scene.isFallbackVideo && (
               <motion.p
                 {...fadeUp(0.62)}
-                className="mt-6 font-mono text-[10px] uppercase tracking-[0.18em] text-text-faint/70"
+                className="mt-6 font-mono text-[11px] md:text-xs uppercase tracking-[0.18em] text-text-faint/80"
               >
                 scene set: working · other time-of-day clips pending
               </motion.p>
@@ -326,13 +468,15 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* Scroll cue */}
+        {/* Scroll cue — Caption register (~12px) per the brand book.
+            The previous 10px sat below the caption baseline and read as
+            too small relative to the rest of the chrome. */}
         <motion.div
           {...fadeUp(0.7)}
-          className="px-6 md:px-10 pb-8 md:pb-10 max-w-6xl mx-auto w-full flex items-center justify-center"
+          className="px-6 md:px-10 pb-8 md:pb-10 max-w-6xl mx-auto w-full flex items-center justify-center pointer-events-auto"
         >
           <span
-            className="font-mono text-[10px] uppercase tracking-[0.24em] text-text-faint inline-flex items-center gap-2"
+            className="font-mono text-[11px] md:text-xs uppercase tracking-[0.24em] text-text-faint inline-flex items-center gap-2"
             aria-hidden="true"
           >
             <motion.span
@@ -350,6 +494,17 @@ export default function HomeHero() {
           </span>
         </motion.div>
       </div>
+
+      {/* Children — the rest of the homepage. Flows after the sticky in
+          the document, so the cards / Hall of Fame / Featured Work /
+          shipped line rise up over the held video as the visitor scrolls.
+          The scale + vignette release lands right before this section
+          ends and the footer takes over. */}
+      {hasChildren && (
+        <div className="relative z-10">
+          {children}
+        </div>
+      )}
     </section>
   )
 }
