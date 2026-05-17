@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import { useCompanion } from '../companion/CompanionContext.jsx'
-import CursorGlow from '../components/CursorGlow.jsx'
 import { RevealGroup } from '../components/Reveal.jsx'
 import Reveal from '../components/Reveal.jsx'
 import HomeHero from '../components/HomeHero.jsx'
@@ -14,7 +13,6 @@ import { PROJECTS } from '../pages/projects.js'
  *
  * Hero treatment: words stagger in 80ms apart on first mount.
  * Section cards use the .card-lift utility (200ms lift + accent.glow sliver).
- * CursorGlow wraps the hero for "monitor light on desk" feel.
  * Cards cascade via RevealGroup on scroll.
  */
 
@@ -32,24 +30,23 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Living-window hero — full viewport. Pixel-art video, time-aware
-          status, identity layer. After Kash's "try that once" exploration,
-          HomeHero now wraps the entire homepage so the pinned scene stays
-          held behind the editorial sections; the scale + vignette release
-          fires at the section's end, right before the footer takes over.
-          See components/HomeHero.jsx. */}
-      <HomeHero>
+          status, identity layer. Everything below this is the existing
+          homepage, preserved, pushed down. See components/HomeHero.jsx. */}
+      <HomeHero />
 
-      {/* Top bar — name only, no traditional nav */}
+      {/* Top bar — name only, no traditional nav. Sits right under the
+          hero with minimal padding so the editorial headline that follows
+          isn't separated by a perceived empty 'div'. */}
       <Reveal delay={0.1} y={6}>
-        <header className="px-6 pt-8 pb-4 flex items-baseline justify-between max-w-6xl mx-auto w-full">
+        <header className="px-6 pt-6 pb-1 flex items-baseline max-w-6xl mx-auto w-full">
           <span className="text-text-primary font-mono text-sm">kashfi rashid</span>
-          <span className="text-text-faint text-xs">↓ scroll for more</span>
         </header>
       </Reveal>
 
-      {/* Hero — wrapped in CursorGlow for the monitor-light-on-desk feel */}
-      <CursorGlow>
-        <section className="px-6 py-24 md:py-32 max-w-3xl mx-auto w-full">
+      {/* Editorial hero — the locked "Ambitious but executioneery." line.
+          Top padding intentionally minimal so the headline sits right
+          under the top bar instead of with a big gap between them. */}
+      <section className="px-6 pt-4 pb-24 md:pt-6 md:pb-32 max-w-3xl mx-auto w-full">
           <h1
             className="text-display-xl font-display leading-tight mb-8 tracking-tight transition-[letter-spacing] duration-500"
             onMouseEnter={(e) => {
@@ -91,7 +88,6 @@ export default function Home() {
             Currently at FIC IT Squad · graduating SFU SIAT June 10 · Delta, BC
           </motion.p>
         </section>
-      </CursorGlow>
 
       {/* Section entry row — 6 small cards, staggered reveal on scroll */}
       <section className="px-6 py-12 max-w-6xl mx-auto w-full">
@@ -170,7 +166,6 @@ export default function Home() {
           </p>
         </section>
       </Reveal>
-      </HomeHero>
     </div>
   )
 }
