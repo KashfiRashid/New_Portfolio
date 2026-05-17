@@ -69,6 +69,27 @@ existing content as children of `HomeHero` (additive — no existing
 elements were removed). Release armed at `HOME_HERO_RELEASE_START = 0.88`,
 which lands the vignette fully opaque right before the footer enters.
 
+## iter 11 · 2026-05-17 (screenshot review) — kill the dark band
+Kash spotted a visible horizontal "weird line" between the hero zone
+and the editorial — a band of darkness across the middle of the
+viewport. Diagnosis: the legibility scrim was calibrated for a 100vh
+hero (heavy bottom-dark at 88% + left-bias + 22% floor for lower-left
+text contrast). With the pin now extending through the entire homepage,
+that heavy bottom sat behind the editorial cards forever, reading as
+a persistent dark horizontal band.
+
+Fix:
+- Scrim simplified to a single gentle vertical gradient (top 30% → mid
+  32% → bottom 55%). Removed the left-side darker gradient and the 22%
+  baseline floor — both were for the old layout's lower-left identity.
+- Scrim wrapped in `motion.div` with `opacity: scrimOpacity` tied to
+  `scrollY` (raw px, not progress). Full scrim from 0–200px, fades
+  through 200–700px (~one viewport), and is zero past that. Once the
+  identity overlay has scrolled off, the held video reads as itself
+  behind the editorial sections — no more dark band.
+- `useScroll` destructuring now also pulls `scrollY` alongside
+  `scrollYProgress`.
+
 ## iter 10 · 2026-05-17 16:29 UTC
 PST label + typography calibration to the brand book.
 - Clock label normalized to "PST" at the display layer (regex on the

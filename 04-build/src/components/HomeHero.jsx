@@ -57,14 +57,23 @@ import {
  */
 
 const SURFACE_DEEP = '#0F1112'
-// Scrim is biased toward the lower-left where the name + identity text
-// lives, with a top wash so the clock + status read on bright frames,
-// and a flat ~22% baseline floor everywhere for the busy middle band.
-const SCRIM_BOTTOM = 'rgba(15, 17, 18, 0.88)'
-const SCRIM_MID = 'rgba(15, 17, 18, 0.55)'
-const SCRIM_TOP = 'rgba(15, 17, 18, 0.35)'
-const SCRIM_LEFT = 'rgba(15, 17, 18, 0.85)'
-const SCRIM_FADE = 'rgba(15, 17, 18, 0.0)'
+// Legibility scrim — calibrated for the new full-page pin variant.
+//
+// Previous values were tuned for a 100vh hero where the identity text
+// sat in the lower-left and needed an aggressive bottom-dark wash
+// (88%) plus a left-side darkening for contrast. With the pin now
+// extending through the entire homepage, that heavy bottom sat behind
+// the editorial cards forever and read as a visible horizontal band
+// of darkness — the "weird line between the hero and the editorial".
+//
+// New approach: gentler, more even wash. Top wash holds the clock +
+// status. Middle stays light. Bottom is moderate, not opaque. The
+// scrim's overall opacity fades to zero after the identity overlay
+// scrolls past the first viewport (see `scrimOpacity` below), so the
+// held video reads as itself behind the editorial sections.
+const SCRIM_TOP = 'rgba(15, 17, 18, 0.30)'
+const SCRIM_MID = 'rgba(15, 17, 18, 0.32)'
+const SCRIM_BOTTOM = 'rgba(15, 17, 18, 0.55)'
 
 // === Welcome-act pin distance (legacy / fallback) ===
 // Originally the hero section was `HOME_HERO_PIN_VH * 100vh` tall and
@@ -209,10 +218,23 @@ export default function HomeHero({ children } = {}) {
   // once in the last ~18% so it lands at the unpin moment.
   // -------------------------------------------------------------------
   const wrapperRef = useRef(null)
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress, scrollY } = useScroll({
     target: wrapperRef,
     offset: ['start start', 'end start'],
   })
+
+  // Scrim fade — the legibility wash is full while the identity is in
+  // the first viewport, then fades out as the editorial sections rise.
+  // Driven by raw scrollY (px) rather than scrollYProgress so the fade
+  // distance is consistent regardless of how tall the section is.
+  // 0..200px: full scrim (identity sits readable)
+  // 200..700px: scrim fades out (~1 viewport of fade)
+  // 700px+: no scrim, held video reads as itself behind the editorial
+  const scrimOpacity = useTransform(
+    scrollY,
+    [0, 200, 700],
+    [1, 1, 0]
+  )
 
   // In the "pin extends to footer" mode (children passed), the section
   // height is content-driven and the sticky pins the scene for the entire
@@ -343,15 +365,19 @@ export default function HomeHero({ children } = {}) {
             />
           )}
 
-          {/* Layer 2 — legibility scrim (3 stacked gradients + floor) */}
-          <div
+          {/* Layer 2 — legibility scrim. Single gentle vertical gradient
+              (top wash holds the clock + status; mid stays light; bottom
+              moderate, not opaque). Opacity fades to zero past the first
+              viewport so the held video reads as itself once the cards
+              rise into place — no more visible dark band between hero
+              and editorial. */}
+          <motion.div
             aria-hidden="true"
             className="absolute inset-0 pointer-events-none"
             style={{
+              opacity: scrimOpacity,
               background:
-                `linear-gradient(180deg, ${SCRIM_TOP} 0%, ${SCRIM_MID} 50%, ${SCRIM_BOTTOM} 100%),` +
-                `linear-gradient(90deg, ${SCRIM_LEFT} 0%, ${SCRIM_MID} 40%, ${SCRIM_FADE} 75%),` +
-                `rgba(15, 17, 18, 0.22)`,
+                `linear-gradient(180deg, ${SCRIM_TOP} 0%, ${SCRIM_MID} 50%, ${SCRIM_BOTTOM} 100%)`,
             }}
           />
 
