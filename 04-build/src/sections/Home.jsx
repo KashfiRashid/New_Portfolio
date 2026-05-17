@@ -5,6 +5,7 @@ import { useCompanion } from '../companion/CompanionContext.jsx'
 import CursorGlow from '../components/CursorGlow.jsx'
 import { RevealGroup } from '../components/Reveal.jsx'
 import Reveal from '../components/Reveal.jsx'
+import HomeHero from '../components/HomeHero.jsx'
 import { PROJECTS } from '../pages/projects.js'
 
 /**
@@ -30,6 +31,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Living-window hero — full viewport. Pixel-art video, time-aware
+          status, identity layer. Everything below this is the existing
+          homepage, preserved, pushed down. See components/HomeHero.jsx. */}
+      <HomeHero />
+
       {/* Top bar — name only, no traditional nav */}
       <Reveal delay={0.1} y={6}>
         <header className="px-6 pt-8 pb-4 flex items-baseline justify-between max-w-6xl mx-auto w-full">
