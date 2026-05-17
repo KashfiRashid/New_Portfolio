@@ -16,6 +16,7 @@ import BLUPage from './blu/index.jsx'
 import SpectralBloomPage from './spectral-bloom/index.jsx'
 import SomethingLurkingPage from './something-lurking/index.jsx'
 import ParproConsultingPage from './parpro-consulting/index.jsx'
+import DocumentorPage from './documentor/index.jsx'
 
 export const PROJECTS = [
   {
@@ -74,11 +75,18 @@ export const PROJECTS = [
     bubbleId: 'H23',
     component: ParproConsultingPage,
   },
+  {
+    slug: 'documentor',
+    name: 'DocuMentor',
+    blurb: 'a mobile guide for international students. i was the user before i was the designer.',
+    featured: true,
+    bubbleId: 'H24',
+    component: DocumentorPage,
+  },
 ]
 
 /** Older work — listed by name on the Work archive, no case study pages. */
 export const OLDER_WORK = [
-  { slug: 'documentor-app', name: 'Documentor App' },
   { slug: 'trucking-academy', name: 'Trucking Academy' },
 ]
 
