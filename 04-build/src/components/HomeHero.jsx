@@ -547,20 +547,25 @@ export default function HomeHero({ children } = {}) {
                 my name is
               </motion.p>
 
-              {/* Name — single-word product-hero treatment. Just "Kashfi"
-                  at Apple-display scale: bold Inter (font-sans + bold),
-                  very tight tracking (-0.045em), tight leading (0.92),
-                  and a much larger clamp than the regular display
-                  scale — 80px on small screens up to ~136px on wide
-                  desktop. The font tokens still live in
-                  tailwind.config.js (font-sans → Inter); only the size
-                  is arbitrary here because the standard text-display-xl
-                  scale wasn't big enough for a single-word hero. The
-                  reference is Apple product pages: one word, oversized,
-                  bold-but-not-aggressive, plenty of breathing room. */}
+              {/* Name — single-word display treatment, set in the
+                  display serif (`font-display` resolves through
+                  tailwind.config.js → fontFamily.display = Editorial
+                  New / Reckless Neue / Georgia / ui-serif). The serif
+                  is Kashfi's voice — warm-reflective, editorial,
+                  named-not-product. Distinct from Harjot's playful
+                  bubble display and from the modernist sans of
+                  Vercel/Linear; pairs with the body sans (Inter) for
+                  reading text and the functional mono (JetBrains Mono)
+                  for system chrome (clock, status) to form a clear
+                  three-register combo that's specifically Kashfi's.
+                  Lighter tracking (-0.02em) than the previous sans-
+                  bold treatment because serif at display weight reads
+                  best with minimal compression. Leading 0.95 gives the
+                  serif breath without sacrificing compactness. The
+                  legibility halo carries it on bright video frames. */}
               <motion.h1
                 {...fadeUp(0.22)}
-                className="font-sans font-bold tracking-[-0.045em] text-text-primary leading-[0.92] mb-12 text-[clamp(5rem,12vw,8.5rem)]"
+                className="font-display tracking-[-0.02em] text-text-primary leading-[0.95] mb-12 text-[clamp(5rem,12vw,8.5rem)] text-hero-legible"
               >
                 Kashfi
               </motion.h1>
