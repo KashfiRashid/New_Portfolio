@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { getProject } from './projects.js'
@@ -15,6 +16,16 @@ import { getProject } from './projects.js'
 export default function ProjectRoute() {
   const { slug } = useParams()
   const project = getProject(slug)
+
+  // Always land at the top of the case study, regardless of where the
+  // visitor was scrolled on the previous page. React Router preserves
+  // window scroll position across route changes by default, so without
+  // this navigating from halfway down Home (or from another case study)
+  // would drop you into the middle of the page. Re-runs when `slug`
+  // changes so jumping between projects also resets the scroll.
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [slug])
 
   if (project && project.component) {
     const CaseStudy = project.component
