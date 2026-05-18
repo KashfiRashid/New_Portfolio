@@ -69,6 +69,146 @@ existing content as children of `HomeHero` (additive — no existing
 elements were removed). Release armed at `HOME_HERO_RELEASE_START = 0.88`,
 which lands the vignette fully opaque right before the footer enters.
 
+## iter 16 · 2026-05-17 — darken middle, push bottom to ~95% for footer blend
+Kash, on screenshots: "letters at the middle aren't visible — overlay
+needs to be darker" and "transition feels off to footer." The 22%–62%
+range was too light in the upper-middle (where the name sits) and
+ended too far short of the footer's solid surface-deep at the bottom.
+
+Scrim is now a 3-stop gradient with the mid stop pulled up to 45% of
+the height — gets dark fast in the upper-middle so off-white text
+reads cleanly on the busy room, then continues toward near-opaque at
+the bottom so the held video meets the footer with no visible seam.
+
+  SCRIM_TOP    = rgba(15, 17, 18, 0.28)
+  SCRIM_MID    = rgba(15, 17, 18, 0.58)    @ 45%
+  SCRIM_BOTTOM = rgba(15, 17, 18, 0.95)    @ 100%
+
+Approximate wash by viewport position with this curve:
+  - clock zone (top 0–15%):  ~28–37%   → clock + status legible
+  - kicker / name (35–50%):  ~50–58%   → name reads on the wash
+  - lines (55–75%):          ~62–80%   → body text high contrast
+  - bottom edge (90–100%):   ~88–95%   → meets surface-deep
+
+At ~95% the held video pixels are 95% of the way to surface-deep, so
+the seam between the section's last frame and the footer's first
+frame is essentially invisible. The remaining 5% is closed by the
+existing scale + vignette release at the bottom of the section.
+
+## iter 15 · 2026-05-17 — constant gradient scrim, no fade
+Kash: "why does it light up when I scroll? I want the dark theme to
+stay. Gradual gradient — lighter at top, darker at bottom. 20%–60%."
+
+The previous scrim faded to zero past the first viewport so the held
+video would read "as itself" behind the editorial. That fade is what
+caused the room to brighten on scroll — exactly what Kash didn't want.
+
+Fix:
+- Scrim simplified from a 3-gradient stack (vertical + horizontal +
+  flat floor) to a single vertical gradient: `SCRIM_TOP ~22%` →
+  `SCRIM_BOTTOM ~62%` of surface-deep.
+- `scrimOpacity` MotionValue removed. The scrim layer is back to a
+  plain `<div>` — no motion, no fade. The wash stays on the video for
+  the entire pin.
+- `SCRIM_MID`, `SCRIM_LEFT`, `SCRIM_FADE` constants removed (no longer
+  used).
+- The existing scale + vignette release at `HOME_HERO_RELEASE_START`
+  still handles the final dim into the footer.
+
+Result: room reads as "2am studio" the whole time. Lighter at top so
+the clock + status are crisp; darker at bottom so the held video
+anchors toward surface-deep, blending into the footer that follows.
+
+## iter 14 · 2026-05-17 — full-page pin back, sticky clock kept
+Kash confirmed: video should be pinned in the background behind the
+entire homepage; footer at the bottom as usual. The earlier revert
+(iter 12) was off — this restores the full-page pin and keeps the
+sticky clock/status from iter 13.
+
+- `HomeHero` accepts `children` again. Section height becomes content-
+  driven when children are passed (`minHeight: 100svh`), so the sticky
+  100vh frame inside pins the scene for the entire scroll. Standalone
+  fallback (no children) still uses `HOME_HERO_PIN_VH * 100vh`.
+- Sticky clock + scene status header preserved from iter 13: pinned at
+  the top of the sticky for the entire page scroll, gradient backdrop
+  + hairline, fades out through the scale + vignette release at the
+  bottom so the chrome doesn't bleed into the footer.
+- Identity column (centered name + lines + scroll cue) translates and
+  fades by `IDENTITY_FADE_PX = 700` of raw scroll — so by ~700px the
+  column is off-screen and the cards rise into place over the held
+  video.
+- Scrim wrapped in motion.div with `scrimOpacity` (full 0–280px, fades
+  to 0 by 700px). Beyond the first viewport the held video reads as
+  itself behind the editorial — no dark band, no veil.
+- Sticky clock uses inline `initial/animate` (y-only) instead of the
+  fadeUp helper, because fadeUp's `initial: { opacity: 0 }` would
+  collide with the `stickyHeaderOpacity` MotionValue.
+- Home.jsx wraps all existing content as children of `<HomeHero>…
+  </HomeHero>`. Footer stays where it was (rendered by App.jsx after
+  the route), so it appears at the bottom as expected.
+
+Tunable constants in one place at the top of `HomeHero.jsx`:
+- `HOME_HERO_PIN_VH = 2.0` — standalone-mode height multiplier
+- `HOME_HERO_RELEASE_START = 0.88` — when the scale + vignette fires
+- `IDENTITY_FADE_PX = 700` — when the name/lines clear the viewport
+
+## iter 13 · 2026-05-17 — pin the clock + status to the top of the hero
+Kash: "pin the hero image, make the clock + scene status sticky on top,
+arrange them creatively so they don't overlap."
+
+Rearrangement inside the sticky hero frame:
+- Clock + scene status extracted from the contentY-translating motion.div
+  into a separate absolute container at the top of the sticky (z-20).
+  Because they're not inside the translating layer, they STAY at the top
+  of the viewport for the whole welcome-act scroll. Clock keeps its
+  Heading-1 mono size (~44–52px); scene status keeps its caption register
+  on the right.
+- A vertical gradient backdrop (78% → 45% → 0% surface-deep) sits behind
+  the header so the centered column can slide cleanly underneath as it
+  scrolls up — no harsh overlap of identity text and clock digits.
+- A faint hairline at the bottom of the header zone (10% off-white,
+  feathered at the ends) quietly defines it as a chrome element.
+- Centered identity column + scroll cue stay inside the translating
+  motion.div with the same contentY + contentOpacity curves. They slide
+  under the pinned header (z-20 above z-10) and the gradient backdrop
+  handles the visual handoff.
+- Scene status is clamped to `max-w-[14rem]` so longer status strings
+  ("now: heads-down at the desk.") don't push back into the clock's
+  area on narrow tablet widths.
+- Sticky header lives inside the sticky frame, so it naturally scrolls
+  away when the hero section ends — clock doesn't bleed into the
+  editorial below, the hero is still the prologue.
+
+## iter 12 · 2026-05-17 — REVERT iter 09 + iter 11
+Kash clarified: the "weird line" wasn't the scrim — it was the empty
+gap between the top bar ("kashfi rashid · ↓ scroll for more") and the
+editorial headline ("Ambitious but executioneery."). The full-page pin
+and the scrim refactor were both misreads on my part.
+
+Reverted:
+- Iter 09 (full-page pin variant) — removed `children` prop, removed
+  `HOME_HERO_RELEASE_START`, restored `HOME_HERO_PIN_VH * 100vh` section
+  height with the reduced-motion `100svh` collapse, moved identity back
+  inside the sticky frame, restored `contentY`/`contentOpacity`
+  translations, restored `RELEASE_START = 0.82` for the scale + vignette.
+- Iter 11 (scrim softening) — restored original heavy scrim values
+  (top 35% → mid 55% → bottom 88%, plus left-bias 85% and 22% floor),
+  removed the `scrimOpacity` motion value, removed `scrollY`
+  destructuring, scrim is back to a plain `<div>` (not motion).
+- Home.jsx — removed the `<HomeHero>…</HomeHero>` wrap; HomeHero is
+  standalone again, the rest of Home flows as siblings.
+
+Kept (still align with what Kash asked for earlier):
+- PST clock label normalization
+- Brand-book typography pass (Hero/H1/Body/Small/Caption scale)
+- Centered identity column (`mx-auto max-w-2xl`)
+- Photo placeholder removed from render
+
+Then addressed the actual ask: trimmed the editorial section's top
+padding (`py-24 md:py-32` → `pt-4 pb-24 md:pt-6 md:pb-32`) and tightened
+the top bar's `pb-4` → `pb-1`. The headline now sits right under the
+top bar, no perceived empty 'div' between them.
+
 ## iter 11 · 2026-05-17 (screenshot review) — kill the dark band
 Kash spotted a visible horizontal "weird line" between the hero zone
 and the editorial — a band of darkness across the middle of the
