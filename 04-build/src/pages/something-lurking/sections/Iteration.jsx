@@ -43,7 +43,7 @@ export default function Iteration() {
       <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-lg border border-zinc-800 bg-zinc-800 md:grid-cols-2">
         {FEEDBACK.map((f) => (
           <article key={f.name} className="bg-[#0F1216] p-6">
-            <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-[#E85850]">
+            <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-[#9268E0]">
               {f.name} · {f.role}
             </p>
             <p className="mt-3 font-[family-name:var(--font-sans)] text-[15px] italic leading-relaxed text-zinc-300">

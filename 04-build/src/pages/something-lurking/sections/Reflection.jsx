@@ -9,7 +9,7 @@ const PARAGRAPHS = [
   "The three-act structure had the cliffhanger ending from the start. It is what makes the betrayal land. But the time pressure also made it the only ending we could ship. Both things are true. The cliffhanger reads as craft because it is. It also reads as constraint because that is also true. If I had two more weeks I would have built the resolution the experience set up. As shipped, I think the ambiguity is honest, but I want to be clear with myself that scope shaped the ending, not just narrative intent.",
 ]
 
-const linkClass = 'text-[#E85850] underline-offset-2 hover:underline'
+const linkClass = 'text-[#9268E0] underline-offset-2 hover:underline'
 
 export default function Reflection() {
   return (
@@ -22,7 +22,7 @@ export default function Reflection() {
       </div>
 
       <div className="mt-16 border-t border-white/[0.06] pt-12">
-        <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.18em] text-[#E85850]">
+        <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.18em] text-[#9268E0]">
           The pattern across three teams
         </p>
         <p className="mt-4 max-w-[760px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200">

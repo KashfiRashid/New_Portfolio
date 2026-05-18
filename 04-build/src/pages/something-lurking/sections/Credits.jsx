@@ -39,7 +39,7 @@ export default function Credits() {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {TEAM.map((m) => (
           <div key={m.label}>
-            <p className="font-[family-name:var(--font-mono)] text-sm uppercase tracking-[0.2em] text-[#C8362A]">
+            <p className="font-[family-name:var(--font-mono)] text-sm uppercase tracking-[0.2em] text-[#6E3FB3]">
               {m.label}
             </p>
             <h3 className="mt-2 font-[family-name:var(--font-display)] text-[20px] font-normal text-white">
@@ -77,7 +77,7 @@ export default function Credits() {
           href="https://www.sfu.ca/siat/showcase/fall-2025-project-showcase/iat-445-something-lurking.html"
           target="_blank"
           rel="noreferrer"
-          className="font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.14em] text-[#E85850] underline-offset-4 hover:underline"
+          className="font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.14em] text-[#9268E0] underline-offset-4 hover:underline"
         >
           SFU SIAT showcase →
         </a>
@@ -85,7 +85,7 @@ export default function Credits() {
           href="https://youtu.be/eK9rhROT4ds"
           target="_blank"
           rel="noreferrer"
-          className="font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.14em] text-[#E85850] underline-offset-4 hover:underline"
+          className="font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.14em] text-[#9268E0] underline-offset-4 hover:underline"
         >
           Demo video →
         </a>
@@ -93,7 +93,7 @@ export default function Credits() {
           href="https://www.sfu.ca/content/dam/sfu/siat/Showcase/2025-Fall/IAT-445-Something-Lurking/Something_Lurking_Comic.pdf"
           target="_blank"
           rel="noreferrer"
-          className="font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.14em] text-[#E85850] underline-offset-4 hover:underline"
+          className="font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.14em] text-[#9268E0] underline-offset-4 hover:underline"
         >
           Comic PDF →
         </a>

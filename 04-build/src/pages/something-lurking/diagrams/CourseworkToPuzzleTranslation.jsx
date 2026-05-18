@@ -54,7 +54,7 @@ export default function CourseworkToPuzzleTranslation() {
       <text x={L_X} y="28" fill="#71717a" fontFamily={MONO} fontSize="10" letterSpacing="2">
         WHAT I ARGUED BEFORE THE PROJECT
       </text>
-      <text x={R_X} y="28" fill="#C8362A" fontFamily={MONO} fontSize="10" letterSpacing="2" fontWeight="700">
+      <text x={R_X} y="28" fill="#6E3FB3" fontFamily={MONO} fontSize="10" letterSpacing="2" fontWeight="700">
         WHAT SHIPPED IN THE BUILD
       </text>
 
@@ -81,8 +81,8 @@ export default function CourseworkToPuzzleTranslation() {
         const y = 50 + i * (ROW_H + ROW_GAP)
         return (
           <g key={item.label}>
-            <rect x={R_X} y={y} width={R_W} height={ROW_H} rx="6" fill="#C8362A14" stroke="#C8362A" strokeWidth="1" />
-            <text x={R_X + 16} y={y + 24} fill="#C8362A" fontFamily={MONO} fontSize="11" letterSpacing="1.4">
+            <rect x={R_X} y={y} width={R_W} height={ROW_H} rx="6" fill="#6E3FB314" stroke="#6E3FB3" strokeWidth="1" />
+            <text x={R_X + 16} y={y + 24} fill="#6E3FB3" fontFamily={MONO} fontSize="11" letterSpacing="1.4">
               {item.label}
             </text>
             <text x={R_X + 16} y={y + 44} fill="#d4d4d8" fontFamily={SANS} fontSize="12">
@@ -93,7 +93,7 @@ export default function CourseworkToPuzzleTranslation() {
       })}
 
       {/* Arrows from coursework to each puzzle */}
-      <g stroke="#C8362A" strokeWidth="1.5" fill="none" opacity="0.7">
+      <g stroke="#6E3FB3" strokeWidth="1.5" fill="none" opacity="0.7">
         {/* A1 (philosophy) feeds all three puzzles — branching arrow */}
         <path d={`M ${L_X + L_W + 4} 100 L 430 100 L 430 80 L ${R_X - 6} 80`} />
         <path d={`M ${R_X - 6} 80 l -6 -4 m 6 4 l -6 4`} />

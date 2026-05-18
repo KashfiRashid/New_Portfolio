@@ -61,7 +61,7 @@ export default function MicroStepDecomposition() {
       </g>
 
       {/* Decomposition arrow */}
-      <g stroke="#5E62E0" strokeWidth="1.2" fill="none" opacity="0.7">
+      <g stroke="#E8A53B" strokeWidth="1.2" fill="none" opacity="0.7">
         <line x1="232" y1="130" x2="272" y2="130" />
         <path d="M 272 130 l -6 -4 m 6 4 l -6 4" />
       </g>
@@ -74,7 +74,7 @@ export default function MicroStepDecomposition() {
         const x = STEP_X0 + i * (STEP_W + STEP_GAP)
         const done = i < 2
         const active = i === 2
-        const stroke = done ? '#5E62E0' : active ? '#8B8FF5' : '#3f3f46'
+        const stroke = done ? '#E8A53B' : active ? '#F4C26B' : '#3f3f46'
         return (
           <g key={label}>
             <rect
@@ -83,18 +83,18 @@ export default function MicroStepDecomposition() {
               width={STEP_W}
               height={56}
               rx="6"
-              fill={done ? '#5E62E020' : active ? '#5E62E014' : 'none'}
+              fill={done ? '#E8A53B20' : active ? '#E8A53B14' : 'none'}
               stroke={stroke}
               strokeWidth="1"
             />
-            <text x={x + STEP_W / 2} y={STEP_Y + 22} fill={done ? '#8B8FF5' : active ? '#8B8FF5' : '#71717a'} fontFamily={MONO} fontSize="9" letterSpacing="1" textAnchor="middle" fontWeight={active ? '700' : '400'}>
+            <text x={x + STEP_W / 2} y={STEP_Y + 22} fill={done ? '#F4C26B' : active ? '#F4C26B' : '#71717a'} fontFamily={MONO} fontSize="9" letterSpacing="1" textAnchor="middle" fontWeight={active ? '700' : '400'}>
               {String(i + 1).padStart(2, '0')}
             </text>
             <text x={x + STEP_W / 2} y={STEP_Y + 40} fill="#d4d4d8" fontFamily={SANS} fontSize="11" textAnchor="middle">
               {label}
             </text>
             {done ? (
-              <text x={x + STEP_W - 12} y={STEP_Y + 14} fill="#5E62E0" fontFamily={MONO} fontSize="10" textAnchor="middle">
+              <text x={x + STEP_W - 12} y={STEP_Y + 14} fill="#E8A53B" fontFamily={MONO} fontSize="10" textAnchor="middle">
                 ✓
               </text>
             ) : null}
@@ -104,7 +104,7 @@ export default function MicroStepDecomposition() {
 
       {/* Progress bar beneath */}
       <line x1={STEP_X0} y1={STEP_Y + 76} x2={STEP_X0 + STEPS.length * (STEP_W + STEP_GAP) - STEP_GAP} y2={STEP_Y + 76} stroke="#3f3f46" strokeWidth="2" />
-      <line x1={STEP_X0} y1={STEP_Y + 76} x2={STEP_X0 + 2.5 * (STEP_W + STEP_GAP)} y2={STEP_Y + 76} stroke="#5E62E0" strokeWidth="2" />
+      <line x1={STEP_X0} y1={STEP_Y + 76} x2={STEP_X0 + 2.5 * (STEP_W + STEP_GAP)} y2={STEP_Y + 76} stroke="#E8A53B" strokeWidth="2" />
       <text x={STEP_X0} y={STEP_Y + 92} fill="#71717a" fontFamily={MONO} fontSize="9" letterSpacing="1">
         2 OF 6 COMPLETE
       </text>

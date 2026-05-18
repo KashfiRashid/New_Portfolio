@@ -54,7 +54,7 @@ export default function Premise() {
               />
               <figcaption className="px-1 pb-1">
                 <div className="flex items-baseline justify-between gap-2">
-                  <span className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.2em] text-[#C8362A]">
+                  <span className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.2em] text-[#6E3FB3]">
                     {panel.scale}
                   </span>
                   <span className="font-[family-name:var(--font-display)] text-lg italic text-white">

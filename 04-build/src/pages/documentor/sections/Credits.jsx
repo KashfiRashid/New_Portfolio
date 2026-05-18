@@ -27,7 +27,7 @@ export default function Credits() {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
         {TEAM.map((m) => (
           <div key={m.name}>
-            <p className="font-[family-name:var(--font-mono)] text-sm uppercase tracking-[0.2em] text-[#8B8FF5]">
+            <p className="font-[family-name:var(--font-mono)] text-sm uppercase tracking-[0.2em] text-[#F4C26B]">
               {m.name.toUpperCase()}
             </p>
             <h3 className="mt-2 font-[family-name:var(--font-display)] text-[20px] font-normal text-white">

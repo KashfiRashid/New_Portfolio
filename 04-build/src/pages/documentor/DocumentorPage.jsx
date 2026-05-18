@@ -50,7 +50,7 @@ export default function DocumentorPage() {
 
   return (
     <div
-      className="relative min-h-screen bg-[#0F1216] text-zinc-200 antialiased selection:bg-[#5E62E0]/30"
+      className="relative min-h-screen bg-[#0F1216] text-zinc-200 antialiased selection:bg-[#E8A53B]/30"
       style={{
         '--font-display': '"Editorial New", "Reckless Neue", Georgia, ui-serif, serif',
         '--font-sans': 'Inter, "Söhne", "Geist Sans", system-ui, sans-serif',
@@ -58,7 +58,7 @@ export default function DocumentorPage() {
       }}
     >
       <div
-        className="pointer-events-none fixed inset-0 bg-gradient-to-br from-[#5E62E0]/[0.04] via-transparent to-transparent"
+        className="pointer-events-none fixed inset-0 bg-gradient-to-br from-[#E8A53B]/[0.04] via-transparent to-transparent"
         aria-hidden
       />
 
