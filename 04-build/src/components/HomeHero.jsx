@@ -258,6 +258,22 @@ export default function HomeHero({ children } = {}) {
     reducedMotion ? [1, 1] : [1, 0]
   )
 
+  // Sticky header MASK fade-in. The mask + hairline behind the clock
+  // are INVISIBLE when the visitor lands on the page — so the room
+  // reads cleanly with the clock floating on it, no dark band cutting
+  // off the view. As the visitor starts scrolling and the editorial
+  // content rises toward the clock zone, the mask fades in to
+  // protect the clock from visual collision with the rising text.
+  //
+  // 0–150px scroll: mask fully invisible (clean hero)
+  // 150–450px:      fades in (catches the editorial as it rises)
+  // 450px+:         fully visible (mask doing its job)
+  const stickyMaskOpacity = useTransform(
+    scrollY,
+    reducedMotion ? [0, 1] : [0, 150, 450],
+    reducedMotion ? [0, 0] : [0, 0, 1]
+  )
+
   // -------------------------------------------------------------------
   // Identity copy
   // -------------------------------------------------------------------
@@ -321,6 +337,100 @@ export default function HomeHero({ children } = {}) {
       style={sectionStyle}
       aria-label="Kashfi Rashid — designer and developer"
     >
+      {/* Sticky top header (z-30) — clock + scene status pinned to
+          viewport top for the entire section scroll. Lives OUTSIDE the
+          video sticky frame so it stacks above children (z-10) in the
+          section's stacking context; otherwise children's editorial
+          content would paint over the clock as it scrolls up.
+
+          Zero-height (`h-0`) — content is positioned absolutely from
+          this anchor — so this layer doesn't take flow space; the
+          video sticky below it still occupies the first 100vh of flow
+          and pins normally.
+
+          The fade-mask backdrop inside this layer is a vertical
+          gradient from opaque (top of viewport) to transparent (where
+          the hairline sits). As children scroll up through the clock
+          zone, they pass behind the gradient and gradually fade out —
+          so the editorial text appears to lose opacity as it
+          approaches the clock and disappears by the time it crosses
+          the hairline. */}
+      <motion.div
+        initial={{ y: 8 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.55, delay: 0.05, ease: easing }}
+        className="sticky top-0 z-30 h-0 pointer-events-none"
+        style={{ opacity: stickyHeaderOpacity }}
+      >
+        {/* Fade-mask backdrop — INVISIBLE at the top of the page so the
+            room reads cleanly with the clock floating on it. Fades in
+            on scroll (via stickyMaskOpacity) to protect the clock
+            from collision with editorial text as it rises.
+            Softer gradient (max ~82% surface-deep, not solid black)
+            so even when the mask is fully active it feels like a
+            "darker zone" rather than a cut-off slab. */}
+        <motion.div
+          aria-hidden="true"
+          className="absolute top-0 left-0 right-0"
+          style={{
+            opacity: stickyMaskOpacity,
+            height: '210px',
+            background:
+              'linear-gradient(180deg, ' +
+              'rgba(15, 17, 18, 0.82) 0%, ' +
+              'rgba(15, 17, 18, 0.82) 55%, ' +
+              'rgba(15, 17, 18, 0) 100%)',
+          }}
+        />
+
+        {/* Clock + scene status content. Painted on top of the
+            fade-mask backdrop within this z-30 layer. */}
+        <div className="absolute top-0 left-0 right-0">
+          <div className="max-w-6xl mx-auto w-full flex items-start justify-between gap-4 px-6 pt-8 pb-7 md:px-10 md:pt-10 md:pb-9">
+            {/* Clock — Heading 1 register, mono, tabular-nums */}
+            <div className="flex flex-col items-start leading-none">
+              <span
+                className="font-mono text-[2.75rem] md:text-[3rem] lg:text-[3.25rem] font-semibold text-text-primary leading-none"
+                style={{
+                  fontVariantNumeric: 'tabular-nums',
+                  letterSpacing: '0',
+                }}
+                aria-label={`Current time in Delta, BC: ${clockTime} ${clockMeta}`}
+              >
+                {clockTime}
+              </span>
+              {clockMeta && (
+                <span
+                  aria-hidden="true"
+                  className="font-mono text-[11px] md:text-xs uppercase tracking-[0.22em] text-text-muted mt-2.5"
+                >
+                  {clockMeta}
+                </span>
+              )}
+            </div>
+            {/* Scene status — Caption, right-aligned, subordinate to clock */}
+            <span className="font-mono text-[11px] md:text-xs uppercase tracking-[0.18em] text-text-faint text-right pt-2 max-w-[14rem]">
+              {scene.status}
+            </span>
+          </div>
+        </div>
+
+        {/* Hairline — fades in with the mask (invisible at top of page,
+            visible only when the mask is actively protecting the
+            clock). Sits at the bottom of the fade zone where editorial
+            text becomes fully visible. */}
+        <motion.div
+          aria-hidden="true"
+          className="absolute inset-x-6 md:inset-x-10 h-px"
+          style={{
+            top: '210px',
+            opacity: stickyMaskOpacity,
+            background:
+              'linear-gradient(90deg, transparent 0%, rgba(232, 230, 225, 0.10) 20%, rgba(232, 230, 225, 0.10) 80%, transparent 100%)',
+          }}
+        />
+      </motion.div>
+
       {/* Sticky frame — pins the scene for the welcome act / entire page.
           When children are passed, this sticky stays pinned through the
           editorial sections (cards rise up over the held video). When
@@ -389,69 +499,6 @@ export default function HomeHero({ children } = {}) {
               opacity: vignetteOpacity,
               background:
                 `radial-gradient(ellipse 120% 80% at 50% 70%, transparent 0%, ${SURFACE_DEEP} 75%)`,
-            }}
-          />
-        </motion.div>
-
-        {/* Sticky top header — clock left, scene status right. Sits
-            above the held video and DOES NOT translate with content, so
-            it stays pinned at the top of the viewport for the entire
-            page scroll. Fades out through the release at the bottom of
-            the section so the chrome doesn't bleed into the footer.
-            Gradient backdrop + hairline define it as a discrete element.
-
-            Note: opacity is driven by a MotionValue (stickyHeaderOpacity)
-            so we don't use the fadeUp helper here — that would set
-            initial:opacity:0 which collides with the MotionValue. */}
-        <motion.div
-          initial={{ y: 8 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.55, delay: 0.05, ease: easing }}
-          className="absolute top-0 left-0 right-0 z-20 pointer-events-none"
-          style={{ opacity: stickyHeaderOpacity }}
-        >
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 -z-10"
-            style={{
-              background:
-                'linear-gradient(180deg, rgba(15,17,18,0.78) 0%, rgba(15,17,18,0.45) 55%, rgba(15,17,18,0) 100%)',
-            }}
-          />
-          <div className="max-w-6xl mx-auto w-full flex items-start justify-between gap-4 px-6 pt-8 pb-7 md:px-10 md:pt-10 md:pb-9">
-            {/* Clock — Heading 1 register, mono, tabular-nums */}
-            <div className="flex flex-col items-start leading-none">
-              <span
-                className="font-mono text-[2.75rem] md:text-[3rem] lg:text-[3.25rem] font-semibold text-text-primary leading-none"
-                style={{
-                  fontVariantNumeric: 'tabular-nums',
-                  letterSpacing: '0',
-                }}
-                aria-label={`Current time in Delta, BC: ${clockTime} ${clockMeta}`}
-              >
-                {clockTime}
-              </span>
-              {clockMeta && (
-                <span
-                  aria-hidden="true"
-                  className="font-mono text-[11px] md:text-xs uppercase tracking-[0.22em] text-text-muted mt-2.5"
-                >
-                  {clockMeta}
-                </span>
-              )}
-            </div>
-            {/* Scene status — Caption, right-aligned, subordinate to clock */}
-            <span className="font-mono text-[11px] md:text-xs uppercase tracking-[0.18em] text-text-faint text-right pt-2 max-w-[14rem]">
-              {scene.status}
-            </span>
-          </div>
-          {/* Hairline separator — quietly defines the header zone */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-6 md:inset-x-10 bottom-0 h-px"
-            style={{
-              background:
-                'linear-gradient(90deg, transparent 0%, rgba(232, 230, 225, 0.10) 20%, rgba(232, 230, 225, 0.10) 80%, transparent 100%)',
             }}
           />
         </motion.div>

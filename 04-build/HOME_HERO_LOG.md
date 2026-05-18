@@ -69,6 +69,99 @@ existing content as children of `HomeHero` (additive — no existing
 elements were removed). Release armed at `HOME_HERO_RELEASE_START = 0.88`,
 which lands the vignette fully opaque right before the footer enters.
 
+## iter 19 · 2026-05-17 — scroll-activated soft mask (room stays clean on land)
+Kash, on iter 18's stronger mask: "bro i don't like it, it cuts off
+from my thing." The 75%-opaque 240px band was successfully blocking
+overlap but it was also cutting a visible dark slab across the top
+of the room — defeating the whole point of having the pixel-art
+hero. Three goals were in tension:
+  1. Clock pinned at top
+  2. No dark band cutting the room
+  3. No overlap when editorial scrolls up to the clock
+
+Resolution: the mask only exists WHEN IT'S NEEDED. On land, the room
+reads cleanly with the clock floating on top of the video — no band,
+no chrome wash. As soon as the visitor scrolls, the mask fades in
+behind the clock to catch the rising editorial text.
+
+Changes:
+- Added `stickyMaskOpacity` motion value driven by raw `scrollY`:
+    0–150px:   mask fully invisible (clean hero)
+    150–450px: fades in
+    450px+:    fully visible (active protection)
+- Mask backdrop wrapped in `motion.div` with `opacity: stickyMaskOpacity`.
+- Mask gradient softened — max ~82% surface-deep (not 100% black),
+  fading at 55% of the band. So even at full activation it reads as
+  a "darker zone" rather than a hard slab.
+- Mask band height trimmed 240px → 210px (less area to dominate when
+  visible).
+- Hairline moved to top: 210px and also wired to stickyMaskOpacity,
+  so it appears with the mask and is invisible when the room is on
+  its own.
+
+Tunable: the 150/450 stops control "when does the mask appear?";
+the 0.82 in the gradient controls "how dark when active?". For an
+even subtler veil drop the 0.82 to ~0.65; for a snappier appearance
+move the second stop closer to the first (e.g., 150/250).
+
+## iter 18 · 2026-05-17 — strengthen the fade-mask (was still leaking)
+Kash, UX check: "are they still overlapping? you tell from a UX/UI
+standpoint." Honest answer was yes — the iter 17 mask had the right
+structure (z-30 above children) but the wrong shape. The opaque
+portion only covered the first 28% of a 200px band, so by the time a
+serif h1 like "Ambitious but executioneery." rose into the clock's
+own y-range, the gradient was already 80% transparent. Text read as
+faded, not hidden — clock digits and headline still shared pixels.
+
+Fix is a more aggressive gradient:
+  - Band height bumped to 240px (was 200px)
+  - 0px–180px (75% of band): FULLY opaque — clock content has full
+    breathing room, no editorial text leaks alongside the digits
+  - 180px–240px (last 25%): tight fade to transparent
+  - Hairline moved to top: 240px
+
+A 75% solid stop is enough to cover both the clock's tallest
+breakpoint (~156px including pt-10/pb-9 paddings) and the visual
+"buffer" Kash flagged as overlap. The fade still happens, just over
+a shorter, sharper 60px window — text resolves cleanly into view
+right at the line instead of half-fading through the clock's right
+edge.
+
+## iter 17 · 2026-05-17 — fix clock overlap with scrolling text (z-30 + fade-mask)
+Kash: "the texts overlap with the clock — as the text scrolls up, can
+it lose opacity until it reaches the line?"
+
+Root cause was a z-stacking flaw. The clock + status header was inside
+the sticky video frame at z-0 of the section. Children (the editorial
+content) are at z-10 of the section, so they PAINTED OVER the entire
+sticky frame, including the clock. No backdrop opacity on the clock
+could fix it because the clock was structurally underneath children.
+
+Resolution:
+- Pulled the clock + status out of the sticky frame and placed it as
+  its own zero-height sticky at the SECTION level, z-30. Now the clock
+  paints above children (z-10) and above the video sticky (z-0). It
+  stays pinned to viewport top for the entire section's scroll.
+- Added a fade-mask gradient inside the z-30 layer. The gradient is
+  vertical: fully opaque surface-deep at the very top → 100% opaque
+  for the first 28% (covers the clock's own height) → fade through
+  55% at 70% of the band → fully transparent at 200px from the
+  viewport top.
+- The hairline now sits at exactly 200px from the viewport top, on
+  the line where the fade-mask becomes transparent. As editorial text
+  scrolls up, it passes behind the gradient and visibly fades to
+  invisibility before crossing the hairline.
+- Clock + status content is layered on top of the fade-mask within
+  the z-30 sticky, so the clock is always crisp and readable while
+  the mask handles the scrolling text underneath.
+- `stickyHeaderOpacity` still drives the whole z-30 layer's fade
+  through the release at the bottom of the section, so the chrome
+  doesn't bleed into the footer.
+
+Visual result: the editorial text appears to lose opacity as it
+approaches the clock, vanishing right at the hairline — no more
+overlap.
+
 ## iter 16 · 2026-05-17 — darken middle, push bottom to ~95% for footer blend
 Kash, on screenshots: "letters at the middle aren't visible — overlay
 needs to be darker" and "transition feels off to footer." The 22%–62%
