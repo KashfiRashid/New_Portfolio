@@ -29,10 +29,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Living-window hero — full viewport. Pixel-art video, time-aware
-          status, identity layer. Everything below this is the existing
-          homepage, preserved, pushed down. See components/HomeHero.jsx. */}
-      <HomeHero />
+      {/* Living-window hero — wraps the entire homepage so the pinned
+          video stays in the background behind the editorial sections,
+          cards, HoF, Featured Work, and "shipped" line. The clock +
+          scene status header is pinned to the top of the viewport
+          throughout this scroll. The scale + vignette release fires
+          right before the footer takes over.
+          See components/HomeHero.jsx. */}
+      <HomeHero>
 
       {/* Top bar — name only, no traditional nav. Sits right under the
           hero with minimal padding so the editorial headline that follows
@@ -166,6 +170,7 @@ export default function Home() {
           </p>
         </section>
       </Reveal>
+      </HomeHero>
     </div>
   )
 }
