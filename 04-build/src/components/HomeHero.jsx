@@ -277,12 +277,26 @@ export default function HomeHero({ children } = {}) {
   // -------------------------------------------------------------------
   // Identity copy
   // -------------------------------------------------------------------
-  const identityLine =
-    'Designer and developer. I find the real problem and ship the disciplined version of it.'
-  const voiceLine =
-    'I design and ship. Mostly at 2am. Mostly with AI as the orchestra and me as the conductor.'
-  const statusLine =
-    'Currently at FIC IT Squad · graduating SFU SIAT June 10 · Delta, BC'
+  // Identity line — one complete sentence, two semantic emphases:
+  // "design engineer" (what I am) and "user experience" (what I focus
+  // on). Both rendered in the same warm token color via Tailwind class
+  // (`text-accent-glow` resolves through
+  // theme.extend.colors.accent.glow in tailwind.config.js) plus
+  // `font-semibold` — Apple HIG uses BOTH color and weight together
+  // for emphasis, not color alone. Single color, two hits.
+  //
+  // Voice line, status line, and scene-fallback note were intentionally
+  // removed from the hero (Apple-style restraint — one intro line, no
+  // bluff). Their copy is still defined elsewhere in the project if we
+  // want them back somewhere.
+  //
+  // Do NOT hardcode a hex. Do NOT use visitor color on hero text
+  // (default slate is invisible on the dark video background).
+  const identityLine = (
+    <>
+      I am a <span className="text-accent-glow font-semibold">design engineer</span> who loves designing creative solutions for <span className="text-accent-glow font-semibold">user experience</span>.
+    </>
+  )
 
   // -------------------------------------------------------------------
   // Reveal cadence — matches the rest of the site
@@ -387,10 +401,13 @@ export default function HomeHero({ children } = {}) {
             fade-mask backdrop within this z-30 layer. */}
         <div className="absolute top-0 left-0 right-0">
           <div className="max-w-6xl mx-auto w-full flex items-start justify-between gap-4 px-6 pt-8 pb-7 md:px-10 md:pt-10 md:pb-9">
-            {/* Clock — Heading 1 register, mono, tabular-nums */}
+            {/* Clock — Heading 1 register, mono, tabular-nums.
+                `text-hero-legible` adds a soft dark halo via text-shadow
+                so the digits stay readable on bright video frames
+                without needing a visible dark backdrop band. */}
             <div className="flex flex-col items-start leading-none">
               <span
-                className="font-mono text-[2.75rem] md:text-[3rem] lg:text-[3.25rem] font-semibold text-text-primary leading-none"
+                className="font-mono text-[2.75rem] md:text-[3rem] lg:text-[3.25rem] font-semibold text-text-primary leading-none text-hero-legible"
                 style={{
                   fontVariantNumeric: 'tabular-nums',
                   letterSpacing: '0',
@@ -402,14 +419,15 @@ export default function HomeHero({ children } = {}) {
               {clockMeta && (
                 <span
                   aria-hidden="true"
-                  className="font-mono text-[11px] md:text-xs uppercase tracking-[0.22em] text-text-muted mt-2.5"
+                  className="font-mono text-[11px] md:text-xs uppercase tracking-[0.22em] text-text-muted mt-2.5 text-hero-legible"
                 >
                   {clockMeta}
                 </span>
               )}
             </div>
-            {/* Scene status — Caption, right-aligned, subordinate to clock */}
-            <span className="font-mono text-[11px] md:text-xs uppercase tracking-[0.18em] text-text-faint text-right pt-2 max-w-[14rem]">
+            {/* Scene status — Caption, right-aligned, subordinate to clock.
+                Same legibility halo so it doesn't dissolve on bright frames. */}
+            <span className="font-mono text-[11px] md:text-xs uppercase tracking-[0.18em] text-text-faint text-right pt-2 max-w-[14rem] text-hero-legible">
               {scene.status}
             </span>
           </div>
@@ -516,49 +534,57 @@ export default function HomeHero({ children } = {}) {
               01-brand-book/06-visual-direction.md. */}
           <div className="flex-1 flex items-center">
             <div className="px-6 md:px-10 mx-auto max-w-2xl w-full py-16 md:py-24">
+              {/* Kicker — natural sentence intro, sized properly so it
+                  reads at arm's length without straining. Sans-serif
+                  (same family as the name), normal case, no extra
+                  tracking. The 16-20px range is Apple HIG body-large /
+                  callout territory — comfortably legible while still
+                  clearly subordinate to the giant name below. */}
               <motion.p
                 {...fadeUp(0.15)}
-                className="font-mono text-xs uppercase tracking-[0.22em] text-text-faint mb-5"
+                className="font-sans text-base md:text-lg lg:text-xl text-text-muted mb-6 text-hero-legible"
               >
                 my name is
               </motion.p>
 
+              {/* Name — single-word product-hero treatment. Just "Kashfi"
+                  at Apple-display scale: bold Inter (font-sans + bold),
+                  very tight tracking (-0.045em), tight leading (0.92),
+                  and a much larger clamp than the regular display
+                  scale — 80px on small screens up to ~136px on wide
+                  desktop. The font tokens still live in
+                  tailwind.config.js (font-sans → Inter); only the size
+                  is arbitrary here because the standard text-display-xl
+                  scale wasn't big enough for a single-word hero. The
+                  reference is Apple product pages: one word, oversized,
+                  bold-but-not-aggressive, plenty of breathing room. */}
               <motion.h1
                 {...fadeUp(0.22)}
-                className="text-display-xl font-display tracking-tight text-text-primary leading-[1.05] mb-7"
+                className="font-sans font-bold tracking-[-0.045em] text-text-primary leading-[0.92] mb-12 text-[clamp(5rem,12vw,8.5rem)]"
               >
-                Kashfi Rashid
+                Kashfi
               </motion.h1>
 
+              {/* Intro line — Apple HIG "Headline" / web-product-page
+                  intro scale: 20-28px range, regular weight on the
+                  prose, semibold + accent on the two emphasis phrases.
+                  Leading 1.5 for comfortable reading at this size
+                  (looser than 1.4 — gives the two-line wrap real
+                  breathing room). max-w-prose keeps the measure at
+                  roughly 60-65 characters per line. */}
               <motion.p
                 {...fadeUp(0.38)}
-                className="text-text-primary text-base md:text-lg leading-[1.55] max-w-prose mb-5"
+                className="text-text-primary text-xl md:text-2xl lg:text-[1.625rem] leading-[1.55] max-w-prose"
               >
                 {identityLine}
               </motion.p>
 
-              <motion.p
-                {...fadeUp(0.46)}
-                className="text-text-muted text-base leading-[1.55] max-w-prose mb-7"
-              >
-                {voiceLine}
-              </motion.p>
-
-              <motion.p
-                {...fadeUp(0.54)}
-                className="font-mono text-sm text-text-faint leading-[1.5]"
-              >
-                {statusLine}
-              </motion.p>
-
-              {scene.isFallbackVideo && (
-                <motion.p
-                  {...fadeUp(0.62)}
-                  className="mt-6 font-mono text-[11px] md:text-xs uppercase tracking-[0.18em] text-text-faint/80"
-                >
-                  scene set: working · other time-of-day clips pending
-                </motion.p>
-              )}
+              {/* Voice line, status line, and scene-fallback note
+                  intentionally removed for hero restraint. The intro
+                  above carries the load: who you are + what you focus
+                  on. Apple's iPhone landing pages model this exact
+                  pattern — one product name, one intro sentence, one
+                  CTA at most. */}
             </div>
           </div>
 

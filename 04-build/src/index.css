@@ -199,6 +199,44 @@ body::after {
     transform: translateX(4px);
   }
 
+  /* Hero-legible — soft dark halo for chrome text that sits on top of
+     the held video (clock, scene status). On bright video frames the
+     text could otherwise dissolve into the room — this adds a tight
+     close-shadow plus a wider faint glow, both pulled from the
+     surface-deep token via theme(), so the hex value stays in
+     tailwind.config.js. Apple HIG pattern for text-on-photo: a
+     low-spread dark shadow keeps glyphs readable without putting a
+     visible box or backdrop behind them. */
+  .text-hero-legible {
+    text-shadow:
+      0 1px 2px theme('colors.surface.deep / 60%'),
+      0 2px 14px theme('colors.surface.deep / 75%'),
+      0 0 28px theme('colors.surface.deep / 40%');
+  }
+
+  /* Marker-accent — highlighter-pen stroke behind text. Used in the
+     hero to emphasize role words. The bar now covers ~80% of the text
+     height (from 15% down to 95%) at 55% opacity, so the highlight
+     reads as a real marker stroke that someone actually drew, not a
+     polite shadow. The warm color is pulled from the accent.glow token
+     via theme() — the hex value stays in tailwind.config.js and this
+     utility references it by name, so re-tuning the accent in config
+     propagates here automatically. */
+  .marker-accent {
+    background-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 15%,
+      theme('colors.accent.glow / 55%') 15%,
+      theme('colors.accent.glow / 55%') 95%,
+      transparent 95%
+    );
+    background-repeat: no-repeat;
+    padding: 0 0.14em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
   /* Footer ambient LED — thin pulsing gradient at the top of the footer.
      Evokes a monitor standby LED. 8s cycle. */
   .footer-ambient-line {
