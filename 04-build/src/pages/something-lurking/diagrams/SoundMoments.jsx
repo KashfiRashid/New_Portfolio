@@ -22,7 +22,7 @@ const TOP_Y = 50
 const BOTTOM_Y = 168
 
 function colorFor(kind) {
-  return kind === 'voice' ? '#C8362A' : '#7FA050'
+  return kind === 'voice' ? '#6E3FB3' : '#7FA050'
 }
 
 export default function SoundMoments() {
@@ -48,10 +48,10 @@ export default function SoundMoments() {
       <text x={X0} y="22" fill="#71717a" fontFamily={MONO} fontSize="10" letterSpacing="1.6">
         ACT I
       </text>
-      <text x={X0 + 0.33 * (X1 - X0)} y="22" fill="#E85850" fontFamily={MONO} fontSize="10" letterSpacing="1.6">
+      <text x={X0 + 0.33 * (X1 - X0)} y="22" fill="#9268E0" fontFamily={MONO} fontSize="10" letterSpacing="1.6">
         ACT II
       </text>
-      <text x={X0 + 0.71 * (X1 - X0)} y="22" fill="#C8362A" fontFamily={MONO} fontSize="10" letterSpacing="1.6" fontWeight="700">
+      <text x={X0 + 0.71 * (X1 - X0)} y="22" fill="#6E3FB3" fontFamily={MONO} fontSize="10" letterSpacing="1.6" fontWeight="700">
         ACT III
       </text>
 

@@ -4,13 +4,16 @@ import { motion, useScroll, useSpring } from 'framer-motion'
  * <ScrollProgress /> — thin progress line at the top of the viewport.
  *
  * Visitor's color, 40% opacity, 1px height. Fixed position.
- * Uses framer-motion useScroll → scaleX for buttery-smooth tracking.
+ * Uses framer-motion useScroll → scaleX. The spring is tuned snappy
+ * (low damping, high stiffness) so the line tracks scroll near-1:1
+ * — laggy progress bars feel unresponsive, especially on fast scrolls
+ * down long case studies.
  */
 export default function ScrollProgress() {
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, {
-    damping: 50,
-    stiffness: 300,
+    damping: 28,
+    stiffness: 520,
     restDelta: 0.001,
   })
 

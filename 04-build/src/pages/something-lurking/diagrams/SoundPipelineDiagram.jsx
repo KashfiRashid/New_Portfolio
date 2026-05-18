@@ -63,7 +63,7 @@ export default function SoundPipelineDiagram() {
       <FlowRow
         y={56}
         label="CHARACTER VOICES (Captain Harry, Jack, the presence)"
-        accent="#C8362A"
+        accent="#6E3FB3"
         stages={[
           { label: 'ELEVEN LABS', sub: 'TTS voice generation' },
           { label: 'AUDACITY', sub: 'Reverb · EQ · pitch' },

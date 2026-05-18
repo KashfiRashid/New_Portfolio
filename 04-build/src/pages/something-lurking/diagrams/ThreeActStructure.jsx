@@ -62,7 +62,7 @@ export default function ThreeActStructure() {
 
       {ACTS.map((act, i) => {
         const x = X0 + i * (COL_W + GAP)
-        const accent = i === 2 ? '#C8362A' : i === 1 ? '#E85850' : '#9CA3AF'
+        const accent = i === 2 ? '#6E3FB3' : i === 1 ? '#9268E0' : '#9CA3AF'
         return (
           <g key={act.n}>
             {/* Act number in display serif */}

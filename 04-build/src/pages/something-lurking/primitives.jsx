@@ -4,18 +4,25 @@ import { Link } from 'react-router-dom'
  * Something Lurking — case study primitives.
  *
  * Shares the dark-canvas register with bc-connect, blu, and spectral-bloom
- * (same fonts, same layout rhythm) but carries its own accent: emergency
- * red #C8362A with a bright variant #E85850 and a sickly green #7FA050
- * counterpoint used inside diagrams for the 1:1000 bioluminescent register.
+ * (same fonts, same layout rhythm) but carries its own accent: deep
+ * alien purple #6E3FB3 with a bright variant #9268E0 — reads cold,
+ * otherworldly, and "lurking," fitting a sci-fi horror on a failing
+ * space station where the antagonist is the sound. The sickly green
+ * #7FA050 stays as the counterpoint used inside diagrams for the
+ * 1:1000 bioluminescent register.
+ *
+ * Distinct from parpro coral / bc-connect green / spectral-bloom
+ * magenta — the violet sits cleanly between blue and pink without
+ * touching either project's hue.
  *
  * Accent-neutral primitives (SectionHead, MonoKicker, MetaBlock) are
  * re-exported straight from bc-connect so there is one source of truth.
- * The accented ones are redefined here in emergency red.
+ * The accented ones are redefined here in alien purple.
  */
 export { SectionHead, MonoKicker, MetaBlock } from '../bc-connect/primitives.jsx'
 
-export const SL_ACCENT = '#C8362A'
-export const SL_ACCENT_BRIGHT = '#E85850'
+export const SL_ACCENT = '#6E3FB3'
+export const SL_ACCENT_BRIGHT = '#9268E0'
 export const SL_COOL = '#7FA050'
 
 export const SL_NAV = [
@@ -51,11 +58,11 @@ export function SideNav({ activeId = '' }) {
               <a
                 href={`#${item.id}`}
                 className={`flex items-center gap-2 py-1.5 font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.14em] transition-colors ${
-                  active ? 'text-[#C8362A]' : 'text-zinc-500 hover:text-zinc-300'
+                  active ? 'text-[#9268E0]' : 'text-zinc-500 hover:text-zinc-300'
                 }`}
               >
                 <span
-                  className={`h-1 w-1 shrink-0 rounded-full ${active ? 'bg-[#C8362A]' : 'bg-transparent'}`}
+                  className={`h-1 w-1 shrink-0 rounded-full ${active ? 'bg-[#9268E0]' : 'bg-transparent'}`}
                   aria-hidden
                 />
                 {item.label}
@@ -71,7 +78,7 @@ export function SideNav({ activeId = '' }) {
 export function PullQuote({ children, className = '' }) {
   return (
     <blockquote
-      className={`mx-auto max-w-3xl text-center font-[family-name:var(--font-display)] text-xl italic leading-relaxed text-[#E85850] md:text-2xl ${className}`}
+      className={`mx-auto max-w-3xl text-center font-[family-name:var(--font-display)] text-xl italic leading-relaxed text-[#9268E0] md:text-2xl ${className}`}
     >
       {children}
     </blockquote>
@@ -82,7 +89,7 @@ export function StepCard({ step, title, children, className = '' }) {
   return (
     <article className={`space-y-6 py-16 ${className}`}>
       <div className="space-y-3">
-        <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.16em] text-[#C8362A]">
+        <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.16em] text-[#6E3FB3]">
           {step}
         </p>
         {title ? (
@@ -103,7 +110,7 @@ export function PainPointCard({ index, title, children, className = '' }) {
     <article
       className={`flex flex-col gap-3 border border-white/[0.06] bg-white/[0.02] p-6 ${className}`}
     >
-      <span className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[#E85850]">
+      <span className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[#9268E0]">
         Pain Point #{index}
       </span>
       {title ? (
@@ -122,7 +129,7 @@ export function PainPointCard({ index, title, children, className = '' }) {
 export function ActionBlock({ n, title, children, className = '' }) {
   return (
     <article className={`space-y-4 ${className}`}>
-      <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.18em] text-[#C8362A]">
+      <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.18em] text-[#6E3FB3]">
         Action {n}
       </p>
       <h3 className="font-[family-name:var(--font-display)] text-2xl font-normal text-white md:text-3xl">
@@ -167,7 +174,7 @@ export function AssetPlaceholder({
       aria-label={`${kind} placeholder: ${slotId}. ${description}`}
       className={`flex min-h-[220px] flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-zinc-600 bg-zinc-900/40 px-6 py-12 text-center ${className}`}
     >
-      <span className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.2em] text-[#E85850]">
+      <span className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.2em] text-[#9268E0]">
         {kind} placeholder
       </span>
       <span className="mt-1 font-[family-name:var(--font-mono)] text-sm text-zinc-300">{slotId}</span>
@@ -205,10 +212,12 @@ export function Figure({ src, alt, caption, label, className = '' }) {
         loading="lazy"
         className="w-full rounded-lg border border-white/[0.08]"
       />
-      <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-600">
-        {label ? <span className="text-[#E85850]">{label}</span> : null}
-        {label && caption ? <span className="mx-2 text-zinc-700">·</span> : null}
-        {caption ? <span>{caption}</span> : null}
+      <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">
+        {label ? (
+          <span className="text-[#9268E0]">{label}</span>
+        ) : null}
+        {label && caption ? ' · ' : null}
+        {caption}
       </figcaption>
     </figure>
   )

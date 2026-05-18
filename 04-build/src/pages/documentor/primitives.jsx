@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom'
  * DocuMentor — case study primitives.
  *
  * Shares the dark-canvas register with the other case studies but
- * carries its own accent: deep indigo #5E62E0 with bright variant
- * #8B8FF5. The indigo reads scholarly and digital, fits "guide for
- * navigating uncertainty." Distinct from bc-connect green,
- * spectral-bloom magenta, blu blue, something-lurking red, and
- * parpro coral.
+ * carries its own accent: marigold orange #E8A53B with a bright
+ * variant #F4C26B. The marigold reads warm and welcoming — matches
+ * the actual DocuMentor app's primary brand color, so the case
+ * study theme echoes the product the visitor will see embedded in
+ * the diagrams and screenshots. Distinct from bc-connect green,
+ * spectral-bloom magenta, blu cyan, something-lurking purple, and
+ * parpro coral — none of these warm tones overlap.
  */
 export {
   MonoKicker,
@@ -18,8 +20,8 @@ export {
   AssetPlaceholder,
 } from '../bc-connect/primitives.jsx'
 
-export const DOC_ACCENT = '#5E62E0'
-export const DOC_ACCENT_BRIGHT = '#8B8FF5'
+export const DOC_ACCENT = '#E8A53B'
+export const DOC_ACCENT_BRIGHT = '#F4C26B'
 
 export const DOC_NAV = [
   { id: 'overview', label: 'Overview' },
@@ -54,11 +56,11 @@ export function SideNav({ activeId = '' }) {
               <a
                 href={`#${item.id}`}
                 className={`flex items-center gap-2 py-1.5 font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.14em] transition-colors ${
-                  active ? 'text-[#8B8FF5]' : 'text-zinc-500 hover:text-zinc-300'
+                  active ? 'text-[#F4C26B]' : 'text-zinc-500 hover:text-zinc-300'
                 }`}
               >
                 <span
-                  className={`h-1 w-1 shrink-0 rounded-full ${active ? 'bg-[#8B8FF5]' : 'bg-transparent'}`}
+                  className={`h-1 w-1 shrink-0 rounded-full ${active ? 'bg-[#F4C26B]' : 'bg-transparent'}`}
                   aria-hidden
                 />
                 {item.label}
@@ -74,7 +76,7 @@ export function SideNav({ activeId = '' }) {
 export function PullQuote({ children, className = '' }) {
   return (
     <blockquote
-      className={`mx-auto max-w-3xl text-center font-[family-name:var(--font-display)] text-xl italic leading-relaxed text-[#8B8FF5] md:text-2xl ${className}`}
+      className={`mx-auto max-w-3xl text-center font-[family-name:var(--font-display)] text-xl italic leading-relaxed text-[#F4C26B] md:text-2xl ${className}`}
     >
       {children}
     </blockquote>
@@ -84,7 +86,7 @@ export function PullQuote({ children, className = '' }) {
 export function ActionBlock({ n, title, children, className = '' }) {
   return (
     <article className={`space-y-4 ${className}`}>
-      <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.18em] text-[#8B8FF5]">
+      <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.18em] text-[#F4C26B]">
         Action {n}
       </p>
       <h3 className="font-[family-name:var(--font-display)] text-2xl font-normal text-white md:text-3xl">

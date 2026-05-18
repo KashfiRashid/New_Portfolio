@@ -58,20 +58,20 @@ export default function ResearchSynthesis() {
       </text>
 
       {/* Dots */}
-      <g fill="#8B8FF5">
+      <g fill="#F4C26B">
         {DOTS.map((d, i) => (
           <circle key={i} cx={d.x} cy={d.y} r="2.2" opacity="0.6" />
         ))}
       </g>
 
       {/* Funnel */}
-      <g stroke="#5E62E0" strokeWidth="1.2" fill="none" opacity="0.5">
+      <g stroke="#E8A53B" strokeWidth="1.2" fill="none" opacity="0.5">
         <line x1="230" y1="40" x2="430" y2="120" />
         <line x1="230" y1="260" x2="430" y2="180" />
       </g>
 
       {/* Right header */}
-      <text x="600" y="22" fill="#5E62E0" fontFamily={MONO} fontSize="10" letterSpacing="1.6" textAnchor="middle" fontWeight="700">
+      <text x="600" y="22" fill="#E8A53B" fontFamily={MONO} fontSize="10" letterSpacing="1.6" textAnchor="middle" fontWeight="700">
         THREE PAIN POINTS
       </text>
 
@@ -80,8 +80,8 @@ export default function ResearchSynthesis() {
         const y = 40 + i * 76
         return (
           <g key={p.label}>
-            <rect x="450" y={y} width="320" height="58" rx="6" fill="#5E62E014" stroke="#5E62E0" strokeWidth="1" />
-            <text x="466" y={y + 24} fill="#8B8FF5" fontFamily={MONO} fontSize="11" letterSpacing="1.4">
+            <rect x="450" y={y} width="320" height="58" rx="6" fill="#E8A53B14" stroke="#E8A53B" strokeWidth="1" />
+            <text x="466" y={y + 24} fill="#F4C26B" fontFamily={MONO} fontSize="11" letterSpacing="1.4">
               {p.label}
             </text>
             <text x="466" y={y + 44} fill="#a1a1aa" fontFamily={SANS} fontSize="11" fontStyle="italic">

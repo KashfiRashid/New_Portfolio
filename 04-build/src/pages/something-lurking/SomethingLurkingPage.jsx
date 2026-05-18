@@ -50,7 +50,7 @@ export default function SomethingLurkingPage() {
 
   return (
     <div
-      className="relative min-h-screen bg-[#0F1216] text-zinc-200 antialiased selection:bg-[#C8362A]/30"
+      className="relative min-h-screen bg-[#0F1216] text-zinc-200 antialiased selection:bg-[#6E3FB3]/30"
       style={{
         // Inherit the portfolio's global font stack so the case study reads
         // as part of the same site. Stack mirrors tailwind.config.js.
@@ -60,7 +60,7 @@ export default function SomethingLurkingPage() {
       }}
     >
       <div
-        className="pointer-events-none fixed inset-0 bg-gradient-to-br from-[#C8362A]/[0.05] via-transparent to-[#7FA050]/[0.03]"
+        className="pointer-events-none fixed inset-0 bg-gradient-to-br from-[#6E3FB3]/[0.05] via-transparent to-[#7FA050]/[0.03]"
         aria-hidden
       />
 

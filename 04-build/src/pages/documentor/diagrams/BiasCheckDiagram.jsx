@@ -50,8 +50,8 @@ export default function BiasCheckDiagram() {
 
       {NODES.map((node, i) => {
         const x = X0 + i * (BOX_W + GAP)
-        const stroke = node.solid ? '#8B8FF5' : node.tentative ? '#52525b' : '#71717a'
-        const fill = node.solid ? '#5E62E014' : 'none'
+        const stroke = node.solid ? '#F4C26B' : node.tentative ? '#52525b' : '#71717a'
+        const fill = node.solid ? '#E8A53B14' : 'none'
         return (
           <g key={node.label}>
             <rect
@@ -65,7 +65,7 @@ export default function BiasCheckDiagram() {
               strokeWidth={node.solid ? '1.5' : '1'}
               strokeDasharray={node.tentative ? '4 3' : '0'}
             />
-            <text x={x + BOX_W / 2} y={Y + 28} fill={node.solid ? '#8B8FF5' : '#d4d4d8'} fontFamily={MONO} fontSize="11" letterSpacing="1.4" textAnchor="middle">
+            <text x={x + BOX_W / 2} y={Y + 28} fill={node.solid ? '#F4C26B' : '#d4d4d8'} fontFamily={MONO} fontSize="11" letterSpacing="1.4" textAnchor="middle">
               {node.label}
             </text>
             <text x={x + BOX_W / 2} y={Y + 48} fill="#a1a1aa" fontFamily={SANS} fontSize="11" textAnchor="middle" fontStyle="italic">
@@ -73,7 +73,7 @@ export default function BiasCheckDiagram() {
             </text>
             {i < NODES.length - 1 ? (
               <g>
-                <g stroke="#5E62E0" strokeWidth="1.2" fill="none" opacity="0.6">
+                <g stroke="#E8A53B" strokeWidth="1.2" fill="none" opacity="0.6">
                   <line x1={x + BOX_W + 4} y1={Y + BOX_H / 2} x2={x + BOX_W + GAP - 6} y2={Y + BOX_H / 2} />
                   <path d={`M ${x + BOX_W + GAP - 6} ${Y + BOX_H / 2} l -5 -4 m 5 4 l -5 4`} />
                 </g>

@@ -35,8 +35,8 @@ export default function Sound() {
             Captain Harry on the radio. Friendly. Routine. A low hum from the station's systems. Footsteps on metal. The room sounds inhabited.
           </p>
         </div>
-        <div className="border border-[#C8362A]/30 bg-[#C8362A]/[0.04] p-6">
-          <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.18em] text-[#E85850]">
+        <div className="border border-[#6E3FB3]/30 bg-[#6E3FB3]/[0.04] p-6">
+          <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.18em] text-[#9268E0]">
             Act III sound brief
           </p>
           <p className="mt-3 font-[family-name:var(--font-sans)] text-[15px] leading-relaxed text-zinc-200">

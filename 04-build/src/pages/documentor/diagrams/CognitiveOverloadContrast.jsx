@@ -68,23 +68,23 @@ export default function CognitiveOverloadContrast() {
 
       {/* DOCUMENTOR phone */}
       <g>
-        <text x="640" y="24" fill="#8B8FF5" fontFamily={MONO} fontSize="11" letterSpacing="1.6" textAnchor="middle" fontWeight="700">
+        <text x="640" y="24" fill="#F4C26B" fontFamily={MONO} fontSize="11" letterSpacing="1.6" textAnchor="middle" fontWeight="700">
           DOCUMENTOR
         </text>
-        <text x="640" y="40" fill="#5E62E0" fontFamily={SANS} fontSize="10" textAnchor="middle" fontStyle="italic">
+        <text x="640" y="40" fill="#E8A53B" fontFamily={SANS} fontSize="10" textAnchor="middle" fontStyle="italic">
           one step. progress visible.
         </text>
         {/* phone frame */}
-        <rect x="540" y="50" width="200" height="280" rx="20" fill="none" stroke="#5E62E0" strokeWidth="1.2" />
-        <rect x="620" y="55" width="40" height="6" rx="3" fill="#5E62E0" />
+        <rect x="540" y="50" width="200" height="280" rx="20" fill="none" stroke="#E8A53B" strokeWidth="1.2" />
+        <rect x="620" y="55" width="40" height="6" rx="3" fill="#E8A53B" />
         {/* progress bar */}
         <rect x="560" y="80" width="160" height="4" rx="2" fill="none" stroke="#3f3f46" strokeWidth="1" />
-        <rect x="560" y="80" width="56" height="4" rx="2" fill="#5E62E0" />
+        <rect x="560" y="80" width="56" height="4" rx="2" fill="#E8A53B" />
         <text x="560" y="100" fill="#71717a" fontFamily={MONO} fontSize="9" letterSpacing="1">
           STEP 2 OF 7
         </text>
         {/* the one task */}
-        <rect x="560" y="140" width="160" height="56" rx="6" fill="#5E62E014" stroke="#5E62E0" strokeWidth="1" />
+        <rect x="560" y="140" width="160" height="56" rx="6" fill="#E8A53B14" stroke="#E8A53B" strokeWidth="1" />
         <text x="572" y="170" fill="#d4d4d8" fontFamily={SANS} fontSize="12">
           Upload your study permit.
         </text>
@@ -92,7 +92,7 @@ export default function CognitiveOverloadContrast() {
           ↑ TAP TO ADD FILE
         </text>
         {/* CTA */}
-        <rect x="560" y="270" width="160" height="36" rx="18" fill="#5E62E0" />
+        <rect x="560" y="270" width="160" height="36" rx="18" fill="#E8A53B" />
         <text x="640" y="293" fill="#0F1216" fontFamily={MONO} fontSize="11" letterSpacing="1.2" textAnchor="middle" fontWeight="700">
           CONTINUE
         </text>
