@@ -38,21 +38,21 @@ const MODES = [
     name: 'Bloom',
     Glyph: BloomGlyph,
     desc: 'A spherical particle cloud that breathes and pulses with bass. Orbital rings answer the frequency bands. The default.',
-    media: { kind: 'image', src: '/spectral-bloom/mode-bloom.jpg', alt: 'Bloom mode capture: dense magenta particles around the central wireframe orb.' },
+    media: { kind: 'image', src: '/spectral-bloom/mode-bloom.jpg', alt: 'Bloom mode capture: dense magenta particles around the central wireframe orb.', cursorLabel: 'bass, blooming' },
   },
   {
     n: '2',
     name: 'Wave',
     Glyph: WaveGlyph,
-    desc: 'Multi-layer waveform terrain. Time-domain data spreads the particles into a flowing landscape of sound.',
-    media: { kind: 'image', src: '/spectral-bloom/mode-wave.jpg', alt: 'Wave mode capture: multi-color waveform terrain stretched across the frame.' },
+    desc: 'Multi-layer waveform terrain. The raw shape of the sound wave spreads the particles into a flowing landscape.',
+    media: { kind: 'image', src: '/spectral-bloom/mode-wave.jpg', alt: 'Wave mode capture: multi-color waveform terrain stretched across the frame.', cursorLabel: 'sound as terrain' },
   },
   {
     n: '3',
     name: 'Nebula',
     Glyph: NebulaGlyph,
     desc: 'A dual-arm spiral galaxy. Frequency bands drive arm density and rotation speed.',
-    media: { kind: 'image', src: '/spectral-bloom/mode-nebula.jpg', alt: 'Nebula mode capture: sparse particle field with the central orb.' },
+    media: { kind: 'image', src: '/spectral-bloom/mode-nebula.jpg', alt: 'Nebula mode capture: sparse particle field with the central orb.', cursorLabel: 'a whole galaxy' },
   },
   {
     n: '4',
@@ -71,7 +71,7 @@ const MODES = [
     name: 'Helix',
     Glyph: HelixGlyph,
     desc: 'A double DNA strand. Beats wrap it tighter, frequency expands the radius.',
-    media: { kind: 'image', src: '/spectral-bloom/mode-helix.jpg', alt: 'Helix mode capture: double DNA strand twisting through the frame.' },
+    media: { kind: 'image', src: '/spectral-bloom/mode-helix.jpg', alt: 'Helix mode capture: double DNA strand twisting through the frame.', cursorLabel: 'the dna one' },
   },
 ]
 
@@ -99,6 +99,7 @@ function ModeMedia({ media }) {
       <img
         src={media.src}
         alt={media.alt}
+        data-cursor-label={media.cursorLabel}
         className="aspect-video w-full rounded-sm object-cover"
         loading="lazy"
       />
@@ -106,10 +107,17 @@ function ModeMedia({ media }) {
   }
 
   // kind === 'video'
-  return <LazyVideo src={media.src} poster={media.poster} alt={media.alt} />
+  return (
+    <LazyVideo
+      src={media.src}
+      poster={media.poster}
+      alt={media.alt}
+      cursorLabel={media.cursorLabel}
+    />
+  )
 }
 
-function LazyVideo({ src, poster, alt }) {
+function LazyVideo({ src, poster, alt, cursorLabel }) {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
 
@@ -137,6 +145,7 @@ function LazyVideo({ src, poster, alt }) {
       src={visible ? src : undefined}
       poster={poster}
       aria-label={alt}
+      data-cursor-label={cursorLabel}
       className="aspect-video w-full rounded-sm object-cover"
       muted
       loop
@@ -152,7 +161,7 @@ export default function FiveModes() {
       <SectionHead kicker="FIVE MODES" title="Same 12,000 particles. Five ways to see them." />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          Every mode is a different parametric arrangement of the same particle buffer. The audio drives all of them. Only the geometry changes.
+          Every mode is a different arrangement of the same 12,000 particles. The audio drives all of them. Only the shape changes.
         </p>
       </div>
 
@@ -201,7 +210,7 @@ export default function FiveModes() {
           Switch instantly
         </p>
         <p className="mt-2 font-[family-name:var(--font-sans)] text-sm leading-relaxed text-zinc-400">
-          Keys 1 through 5 swap modes mid-track. The 12,000 particles re-form into the new geometry without a reload.
+          Keys 1 through 5 swap modes mid-track. The 12,000 particles re-form into the new shape without a reload.
         </p>
       </div>
     </section>

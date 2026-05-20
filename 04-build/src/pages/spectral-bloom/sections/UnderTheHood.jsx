@@ -3,27 +3,27 @@ import { SectionHead } from '../primitives.jsx'
 const SPECS = [
   {
     label: 'Renderer',
-    value: 'Three.js r128 over WebGL, with ACES filmic tone mapping for the glow falloff.',
+    value: 'Three.js, the standard library for 3D in a browser, with film-style color grading so the glow falls off the way it would on camera.',
   },
   {
     label: 'Particle system',
-    value: '12,000 particles held in Float32Array buffers, drawn with additive blending so density reads as light.',
+    value: '12,000 particles, kept in tightly-packed memory and layered so that denser clusters read as brighter light.',
   },
   {
     label: 'Core geometry',
-    value: 'A wireframe icosahedron orb, six frequency-reactive rings, and a 256-point wave ring carrying the time-domain signal.',
+    value: 'A faceted wireframe orb, six rings that react to frequency, and a 256-point ring that traces the raw shape of the sound wave.',
   },
   {
     label: 'Lighting',
-    value: 'Three point lights driven by the chroma hue, so the color temperature of the scene tracks the brightness of the sound.',
+    value: 'Three lights tied to the color of the sound, so the scene warms and cools as the music brightens and darkens.',
   },
   {
     label: 'Camera',
-    value: 'A procedural Lissajous oscillation, modulated by bass and high energy, so the viewpoint drifts with the music.',
+    value: 'A looping, math-driven drift, pushed harder by bass and treble, so the viewpoint moves with the music.',
   },
   {
     label: 'Footprint',
-    value: 'One HTML file. No build step, no bundler, no dependencies beyond the Three.js CDN. It opens in a browser and runs.',
+    value: 'One HTML file. No build step, no setup — the only thing it loads is the Three.js library. It opens in a browser and runs.',
   },
 ]
 
@@ -41,6 +41,7 @@ export default function UnderTheHood() {
         <img
           src="/spectral-bloom/frame-34.jpg"
           alt="A dense burst of particles around the central wireframe orb, captured mid-track from the running build."
+          data-cursor-label="frame 34"
           className="w-full rounded-lg border border-white/[0.08]"
         />
         <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-600">

@@ -15,9 +15,9 @@ const SANS = '"DM Sans", system-ui, sans-serif'
 
 const STAGES = [
   { label: 'AUDIO ANALYSIS', sub: 'bass 72 · mid 45', sub2: 'high 20 · beat 90' },
-  { label: 'CLAUDE API', sub: '"what should this', sub2: 'look like?"' },
-  { label: 'CREATIVE JSON', sub: 'palette · mood', sub2: 'spread · speed' },
-  { label: 'SMOOTH APPLY', sub: 'LERP transition', sub2: 'over 2 to 3 seconds' },
+  { label: 'CLAUDE', sub: '"what should this', sub2: 'look like?"' },
+  { label: 'CREATIVE BRIEF', sub: 'palette · mood', sub2: 'spread · speed' },
+  { label: 'SMOOTH APPLY', sub: 'eased blend', sub2: 'over 2 to 3 seconds' },
 ]
 
 const BOX_W = 160
@@ -38,10 +38,10 @@ export default function AISynesthesiaFlow() {
     >
       <title id="flow-title">The AI synesthesia loop</title>
       <desc id="flow-desc">
-        A four-stage left-to-right pipeline. Audio analysis feeds the
-        Claude API, which returns a creative JSON payload of palette,
-        mood, spread, and speed. The visualizer applies it with a smooth
-        LERP transition. The loop repeats roughly every five seconds.
+        A four-stage left-to-right pipeline. Audio analysis feeds
+        Claude, which returns a creative brief of palette, mood,
+        spread, and speed. The visualizer applies it with a smooth,
+        eased blend. The loop repeats roughly every five seconds.
       </desc>
 
       <text x={X0} y="28" fill="#FF3D6E" fontFamily={MONO} fontSize="12" letterSpacing="2" fontWeight="700">
@@ -83,7 +83,7 @@ export default function AISynesthesiaFlow() {
       })}
 
       <text x="400" y="184" fill="#71717a" fontFamily={SANS} fontSize="12" textAnchor="middle">
-        Additive only. When no API key is set, an algorithmic mood generator fills the same slot.
+        Additive only. When the AI is not connected, a built-in formula fills the same slot.
       </text>
     </svg>
   )

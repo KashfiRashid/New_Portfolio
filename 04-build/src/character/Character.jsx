@@ -4,6 +4,7 @@ import { useCharacter } from './CharacterContext.jsx'
 import CharacterSprite from './CharacterSprite.jsx'
 import CharacterBubble from './CharacterBubble.jsx'
 import ReelHandoff from './ReelHandoff.jsx'
+import { PROJECT_VANISH_FRAME_COUNT, PROJECT_VANISH_DURATION } from './states.js'
 
 /**
  * Character — main rendered component.
@@ -40,6 +41,8 @@ const TRANSLATING_STATES = new Set([
 const GRAB_SUPPRESSION_LIST = new Set([
   'summoning_reel', 'watching_reel', 'taking_reel',
   'showcasing', 'chased', 'hiding',
+  // project_pinned: pinned to its corner on /projects/* — not grab-able.
+  'project_pinned',
 ])
 
 function useIsMobile() {
@@ -67,6 +70,8 @@ export default function Character() {
     markSpriteLoaded,
     dismissReel,
     enterGrab,
+    projectMode,
+    onProjectCharacterHover,
   } = useCharacter()
 
   const isMobile = useIsMobile()
@@ -100,7 +105,17 @@ export default function Character() {
   // Off-viewport guard (used during taking_reel exit sequence)
   const offscreen = typeof window !== 'undefined'
     && (position.x < -size || position.x > window.innerWidth + size)
-  const showSprite = visible && !offscreen && state !== 'inactive'
+  // Project-mode: while a warp phase runs, the sprite is hidden and the
+  // <VanishEffect> plays in its place. `projectHoverable` is true while
+  // the character is parked top-right and waiting for the hover home.
+  const warping = !!(
+    projectMode
+    && typeof projectMode.phase === 'string'
+    && projectMode.phase.startsWith('warp')
+  )
+  const projectHoverable = projectMode?.phase === 'tr'
+  const showSprite =
+    visible && !offscreen && state !== 'inactive' && !warping
 
   // willChange only during active translation (per main spec §11)
   const translating = TRANSLATING_STATES.has(state)
@@ -117,6 +132,7 @@ export default function Character() {
             exit={{ opacity: 0, transition: { duration: 0.3 } }}
             transition={{ duration: 0.4 }}
             onMouseDown={handleGrabStart}
+            onMouseEnter={projectHoverable ? onProjectCharacterHover : undefined}
             style={{
               position: 'fixed',
               left: charLeft,
@@ -128,9 +144,11 @@ export default function Character() {
               zIndex: (isGrabbed || isThrown) ? 60 : 48,
               // patch v1.4: pointer events flip on while grabbable so
               // the wrapper actually catches the mousedown. They stay on
-              // through `grabbed` so the cursor style holds; in every
-              // other state the character stays click-through (non-blocking).
-              pointerEvents: grabbable || isGrabbed ? 'auto' : 'none',
+              // through `grabbed` so the cursor style holds. They also
+              // flip on while project-hoverable so the wrapper catches
+              // the warp-back mouse-enter. Otherwise: click-through.
+              pointerEvents:
+                grabbable || isGrabbed || projectHoverable ? 'auto' : 'none',
               cursor: isGrabbed
                 ? 'grabbing'
                 : grabbable
@@ -171,6 +189,19 @@ export default function Character() {
               />
             </motion.div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Goku vanish effect — plays during a project-mode warp phase, in
+          place of the sprite (which is hidden while warping). */}
+      <AnimatePresence>
+        {warping && (
+          <VanishEffect
+            key="vanish"
+            x={projectMode.warpX}
+            y={projectMode.warpY}
+            size={size}
+          />
         )}
       </AnimatePresence>
 
@@ -316,6 +347,98 @@ function MugOverlay({ charLeft, charTop, size, facing }) {
           transition={{ duration: 1.6, delay, repeat: Infinity, ease: 'easeOut' }}
         />
       ))}
+    </motion.div>
+  )
+}
+
+/* -----------------------------------------------------------------------
+   VanishEffect — the Goku-style teleport burst. Renders during a project-
+   mode warp phase, where the character sprite is hidden, at the corner the
+   character is leaving from.
+
+   Two layers, so the teleport always reads:
+     1. A placeholder "poof" — an expanding, fading accent-colored burst.
+        This shows regardless of whether the real frames exist yet.
+     2. The frame sequence /character/vanish-1.png .. vanish-N.png, stepped
+        across PROJECT_VANISH_DURATION. If a frame 404s the <img> is hidden
+        (onError) and only the poof plays. Drop the real frames into
+        /public/character/ and set PROJECT_VANISH_FRAME_COUNT in states.js
+        and they take over automatically.
+   ----------------------------------------------------------------------- */
+
+function VanishEffect({ x, y, size }) {
+  const reduceMotion = useReducedMotion()
+  const [frame, setFrame] = useState(1)
+  const [framesOk, setFramesOk] = useState(true)
+
+  // Step through the numbered frames across the warp duration.
+  useEffect(() => {
+    if (reduceMotion) return undefined
+    let raf = 0
+    let start = 0
+    const N = PROJECT_VANISH_FRAME_COUNT
+    const durMs = PROJECT_VANISH_DURATION * 1000
+    const step = (t) => {
+      if (!start) start = t
+      const p = Math.min(1, (t - start) / durMs)
+      setFrame(Math.min(N, Math.floor(p * N) + 1))
+      if (p < 1) raf = requestAnimationFrame(step)
+    }
+    raf = requestAnimationFrame(step)
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [reduceMotion])
+
+  const left = Math.round(x - size / 2)
+  const top = Math.round(y - size)
+
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.12 } }}
+      style={{
+        position: 'fixed',
+        left,
+        top,
+        width: size,
+        height: size,
+        zIndex: 48,
+        pointerEvents: 'none',
+      }}
+      aria-hidden="true"
+    >
+      {/* Placeholder poof — always shown, so the teleport reads even
+          before the real frames are dropped in. */}
+      <motion.div
+        initial={{ scale: 0.5, opacity: 0.65 }}
+        animate={{ scale: 1.7, opacity: 0 }}
+        transition={{ duration: reduceMotion ? 0 : PROJECT_VANISH_DURATION, ease: 'easeOut' }}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          borderRadius: '50%',
+          background:
+            'radial-gradient(circle, rgba(232,184,106,0.55) 0%, rgba(232,184,106,0) 70%)',
+        }}
+      />
+      {/* Real frame sequence — hidden via onError until the images exist. */}
+      {framesOk && (
+        <img
+          src={`/character/vanish-${frame}.png`}
+          alt=""
+          onError={() => setFramesOk(false)}
+          className="pixel-sprite"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+          }}
+        />
+      )}
     </motion.div>
   )
 }

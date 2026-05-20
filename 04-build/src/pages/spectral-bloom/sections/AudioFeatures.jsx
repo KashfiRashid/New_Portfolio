@@ -4,21 +4,21 @@ import AudioPipelineDiagram from '../diagrams/AudioPipelineDiagram.jsx'
 const NOTES = [
   {
     title: 'Adaptive beat detection',
-    body: 'Beats are not a fixed threshold. The engine keeps a 50-frame rolling history of energy and fires only when the current frame breaks above that running average, so a quiet track and a loud track both get musical beats.',
+    body: 'Beats are not a fixed threshold. The engine keeps a running average of the energy over the last 50 frames and fires only when the current frame jumps above that average, so a quiet track and a loud track both get musical beats.',
   },
   {
     title: 'Three-tier smoothing',
-    body: 'Raw FFT data jitters. Each feature is lerped at its own rate, fast for bass and beats, slow for loudness, very slow for tonal brightness, so the visuals feel buttery instead of twitchy.',
+    body: 'Raw frequency data jitters. Each feature is eased toward its target at its own rate, fast for bass and beats, slow for loudness, very slow for tonal brightness, so the visuals feel buttery instead of twitchy.',
   },
 ]
 
 export default function AudioFeatures() {
   return (
     <section id="audio" className="scroll-mt-28 py-20 lg:py-32">
-      <SectionHead kicker="AUDIO FEATURES" title="One FFT pass. Six features. Six jobs." />
+      <SectionHead kicker="AUDIO FEATURES" title="One pass of frequency analysis. Six features. Six jobs." />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          A single 2048-point FFT runs every frame. From that one pass the engine pulls six features, and each one is wired to a specific part of the visual.
+          Every frame, the engine breaks the sound into 2,048 frequency bands in a single sweep. From that one pass it pulls six features, and each one is wired to a specific part of the visual.
         </p>
       </div>
 

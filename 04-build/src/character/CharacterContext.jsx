@@ -39,6 +39,9 @@ const STUCK_GUARD_SECONDS = 60
 const GRAB_SUPPRESSION_LIST = new Set([
   'summoning_reel', 'watching_reel', 'taking_reel',
   'showcasing', 'chased', 'hiding',
+  // project_pinned: on /projects/* the character is locked to its corner,
+  // so it must not be grab-able there.
+  'project_pinned',
 ])
 
 /* ── Reduced-motion check ──────────────────────────────────────────── */
@@ -74,9 +77,18 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   // patch v1.4 — sway rotation surfaced to React for the sprite transform.
   // Written every rAF tick from ctxRef.current.swayRotation.
   const [swayRotation, setSwayRotation] = useState(0)
+  // Project-mode — surfaced to Character.jsx so it can render the Goku
+  // vanish effect and enable hover while the character is parked
+  // top-right. null off project pages; { phase, warpX, warpY } otherwise.
+  const [projectMode, setProjectMode] = useState(null)
 
   const location = useLocation()
   const section = sectionFromPath(location.pathname)
+  // Project case-study routes (/projects/*) put the character into a
+  // separate pinned mode — see the project_pinned state in states.js.
+  // sectionFromPath coarsely maps these to 'home', so detect the route
+  // explicitly here.
+  const isProjectPage = location.pathname.startsWith('/projects/')
 
   /* ── Refs (mutable, no re-renders) ─────────────────────────────── */
   const rafRef = useRef(null)
@@ -88,6 +100,10 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   const pausedRef = useRef(false)
   const isMobileRef = useRef(isMobileViewport())
   const reducedMotionRef = useRef(prefersReducedMotion())
+  // Project-mode plumbing — live route flag for effects/loops, and the
+  // last project phase seen (so the rAF loop only re-renders on change).
+  const isProjectPageRef = useRef(isProjectPage)
+  const lastProjectPhaseRef = useRef(null)
 
   // Cursor tracking
   const cursorPosRef = useRef({ x: 400, y: 300 })
@@ -321,7 +337,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   const getBubbleActive = useCallback(() => charBubbleRef.current != null, [])
   useReelTriggers({
     section,
-    enabled: visible && !isMobileRef.current,
+    enabled: visible && !isMobileRef.current && !isProjectPage,
     getState: getStateName,
     isBubbleActive: getBubbleActive,
     fire: fireContextualReel,
@@ -335,6 +351,13 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     const spawn = () => {
       spawnedRef.current = true
       setVisible(true)
+
+      // Landing directly on a project page — skip the walk-in and go
+      // straight to the pinned project state.
+      if (isProjectPageRef.current) {
+        transition('project_pinned')
+        return
+      }
 
       // For reduced motion, skip entering — appear at perch
       if (reducedMotionRef.current) {
@@ -445,6 +468,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
         ctx.elapsed > STUCK_GUARD_SECONDS
         && currentState !== 'inactive'
         && currentState !== 'grabbed'
+        && currentState !== 'project_pinned'
       ) {
         console.warn(`[CHARACTER] Stuck guard: ${currentState} for ${ctx.elapsed.toFixed(0)}s`)
         transition('idling')
@@ -472,6 +496,15 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
       // grabbed/thrown ever write nonzero values; in every other state the
       // value sits at 0 and this set is a no-op for React (same value).
       setSwayRotation(ctx.swayRotation || 0)
+      // project-mode — re-render only on phase change, not every frame.
+      const proj = ctx.stateData?.project
+      const projPhase = proj?.phase || null
+      if (projPhase !== lastProjectPhaseRef.current) {
+        lastProjectPhaseRef.current = projPhase
+        setProjectMode(
+          proj ? { phase: projPhase, warpX: proj.warpX, warpY: proj.warpY } : null
+        )
+      }
 
       rafRef.current = requestAnimationFrame(loop)
     }
@@ -493,6 +526,10 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     if (prevSectionRef.current === section) return
     prevSectionRef.current = section
 
+    // On project pages the project_pinned state owns the character's
+    // position; skip the perch repositioning + idling reset entirely.
+    if (isProjectPageRef.current) return
+
     // Recalculate perches then reposition
     const perches = perchesRef.current
     if (perches.length > 0) {
@@ -511,6 +548,21 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
       transition('idling')
     }
   }, [section, visible, transition])
+
+  /* ── Project-page mode ──────────────────────────────────────────── */
+  // On /projects/* the character drops its autonomous behavior and runs
+  // the project_pinned state (pinned corner + Goku teleport). Leaving a
+  // project page hands control straight back to the normal idling loop.
+  useEffect(() => {
+    isProjectPageRef.current = isProjectPage
+    if (!visible || !spawnedRef.current) return
+    const cur = stateModuleRef.current?.name
+    if (isProjectPage && cur && cur !== 'project_pinned') {
+      transition('project_pinned')
+    } else if (!isProjectPage && cur === 'project_pinned') {
+      transition('idling')
+    }
+  }, [isProjectPage, visible, transition])
 
   /* ── External API ───────────────────────────────────────────────── */
 
@@ -558,6 +610,16 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   /** Get character position for distance gating */
   const getPosition = useCallback(() => {
     return ctxRef.current.position
+  }, [])
+
+  /** Called by Character.jsx on mouse-enter while the character is parked
+   *  top-right in project mode — sends it warping back to bottom-left.
+   *  No-op in any other phase. */
+  const onProjectCharacterHover = useCallback(() => {
+    const proj = ctxRef.current.stateData?.project
+    if (proj && proj.phase === 'tr') {
+      proj.hoverBack = true
+    }
   }, [])
 
   /* ── Sprite registry ───────────────────────────────────────────── */
@@ -804,6 +866,8 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     pixelInspect,
     spriteRegistry,
     swayRotation,
+    projectMode,
+    onProjectCharacterHover,
     speakBubble,
     handleIdleContent,
     setIdleState,
@@ -824,6 +888,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     speakBubble, handleIdleContent, setIdleState, getPosition, dismissReel,
     enterGrab, forceActivity, forceShowcase, forceGrab, togglePixelInspect,
     markSpriteMissing, markSpriteLoaded,
+    projectMode, onProjectCharacterHover,
   ])
 
   return (

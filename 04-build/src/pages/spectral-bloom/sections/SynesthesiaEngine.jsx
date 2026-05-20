@@ -24,7 +24,7 @@ export default function SynesthesiaEngine() {
       />
       <div className="max-w-[720px] space-y-5 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          Every few seconds the engine snapshots the current audio features and sends them to Claude with a single instruction: act as a synesthesia engine. Claude returns a small JSON payload, a color palette, a mood word, particle spread and speed, a camera distance, an atmosphere phrase. The visualizer lerps toward it.
+          Every few seconds the engine takes a snapshot of the sound and sends it to Claude with a single instruction: act as a synesthesia engine. Claude sends back a small, structured reply &mdash; a color palette, a mood word, how far to spread the particles and how fast, where to put the camera, a phrase for the atmosphere. The visualizer eases smoothly toward it.
         </p>
       </div>
 
@@ -61,7 +61,7 @@ export default function SynesthesiaEngine() {
 
       <div className="mt-10 max-w-[720px] font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-400">
         <p>
-          The AI layer is additive. It nudges lights, spread, and camera over two to three seconds, and it never overrides the generative core. When no API key is set, an algorithmic mood generator fills the same slot, so the visualizer works fully on its own.
+          The AI layer is additive. It nudges lights, spread, and camera over two to three seconds, and it never overrides the core animation. When the AI is not connected, a built-in formula fills the same slot, so the visualizer still works fully on its own.
         </p>
       </div>
     </section>

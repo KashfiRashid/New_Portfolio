@@ -1021,6 +1021,139 @@ export const running_away = {
   },
 }
 
+/* ── Project-page pinned mode ───────────────────────────────────────────
+ *
+ * On /projects/* the character stops being autonomous. It sits pinned in
+ * the bottom-left corner. Every TRIP_MIN..TRIP_MAX seconds it does a
+ * Goku-style teleport up to the top-right corner and waits there; hovering
+ * it sends it back to the bottom-left. Wandering, reels, grab, and
+ * showcase are all suppressed in this mode (wired in CharacterContext).
+ *
+ * Phases (ctx.stateData.project.phase):
+ *   'bl'         — pinned bottom-left, counting toward the next trip
+ *   'warp_to_tr' — vanish effect playing; teleports to top-right at the end
+ *   'tr'         — pinned top-right, waiting for a hover
+ *   'warp_to_bl' — vanish effect playing; teleports to bottom-left at the end
+ *
+ * The vanish frames (/public/character/vanish-N.png) are played by
+ * <VanishEffect> in Character.jsx. This state only owns the timing and the
+ * teleport itself. PROJECT_VANISH_DURATION is how long a warp phase lasts;
+ * the player paces PROJECT_VANISH_FRAME_COUNT frames across the same span.
+ * Reduced motion collapses the warp to instant.
+ */
+
+// Kash: drop vanish-1.png .. vanish-N.png into /public/character/ and set
+// PROJECT_VANISH_FRAME_COUNT to N. Until they exist, a placeholder poof
+// plays instead — see <VanishEffect> in Character.jsx.
+export const PROJECT_VANISH_FRAME_COUNT = 6
+export const PROJECT_VANISH_DURATION = 0.5 // seconds per warp phase
+
+const PROJECT_TRIP_MIN = 32 // seconds pinned before an auto-trip
+const PROJECT_TRIP_MAX = 60
+
+/** Bottom-left and top-right anchor points, recomputed from the viewport. */
+function projectCorners(ctx) {
+  const vw = ctx.viewport.width
+  const vh = ctx.viewport.height
+  return {
+    bl: { x: 70, y: vh - 18 },
+    tr: { x: vw - 70, y: 124 },
+  }
+}
+
+export const project_pinned = {
+  name: 'project_pinned',
+
+  enter(ctx) {
+    ctx.posture = 'standing'
+    ctx.activeProps = {}
+    const corners = projectCorners(ctx)
+    ctx.position.x = corners.bl.x
+    ctx.position.y = corners.bl.y
+    ctx.facing = 'right'
+    ctx.stateData.project = {
+      phase: 'bl',
+      timer: 0,
+      nextTripAt: randomBetween(PROJECT_TRIP_MIN, PROJECT_TRIP_MAX),
+      warpX: corners.bl.x,
+      warpY: corners.bl.y,
+      hoverBack: false,
+    }
+  },
+
+  tick(ctx, dt) {
+    const proj = ctx.stateData.project
+    if (!proj) return 'idling' // defensive — should never happen
+    const corners = projectCorners(ctx)
+    // Reduced motion collapses the warp to a single tick (instant jump).
+    const dur = reducedMotionActive() ? 0 : PROJECT_VANISH_DURATION
+
+    if (proj.phase === 'bl') {
+      // Stay pinned — re-assert every frame so a viewport resize tracks.
+      ctx.position.x = corners.bl.x
+      ctx.position.y = corners.bl.y
+      ctx.facing = 'right'
+      ctx.posture = 'standing'
+      proj.timer += dt
+      if (proj.timer >= proj.nextTripAt) {
+        proj.warpX = corners.bl.x
+        proj.warpY = corners.bl.y
+        proj.phase = 'warp_to_tr'
+        proj.timer = 0
+      }
+      return null
+    }
+
+    if (proj.phase === 'warp_to_tr') {
+      proj.timer += dt
+      if (proj.timer >= dur) {
+        ctx.position.x = corners.tr.x
+        ctx.position.y = corners.tr.y
+        ctx.facing = 'left'
+        proj.phase = 'tr'
+        proj.timer = 0
+        proj.hoverBack = false
+      }
+      return null
+    }
+
+    if (proj.phase === 'tr') {
+      ctx.position.x = corners.tr.x
+      ctx.position.y = corners.tr.y
+      ctx.facing = 'left'
+      ctx.posture = 'standing'
+      // hoverBack is set by onProjectCharacterHover in CharacterContext.
+      if (proj.hoverBack) {
+        proj.warpX = corners.tr.x
+        proj.warpY = corners.tr.y
+        proj.phase = 'warp_to_bl'
+        proj.timer = 0
+      }
+      return null
+    }
+
+    if (proj.phase === 'warp_to_bl') {
+      proj.timer += dt
+      if (proj.timer >= dur) {
+        ctx.position.x = corners.bl.x
+        ctx.position.y = corners.bl.y
+        ctx.facing = 'right'
+        proj.phase = 'bl'
+        proj.timer = 0
+        proj.nextTripAt = randomBetween(PROJECT_TRIP_MIN, PROJECT_TRIP_MAX)
+        proj.hoverBack = false
+      }
+      return null
+    }
+
+    return null
+  },
+
+  exit(ctx) {
+    ctx.stateData.project = null
+  },
+}
+
 /* ── Export map ─────────────────────────────────────────────────────── */
 
 const ALL_STATES = {
@@ -1028,6 +1161,7 @@ const ALL_STATES = {
   chased, hiding, summoning_reel, watching_reel, taking_reel,
   showcasing,
   grabbed, thrown, running_away,
+  project_pinned,
 }
 
 export default ALL_STATES

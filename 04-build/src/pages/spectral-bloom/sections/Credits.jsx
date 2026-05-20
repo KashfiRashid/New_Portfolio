@@ -1,9 +1,9 @@
 import { SectionHead } from '../primitives.jsx'
 
 const TOOLS = [
-  { label: 'Rendering', value: 'Three.js r128 over WebGL' },
-  { label: 'Audio', value: 'Web Audio API, native in the browser' },
-  { label: 'AI layer', value: 'Anthropic Claude API as the synesthesia engine' },
+  { label: 'Rendering', value: 'Three.js — 3D graphics, running in the browser' },
+  { label: 'Audio', value: "Web Audio API — the browser's built-in sound analysis" },
+  { label: 'AI layer', value: "Anthropic's Claude as the synesthesia engine" },
 ]
 
 const LINEAGE = [

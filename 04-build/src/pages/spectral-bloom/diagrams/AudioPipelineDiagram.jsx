@@ -15,10 +15,10 @@ const SANS = '"DM Sans", system-ui, sans-serif'
 const FEATURES = [
   { label: 'BASS', range: 'Sub-250 Hz', drives: ['Particle expansion', '& orb scale'] },
   { label: 'MID', range: '250 Hz to 4 kHz', drives: ['Ring opacity', '& rotation'] },
-  { label: 'HIGH', range: '4 kHz and up', drives: ['Color temperature', '& camera Y'] },
-  { label: 'RMS', range: 'Overall loudness', drives: ['Camera zoom', '& global opacity'] },
-  { label: 'CENTROID', range: 'Tonal brightness', drives: ['Hue shift across', 'all particles'] },
-  { label: 'BEAT', range: 'Adaptive threshold', drives: ['50-frame rolling', 'energy history'] },
+  { label: 'HIGH', range: '4 kHz and up', drives: ['Color temperature', '& camera height'] },
+  { label: 'LOUDNESS', range: 'Overall level', drives: ['Camera zoom', '& overall opacity'] },
+  { label: 'BRIGHTNESS', range: 'Bright vs. dark', drives: ['Hue shift across', 'all particles'] },
+  { label: 'BEAT', range: 'The pulse', drives: ['Running average', 'of recent energy'] },
 ]
 
 const BOX_W = 118
@@ -41,18 +41,18 @@ export default function AudioPipelineDiagram() {
     >
       <title id="audio-title">Audio feature extraction map</title>
       <desc id="audio-desc">
-        A single 2048-point FFT pass distributes to six feature columns:
-        bass, mid, high, RMS, spectral centroid, and beat. Each column
-        lists the part of the visual it drives.
+        A single sweep of frequency analysis distributes to six feature
+        columns: bass, mid, high, loudness, brightness, and beat. Each
+        column lists the part of the visual it drives.
       </desc>
 
       {/* FFT source box */}
       <rect x="280" y="14" width="240" height="44" rx="6" fill="#FF3D6E14" stroke="#FF3D6E" strokeWidth="1" />
       <text x="400" y="33" fill="#FF3D6E" fontFamily={MONO} fontSize="11" letterSpacing="1.4" textAnchor="middle">
-        WEB AUDIO API
+        FREQUENCY ANALYSIS
       </text>
       <text x="400" y="49" fill="#d4d4d8" fontFamily={SANS} fontSize="12" textAnchor="middle">
-        2048-point FFT, every frame
+        2,048 bands, every frame
       </text>
 
       {/* distribution bus */}

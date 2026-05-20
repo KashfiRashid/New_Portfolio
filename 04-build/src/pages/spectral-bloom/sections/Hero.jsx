@@ -45,6 +45,7 @@ function LazyHeroVideo() {
       className="w-full rounded-lg border border-white/[0.08]"
       src={visible ? '/spectral-bloom/spectral-bloom-demo.mp4' : undefined}
       poster="/spectral-bloom/spectral-bloom-poster.jpg"
+      data-cursor-label="sixty seconds"
       muted
       loop
       playsInline
@@ -73,7 +74,7 @@ export default function Hero() {
         <MetaBlock
           rows={[
             { label: 'Context', value: 'Generative AI · SFU SIAT · Spring 2026' },
-            { label: 'Stack', value: 'Three.js r128 · Web Audio API · Claude API · Vanilla JS' },
+            { label: 'Stack', value: 'Three.js · Web Audio API · Claude · vanilla JavaScript' },
             { label: 'Role', value: 'Solo: concept, engine, AI layer, interface, design' },
             { label: 'Duration', value: 'Spring 2026 · 6 weeks' },
           ]}

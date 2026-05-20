@@ -4,7 +4,7 @@ const STATS = [
   { value: '12,000', label: 'particles' },
   { value: '5', label: 'visualization modes' },
   { value: '60 fps', label: 'render target' },
-  { value: '2048-pt', label: 'FFT analysis' },
+  { value: '2048-band', label: 'frequency analysis' },
   { value: '6', label: 'audio features' },
   { value: '1 file', label: 'zero build step' },
 ]
@@ -18,7 +18,7 @@ export default function Overview() {
       />
       <div className="max-w-[720px] space-y-5 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          Spectral Bloom listens to live or uploaded audio and turns it into a 3D particle world. The Web Audio API does the measuring. Claude does the interpreting. The result is a system that treats a soft piano ballad and an aggressive drop as two different things to look at, even when their frequency profiles overlap.
+          Spectral Bloom listens to live or uploaded audio and turns it into a 3D particle world. The browser&apos;s own audio engine does the measuring. Claude does the interpreting. The result is a system that treats a soft piano ballad and an aggressive drop as two different things to look at, even when they&apos;re built from a similar mix of frequencies.
         </p>
         <p>
           It runs entirely in the browser, in a single HTML file, with no build step and no backend.

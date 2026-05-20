@@ -10,10 +10,10 @@ export default function ProposedVsShipped() {
       />
       <div className="max-w-[720px] space-y-5 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          The proposal called for a learned cross-modal stack: Wav2CLIP encoding audio into CLIP embedding space, SDXL Turbo generating imagery through cross-attention injection, a WebSocket bridge to a GPU backend, and a user study to measure it all.
+          The proposal called for a chain of trained AI models: Wav2CLIP to translate sound into the same mathematical space that images live in, SDXL Turbo to generate imagery from that translation, a live connection to a cloud graphics server to run it all, and a user study to measure the result.
         </p>
         <p>
-          Six weeks in, the math on that did not hold. A WebSocket round trip to a Colab GPU could not keep perceptual continuity at 60 fps, and the diffusion stack was not going to be demoable in time. So I kept the thesis and swapped the spine. Claude became the semantic layer instead of a learned embedding, and the whole system collapsed into one browser file.
+          Six weeks in, the math did not hold. The round trip to a free cloud GPU could not stay smooth at sixty frames a second, and the image-generation pipeline was never going to be demo-ready in time. So I kept the thesis and swapped the spine. Claude became the layer that reads meaning &mdash; instead of an AI model I would have had to train myself &mdash; and the whole system collapsed into one browser file.
         </p>
       </div>
 

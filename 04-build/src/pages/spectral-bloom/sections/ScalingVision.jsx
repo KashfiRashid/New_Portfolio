@@ -1,8 +1,8 @@
 import { SectionHead } from '../primitives.jsx'
 
 const VENUES = [
-  { name: 'Concerts', body: 'Stage visuals that react to the set in real time, with no VJ at the desk.' },
-  { name: 'Raves', body: 'Light patterns that match the mood and energy of the room, not just the BPM.' },
+  { name: 'Concerts', body: 'Stage visuals that react to the set in real time, with nobody running a visuals desk.' },
+  { name: 'Raves', body: 'Light patterns that match the mood and energy of the room, not just the tempo.' },
   { name: 'Streaming', body: 'Producers and streamers get reactive visuals for their content, instantly.' },
   { name: 'Installations', body: 'Galleries and museums get sound-responsive generative environments.' },
 ]
@@ -10,19 +10,19 @@ const VENUES = [
 const ROADMAP = [
   {
     name: 'Wav2CLIP integration',
-    body: 'Project audio into CLIP embedding space for direct semantic conditioning, the original proposal, picked back up.',
+    body: 'Translate audio straight into the mathematical space images live in, for a tighter read on meaning — the original proposal, picked back up.',
   },
   {
     name: 'SDXL Turbo backgrounds',
-    body: 'AI-generated imagery composited behind the particle layer, evolving every one to three seconds.',
+    body: 'AI-generated imagery layered behind the particles, refreshing every one to three seconds.',
   },
   {
-    name: 'DMX lighting bridge',
-    body: 'Send the AI visual parameters to real stage lights over DMX, so a physical venue reacts the way the screen does.',
+    name: 'Stage-lighting bridge',
+    body: 'Send the visual settings to real stage lights over DMX, the standard protocol for venue lighting, so a physical room reacts the way the screen does.',
   },
   {
     name: 'User evaluation',
-    body: 'A Creativity Support Index study comparing the semantic AI build against a frequency-mapped baseline.',
+    body: 'A formal study — using the Creativity Support Index, an established measure — comparing the AI build against a plain frequency-mapped version.',
   },
 ]
 

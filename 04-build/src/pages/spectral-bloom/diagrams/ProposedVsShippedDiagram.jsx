@@ -18,18 +18,18 @@ const SANS = '"DM Sans", system-ui, sans-serif'
 
 const PROPOSED = [
   { label: 'AUDIO IN', sub: 'Live or uploaded' },
-  { label: 'WAV2CLIP ENCODER', sub: '3-second windows' },
-  { label: 'CLIP EMBEDDING SPACE', sub: '512-dimensional vectors' },
-  { label: 'SDXL TURBO', sub: 'Cross-attention injection' },
-  { label: 'WEBSOCKET BRIDGE', sub: 'Colab T4 GPU backend' },
+  { label: 'WAV2CLIP ENCODER', sub: 'Reads sound every 3 seconds' },
+  { label: 'CLIP EMBEDDING SPACE', sub: 'A space shared with images' },
+  { label: 'SDXL TURBO', sub: 'Generates the imagery' },
+  { label: 'WEBSOCKET BRIDGE', sub: 'A remote cloud GPU' },
 ]
 
 const SHIPPED = [
   { label: 'AUDIO IN', sub: 'Live mic or audio file' },
-  { label: 'WEB AUDIO API', sub: '2048-point FFT' },
-  { label: 'CLAUDE API', sub: 'Synesthesia prompt' },
-  { label: 'CREATIVE JSON', sub: 'Palette, mood, spread, speed' },
-  { label: 'LERP APPLY', sub: '12,000-particle scene' },
+  { label: 'FREQUENCY ANALYSIS', sub: '2,048 bands' },
+  { label: 'CLAUDE', sub: 'Synesthesia prompt' },
+  { label: 'CREATIVE BRIEF', sub: 'Palette, mood, spread, speed' },
+  { label: 'SMOOTH APPLY', sub: '12,000-particle scene' },
 ]
 
 const BOX_W = 280
@@ -102,11 +102,11 @@ export default function ProposedVsShippedDiagram() {
     >
       <title id="pivot-title">Proposed pipeline versus shipped pipeline</title>
       <desc id="pivot-desc">
-        Two five-stage pipelines side by side. The proposed pipeline used
-        Wav2CLIP, CLIP embeddings, and SDXL Turbo on a Colab GPU backend.
-        The shipped pipeline used the Web Audio API and the Claude API
-        entirely in the browser. Both start from audio and both end in
-        the same generative scene.
+        Two five-stage pipelines side by side. The proposed pipeline
+        chained trained AI models — Wav2CLIP, CLIP embeddings, and SDXL
+        Turbo — on a remote cloud GPU. The shipped pipeline does its
+        frequency analysis and its AI interpretation entirely in the
+        browser. Both start from audio and both end in the same scene.
       </desc>
 
       <Column
@@ -115,7 +115,7 @@ export default function ProposedVsShippedDiagram() {
         accent="#4F8BFF"
         dim
         heading="PROPOSED"
-        headingSub="Learned cross-modal diffusion"
+        headingSub="A chain of trained AI models"
       />
       <Column
         x={R_X}
@@ -123,7 +123,7 @@ export default function ProposedVsShippedDiagram() {
         accent="#FF3D6E"
         dim={false}
         heading="SHIPPED"
-        headingSub="Browser-native semantic layer"
+        headingSub="Runs entirely in the browser"
       />
 
       <text

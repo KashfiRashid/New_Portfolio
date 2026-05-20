@@ -14,13 +14,13 @@ export default function Problem() {
       </div>
 
       <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-        <PainPointCard index="01" title="Manual VJ workflows">
-          Live visuals at concerts and raves need a dedicated VJ triggering clips and effects by hand. Expensive, inconsistent, and impossible to scale to every set.
+        <PainPointCard index="01" title="Run by hand">
+          Live visuals at concerts and raves need a dedicated VJ &mdash; a visual jockey &mdash; triggering clips and effects by hand. Expensive, inconsistent, and impossible to scale to every set.
         </PainPointCard>
-        <PainPointCard index="02" title="Dumb visualizers">
-          Most tools map frequency bins to colors with hard-coded rules. A piano ballad and an EDM drop can produce identical visuals if they share a frequency profile.
+        <PainPointCard index="02" title="Visuals that can't really hear">
+          Most tools map frequency bands to colors with fixed rules. A piano ballad and an EDM drop can produce identical visuals if they happen to share a similar mix of frequencies.
         </PainPointCard>
-        <PainPointCard index="03" title="No semantic understanding">
+        <PainPointCard index="03" title="No sense of meaning">
           Existing systems react to loudness and frequency. They never react to the mood, the energy, or the emotional character of the music. The visuals do not understand what they are watching.
         </PainPointCard>
       </div>
