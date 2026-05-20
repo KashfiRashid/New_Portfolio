@@ -16,6 +16,7 @@ import OnboardingModal from './components/OnboardingModal.jsx'
 import Footer from './components/Footer.jsx'
 import ScrollProgress from './components/ScrollProgress.jsx'
 import GridBackground from './components/GridBackground.jsx'
+import ErrorBoundary from './components/ErrorBoundary.jsx'
 
 import Home from './sections/Home.jsx'
 import Voice from './sections/Voice.jsx'
@@ -90,22 +91,24 @@ export default function App() {
   }
 
   return (
-    <CharacterProvider
-      identity={identity}
-      isReturning={isReturning}
-      onboardingDone={onboardingDone}
-    >
-      <CompanionProvider visitor={identity}>
-        <AppShell
-          identity={identity}
-          isReturning={isReturning}
-          showOnboarding={showOnboarding}
-          onOnboardingSubmit={handleOnboardingSubmit}
-          onOnboardingSkip={handleOnboardingSkip}
-          onReset={reset}
-        />
-      </CompanionProvider>
-    </CharacterProvider>
+    <ErrorBoundary label="app">
+      <CharacterProvider
+        identity={identity}
+        isReturning={isReturning}
+        onboardingDone={onboardingDone}
+      >
+        <CompanionProvider visitor={identity}>
+          <AppShell
+            identity={identity}
+            isReturning={isReturning}
+            showOnboarding={showOnboarding}
+            onOnboardingSubmit={handleOnboardingSubmit}
+            onOnboardingSkip={handleOnboardingSkip}
+            onReset={reset}
+          />
+        </CompanionProvider>
+      </CharacterProvider>
+    </ErrorBoundary>
   )
 }
 
@@ -231,7 +234,14 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
         onSkip={onOnboardingSkip}
       />
 
-      <Companion />
+      {/* Companion in its own silent boundary. The idle-cycle crash that
+          blacks out the site renders inside here (character, speech
+          bubbles, reels). If it throws, this boundary catches it: the
+          companion vanishes, the console logs the exact error + component,
+          and the rest of the site keeps working — no black screen. */}
+      <ErrorBoundary label="companion" fallback={null}>
+        <Companion />
+      </ErrorBoundary>
     </>
   )
 }

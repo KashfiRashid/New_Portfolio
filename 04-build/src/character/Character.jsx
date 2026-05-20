@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { useCharacter } from './CharacterContext.jsx'
 import CharacterSprite from './CharacterSprite.jsx'
 import CharacterBubble from './CharacterBubble.jsx'
 import ReelHandoff from './ReelHandoff.jsx'
-import { PROJECT_VANISH_FRAME_COUNT, PROJECT_VANISH_DURATION } from './states.js'
+import { PROJECT_VANISH_DURATION, PROJECT_VANISH_FRAME_COUNT } from './states.js'
+import './vanishEffect.css'
 
 /**
  * Character — main rendered component.
@@ -76,6 +77,11 @@ export default function Character() {
 
   const isMobile = useIsMobile()
   const size = isMobile ? MOBILE_SIZE : DESKTOP_SIZE
+  const reduceMotion = useReducedMotion()
+
+  // Project-teleport render bookkeeping — see the project-mode block below.
+  const prevProjectPhaseRef = useRef(null)
+  const reappearStartRef = useRef(-Infinity)
 
   // patch v1.4: grab eligibility — desktop only, not while a higher-priority
   // moment owns the character.
@@ -105,17 +111,39 @@ export default function Character() {
   // Off-viewport guard (used during taking_reel exit sequence)
   const offscreen = typeof window !== 'undefined'
     && (position.x < -size || position.x > window.innerWidth + size)
-  // Project-mode: while a warp phase runs, the sprite is hidden and the
-  // <VanishEffect> plays in its place. `projectHoverable` is true while
-  // the character is parked top-right and waiting for the hover home.
-  const warping = !!(
-    projectMode
-    && typeof projectMode.phase === 'string'
-    && projectMode.phase.startsWith('warp')
-  )
-  const projectHoverable = projectMode?.phase === 'tr'
-  const showSprite =
-    visible && !offscreen && state !== 'inactive' && !warping
+
+  // Project-mode teleport — the Goku-style vanish. During a warp the normal
+  // sprite is swapped for <VanishFrames>, which steps the vanish-N.png
+  // frames across the warp (forward to vanish, reversed to reappear).
+  //   warping     — a warp_to_* phase is live: play the vanish forward.
+  //   reappearing — the destination phase (tr/bl) just began straight out
+  //     of a warp: play the frames reversed for one PROJECT_VANISH_DURATION
+  //     window. Derived from the phase transition during render (not via an
+  //     effect) so the vanish → reappear hand-off has no gap at the
+  //     invisible teleport midpoint.
+  const projectPhase = projectMode?.phase || null
+  const warping =
+    typeof projectPhase === 'string' && projectPhase.startsWith('warp')
+  const projectHoverable = projectPhase === 'tr'
+
+  if (projectPhase !== prevProjectPhaseRef.current) {
+    const prev = prevProjectPhaseRef.current
+    prevProjectPhaseRef.current = projectPhase
+    if (
+      (projectPhase === 'tr' || projectPhase === 'bl') &&
+      (prev === 'warp_to_tr' || prev === 'warp_to_bl')
+    ) {
+      reappearStartRef.current = performance.now()
+    }
+  }
+  const reappearing =
+    !warping &&
+    performance.now() - reappearStartRef.current < PROJECT_VANISH_DURATION * 1000
+
+  // While the teleport frames play, the normal sprite is swapped out for
+  // <VanishFrames>. Reduced motion shows neither — the teleport snaps.
+  const showVanishFrames = !reduceMotion && (warping || reappearing)
+  const showSprite = visible && !offscreen && state !== 'inactive'
 
   // willChange only during active translation (per main spec §11)
   const translating = TRANSLATING_STATES.has(state)
@@ -162,46 +190,46 @@ export default function Character() {
             }}
             aria-hidden="true"
           >
-            <motion.div
-              variants={SHOWCASE_VARIANTS}
-              animate={state === 'showcasing' ? 'showcasing' : 'standing'}
-              style={{
-                width: size,
-                height: size,
-                position: 'relative',
-                transformOrigin: 'center bottom',
-              }}
-            >
-              <AnimatePresence>
-                {state === 'showcasing' && (
-                  <GlowAccent key="glow" size={size} />
-                )}
-              </AnimatePresence>
-
-              <CharacterSprite
-                posture={posture}
+            {showVanishFrames ? (
+              /* Teleport — the full vanish effect (frames + glow + sparks)
+                 plays in place of the normal sprite. Keyed per warp phase
+                 so each vanish / reappear gets a fresh run. */
+              <VanishEffect
+                key={projectPhase}
+                reverse={reappearing}
                 facing={facing}
                 size={size}
-                pixelInspect={pixelInspect}
-                rotation={swayRotation}
-                onSpriteMissing={markSpriteMissing}
-                onSpriteLoaded={markSpriteLoaded}
+                mobile={isMobile}
               />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ) : (
+              <motion.div
+                variants={SHOWCASE_VARIANTS}
+                animate={state === 'showcasing' ? 'showcasing' : 'standing'}
+                style={{
+                  width: size,
+                  height: size,
+                  position: 'relative',
+                  transformOrigin: 'center bottom',
+                }}
+              >
+                <AnimatePresence>
+                  {state === 'showcasing' && (
+                    <GlowAccent key="glow" size={size} />
+                  )}
+                </AnimatePresence>
 
-      {/* Goku vanish effect — plays during a project-mode warp phase, in
-          place of the sprite (which is hidden while warping). */}
-      <AnimatePresence>
-        {warping && (
-          <VanishEffect
-            key="vanish"
-            x={projectMode.warpX}
-            y={projectMode.warpY}
-            size={size}
-          />
+                <CharacterSprite
+                  posture={posture}
+                  facing={facing}
+                  size={size}
+                  pixelInspect={pixelInspect}
+                  rotation={swayRotation}
+                  onSpriteMissing={markSpriteMissing}
+                  onSpriteLoaded={markSpriteLoaded}
+                />
+              </motion.div>
+            )}
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -352,93 +380,126 @@ function MugOverlay({ charLeft, charTop, size, facing }) {
 }
 
 /* -----------------------------------------------------------------------
-   VanishEffect — the Goku-style teleport burst. Renders during a project-
-   mode warp phase, where the character sprite is hidden, at the corner the
-   character is leaving from.
-
-   Two layers, so the teleport always reads:
-     1. A placeholder "poof" — an expanding, fading accent-colored burst.
-        This shows regardless of whether the real frames exist yet.
-     2. The frame sequence /character/vanish-1.png .. vanish-N.png, stepped
-        across PROJECT_VANISH_DURATION. If a frame 404s the <img> is hidden
-        (onError) and only the poof plays. Drop the real frames into
-        /public/character/ and set PROJECT_VANISH_FRAME_COUNT in states.js
-        and they take over automatically.
+   VanishEffect — the Goku teleport. Three layers, tied together:
+     1. Frame art — /public/character/vanish-1.png .. vanish-N.png, stepped
+        across the warp (1..N to vanish, N..1 to reappear), and mirrored
+        (scaleX) to the character's facing — so a teleport to the top-right
+        corner faces left, into the page.
+     2. CSS opacity + glow — the `goku-warp-*` class (vanishEffect.css)
+        fades the frame out with a warming glow; the same keyframes
+        reversed give the reappear.
+     3. Spark particles — <VanishParticles>, warm pixels drifting out (or
+        converging inward, on reappear).
+   Rendered in place of the normal sprite during a warp.
    ----------------------------------------------------------------------- */
 
-function VanishEffect({ x, y, size }) {
-  const reduceMotion = useReducedMotion()
-  const [frame, setFrame] = useState(1)
-  const [framesOk, setFramesOk] = useState(true)
+function VanishEffect({ reverse, facing, size, mobile }) {
+  const [progress, setProgress] = useState(0)
 
-  // Step through the numbered frames across the warp duration.
   useEffect(() => {
-    if (reduceMotion) return undefined
     let raf = 0
     let start = 0
-    const N = PROJECT_VANISH_FRAME_COUNT
     const durMs = PROJECT_VANISH_DURATION * 1000
-    const step = (t) => {
+    const tick = (t) => {
       if (!start) start = t
       const p = Math.min(1, (t - start) / durMs)
-      setFrame(Math.min(N, Math.floor(p * N) + 1))
-      if (p < 1) raf = requestAnimationFrame(step)
+      setProgress(p)
+      if (p < 1) raf = requestAnimationFrame(tick)
     }
-    raf = requestAnimationFrame(step)
+    raf = requestAnimationFrame(tick)
     return () => {
       if (raf) cancelAnimationFrame(raf)
     }
-  }, [reduceMotion])
+  }, [])
 
-  const left = Math.round(x - size / 2)
-  const top = Math.round(y - size)
+  const N = PROJECT_VANISH_FRAME_COUNT
+  const step = Math.min(N - 1, Math.floor(progress * N))
+  // Forward 1..N to vanish; N..1 to reappear.
+  const frameNum = reverse ? N - step : step + 1
+  // Mirror the art to the character's facing (faces left at the top corner).
+  const mirror = facing === 'left' ? -1 : 1
 
   return (
-    <motion.div
-      initial={{ opacity: 1 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.12 } }}
-      style={{
-        position: 'fixed',
-        left,
-        top,
-        width: size,
-        height: size,
-        zIndex: 48,
-        pointerEvents: 'none',
-      }}
-      aria-hidden="true"
-    >
-      {/* Placeholder poof — always shown, so the teleport reads even
-          before the real frames are dropped in. */}
-      <motion.div
-        initial={{ scale: 0.5, opacity: 0.65 }}
-        animate={{ scale: 1.7, opacity: 0 }}
-        transition={{ duration: reduceMotion ? 0 : PROJECT_VANISH_DURATION, ease: 'easeOut' }}
+    <>
+      {/* Frame art + CSS opacity/glow. The class fades + glows the wrapper;
+          the <img> just carries the current frame, mirrored by facing. */}
+      <div
+        className={reverse ? 'goku-warp-reappear' : 'goku-warp-vanish'}
         style={{
           position: 'absolute',
           inset: 0,
-          borderRadius: '50%',
-          background:
-            'radial-gradient(circle, rgba(232,184,106,0.55) 0%, rgba(232,184,106,0) 70%)',
+          '--goku-dur': `${PROJECT_VANISH_DURATION}s`,
         }}
-      />
-      {/* Real frame sequence — hidden via onError until the images exist. */}
-      {framesOk && (
+      >
         <img
-          src={`/character/vanish-${frame}.png`}
+          src={`/character/vanish-${frameNum}.png`}
           alt=""
-          onError={() => setFramesOk(false)}
-          className="pixel-sprite"
+          aria-hidden="true"
           style={{
             position: 'absolute',
             inset: 0,
-            width: '100%',
-            height: '100%',
+            width: size,
+            height: size,
             objectFit: 'contain',
+            transform: `scaleX(${mirror})`,
           }}
         />
-      )}
-    </motion.div>
+      </div>
+      {/* Spark particles — a sibling, so they keep their own fade curve. */}
+      <VanishParticles reverse={reverse} count={mobile ? 6 : 12} />
+    </>
+  )
+}
+
+/* -----------------------------------------------------------------------
+   VanishParticles — warm pixel-art sparks layered over the teleport.
+   `count` 4px squares scatter up + outward while fading (vanishEffect.css
+   → goku-particle). On reappear `reverse` runs the same animation
+   backwards, so the sparks converge inward as the character re-forms.
+   ----------------------------------------------------------------------- */
+
+function VanishParticles({ reverse, count }) {
+  const particles = useMemo(
+    () =>
+      Array.from({ length: count }, (_, i) => {
+        const angle = Math.random() * Math.PI * 2
+        const outward = 10 + Math.random() * 10 // 10-20px sideways
+        return {
+          id: i,
+          px: Math.round(Math.cos(angle) * outward),
+          py: -(30 + Math.round(Math.random() * 20)), // 30-50px upward
+          delay: Math.round(Math.random() * 300), // staggered 0-300ms
+          left: 28 + Math.random() * 44, // % within the sprite box
+          top: 26 + Math.random() * 44,
+        }
+      }),
+    [count],
+  )
+
+  return (
+    <div
+      aria-hidden="true"
+      style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1 }}
+    >
+      {particles.map((p) => (
+        <span
+          key={p.id}
+          className={
+            reverse ? 'goku-particle goku-particle--reverse' : 'goku-particle'
+          }
+          style={{
+            position: 'absolute',
+            left: `${p.left}%`,
+            top: `${p.top}%`,
+            width: 4,
+            height: 4,
+            '--px': `${p.px}px`,
+            '--py': `${p.py}px`,
+            '--goku-dur': `${PROJECT_VANISH_DURATION}s`,
+            animationDelay: `${p.delay}ms`,
+          }}
+        />
+      ))}
+    </div>
   )
 }

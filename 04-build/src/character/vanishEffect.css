@@ -1,0 +1,84 @@
+/* vanishEffect.css — Goku Instant Transmission teleport for the character's
+ * project_pinned mode.
+ *
+ * This is the CSS half of the effect, tied together with the frame art in
+ * <VanishEffect> (Character.jsx). The frame images carry the character;
+ * these keyframes add the opacity dissolve + warm glow, and the spark
+ * particles. One keyframe set per concern — played forward to vanish, in
+ * reverse to reappear (perfect symmetry, no second keyframe set).
+ *
+ * `--goku-dur` is set inline from PROJECT_VANISH_DURATION (states.js).
+ */
+
+/* The frame wrapper: opacity dissolve + warming glow. The <img> inside
+ * (the actual frame art) is composited through this. solid -> warming ->
+ * dissolving -> gone. */
+@keyframes goku-vanish {
+  0% {
+    opacity: 1;
+    filter: none;
+  }
+  33% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(255, 195, 95, 0.55)) brightness(1.05);
+  }
+  66% {
+    opacity: 0.45;
+    filter: drop-shadow(0 0 18px rgba(255, 200, 100, 0.85)) brightness(1.18);
+  }
+  100% {
+    opacity: 0;
+    filter: drop-shadow(0 0 28px rgba(255, 210, 120, 0.4));
+  }
+}
+
+/* Vanish — forward playback, ends invisible. `both` fill so the first
+ * painted frame is already keyframe 0% (no flash of un-animated state). */
+.goku-warp-vanish {
+  animation: goku-vanish var(--goku-dur, 0.5s) linear both;
+  will-change: opacity, filter;
+}
+
+/* Reappear — the SAME keyframes, reversed. Starts invisible, ends solid. */
+.goku-warp-reappear {
+  animation: goku-vanish var(--goku-dur, 0.5s) linear reverse both;
+  will-change: opacity, filter;
+}
+
+/* Warm pixel-art spark particles, layered over the frame art. Drift up +
+ * outward while fading. Each particle's direction (--px, --py) and delay
+ * are set inline. */
+@keyframes goku-particle {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  25% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--px, 0), var(--py, -40px));
+  }
+}
+
+.goku-particle {
+  background-color: rgba(255, 200, 105, 0.95);
+  image-rendering: pixelated;
+  animation: goku-particle calc(var(--goku-dur, 0.5s) * 1.3) ease-out both;
+}
+
+/* On reappear the sparks converge inward as the character re-forms. */
+.goku-particle--reverse {
+  animation-direction: reverse;
+}
+
+/* Reduced motion — the teleport snaps. Character.jsx already gates the
+ * whole effect off; this is belt-and-suspenders. */
+@media (prefers-reduced-motion: reduce) {
+  .goku-warp-vanish,
+  .goku-warp-reappear,
+  .goku-particle {
+    animation: none;
+  }
+}

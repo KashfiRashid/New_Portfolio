@@ -1035,21 +1035,26 @@ export const running_away = {
  *   'tr'         — pinned top-right, waiting for a hover
  *   'warp_to_bl' — vanish effect playing; teleports to bottom-left at the end
  *
- * The vanish frames (/public/character/vanish-N.png) are played by
- * <VanishEffect> in Character.jsx. This state only owns the timing and the
- * teleport itself. PROJECT_VANISH_DURATION is how long a warp phase lasts;
- * the player paces PROJECT_VANISH_FRAME_COUNT frames across the same span.
- * Reduced motion collapses the warp to instant.
+ * The Goku-style vanish is played by Character.jsx: a sequence of frame
+ * images (/public/character/vanish-1.png .. vanish-N.png) stepped across
+ * the warp — forward to vanish, reversed (N..1) to reappear. This state
+ * only owns the timing and the teleport itself. Reduced motion collapses
+ * the warp to instant.
  */
 
-// Kash: drop vanish-1.png .. vanish-N.png into /public/character/ and set
-// PROJECT_VANISH_FRAME_COUNT to N. Until they exist, a placeholder poof
-// plays instead — see <VanishEffect> in Character.jsx.
-export const PROJECT_VANISH_FRAME_COUNT = 6
-export const PROJECT_VANISH_DURATION = 0.5 // seconds per warp phase
+// PROJECT_VANISH_DURATION is the length of ONE warp phase = the vanish half
+// of the teleport. The reappear runs for the same span at the start of the
+// destination phase, so the full teleport reads as roughly 2x this.
+export const PROJECT_VANISH_DURATION = 0.5 // seconds — the vanish half
+// Number of vanish-N.png frames in /public/character/. Stepped across the
+// warp; reversed for the reappear.
+export const PROJECT_VANISH_FRAME_COUNT = 4
 
-const PROJECT_TRIP_MIN = 32 // seconds pinned before an auto-trip
-const PROJECT_TRIP_MAX = 60
+// DEV — vanish-effect tuning (Phases B-E): the teleport auto-fires every
+// few seconds so the effect can be iterated on autoplay. RESTORE to 32 / 60
+// in Phase F, before this ships.
+const PROJECT_TRIP_MIN = 3 // seconds pinned before an auto-trip  [DEV: was 32]
+const PROJECT_TRIP_MAX = 5 //                                    [DEV: was 60]
 
 /** Bottom-left and top-right anchor points, recomputed from the viewport. */
 function projectCorners(ctx) {
