@@ -21,7 +21,7 @@ export default function Overview() {
           Something Lurking is a VR experience set aboard a degrading spaceship. The player is Jack, a maintenance crew member on the station the night the ship starts failing. To keep the ship alive Jack shrinks to 1:100 and 1:1000 scales, crawling inside fuseboxes and chip-spaces to repair what is breaking.
         </p>
         <p>
-          Four people built this for IAT 445 at SFU. Eric was the sole 3D modeler. Michael and Kento built the mechanics and the socket interactors. I drafted the story, argued the design philosophy, and held the sound. Three engineers and one design conscience.
+          Four people built this for an Immersive Environments project at SFU SIAT. Eric was the sole 3D modeler. Michael and Kento built the mechanics and the socket interactors. I drafted the story, argued the design philosophy, and held the sound. Three engineers and one design conscience.
         </p>
       </div>
 

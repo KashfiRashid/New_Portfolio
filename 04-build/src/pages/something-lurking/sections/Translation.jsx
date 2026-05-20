@@ -5,12 +5,12 @@ export default function Translation() {
   return (
     <section id="translation" className="scroll-mt-28 py-20 lg:py-32">
       <SectionHead
-        kicker="COURSEWORK TO PUZZLE"
-        title="The puzzles exist because the prior coursework proposed them."
+        kicker="FOUNDATION TO BUILD"
+        title="The puzzles exist because earlier design papers proposed them."
       />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          I came into Something Lurking with two prior assignments that already argued the answer. A1 said scaling needs mechanical purpose. A2 proposed pipe, valve, and circuit mechanics for the hand. The team built the space station puzzles on top of that thinking. The fusebox the player opens at 1:100 is the wire mechanic from A2. The circuit the player completes at 1:1000 is the same hand-mechanic miniaturised. The vent flow logic is the valve work.
+          I came into Something Lurking with two earlier design papers I'd written. The first argued that scaling without mechanical purpose is empty spectacle — shrinking has to do something. The second proposed specific mechanics: pipe, valve, and circuit work driven by the hand at small scale. The team built the space station puzzles on top of that thinking. The fusebox the player opens at 1:100 is the wire mechanic from the second paper. The circuit the player completes at 1:1000 is the same hand-mechanic miniaturised. The vent flow logic is the valve work.
         </p>
       </div>
 

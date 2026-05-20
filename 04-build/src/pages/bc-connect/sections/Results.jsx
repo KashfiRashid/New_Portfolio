@@ -6,7 +6,7 @@ const RESULTS = [
   'Hybrid list and map directory with debounced search and multi-select filtering',
   'Member dashboard with AI recommendations and saved businesses',
   'Admin panel with moderation queue, member management, and full action audit log',
-  'Live demo to the IAT 459 cohort, final grade A',
+  'Shipped on time and demoed live to the cohort',
 ]
 
 const TESTIMONIALS = [
@@ -28,7 +28,7 @@ export default function Results() {
       <SectionHead kicker="RESULTS" title="What shipped, and what people said." />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200">
         <p>
-          BC Connect shipped on time, demoed live to the IAT 459 cohort, and went on to receive an A grade. The directory now surfaces 90,000+ businesses across eight BC regions, behind one searchable interface, with three user roles and a complete admin moderation surface.
+          BC Connect shipped on time and demoed live to the cohort. The directory now surfaces 90,000+ businesses across eight BC regions, behind one searchable interface, with three user roles and a complete admin moderation surface.
         </p>
       </div>
       <div className="mt-10">

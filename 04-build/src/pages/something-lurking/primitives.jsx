@@ -29,7 +29,7 @@ export const SL_NAV = [
   { id: 'overview', label: 'Overview' },
   { id: 'premise', label: 'The Premise' },
   { id: 'what-i-did', label: 'What I Did' },
-  { id: 'translation', label: 'Coursework to Puzzle' },
+  { id: 'translation', label: 'From Argument to Puzzle' },
   { id: 'sound', label: 'Sound as Architecture' },
   { id: 'diegetic-ui', label: 'Diegetic UI' },
   { id: 'iteration', label: 'P1 to Final' },

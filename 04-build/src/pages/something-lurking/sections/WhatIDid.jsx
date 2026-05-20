@@ -15,8 +15,8 @@ export default function WhatIDid() {
           I wrote the three-act spine before any Unity work started: the routine, the descent, the breach. That spine drove where the fuseboxes had to live, why the captain's radio cuts on cue, where the player meets the cracked helmet, and why the ending lands on a growl from behind the escape pod. The team report says it directly: the location models of the fusebox and the vent were chosen <em>based on the story arc provided by Kashfi</em>.
         </ActionBlock>
 
-        <ActionBlock n="02" title="Translated my own A1 and A2 coursework into the project's mechanic spine.">
-          My A1 argued that scaling without mechanical purpose is empty spectacle. Shrinking has to do something: retrieve items, reach restricted areas, repair systems. My A2 proposed pipe and valve mechanics, hand-driven manipulation at small scale. Both arguments became the project's puzzle vocabulary. The fusebox at 1:100, the wire and circuit work at 1:1000, the valve and pipe logic in the vents. The puzzles exist because the prior coursework proposed them.
+        <ActionBlock n="02" title="Translated two earlier design papers into the project's mechanic spine.">
+          The first paper argued that scaling without mechanical purpose is empty spectacle. Shrinking has to do something: retrieve items, reach restricted areas, repair systems. The second proposed pipe and valve mechanics, hand-driven manipulation at small scale. Both arguments became the project's puzzle vocabulary. The fusebox at 1:100, the wire and circuit work at 1:1000, the valve and pipe logic in the vents. The puzzles exist because that earlier design work proposed them.
         </ActionBlock>
 
         <ActionBlock n="03" title="Designed the sound. Built the voices. Held the soundscape.">

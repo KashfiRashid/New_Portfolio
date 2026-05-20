@@ -17,6 +17,7 @@ import SpectralBloomPage from './spectral-bloom/index.jsx'
 import SomethingLurkingPage from './something-lurking/index.jsx'
 import ParproConsultingPage from './parpro-consulting/index.jsx'
 import DocumentorPage from './documentor/index.jsx'
+import NightshiftPage from './nightshift/index.jsx'
 
 export const PROJECTS = [
   {
@@ -82,6 +83,18 @@ export const PROJECTS = [
     featured: true,
     bubbleId: 'H24',
     component: DocumentorPage,
+  },
+  {
+    // Nightshift — unannounced. `component` is a single-screen
+    // coming-soon teaser (not a case study). `status: 'coming-soon'`
+    // is read by Home.jsx to render a badge on the Featured card.
+    slug: 'nightshift',
+    name: 'Nightshift',
+    blurb: 'the next one. being built after hours.',
+    featured: true,
+    bubbleId: 'H28',
+    component: NightshiftPage,
+    status: 'coming-soon',
   },
 ]
 

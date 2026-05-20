@@ -147,9 +147,16 @@ export default function Home() {
             >
               <div className="flex items-baseline justify-between">
                 <div>
-                  <h3 className="text-display-md font-display mb-2 group-hover:text-accent-glow transition-colors duration-200">
-                    {p.name}
-                  </h3>
+                  <div className="mb-2 flex items-center gap-2.5">
+                    <h3 className="text-display-md font-display group-hover:text-accent-glow transition-colors duration-200">
+                      {p.name}
+                    </h3>
+                    {p.status === 'coming-soon' && (
+                      <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent-glow border border-accent-glow/30 rounded-sm px-1.5 py-0.5 leading-none">
+                        Coming soon
+                      </span>
+                    )}
+                  </div>
                   <p className="text-text-muted text-sm leading-snug max-w-prose">{p.blurb}</p>
                 </div>
                 <span className="text-text-muted group-hover:text-accent-glow arrow-slide transition-colors duration-200 ml-4">→</span>

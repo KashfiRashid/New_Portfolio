@@ -6,7 +6,7 @@ const TEAM = [
     name: 'Md Kashfi Or Rashid Pranta',
     role: 'Story arc · Design philosophy · Sound · Iteration',
     contribution:
-      'Drafted the three-act narrative spine the team built around. Translated prior A1 and A2 coursework into the project\'s mechanic vocabulary. Generated the character voices in Eleven Labs and treated them in Audacity. Authored the environmental sound cues. Held the iteration loop from whiteboard to Unity.',
+      'Drafted the three-act narrative spine the team built around. Brought two earlier design papers — one on purposeful scaling, one proposing pipe-and-valve hand mechanics — into the project\'s mechanic vocabulary. Generated the character voices in Eleven Labs and treated them in Audacity. Authored the environmental sound cues. Held the iteration loop from whiteboard to Unity.',
   },
   {
     label: 'ERIC GABRIEL CHENG LI',
@@ -27,7 +27,7 @@ const TEAM = [
     name: 'Kento Weil',
     role: 'Mechanics · Mystery & Isolation Beats',
     contribution:
-      'Co-built the mechanics layer with Michael. Brought the murder-mystery and isolated-location instincts from his A1 and A2 into the atmosphere of Something Lurking. The empty-corridor pacing and the captain-cuts-out beat carry his fingerprints.',
+      'Co-built the mechanics layer with Michael. Brought his prior work on a murder-mystery plot set in an isolated location — the foundation the team built Something Lurking on top of — into the experience\'s atmosphere. The empty-corridor pacing and the captain-cuts-out beat carry his fingerprints.',
   },
 ]
 
@@ -100,7 +100,7 @@ export default function Credits() {
       </div>
 
       <p className="mt-14 text-center font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">
-        Built for IAT 445 Immersive Environments · Simon Fraser University · Fall 2025
+        Immersive Environments · SFU SIAT · Fall 2025
       </p>
     </section>
   )

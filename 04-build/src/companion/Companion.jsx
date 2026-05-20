@@ -6,7 +6,7 @@ import CharacterDebug from '../character/debug/CharacterDebug.jsx'
 
 /**
  * <Companion /> — renders three things:
- *   1. The custom cursor (12px circle in visitor's color, soft trailing motion)
+ *   1. The custom cursor (12px circle in visitor's color, near-1:1 tracking)
  *   2. The autonomous character (sprite + bubbles above head + reel custody)
  *   3. Mobile toast fallback (bottom-anchored bubble on coarse pointers)
  *
@@ -25,11 +25,19 @@ export default function Companion() {
   const [isFinePointer, setIsFinePointer] = useState(true)
   const [isHoverInteractive, setIsHoverInteractive] = useState(false)
 
-  // Cursor motion values + soft spring (for the dot only)
+  // Cursor motion values + spring (for the dot only).
+  //
+  // This dot IS the cursor — the native OS pointer is hidden site-wide
+  // (`cursor: none` in index.css). So any spring lag here reads as the
+  // whole mouse feeling slow, not as "personality." The spring is tuned
+  // very stiff and near-critically-damped: it settles within ~1 frame,
+  // so the dot tracks the pointer 1:1 to the eye while still smoothing
+  // raw pointer-sample jitter. Do NOT soften this back toward a visible
+  // trail (the old 280/0.4 values) — it reads as input lag.
   const cursorX = useMotionValue(-100)
   const cursorY = useMotionValue(-100)
-  const springX = useSpring(cursorX, { damping: 28, stiffness: 280, mass: 0.4 })
-  const springY = useSpring(cursorY, { damping: 28, stiffness: 280, mass: 0.4 })
+  const springX = useSpring(cursorX, { damping: 30, stiffness: 2000, mass: 0.08 })
+  const springY = useSpring(cursorY, { damping: 30, stiffness: 2000, mass: 0.08 })
 
   // Detect fine pointer (desktop) vs. coarse (mobile/touch)
   useEffect(() => {
@@ -40,25 +48,51 @@ export default function Companion() {
     return () => mq.removeEventListener('change', update)
   }, [])
 
-  // Track cursor position + interactive-element hover state
-  // Also publish cursor position to window for distance gating in CompanionContext
+  // Track cursor position + interactive-element hover state.
+  // Also publishes cursor position to window for distance gating in
+  // CompanionContext.
   useEffect(() => {
-    if (!isFinePointer) return
+    if (!isFinePointer) return undefined
 
-    const handleMove = (e) => {
-      cursorX.set(e.clientX)
-      cursorY.set(e.clientY)
-      // Publish for distance gating
-      window.__lastCursorX = e.clientX
-      window.__lastCursorY = e.clientY
-      // Detect if the cursor is over an interactive element
-      const el = document.elementFromPoint(e.clientX, e.clientY)
-      const interactive = el?.closest?.('a, button, input, textarea, select, [role="button"], [tabindex]:not([tabindex="-1"])')
+    let rafId = 0
+    let hitTestPending = false
+    let lastX = 0
+    let lastY = 0
+
+    // Hover hit-test — document.elementFromPoint forces a hit-test, so
+    // it must NOT run on every mousemove event (mousemove fires many
+    // times per frame on a fast move, and a per-event hit-test on a
+    // heavy page is a real source of main-thread jank — which itself
+    // reads as a slow mouse). Coalesced to one run per animation frame.
+    const runHitTest = () => {
+      hitTestPending = false
+      const el = document.elementFromPoint(lastX, lastY)
+      const interactive = el?.closest?.(
+        'a, button, input, textarea, select, [role="button"], [tabindex]:not([tabindex="-1"])',
+      )
       setIsHoverInteractive(!!interactive)
     }
 
+    const handleMove = (e) => {
+      // Cheap — runs every event so the dot tracks the pointer 1:1.
+      cursorX.set(e.clientX)
+      cursorY.set(e.clientY)
+      window.__lastCursorX = e.clientX
+      window.__lastCursorY = e.clientY
+      // Expensive — coalesced to at most one hit-test per frame.
+      lastX = e.clientX
+      lastY = e.clientY
+      if (!hitTestPending) {
+        hitTestPending = true
+        rafId = requestAnimationFrame(runHitTest)
+      }
+    }
+
     window.addEventListener('mousemove', handleMove, { passive: true })
-    return () => window.removeEventListener('mousemove', handleMove)
+    return () => {
+      window.removeEventListener('mousemove', handleMove)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
   }, [isFinePointer, cursorX, cursorY])
 
   const cursorColor = visitor?.color?.hex || '#6B7B8C'

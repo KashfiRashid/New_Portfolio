@@ -277,13 +277,29 @@ export default function HomeHero({ children } = {}) {
   // -------------------------------------------------------------------
   // Identity copy
   // -------------------------------------------------------------------
-  // Identity line — one complete sentence, two semantic emphases:
-  // "design engineer" (what I am) and "user experience" (what I focus
-  // on). Both rendered in the same warm token color via Tailwind class
+  // Identity line — a role descriptor, two semantic emphases:
+  // "Design engineer" (the role) and "user experience" (the focus).
+  // Both rendered in the same warm token color via Tailwind class
   // (`text-accent-glow` resolves through
   // theme.extend.colors.accent.glow in tailwind.config.js) plus
   // `font-semibold` — Apple HIG uses BOTH color and weight together
   // for emphasis, not color alone. Single color, two hits.
+  //
+  // The "I am a" opener was dropped. The name "Kashfi" sits directly
+  // above, so the line already has its subject — it reads as a
+  // descriptor of that name, no first-person framing needed. Starts
+  // straight on the role, which also puts the first accent phrase at
+  // the very top-left of the block.
+  //
+  // SEPARATION (Gestalt proximity): two equally-weighted accent phrases
+  // that land close together compete instead of creating hierarchy. A
+  // desktop-only line break is forced after "designing" so the two
+  // lines come out balanced and the emphases land in opposite corners:
+  //   line 1 — "[Design engineer] who loves designing"    → accent top-left
+  //   line 2 — "creative solutions for [user experience]." → accent bottom-right
+  // The break is `hidden md:block` so on mobile the sentence flows
+  // naturally and wraps on its own. Each accent span is
+  // `whitespace-nowrap` so a phrase never fragments across a wrap.
   //
   // Voice line, status line, and scene-fallback note were intentionally
   // removed from the hero (Apple-style restraint — one intro line, no
@@ -294,7 +310,16 @@ export default function HomeHero({ children } = {}) {
   // (default slate is invisible on the dark video background).
   const identityLine = (
     <>
-      I am a <span className="text-accent-glow font-semibold">design engineer</span> who loves designing creative solutions for <span className="text-accent-glow font-semibold">user experience</span>.
+      <span className="text-accent-glow font-semibold whitespace-nowrap">
+        Design engineer
+      </span>{' '}
+      who loves designing{' '}
+      <br className="hidden md:block" />
+      creative solutions for{' '}
+      <span className="text-accent-glow font-semibold whitespace-nowrap">
+        user experience
+      </span>
+      .
     </>
   )
 
@@ -534,15 +559,17 @@ export default function HomeHero({ children } = {}) {
               01-brand-book/06-visual-direction.md. */}
           <div className="flex-1 flex items-center">
             <div className="px-6 md:px-10 mx-auto max-w-2xl w-full py-16 md:py-24">
-              {/* Kicker — natural sentence intro, sized properly so it
-                  reads at arm's length without straining. Sans-serif
-                  (same family as the name), normal case, no extra
-                  tracking. The 16-20px range is Apple HIG body-large /
-                  callout territory — comfortably legible while still
-                  clearly subordinate to the giant name below. */}
+              {/* Kicker — natural sentence intro, sized to read at
+                  arm's length without straining. Sans-serif (same
+                  family as the name), normal case. Scaled up one notch
+                  to 18-24px (was 16-20px) so the whole identity column
+                  reads bigger; still clearly subordinate to the giant
+                  name below. A hair of negative tracking (-0.01em)
+                  pairs it with the tightened display name so the two
+                  feel set by the same hand. */}
               <motion.p
                 {...fadeUp(0.15)}
-                className="font-sans text-base md:text-lg lg:text-xl text-text-muted mb-6 text-hero-legible"
+                className="font-sans text-lg md:text-xl lg:text-2xl tracking-[-0.01em] text-text-muted mb-6 text-hero-legible"
               >
                 my name is
               </motion.p>
@@ -558,28 +585,43 @@ export default function HomeHero({ children } = {}) {
                   reading text and the functional mono (JetBrains Mono)
                   for system chrome (clock, status) to form a clear
                   three-register combo that's specifically Kashfi's.
-                  Lighter tracking (-0.02em) than the previous sans-
-                  bold treatment because serif at display weight reads
-                  best with minimal compression. Leading 0.95 gives the
-                  serif breath without sacrificing compactness. The
+
+                  KERNING — the f/i problem. In a display serif the
+                  lowercase f has a top hook that physically overhangs
+                  the letter after it; followed by a dotted i, the two
+                  read as merged. A brief stint at -0.03em tracking made
+                  it worse. Three things fix it here:
+                    1. Overall tracking loosened to -0.01em (was -0.03em)
+                       — gives every pair room without looking sprawled.
+                    2. `fontVariantLigatures: none` so the font can't
+                       swap in a single merged "fi" ligature glyph.
+                    3. The f is wrapped in a span carrying 0.04em of
+                       letter-spacing — that trailing space pushes the i
+                       clear of the hook. 0.04em is the ONE knob to tune
+                       if the gap ever reads too wide or too tight.
+                  Leading 0.95 gives the serif breath without sacrificing
+                  compactness. Size clamp(5.5rem, 13vw, 9.75rem). The
                   legibility halo carries it on bright video frames. */}
               <motion.h1
                 {...fadeUp(0.22)}
-                className="font-display tracking-[-0.02em] text-text-primary leading-[0.95] mb-12 text-[clamp(5rem,12vw,8.5rem)] text-hero-legible"
+                className="font-display tracking-[-0.01em] text-text-primary leading-[0.95] mb-12 text-[clamp(5.5rem,13vw,9.75rem)] text-hero-legible"
+                style={{ fontVariantLigatures: 'none' }}
               >
-                Kashfi
+                Kash<span style={{ letterSpacing: '0.04em' }}>f</span>i
               </motion.h1>
 
               {/* Intro line — Apple HIG "Headline" / web-product-page
-                  intro scale: 20-28px range, regular weight on the
-                  prose, semibold + accent on the two emphasis phrases.
-                  Leading 1.5 for comfortable reading at this size
-                  (looser than 1.4 — gives the two-line wrap real
-                  breathing room). max-w-prose keeps the measure at
+                  intro scale, scaled up one notch to a 22-28px range
+                  (was 20-26px) so it holds its own under the now-larger
+                  name. Regular weight on the prose, semibold + accent on
+                  the two emphasis phrases. A hair of negative tracking
+                  (-0.01em) tightens the prose just enough to feel
+                  deliberate at this size. Leading 1.55 keeps the wrapped
+                  lines breathing. max-w-prose keeps the measure at
                   roughly 60-65 characters per line. */}
               <motion.p
                 {...fadeUp(0.38)}
-                className="text-text-primary text-xl md:text-2xl lg:text-[1.625rem] leading-[1.55] max-w-prose"
+                className="text-text-primary text-[1.375rem] md:text-[1.625rem] lg:text-[1.75rem] tracking-[-0.01em] leading-[1.55] max-w-prose"
               >
                 {identityLine}
               </motion.p>

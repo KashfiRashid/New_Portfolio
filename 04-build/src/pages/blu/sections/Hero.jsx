@@ -20,8 +20,8 @@ export default function Hero() {
             { label: 'Team', value: 'Semyon Kuznetsov, Benjamin Nichiporik, Kashfi Rashid, Abdul Aziz Hamoui, Cohen Jasper ter Heide, Eric Gabriel Cheng Li' },
             { label: 'My Roles', value: 'Creative Director · 3D Environment Modeler · Immersive Sound Engineer' },
             { label: 'Duration', value: 'Summer 2025 · 10 weeks' },
-            { label: 'Software', value: 'Blender, Adobe Suite, audio tools (verify with Kash)' },
-            { label: 'Course', value: 'IAT 343 · Simon Fraser University' },
+            { label: 'Software', value: 'Blender · Adobe Suite · immersive sound design' },
+            { label: 'Context', value: 'CG Animation · SFU SIAT · Summer 2025' },
             { label: 'Format', value: '3-act CG short, ~2 to 3 minutes' },
           ]}
         />

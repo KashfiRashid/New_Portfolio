@@ -71,7 +71,7 @@ export default function Credits() {
         Team site: iat343blu.framer.website
       </p>
       <p className="mt-2 text-center font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">
-        Built for IAT 343 · Simon Fraser University · Summer 2025
+        CG Animation · SFU SIAT · Summer 2025
       </p>
     </section>
   )

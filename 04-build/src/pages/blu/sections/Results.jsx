@@ -5,7 +5,7 @@ const RESULTS = [
   'Two original 3D environments (Lumaland and The Dims) modeled end to end',
   'Original sound design across atmospheric, diegetic, and Lumaland layers',
   'The wolf antagonist carried entirely through audio and shadow',
-  'Screened live at the IAT 343 cohort showcase, August 13, 2025',
+  'Screened live at the SFU SIAT showcase, August 13, 2025',
 ]
 
 export default function Results() {
@@ -14,7 +14,7 @@ export default function Results() {
       <SectionHead kicker="RESULTS" title="Shipped, screened, complete." />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200">
         <p>
-          BLU shipped on schedule and screened to the IAT 343 cohort on August 13, 2025. The film is the version below: three acts, both worlds, the wolf you hear but never see.
+          BLU shipped on schedule and screened at the SFU SIAT showcase on August 13, 2025. The film is the version below: three acts, both worlds, the wolf you hear but never see.
         </p>
       </div>
       <div className="mt-10">
@@ -27,7 +27,7 @@ export default function Results() {
           className="block w-full rounded-lg border border-white/[0.06] bg-black"
         />
         <p className="mt-4 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">
-          BLU. Final film. Summer 2025. IAT 343.
+          BLU. Final film. Summer 2025.
         </p>
       </div>
       <ul className="mt-12 max-w-[720px] space-y-2 font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-300">

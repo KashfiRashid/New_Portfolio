@@ -69,13 +69,24 @@ export function useReelTriggers({
   }
 
   /* ── Trigger 1: bottom-of-page ──────────────────────────────────── */
+  // The handler reads `document.documentElement.scrollHeight`, which
+  // is a layout-forcing property. Scroll events can fire dozens of
+  // times per frame, so we coalesce through requestAnimationFrame —
+  // at most one layout read per animation frame, regardless of event
+  // density. The early-exit on `bottomFiredRef` still applies: once
+  // the bottom trigger has fired, both onScroll and the scheduled
+  // rAF tick become near-free no-ops.
   useEffect(() => {
     if (typeof window === 'undefined') return
 
     const SESSION_MIN_MS = 90_000
     const BOTTOM_THRESHOLD_PX = 200
 
-    const onScroll = () => {
+    let rafId = 0
+    let pending = false
+
+    const tick = () => {
+      pending = false
       if (bottomFiredRef.current) return
       if (!canFire('bottom')) return
       if (Date.now() - sessionStartRef.current < SESSION_MIN_MS) return
@@ -91,8 +102,18 @@ export function useReelTriggers({
       }
     }
 
+    const onScroll = () => {
+      if (bottomFiredRef.current) return
+      if (pending) return
+      pending = true
+      rafId = requestAnimationFrame(tick)
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
   }, [])
 
   /* ── Trigger 2: section dwell ───────────────────────────────────── */

@@ -47,7 +47,7 @@ export default function Credits() {
         ))}
       </div>
       <p className="mt-12 text-center font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">
-        Built for IAT 459 · Simon Fraser University · Spring 2026
+        SFU SIAT · Spring 2026
       </p>
     </section>
   )

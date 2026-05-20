@@ -21,7 +21,7 @@ export default function Hero() {
             { label: 'Team', value: 'Eric Cheng Li · Kento Weil · Michael Kim · Kashfi Rashid' },
             { label: 'My roles', value: 'Story arc · Design philosophy · Sound · Iteration' },
             { label: 'Stack', value: 'Unity · Blender · Audacity · Eleven Labs · XR Toolkit' },
-            { label: 'Course', value: 'IAT 445 Immersive Environments · SFU · Fall 2025' },
+            { label: 'Context', value: 'Immersive Environments · SFU SIAT · Fall 2025' },
           ]}
         />
 
@@ -38,7 +38,7 @@ export default function Hero() {
             />
           </div>
           <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-600">
-            Full demo · IAT 445 final critique cut · Fall 2025
+            Full demo · final critique cut · Fall 2025
           </figcaption>
         </figure>
       </div>

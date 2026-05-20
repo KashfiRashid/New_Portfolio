@@ -85,6 +85,8 @@ const bubbles = [
     text: "the deck that won the room." },
   { id: 'H22', trigger: 'hover', context: 'work-card-foresee',
     text: "working with sazzad on this one." },
+  { id: 'H28', trigger: 'hover', context: 'work-card-nightshift',
+    text: "can't show this one yet. still building it after hours." },
   { id: 'H25', trigger: 'hover', context: 'process-chair-antigravity',
     text: "this one's the workhorse. shipped bc connect end-to-end." },
   { id: 'H26', trigger: 'hover', context: 'process-chair-cowork',

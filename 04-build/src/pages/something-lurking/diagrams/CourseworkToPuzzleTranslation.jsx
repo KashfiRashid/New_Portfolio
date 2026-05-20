@@ -1,9 +1,11 @@
 /**
  * CourseworkToPuzzleTranslation — the case study's hardest evidence.
  *
- * Left column lists the two prior assignments I argued. Right column
+ * Left column lists the two prior design papers I argued. Right column
  * shows the in-game puzzles that came from them. Arrows in between.
  * Same engineering-diagram register as bc-connect's explanatory SVGs.
+ *
+ * Filename retained for stability; component renders as "Foundation to Build."
  */
 
 const MONO = '"JetBrains Mono", "Geist Mono", ui-monospace, monospace'
@@ -11,11 +13,11 @@ const SANS = 'Inter, "Söhne", system-ui, sans-serif'
 
 const LEFT = [
   {
-    label: 'A1 · DESIGN PHILOSOPHY',
+    label: 'DESIGN ARGUMENT',
     body: 'Scaling without mechanical purpose is empty spectacle. Shrinking needs to do something: retrieve items, reach restricted areas, repair systems.',
   },
   {
-    label: 'A2 · MECHANIC PROPOSAL',
+    label: 'MECHANIC PROPOSAL',
     body: 'Pipe and valve manipulation. Hand-driven physical mechanics that the player operates at a smaller scale.',
   },
 ]
@@ -43,9 +45,9 @@ export default function CourseworkToPuzzleTranslation() {
       className="mx-auto block h-auto w-full max-w-[760px]"
       shapeRendering="geometricPrecision"
     >
-      <title id="trans-title">Coursework to in-game puzzle translation</title>
+      <title id="trans-title">Design papers to in-game puzzle translation</title>
       <desc id="trans-desc">
-        Two coursework artifacts on the left. Three in-game puzzle systems
+        Two earlier design papers on the left. Three in-game puzzle systems
         on the right. Arrows show that the puzzles were direct translations
         of the prior design work.
       </desc>
@@ -58,7 +60,7 @@ export default function CourseworkToPuzzleTranslation() {
         WHAT SHIPPED IN THE BUILD
       </text>
 
-      {/* Left blocks — coursework */}
+      {/* Left blocks — earlier design papers */}
       {LEFT.map((item, i) => {
         const y = 50 + i * 130
         return (
@@ -92,21 +94,21 @@ export default function CourseworkToPuzzleTranslation() {
         )
       })}
 
-      {/* Arrows from coursework to each puzzle */}
+      {/* Arrows from earlier design papers to each puzzle */}
       <g stroke="#6E3FB3" strokeWidth="1.5" fill="none" opacity="0.7">
-        {/* A1 (philosophy) feeds all three puzzles — branching arrow */}
+        {/* Philosophy paper feeds all three puzzles — branching arrow */}
         <path d={`M ${L_X + L_W + 4} 100 L 430 100 L 430 80 L ${R_X - 6} 80`} />
         <path d={`M ${R_X - 6} 80 l -6 -4 m 6 4 l -6 4`} />
         <path d={`M 430 100 L 430 158 L ${R_X - 6} 158`} />
         <path d={`M ${R_X - 6} 158 l -6 -4 m 6 4 l -6 4`} />
         <path d={`M 430 100 L 430 236 L ${R_X - 6} 236`} />
         <path d={`M ${R_X - 6} 236 l -6 -4 m 6 4 l -6 4`} />
-        {/* A2 (mechanic) feeds the same three more directly */}
+        {/* Mechanic proposal feeds the same three more directly */}
         <path d={`M ${L_X + L_W + 4} 232 L 460 232`} strokeDasharray="2 3" />
       </g>
 
       <text x="400" y="345" fill="#71717a" fontFamily={SANS} fontSize="12" textAnchor="middle">
-        Two coursework artifacts. Three in-game puzzles. The line from argument to ship was straight.
+        Two earlier design papers. Three in-game puzzles. The line from argument to ship was straight.
       </text>
     </svg>
   )

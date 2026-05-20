@@ -3,7 +3,7 @@ import { SectionHead, Figure } from '../primitives.jsx'
 const HIGHLIGHTS = [
   {
     label: 'Final critique',
-    body: 'Playable VR build delivered for the IAT 445 final critique. All three acts, both scales, the diegetic feedback patch shipped.',
+    body: 'Playable VR build delivered for the final critique. All three acts, both scales, the diegetic feedback patch shipped.',
   },
   {
     label: 'SFU info session',
@@ -11,7 +11,7 @@ const HIGHLIGHTS = [
   },
   {
     label: 'Official showcase',
-    body: 'Featured on the SFU SIAT Fall 2025 Project Showcase as one of the official IAT 445 selections.',
+    body: 'Featured on the SFU SIAT Fall 2025 Project Showcase as one of the official Immersive Environments selections.',
   },
 ]
 

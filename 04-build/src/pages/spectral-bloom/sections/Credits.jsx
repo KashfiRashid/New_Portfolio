@@ -28,7 +28,7 @@ export default function Credits() {
             Concept, real-time engine, AI semantic layer, interface, design
           </p>
           <p className="mt-3 font-[family-name:var(--font-sans)] text-[15px] leading-relaxed text-zinc-300">
-            Every part of Spectral Bloom, from the particle math to the prompt that turns Claude into a synesthesia engine, was built solo for IAT 460.
+            Every part of Spectral Bloom, from the particle math to the prompt that turns Claude into a synesthesia engine, was built solo.
           </p>
           <div className="mt-6 flex flex-wrap gap-4">
             <a
@@ -71,7 +71,7 @@ export default function Credits() {
       </div>
 
       <p className="mt-14 text-center font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">
-        Built for IAT 460 · Generative AI · Simon Fraser University · Spring 2026
+        Generative AI · SFU SIAT · Spring 2026
       </p>
     </section>
   )
