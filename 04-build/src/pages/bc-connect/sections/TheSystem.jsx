@@ -1,5 +1,14 @@
-import { SectionHead, MonoKicker, AssetPlaceholder } from '../primitives.jsx'
+import { SectionHead, MonoKicker } from '../primitives.jsx'
 import SystemInheritanceDiagram from '../diagrams/SystemInheritanceDiagram.jsx'
+import BrandMark from '../styleguide/BrandMark.jsx'
+import ColorSystem from '../styleguide/ColorSystem.jsx'
+import Typography from '../styleguide/Typography.jsx'
+import Spacing from '../styleguide/Spacing.jsx'
+import Motion from '../styleguide/Motion.jsx'
+import Buttons from '../styleguide/Buttons.jsx'
+import Inputs from '../styleguide/Inputs.jsx'
+import Tags from '../styleguide/Tags.jsx'
+import Cards from '../styleguide/Cards.jsx'
 
 const LAWS = [
   {
@@ -16,36 +25,6 @@ const LAWS = [
     label: 'Law 03',
     title: "Connect, Don't Decorate",
     body: "Ornament for aesthetics alone isn't allowed. Every line, dot, and gradient should visualize a real relationship.",
-  },
-]
-
-const PALETTE = [
-  { name: 'Signal', hex: '#1B6B4F' },
-  { name: 'Ink 900', hex: '#111218' },
-  { name: 'Ink 500', hex: '#4B5162' },
-  { name: 'Mist', hex: '#E8EAED' },
-  { name: 'Amber', hex: '#C07A28' },
-  { name: 'Blue', hex: '#3568B2' },
-  { name: 'Plum', hex: '#7B5EA7' },
-  { name: 'Rose', hex: '#B84E5A' },
-  { name: 'Teal', hex: '#4EE0B8', note: 'dark contexts only' },
-]
-
-const TYPE_RAMP = [
-  {
-    fontClass: 'font-[family-name:var(--font-display)]',
-    name: 'Instrument Serif',
-    job: 'for reading',
-  },
-  {
-    fontClass: 'font-[family-name:var(--font-sans)]',
-    name: 'DM Sans',
-    job: 'for doing',
-  },
-  {
-    fontClass: 'font-[family-name:var(--font-mono)]',
-    name: 'DM Mono',
-    job: 'for knowing',
   },
 ]
 
@@ -84,70 +63,40 @@ export default function TheSystem() {
         </p>
       </div>
 
-      {/* PART B: palette swatches */}
-      <div className="mt-12">
-        <MonoKicker>PALETTE</MonoKicker>
-        <div className="mt-4 flex flex-wrap gap-3">
-          {PALETTE.map((token) => (
-            <div key={token.name} className="w-16">
-              <div
-                className="h-16 w-16 rounded-md border border-white/10"
-                style={{ backgroundColor: token.hex }}
-              />
-              <p className="mt-2 text-center font-[family-name:var(--font-mono)] text-xs text-zinc-400">
-                {token.name}
-              </p>
-              <p className="text-center font-[family-name:var(--font-mono)] text-xs text-zinc-500">
-                {token.hex}
-              </p>
-              {token.note ? (
-                <p className="text-center font-[family-name:var(--font-mono)] text-[10px] italic text-zinc-600">
-                  {token.note}
-                </p>
-              ) : null}
-            </div>
-          ))}
+      {/* ─── Live design-system showcase ───
+          Each element of Open Ground recreated as a live component, framed
+          in a white "museum" panel on the dark canvas. Foundations first;
+          the component library follows in later exhibits. */}
+      <div className="mt-20">
+        <MonoKicker>FOUNDATIONS</MonoKicker>
+        <p className="mt-3 max-w-[680px] font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-400">
+          Not screenshots. Every element below is the real component, recreated
+          and rendered live — so it can never drift out of date.
+        </p>
+        <div className="mt-10 space-y-16">
+          <BrandMark />
+          <ColorSystem />
+          <Typography />
+          <Spacing />
+          <Motion />
         </div>
       </div>
 
-      {/* PART C: type ramp */}
-      <div className="mt-12">
-        <MonoKicker>TYPOGRAPHY</MonoKicker>
-        <div className="mt-4 space-y-6">
-          {TYPE_RAMP.map((type) => (
-            <div key={type.name} className="flex items-center gap-6">
-              <span className={`text-6xl font-normal text-white ${type.fontClass}`}>
-                Aa
-              </span>
-              <div>
-                <p className="font-[family-name:var(--font-mono)] text-sm text-zinc-300">
-                  {type.name}
-                </p>
-                <p className="font-[family-name:var(--font-sans)] text-sm text-zinc-400">
-                  {type.job}
-                </p>
-              </div>
-            </div>
-          ))}
+      {/* ─── Component library group ─── */}
+      <div className="mt-20">
+        <MonoKicker>COMPONENT LIBRARY</MonoKicker>
+        <p className="mt-3 max-w-[680px] font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-400">
+          The system shipped sixteen components. Here are the most-used
+          surfaces, recreated live and fully interactive.
+        </p>
+        <div className="mt-10 space-y-16">
+          <Buttons />
+          <Inputs />
+          <Tags />
+          <Cards />
         </div>
       </div>
 
-      {/* Closing caption */}
-      <p className="mt-12 font-[family-name:var(--font-mono)] text-sm italic text-zinc-500">
-        Sans for doing. Serif for reading. Mono for knowing.
-      </p>
-
-      {/* The real artifact behind everything above */}
-      <div className="mt-12">
-        <AssetPlaceholder
-          kind="SCREENSHOT"
-          slotId="Slot 2 — Open Ground system"
-          filename="/bc-connect/open-ground-system.png"
-          dimensions="wide capture · static screenshot"
-          description="The actual Open Ground artifact: the Figma component library page, the token sheet, or the style-guide document. Everything above explains the system; this shows it. A real artifact is the strongest proof in the whole case study."
-          annotate="optional — circle one token used across two different components to make the inheritance visible."
-        />
-      </div>
     </section>
   )
 }
