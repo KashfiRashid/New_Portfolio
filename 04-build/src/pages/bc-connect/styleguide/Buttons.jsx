@@ -35,7 +35,7 @@ const GROUPS = [
   {
     v: 'signal',
     label: 'Signal · Brand',
-    note: 'The one branded action — List Your Startup. Hover darkens to signal-hover.',
+    note: 'The one branded action, List Your Startup. Hover darkens to signal-hover.',
     dark: false,
     btns: [
       { size: 'sm', t: 'Small' },
@@ -106,11 +106,11 @@ export default function Buttons() {
       index="06"
       name="Buttons"
       chrome="Open Ground / Buttons"
-      reason="No transforms, ever. Hover is a color shift, active is an opacity dim — so a button never jumps out of the grid it sits in. Movement is saved for content being revealed, never for the controls themselves."
+      reason="No transforms, ever. Hover is a color shift, active is an opacity dim, so a button never jumps out of the grid it sits in. Movement is saved for content being revealed, never for the controls themselves."
     >
       <PanelHeader title="Buttons">
         Four variants across three sizes. Hover, focus, and active are all
-        live — try them.
+        live. Try them.
       </PanelHeader>
 
       <div className="space-y-7">

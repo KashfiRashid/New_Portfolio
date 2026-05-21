@@ -1,16 +1,16 @@
-import { SectionHead } from '../primitives.jsx'
+import { SectionHead, Highlight } from '../primitives.jsx'
 import StatBlock from '../diagrams/StatBlock.jsx'
 
 export default function Overview() {
   return (
     <section id="overview" className="scroll-mt-28 py-20 lg:py-32">
-      <SectionHead kicker="OVERVIEW" title="A directory the province didn't have." />
+      <SectionHead kicker="OVERVIEW" title="Why the system came first." />
       <div className="mt-8 max-w-[720px] space-y-6 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          BC Connect is a unified directory of British Columbia's startup ecosystem. It pulls fragmented municipal open data, published city by city in schemas that don't match, and normalizes it into a single searchable surface. 90,000+ businesses, one interface, one way to query them.
+          This is a case study about one decision. Before a single component shipped, I built the design system: the three laws, the tokens, the component library.
         </p>
         <p>
-          I led the design system and the frontend. Open Ground came first. Everything else inherited from it. The cards, the navigation, the map view, the auth flow: none of it was guesswork, because the system was already doing the thinking before the first component shipped.
+          <Highlight>Nobody grades a design system directly. I trusted it anyway.</Highlight> It paid off. Everything built after it started from a decision already made instead of starting over. Two engineers owned the data and the API. I held the interface alone, and the system is what made that possible.
         </p>
       </div>
       <div className="mt-12">

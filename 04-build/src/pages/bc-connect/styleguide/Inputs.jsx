@@ -86,10 +86,10 @@ export default function Inputs() {
       index="07"
       name="Inputs & Filters"
       chrome="Open Ground / Inputs & Filters"
-      reason="Both controls follow ground before signal. At rest they sit quietly — the search bar on neutral cloud, the filter pills on plain white. Selection is the only thing that earns weight: the search bar lifts to white, the active filter inverts to solid black."
+      reason="Both controls follow ground before signal. At rest they sit quietly, the search bar on neutral cloud, the filter pills on plain white. Selection is the only thing that earns weight: the search bar lifts to white, the active filter inverts to solid black."
     >
       <PanelHeader title="Inputs & Filters">
-        The primary control surfaces, fully working — click the search bar to
+        The primary control surfaces, fully working. Click the search bar to
         focus it, click a pill to set the filter.
       </PanelHeader>
 
@@ -98,14 +98,14 @@ export default function Inputs() {
         <div>
           <SubLabel>Search Bar &middot; click to focus</SubLabel>
           <p className="mb-4 mt-1.5 max-w-[500px] font-[family-name:var(--font-sans)] text-[12px] leading-[1.55] text-[#6B7080]">
-            At rest it blends into the page on cloud. On focus it lifts — white
+            At rest it blends into the page on cloud. On focus it lifts: white
             fill, a fog border, the icon turns signal green.
           </p>
           <div className="space-y-4">
             <SearchBar placeholder="Search startups, industries, regions..." />
             <div>
               <span className="mb-2 block font-[family-name:var(--font-mono)] text-[10.5px] uppercase tracking-[0.1em] text-[#8B90A0]">
-                Nav variant — expands on focus
+                Nav variant, expands on focus
               </span>
               <SearchBar variant="nav" placeholder="Search..." />
             </div>

@@ -1,4 +1,5 @@
-import { MetaBlock, AssetPlaceholder } from '../primitives.jsx'
+import { MetaBlock } from '../primitives.jsx'
+import heroLanding from '../hero-landing.png'
 
 export default function Hero() {
   return (
@@ -12,22 +13,23 @@ export default function Hero() {
             BC Connect
           </h1>
           <p className="max-w-[640px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-300 lg:text-xl">
-            A unified directory of British Columbia's startup ecosystem. I led the design system and the frontend that surfaces 90,000+ businesses through one searchable interface, and made the late-night calls that shaped both.
+            A unified directory of British Columbia's startup ecosystem. I led the frontend and the design system that brings 2,847 startups into one searchable interface.
           </p>
         </header>
         <MetaBlock
           rows={[
             { label: 'Team', value: 'Abdul Aziz Hamoui, Veeraj Mishra, Kashfi Rashid' },
-            { label: 'Stack', value: 'Next.js · React · Tailwind · MongoDB · JWT' },
-            { label: 'Duration', value: 'Spring 2026 · 8 weeks' },
+            { label: 'My Roles', value: 'UX/UI Designer · Frontend Developer · Design System Lead' },
+            { label: 'Duration', value: '4 months' },
+            { label: 'Stack', value: 'Next.js, React, Tailwind, MongoDB' },
+            { label: 'Context', value: 'Startup Ecosystem' },
+            { label: 'Format', value: 'Web Platform' },
           ]}
         />
-        <AssetPlaceholder
-          kind="SCREENSHOT"
-          slotId="Slot 1 — Hero landing"
-          filename="/bc-connect/hero-landing.png"
-          dimensions="2400 × 1500 · 16:10 · static screenshot"
-          description="Full BC Connect landing page at desktop width. Hero headline, value proposition, search bar, and the lattice background all in frame. This is the first image the reader sees, so use the cleanest production capture you have."
+        <img
+          src={heroLanding}
+          alt="The BC Connect landing page at desktop width"
+          className="w-full rounded-xl border border-white/10"
         />
       </div>
     </section>

@@ -1,23 +1,23 @@
-import { SectionHead, AssetPlaceholder } from '../primitives.jsx'
+import { SectionHead, AssetPlaceholder, Highlight } from '../primitives.jsx'
 
 const RESULTS = [
-  '90,000+ businesses unified from fragmented municipal open data',
-  'Three user roles with JWT-authenticated RBAC at the UI layer',
-  'Hybrid list and map directory with debounced search and multi-select filtering',
-  'Member dashboard with AI recommendations and saved businesses',
-  'Admin panel with moderation queue, member management, and full action audit log',
-  'Shipped on time and demoed live to the cohort',
+  '2,847 startups unified from fragmented municipal open data',
+  'Three roles, with JWT-authenticated access control enforced at the UI',
+  'A hybrid list and map directory with debounced search and multi-select filters',
+  'A member dashboard with saved businesses and three live recommendations',
+  'An admin panel: moderation queue, member management, and a full action audit log',
+  'Shipped on time, demoed live to the cohort',
 ]
 
 const TESTIMONIALS = [
   {
     quote:
-      "The typography choice sets the tone immediately. The category system isn't just navigation. It's how the platform actually solves the discovery problem.",
+      'The typography sets the tone immediately. The category system is not just navigation. It is how the platform actually solves the discovery problem.',
     attribution: 'MARKUS, COHORT REVIEWER',
   },
   {
     quote:
-      'The role architecture is essential. Visitors, members, admins each get a clear lane. And the platform genuinely connects businesses through one surface. One design note: the filter interactions could use more spatial feedback for a directory this dense.',
+      'The role architecture is essential. Visitors, members, and admins each get a clear lane, and the platform genuinely connects businesses through one surface. One note: the filter interactions could use more spatial feedback for a directory this dense.',
     attribution: 'NINA, COHORT REVIEWER',
   },
 ]
@@ -28,16 +28,16 @@ export default function Results() {
       <SectionHead kicker="RESULTS" title="What shipped, and what people said." />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200">
         <p>
-          BC Connect shipped on time and demoed live to the cohort. The directory now surfaces 90,000+ businesses across eight BC regions, behind one searchable interface, with three user roles and a complete admin moderation surface.
+          BC Connect demoed live to the cohort, on time. <Highlight>Every flow in the proposal shipped, on one design system.</Highlight> The directory carries startups from eight regions behind one interface, with three roles and a full admin moderation surface.
         </p>
       </div>
       <div className="mt-10">
         <AssetPlaceholder
           kind="SCREENSHOT OR VIDEO"
-          slotId="Slot 4 — Shipped directory"
+          slotId="Slot 2: Shipped directory"
           filename="/bc-connect/directory-shipped.png  (or .mp4)"
-          dimensions="2400 × 1500 · 16:10 · still, or a short clip"
-          description="The directory page in use: the card grid, the FilterPills row, the search bar, the map toggle. A short screen recording of filtering in action is stronger than a still here, since it shows the product actually working."
+          dimensions="2400 x 1500, 16:10, still or short clip"
+          description="The directory in use: the card grid, the filter pills, the search bar, the map toggle. A short screen recording of filtering in action is stronger than a still, because it shows the product working."
         />
       </div>
       <ul className="mt-12 max-w-[720px] space-y-2 font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-300">
@@ -47,10 +47,7 @@ export default function Results() {
       </ul>
       <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
         {TESTIMONIALS.map((testimonial) => (
-          <figure
-            key={testimonial.attribution}
-            className="rounded-lg border border-zinc-800 p-6"
-          >
+          <figure key={testimonial.attribution} className="rounded-lg border border-zinc-800 p-6">
             <blockquote className="font-[family-name:var(--font-display)] text-[20px] italic leading-relaxed text-zinc-200">
               {testimonial.quote}
             </blockquote>

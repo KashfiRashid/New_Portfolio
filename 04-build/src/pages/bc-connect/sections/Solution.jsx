@@ -1,37 +1,27 @@
-import { SectionHead, AssetPlaceholder } from '../primitives.jsx'
+import { SectionHead, Highlight } from '../primitives.jsx'
 import UserFlowDiagram from '../diagrams/UserFlowDiagram.jsx'
 
 const ACTIONS = [
   {
     label: 'ACTION 01',
-    title: 'Wrote the three laws before any components shipped',
-    body: "Open Ground starts with three design laws: Earn Your Pixel, Ground Before Signal, Connect Don't Decorate. Every component got measured against them. The laws weren't decoration. They were the contract.",
+    title: 'Wrote the three laws before any component',
+    body: "Open Ground starts with three laws: Earn Your Pixel, Ground Before Signal, Connect Don't Decorate. Every component was measured against them. The laws were the contract, not decoration.",
   },
   {
     label: 'ACTION 02',
-    title: "Defined the token system the team didn't have to negotiate",
-    body: 'Color, type, spacing, radius, shadow, motion. Every value got a token name, so nobody hardcoded anything twice. DM Sans for doing, Instrument Serif for reading, DM Mono for knowing.',
+    title: 'Built the token system the team never had to negotiate',
+    body: 'Color, type, spacing, radius, shadow, motion. Every value got a token name, so nothing was hardcoded twice. DM Sans for doing, Instrument Serif for reading, DM Mono for knowing.',
   },
   {
     label: 'ACTION 03',
-    title: 'Built and documented 16 components',
-    body: 'Sixteen components, covering every surface the product needed. Each documented with its props, states, and motion rules. No transforms on hover, opacity-only entrances, a 500ms animation ceiling.',
+    title: 'Built and documented sixteen components',
+    body: 'Sixteen components covering every surface the product needed, each with its props, states, and motion rules written down. No transforms on hover, opacity-only entrances, a 500ms ceiling on animation.',
   },
   {
     label: 'ACTION 04',
-    title: 'Integrated the system across every flow the product shipped',
-    body: "Six flows, one system underneath: landing, directory, detail, auth, dashboard, admin. Two integration moves were mine. Every business detail page generates its own SVG hero from the industry tag, one primitive across seven variants. The directory runs Near Me: geolocation plus the Haversine formula, sorting cards by distance. The geocoding pipeline behind it went to Abdul.",
+    title: 'Integrated the system across every flow',
+    body: 'Six flows ran on one system: landing, directory, detail, auth, dashboard, admin. Two integration moves were mine. Every business detail page generates its own SVG hero from the industry tag, one primitive across seven variants. The directory runs Near Me, geolocation plus the Haversine formula, sorting cards by distance. Abdul built the geocoding pipeline behind it.',
     showUserFlow: true,
-    asset: {
-      kind: 'SCREENSHOT',
-      slotId: 'Slot 3 — Integration composite',
-      filename: '/bc-connect/integration-composite.png',
-      dimensions: '2400 × 1500 · 16:10 · static screenshot',
-      description:
-        'Two or more shipped product surfaces side by side (directory next to dashboard, or landing next to a detail page), showing the same card primitive and the same spacing across both. The point is visible consistency from one system.',
-      annotate:
-        'optional — a thin connector line between the same component as it appears on two different surfaces.',
-    },
   },
 ]
 
@@ -41,7 +31,7 @@ export default function Solution() {
       <SectionHead kicker="WHAT I DID" title="I built the system the product ran on." />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200">
         <p>
-          I led the design system and the frontend architecture. Before any components shipped, the contract had to exist. Tokens, laws, components, and the integration surface that connected everything. Four moves, in order.
+          With the register decided, what remained was four moves. <Highlight>The laws, the tokens, the components, and the integration that tied them to the product.</Highlight>
         </p>
       </div>
       <div>
@@ -62,26 +52,16 @@ export default function Solution() {
               <div>
                 <UserFlowDiagram />
                 <p className="mt-4 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.14em] text-zinc-500">
-                  Three roles. Three surfaces. Progressive disclosure as architecture.
+                  Three roles, three surfaces, progressive disclosure as architecture.
                 </p>
               </div>
-            ) : null}
-            {action.asset ? (
-              <AssetPlaceholder
-                kind={action.asset.kind}
-                slotId={action.asset.slotId}
-                filename={action.asset.filename}
-                dimensions={action.asset.dimensions}
-                description={action.asset.description}
-                annotate={action.asset.annotate}
-              />
             ) : null}
           </article>
         ))}
       </div>
       <div className="max-w-[720px] border-t border-zinc-800 pt-12">
         <p className="font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-300">
-          Some of the work didn't fit any section header. The .env.local config bug that was masking 90,000 records as 12, found in a routine API trace, fixed in a single var change. The map race condition where markers tried to render before Google Maps mounted, solved with a ready-state gate. Reaching out to Helmine on Discord for the production card-image spec so we'd stop shipping placeholders. Cleanup work on primitives.jsx, removing 13 components that had drifted out of the active surface. None of it shows up in the demo, but the demo doesn't ship without it.
+          Some of the work fit no section header. A config bug in .env.local was masking the directory down to 12 records, caught in a routine API trace and fixed in one variable. A race condition where map markers tried to render before Google Maps had mounted, closed with a ready-state gate. A message to Helmine on Discord to get the production card-image spec so we stopped shipping placeholders. A pass over primitives.jsx that cut thirteen components that had drifted off the active surface. None of it shows in the demo. The demo doesn't ship without it.
         </p>
       </div>
     </section>

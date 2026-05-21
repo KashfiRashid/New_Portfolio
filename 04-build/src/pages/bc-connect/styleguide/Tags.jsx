@@ -90,7 +90,7 @@ export default function Tags() {
       index="08"
       name="Tags & Badges"
       chrome="Open Ground / Tags, Badges & Avatars"
-      reason="Color does the categorizing here, not decoration — every industry pair was picked to pass WCAG AA on its own background. Badges stay smaller than tags because status is metadata, not identity. Avatars ring on hover, a quiet echo of the lattice nodes."
+      reason="Color does the categorizing here, not decoration. Every industry pair was picked to pass WCAG AA on its own background. Badges stay smaller than tags because status is metadata, not identity. Avatars ring on hover, a quiet echo of the lattice nodes."
     >
       <PanelHeader title="Tags, Badges & Avatars">
         Color-coding for industry, semantic states for status, and
@@ -103,7 +103,7 @@ export default function Tags() {
           <SubLabel>Industry Tags</SubLabel>
           <Note>
             Pill tags with industry-specific color pairs. They are labels, not
-            actions — so no hover state.
+            actions, so no hover state.
           </Note>
           <div className="flex flex-wrap gap-2.5">
             {INDUSTRIES.map((t) => (
@@ -116,7 +116,7 @@ export default function Tags() {
         <div>
           <SubLabel>Status Badges</SubLabel>
           <Note>
-            Four semantic states — positive, caution, negative, info. Smaller
+            Four semantic states: positive, caution, negative, info. Smaller
             than tags, because status is metadata, not identity.
           </Note>
           <div className="flex flex-wrap gap-2.5">

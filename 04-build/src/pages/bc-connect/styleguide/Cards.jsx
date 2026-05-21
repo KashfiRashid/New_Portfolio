@@ -339,11 +339,11 @@ export default function Cards() {
       index="09"
       name="Cards"
       chrome="Open Ground / Cards"
-      reason="One industry value drives three things at once — the gradient header, the inline SVG illustration, and the footer tag. A reader categorizes a listing by color and icon before reading a single word. The directory does the discovery work for them."
+      reason="One industry value drives three things at once: the gradient header, the inline SVG illustration, and the footer tag. A reader categorizes a listing by color and icon before reading a single word. The directory does the discovery work for them."
     >
       <PanelHeader title="Cards">
         The content units. Each job card header carries an inline SVG
-        illustration keyed to its industry — the exact illustration code from
+        illustration keyed to its industry, the exact illustration code from
         the shipped product, seven sectors in one visual system.
       </PanelHeader>
 
@@ -352,7 +352,7 @@ export default function Cards() {
           <SubLabel>Job Cards &middot; one illustration per industry</SubLabel>
           <Note>
             Industry drives the header gradient, the SVG illustration, and the
-            footer tag — instant visual sorting across all seven sectors.
+            footer tag. Instant visual sorting across all seven sectors.
           </Note>
           <div className="flex flex-wrap gap-4">
             {JOBS.map((j) => (
@@ -365,7 +365,7 @@ export default function Cards() {
           <SubLabel>Stat Cards &middot; hover the number</SubLabel>
           <Note>
             Display numbers in Instrument Serif. Hover shifts the number to
-            signal green — the only color change, because the number is the
+            signal green, the only color change, because the number is the
             signal.
           </Note>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -378,7 +378,7 @@ export default function Cards() {
         <div>
           <SubLabel>Empty State</SubLabel>
           <Note>
-            When filters return nothing — a dashed container, never a dead end.
+            When filters return nothing, a dashed container, never a dead end.
             The clear-filters action is always offered.
           </Note>
           <EmptyState />

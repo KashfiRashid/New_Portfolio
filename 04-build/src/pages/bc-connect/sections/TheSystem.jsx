@@ -1,4 +1,4 @@
-import { SectionHead, MonoKicker } from '../primitives.jsx'
+import { SectionHead, MonoKicker, Highlight } from '../primitives.jsx'
 import SystemInheritanceDiagram from '../diagrams/SystemInheritanceDiagram.jsx'
 import BrandMark from '../styleguide/BrandMark.jsx'
 import ColorSystem from '../styleguide/ColorSystem.jsx'
@@ -14,17 +14,17 @@ const LAWS = [
   {
     label: 'Law 01',
     title: 'Earn Your Pixel',
-    body: "Every element must justify its presence. If it doesn't inform, orient, or delight, remove it. Default to removal.",
+    body: "Every element justifies its presence. If it doesn't inform, orient, or delight, it goes. The default is removal.",
   },
   {
     label: 'Law 02',
     title: 'Ground Before Signal',
-    body: 'Establish spatial clarity with neutral ground before introducing color or emphasis. White space is structure, not emptiness.',
+    body: 'Neutral ground sets spatial clarity before any color or emphasis. White space is structure, not emptiness.',
   },
   {
     label: 'Law 03',
     title: "Connect, Don't Decorate",
-    body: "Ornament for aesthetics alone isn't allowed. Every line, dot, and gradient should visualize a real relationship.",
+    body: "Ornament for its own sake isn't allowed. Every line, dot, and gradient visualizes a real relationship.",
   },
 ]
 
@@ -34,11 +34,10 @@ export default function TheSystem() {
       <SectionHead kicker="THE SYSTEM" title="Open Ground, before any component shipped." />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200">
         <p>
-          The system has three laws. Earn Your Pixel. Ground Before Signal. Connect, Don't Decorate. Every component the team built was evaluated against them. The laws came first because everything downstream had to either agree with them or be replaced.
+          Open Ground is three laws, and the tokens and components built to obey them. <Highlight>Every component had to pass the three laws or be replaced.</Highlight>
         </p>
       </div>
 
-      {/* PART A: the three laws */}
       <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
         {LAWS.map((law) => (
           <article key={law.label} className="rounded-lg border border-zinc-800 p-6">
@@ -55,7 +54,6 @@ export default function TheSystem() {
         ))}
       </div>
 
-      {/* System inheritance diagram */}
       <div className="mt-12">
         <SystemInheritanceDiagram />
         <p className="mt-4 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.14em] text-zinc-500">
@@ -63,15 +61,10 @@ export default function TheSystem() {
         </p>
       </div>
 
-      {/* ─── Live design-system showcase ───
-          Each element of Open Ground recreated as a live component, framed
-          in a white "museum" panel on the dark canvas. Foundations first;
-          the component library follows in later exhibits. */}
       <div className="mt-20">
         <MonoKicker>FOUNDATIONS</MonoKicker>
         <p className="mt-3 max-w-[680px] font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-400">
-          Not screenshots. Every element below is the real component, recreated
-          and rendered live — so it can never drift out of date.
+          Not screenshots. Every element below is the real component, rebuilt and rendered live, so it can't drift out of date.
         </p>
         <div className="mt-10 space-y-16">
           <BrandMark />
@@ -82,12 +75,10 @@ export default function TheSystem() {
         </div>
       </div>
 
-      {/* ─── Component library group ─── */}
       <div className="mt-20">
         <MonoKicker>COMPONENT LIBRARY</MonoKicker>
         <p className="mt-3 max-w-[680px] font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-400">
-          The system shipped sixteen components. Here are the most-used
-          surfaces, recreated live and fully interactive.
+          The system shipped sixteen components. These are the surfaces the product leaned on most, rebuilt here and fully interactive.
         </p>
         <div className="mt-10 space-y-16">
           <Buttons />
@@ -96,7 +87,6 @@ export default function TheSystem() {
           <Cards />
         </div>
       </div>
-
     </section>
   )
 }

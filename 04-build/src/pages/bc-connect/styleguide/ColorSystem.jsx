@@ -10,7 +10,7 @@ import { ExhibitBlock, PanelHeader, SpecimenGrid } from './primitives.jsx'
 const GROUPS = [
   {
     name: 'Ground',
-    note: 'The neutral canvas. Roughly 80% of any screen is one of these five — structure, not emptiness.',
+    note: 'The neutral canvas. Roughly 80% of any screen is one of these five. Structure, not emptiness.',
     cols: 5,
     swatches: [
       { name: 'White', hex: '#FFFFFF', token: '--white' },
@@ -22,7 +22,7 @@ const GROUPS = [
   },
   {
     name: 'Ink',
-    note: 'Text and icon hierarchy. Ink 900 is the only truly dark value — reserved for headings and primary actions.',
+    note: 'Text and icon hierarchy. Ink 900 is the only truly dark value, reserved for headings and primary actions.',
     cols: 6,
     swatches: [
       { name: 'Ink 900', hex: '#111218', token: '--ink-900' },
@@ -35,7 +35,7 @@ const GROUPS = [
   },
   {
     name: 'Signal',
-    note: 'The single brand color. Primary actions and active state only — never decoration.',
+    note: 'The single brand color. Primary actions and active state only, never decoration.',
     cols: 4,
     swatches: [
       { name: 'Signal', hex: '#1B6B4F', token: '--signal' },
@@ -46,7 +46,7 @@ const GROUPS = [
   },
   {
     name: 'Data Accents',
-    note: 'Charts only. Four hues kept distinct from each other — and from Signal.',
+    note: 'Charts only. Four hues kept distinct from each other, and from Signal.',
     cols: 4,
     swatches: [
       { name: 'Amber', hex: '#C07A28', token: '--data-amber' },

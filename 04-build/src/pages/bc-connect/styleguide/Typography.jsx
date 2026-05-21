@@ -15,26 +15,26 @@ const FONTS = [
   {
     cls: DISPLAY,
     name: 'Instrument Serif',
-    role: 'Display & headings — for reading.',
+    role: 'Display & headings: for reading.',
     detail: 'Regular 400 + Italic · font-display',
   },
   {
     cls: SANS,
     name: 'DM Sans',
-    role: 'Body, UI, buttons — for doing.',
+    role: 'Body, UI, buttons: for doing.',
     detail: 'Light 300 to Bold 700 · font-sans',
   },
   {
     cls: MONO,
     name: 'DM Mono',
-    role: 'Data, code, metadata — for knowing.',
+    role: 'Data, code, metadata: for knowing.',
     detail: 'Light 300 to Medium 500 · font-mono',
   },
 ]
 
 const SCALE = [
   {
-    group: 'Display — Instrument Serif',
+    group: 'Display, Instrument Serif',
     rows: [
       { name: 'Display XL', sample: 'Open Ground', cls: DISPLAY, color: '#111218', spec: '96 / 0.95 / -0.03em', style: { fontSize: 96, lineHeight: 0.95, letterSpacing: '-0.03em' } },
       { name: 'Display L', sample: 'BC Connect', cls: DISPLAY, color: '#111218', spec: '64 / 1.0 / -0.025em', style: { fontSize: 64, lineHeight: 1.0, letterSpacing: '-0.025em' } },
@@ -43,7 +43,7 @@ const SCALE = [
     ],
   },
   {
-    group: 'Heading — Instrument Serif',
+    group: 'Heading, Instrument Serif',
     rows: [
       { name: 'Heading L', sample: 'Section Heading', cls: DISPLAY, color: '#111218', spec: '28 / 1.15 / -0.01em', style: { fontSize: 28, lineHeight: 1.15, letterSpacing: '-0.01em' } },
       { name: 'Heading M', sample: 'Card Title', cls: DISPLAY, color: '#111218', spec: '24 / 1.15 / -0.01em', style: { fontSize: 24, lineHeight: 1.15, letterSpacing: '-0.01em' } },
@@ -51,7 +51,7 @@ const SCALE = [
     ],
   },
   {
-    group: 'Body — DM Sans',
+    group: 'Body, DM Sans',
     rows: [
       { name: 'Body L', sample: 'Discover startups across British Columbia.', cls: SANS, color: '#4B5162', spec: '20 / 300 / 1.6', style: { fontSize: 20, fontWeight: 300, lineHeight: 1.6 } },
       { name: 'Body M', sample: 'This is the standard body text used for descriptions and longer reading passages.', cls: SANS, color: '#4B5162', spec: '15 / 400 / 1.6', style: { fontSize: 15, fontWeight: 400, lineHeight: 1.6 } },
@@ -59,9 +59,9 @@ const SCALE = [
     ],
   },
   {
-    group: 'Utility — DM Sans & DM Mono',
+    group: 'Utility, DM Sans & DM Mono',
     rows: [
-      { name: 'Caption', sample: 'Vancouver, BC — 12 employees', cls: SANS, color: '#6B7080', spec: '13 / 500 / 1.4', style: { fontSize: 13, fontWeight: 500, lineHeight: 1.4 } },
+      { name: 'Caption', sample: 'Vancouver, BC · 12 employees', cls: SANS, color: '#6B7080', spec: '13 / 500 / 1.4', style: { fontSize: 13, fontWeight: 500, lineHeight: 1.4 } },
       { name: 'Overline', sample: 'ACTIVE STARTUPS', cls: SANS, color: '#8B90A0', spec: '11 / 600 / 0.1em', style: { fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' } },
       { name: 'Mono M', sample: '2,847', cls: MONO, color: '#4B5162', spec: '15 / 400', style: { fontSize: 15, fontWeight: 400 } },
       { name: 'Mono S', sample: '--signal: #1B6B4F', cls: MONO, color: '#4B5162', spec: '13 / 400', style: { fontSize: 13, fontWeight: 400 } },
@@ -111,10 +111,10 @@ export default function Typography() {
       index="03"
       name="Typography"
       chrome="Open Ground / Typography"
-      reason="Three faces, three jobs, no overlap — serif for reading, sans for doing, mono for knowing. A reader never has to ask why a piece of text looks the way it does. The typeface already answered."
+      reason="Three faces, three jobs, no overlap. Serif for reading, sans for doing, mono for knowing. A reader never has to ask why a piece of text looks the way it does. The typeface already answered."
     >
       <PanelHeader title="Typography">
-        Three fonts, each with one clear job — and a fourteen-step scale built
+        Three fonts, each with one clear job, and a fourteen-step scale built
         on consistent ratios.
       </PanelHeader>
 

@@ -53,7 +53,7 @@ export default function Spacing() {
       index="04"
       name="Spacing & Radius"
       chrome="Open Ground / Spacing, Radius & Shadow"
-      reason="A 4px grid removes the guesswork — every margin, padding, and gap is a multiple of four. Radii scale with the container, and shadows stay almost invisible because structure and borders carry the depth, not drop-shadow."
+      reason="A 4px grid removes the guesswork. Every margin, padding, and gap is a multiple of four. Radii scale with the container, and shadows stay almost invisible because structure and borders carry the depth, not drop-shadow."
     >
       <PanelHeader title="Spacing, Radius & Shadow">
         A 4px base grid aligns everything. Radii grow with container size;

@@ -1,23 +1,22 @@
 /**
  * StatBlock — the headline numbers at a glance.
  *
- * Added in the Phase B HR-lens pass. A non-designer recruiter scanning
- * the case study should grasp the scale of the work in one look, before
- * reading a single paragraph. Six numbers, large display type, hairline
- * grid. Rendered near the top of the case study inside Overview.
+ * A recruiter scanning the case study should grasp the scale of the work
+ * in one look, before reading a paragraph. Six numbers, large display
+ * type, hairline grid. Rendered near the top inside Overview.
  *
- * Every figure is consistent with content stated elsewhere in the case
- * study (90,000+ businesses, 8 regions, 3 roles, 16 components, the
- * Open Ground system, the 8-week duration). Nothing here is invented.
+ * Every figure matches the live product and the rest of the case study:
+ * 2,847 startups, 8 regions, 3 roles, 16 components, the Open Ground
+ * system, the four-month duration.
  */
 
 const STATS = [
-  { value: '90,000+', label: 'businesses unified' },
+  { value: '2,847', label: 'startups listed' },
   { value: '8', label: 'BC regions' },
   { value: '3', label: 'user roles' },
   { value: '16', label: 'system components' },
   { value: '1', label: 'design system' },
-  { value: '8 weeks', label: 'start to ship' },
+  { value: '4 months', label: 'start to ship' },
 ]
 
 export default function StatBlock() {

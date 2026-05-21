@@ -52,7 +52,7 @@ function FaviconMark({ size = 52, className = '' }) {
 }
 
 /* A mark variant on its intended ground. The whole tile is a hover target
-   so the mark springs 90deg — the "living network" cue. */
+   so the mark springs 90deg, the "living network" cue. */
 function MarkTile({ tile, label, labelColor, variant }) {
   return (
     <div
@@ -80,7 +80,7 @@ export default function BrandMark() {
       index="01"
       name="Brand Mark"
       chrome="Open Ground / Brand Mark"
-      reason="The mark isn't decoration — it's the product's thesis in one glyph. Four scattered entities resolving into a single connected center is exactly what BC Connect does to BC's fragmented business data. Hover it and the lattice turns: the network is alive."
+      reason="The mark isn't decoration. It's the product's thesis in one glyph. Four scattered entities resolving into a single connected center is exactly what BC Connect does to BC's fragmented business data. Hover it and the lattice turns: the network is alive."
     >
       <PanelHeader title="Brand Mark">
         The Lattice Mark represents interconnected nodes in an ecosystem. It
@@ -118,7 +118,7 @@ export default function BrandMark() {
           <FaviconMark size={52} />
         </div>
         <p className="max-w-[330px] font-[family-name:var(--font-sans)] text-[13px] leading-[1.65] text-[#6B7080]">
-          The app-icon treatment of the same mark — five nodes, three
+          The app-icon treatment of the same mark, five nodes, three
           connectors, with a soft radial core so it stays legible down to
           16px. Shipped at 48&times;48.
         </p>

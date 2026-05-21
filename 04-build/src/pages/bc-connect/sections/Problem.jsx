@@ -1,4 +1,4 @@
-import { SectionHead, PainPointCard } from '../primitives.jsx'
+import { SectionHead, PainPointCard, Highlight } from '../primitives.jsx'
 
 export default function Problem() {
   return (
@@ -9,18 +9,18 @@ export default function Problem() {
       />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          The directory had three problems stacked on top of each other. None of them could be solved in isolation.
+          Three problems, stacked. <Highlight>The build had to clear all three before BC Connect could exist.</Highlight>
         </p>
       </div>
       <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
         <PainPointCard index="01" title="Two schemas, no shape">
-          Vancouver publishes business types. Surrey publishes NAICS codes. Same idea, incompatible structure. The data was the first problem the directory had to solve.
+          The same business carried different fields and codes in every dataset. Until the data had one consistent shape, nothing could be built on top of it.
         </PainPointCard>
         <PainPointCard index="02" title="No discovery layer">
-          Investors scroll LinkedIn. Founders rely on word of mouth. The directory the province needs doesn't exist, so neither side ever finds the other in one place.
+          Even clean data had nowhere to live. Investors scrolled LinkedIn, founders relied on word of mouth, and the two sides never met in one place.
         </PainPointCard>
         <PainPointCard index="03" title="Regional invisibility">
-          The Open Data portals only cover the cities that publish. A startup outside the Lower Mainland doesn't just rank low. It doesn't appear anywhere at all.
+          Coverage followed whoever published. A startup outside the Lower Mainland didn't rank low in the directory. It had no row in it.
         </PainPointCard>
       </div>
       <div className="mx-auto mt-16 max-w-[760px] text-center">
@@ -28,7 +28,7 @@ export default function Problem() {
           The design challenge
         </p>
         <p className="mt-4 font-[family-name:var(--font-display)] text-[26px] font-normal leading-snug tracking-[-0.01em] text-white lg:text-[34px]">
-          How might we build a single directory of BC's startup ecosystem that respects the data, surfaces the invisible regions, and gets out of the user's way?
+          How might we build one directory of BC's startup ecosystem that respects the data, surfaces the regions nobody else shows, and stays out of the user's way?
         </p>
       </div>
     </section>

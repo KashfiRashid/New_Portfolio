@@ -5,7 +5,7 @@ export const BC_CONNECT_NAV = [
   { id: 'background', label: 'Background' },
   { id: 'problem', label: 'Problem' },
   { id: 'designers-mind', label: "The Designer's Mind" },
-  { id: 'solution', label: 'Solution' },
+  { id: 'solution', label: 'What I Did' },
   { id: 'the-system', label: 'The System' },
   { id: 'the-exception', label: 'Restraint' },
   { id: 'results', label: 'Results' },
@@ -186,5 +186,20 @@ export function AssetPlaceholder({
         </p>
       ) : null}
     </div>
+  )
+}
+
+/**
+ * Highlight — a marker band behind one key line per section. Picks out the
+ * sentence that carries the section's gist, so a fast scroll still reads as
+ * a story. Use sparingly: one highlight per section.
+ */
+export function Highlight({ children, className = '' }) {
+  return (
+    <mark
+      className={`box-decoration-clone rounded-[3px] bg-[#1B6B4F]/30 px-1.5 py-0.5 font-medium text-white ${className}`}
+    >
+      {children}
+    </mark>
   )
 }

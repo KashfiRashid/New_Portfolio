@@ -1,24 +1,18 @@
-import { SectionHead } from '../primitives.jsx'
+import { SectionHead, Highlight } from '../primitives.jsx'
 
 export default function DesignersMind() {
   return (
     <section id="designers-mind" className="scroll-mt-28 py-20 lg:py-32">
       <SectionHead
         kicker="THE DESIGNER'S MIND"
-        title="Before pixels, I designed for the platform's vibe."
+        title="Every platform has a register. I chose ours first."
       />
-      <div className="max-w-[720px] space-y-6 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200">
+      <div className="mt-8 max-w-[720px] space-y-6 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200">
         <p>
-          Every platform has a register. LinkedIn is professional. Instagram is edited personal content. YouTube is fun and trivia. Coursera is professional learning. Discord is connection and collaboration. Reddit and Twitter are raw and unfiltered.
+          LinkedIn reads as professional. Instagram is edited and personal. Reddit is raw. Coursera is study. Every product picks a register, on purpose or by accident, and a user feels it before reading a word.
         </p>
         <p>
-          BC Connect needed the LinkedIn and Coursera register. A trustworthy data surface for investors and founders making real decisions. Not Instagram's filter aesthetic. Not Reddit's rawness. The vibe had to match what the platform was for.
-        </p>
-        <p>
-          So I designed for that. I explored fonts, tested palettes, sat with the spacing until the rhythm felt right. Iteration wasn't ornament. It was how I tuned the system to its audience.
-        </p>
-        <p>
-          By the time we started shipping components, the vibe was already a decision the team didn't have to remake. Cards, navigation, hero, map view, all of it inherited from the register I'd set early.
+          <Highlight>Ours had to read like LinkedIn and Coursera, a surface for real decisions.</Highlight> Not Instagram's filter, not Reddit's noise. That one choice set the fonts, the palette, the spacing, and the restraint, and by the time components shipped, the register was a decision nobody had to remake.
         </p>
       </div>
     </section>

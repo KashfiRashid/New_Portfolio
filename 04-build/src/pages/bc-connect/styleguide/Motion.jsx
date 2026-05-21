@@ -18,18 +18,18 @@ const CURVES = [
     name: 'Ease Spring',
     css: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
     ms: 450,
-    desc: 'Overshoots, then settles. Defined but reserved — used only by the lattice mark.',
+    desc: 'Overshoots, then settles. Defined but reserved, used only by the lattice mark.',
   },
   {
     name: 'Linear',
     css: 'linear',
     ms: 200,
-    desc: 'For changes that should feel instant — color and opacity fades.',
+    desc: 'For changes that should feel instant: color and opacity fades.',
   },
 ]
 
 const DURATIONS = [
-  { time: '100–150ms', cls: 'Fast', use: 'Button active, color swaps, opacity dims' },
+  { time: '100-150ms', cls: 'Fast', use: 'Button active, color swaps, opacity dims' },
   { time: '200ms', cls: 'Standard', use: 'Nav underline, focus ring, row highlight' },
   { time: '280ms', cls: 'Considered', use: 'Card border & shadow, pill slide' },
   { time: '350ms', cls: 'Slow', use: 'Principle top-bar reveal' },
@@ -76,11 +76,11 @@ export default function Motion() {
       index="05"
       name="Motion"
       chrome="Open Ground / Motion"
-      reason="Speed is the message. A 150ms color shift reads as 'immediate'; a 280ms border warm reads as 'considered.' Nothing exceeds 500ms, and nothing moves position or scale — only color, opacity, and border."
+      reason="Speed is the message. A 150ms color shift reads as 'immediate'; a 280ms border warm reads as 'considered.' Nothing exceeds 500ms, and nothing moves position or scale, only color, opacity, and border."
     >
       <PanelHeader title="Motion">
-        Three easing curves and five duration tiers. Motion is not decoration
-        — it signals the weight of a change.
+        Three easing curves and five duration tiers. Motion is not decoration.
+        It signals the weight of a change.
       </PanelHeader>
 
       <div className="space-y-9">

@@ -6,21 +6,21 @@ const TEAM = [
     name: 'Abdul Aziz Hamoui',
     role: 'Backend and admin systems',
     contribution:
-      'Built the admin system, business CRUD, the data seeding and geocoding pipeline that normalized Vancouver and Surrey open data into the unified schema. Managed branches and pull requests across the team.',
+      'Set up the repository and project foundations, then built the full admin system: dashboard, approval workflow, audit log, member management, and role-based access. Owned business CRUD, the data seeding and geocoding pipeline, and branch and PR management.',
   },
   {
     label: 'VEERAJ MISHRA',
     name: 'Veeraj Mishra',
     role: 'Backend and data',
     contribution:
-      "Built the MongoDB schemas, the API routes, the auth integration, and the recommendations engine that powers the member dashboard's matching layer.",
+      'Built the MongoDB schemas, API routes, models, and middleware, integrated authentication across the stack, and wrote the directory filtering, pagination, and the recommendations engine behind the member dashboard.',
   },
   {
     label: 'KASHFI RASHID',
     name: 'Kashfi Rashid',
     role: 'Design system and frontend lead',
     contribution:
-      'Built Open Ground (the design system), the component library, all frontend architecture including auth UI, routing, hybrid map view, member dashboard, business detail pages, and the system documentation.',
+      'Built Open Ground and the component library, and all frontend architecture: auth UI, routing, the hybrid map view, the member dashboard, the generated business detail pages, navigation and branding, and the system documentation.',
   },
 ]
 
@@ -47,7 +47,7 @@ export default function Credits() {
         ))}
       </div>
       <p className="mt-12 text-center font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">
-        SFU SIAT · Spring 2026
+        SFU SIAT, Spring 2026
       </p>
     </section>
   )
