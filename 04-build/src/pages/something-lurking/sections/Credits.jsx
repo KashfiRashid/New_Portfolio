@@ -2,28 +2,24 @@ import { SectionHead } from '../primitives.jsx'
 
 const TEAM = [
   {
-    label: 'KASHFI RASHID',
     name: 'Md Kashfi Or Rashid Pranta',
     role: 'Story arc · Design philosophy · Sound · Iteration',
     contribution:
-      'Drafted the three-act narrative spine the team built around. Brought two earlier design papers — one on purposeful scaling, one proposing pipe-and-valve hand mechanics — into the project\'s mechanic vocabulary. Generated the character voices in Eleven Labs and treated them in Audacity. Authored the environmental sound cues. Held the iteration loop from whiteboard to Unity.',
+      'Drafted the three-act narrative spine. Brought two earlier design papers — one on purposeful scaling, one proposing pipe-and-valve hand mechanics — into the project\'s mechanic vocabulary. Generated the character voices in Eleven Labs and treated them in Audacity. Authored the environmental sound cues. Held the iteration loop from whiteboard to Unity.',
   },
   {
-    label: 'ERIC GABRIEL CHENG LI',
     name: 'Eric Gabriel Cheng Li',
     role: 'Sole 3D Modeler · Environments',
     contribution:
       'Modeled every 3D asset in the experience. Corridor, stairway, generator platform, the 1:100 fusebox interior, the 1:1000 vent and chip-space, control room, elevator and corridor, garage, escape pod, the astronaut, the armband. After P1, built the entire second-half environment in one push.',
   },
   {
-    label: 'MICHAEL KIM',
     name: 'Michael Kim',
     role: 'Mechanics · Socket Interactors · Poke UI',
     contribution:
       'Built the socket interactor systems that drive the wire, fuse, and chip-grid puzzles. Wired the doors, the teleport speed changers, the poke-based armband UI after the P1 raycast feedback. Made the ship feel like a working machine.',
   },
   {
-    label: 'KENTO WEIL',
     name: 'Kento Weil',
     role: 'Mechanics · Mystery & Isolation Beats',
     contribution:
@@ -38,14 +34,13 @@ export default function Credits() {
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {TEAM.map((m) => (
-          <div key={m.label}>
-            <p className="font-[family-name:var(--font-mono)] text-sm uppercase tracking-[0.2em] text-[#6E3FB3]">
-              {m.label}
-            </p>
-            <h3 className="mt-2 font-[family-name:var(--font-display)] text-[20px] font-normal text-white">
+          <div key={m.name}>
+            <h3 className="font-[family-name:var(--font-display)] text-[20px] font-normal text-white">
               {m.name}
             </h3>
-            <p className="mt-1 font-[family-name:var(--font-sans)] text-sm text-zinc-400">{m.role}</p>
+            <p className="mt-1 font-[family-name:var(--font-sans)] text-sm text-zinc-400">
+              {m.role}
+            </p>
             <p className="mt-3 font-[family-name:var(--font-sans)] text-[15px] leading-relaxed text-zinc-300">
               {m.contribution}
             </p>

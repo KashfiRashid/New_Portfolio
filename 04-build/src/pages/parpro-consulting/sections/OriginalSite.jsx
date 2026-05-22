@@ -1,4 +1,4 @@
-import { SectionHead, PainPointCard } from '../primitives.jsx'
+import { SectionHead, PainPointCard, Highlight } from '../primitives.jsx'
 
 export default function OriginalSite() {
   return (
@@ -9,7 +9,7 @@ export default function OriginalSite() {
       />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          The competitor audit and the client interview produced a short list of problems on the existing Parpro site. The four below, in the order the client cared about them.
+          The competitor audit and the client interview produced a short list of problems on the existing Parpro site. <Highlight>The four below are in the order the client cared about them.</Highlight>
         </p>
       </div>
 

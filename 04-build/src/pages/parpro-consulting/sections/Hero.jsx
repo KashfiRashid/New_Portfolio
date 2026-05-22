@@ -12,21 +12,21 @@ export default function Hero() {
             Parpro Consulting
           </h1>
           <p className="max-w-[640px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-300 lg:text-xl">
-            A 3-day hackathon redesign for a Canadian SMB bookkeeping firm. A real client, four interaction patterns, every one tied to an audited problem.
+            A 3-day hackathon redesign for a Canadian bookkeeping firm. I owned the interactive prototype and the four interaction patterns, each one tied to an audited problem.
           </p>
         </header>
 
         <MetaBlock
           rows={[
-            { label: 'Role', value: 'Interaction Designer (prototype and four interaction patterns)' },
             { label: 'Team', value: 'Md Kashfi Or Rashid Pranta · Benjamin Nichiporik · Mariyam · Rahil Virani' },
-            { label: 'Stack', value: 'Figma · prototype animation' },
-            { label: 'Timeline', value: '3 days · FLUI-25 hackathon' },
-            { label: 'Audience', value: 'Canadian SMB bookkeeping clients' },
+            { label: 'My Roles', value: 'Interaction Design · Prototyping' },
+            { label: 'Duration', value: '3 days' },
+            { label: 'Stack', value: 'Figma' },
+            { label: 'Context', value: 'Client website redesign' },
+            { label: 'Format', value: 'Figma prototype' },
           ]}
         />
 
-        {/* Hero video — final-site.mp4 is native 1440×1080 (4:3). */}
         <figure className="space-y-3">
           <video
             src="/parpro/final-site.mp4"

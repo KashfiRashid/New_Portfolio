@@ -5,7 +5,7 @@ const TEAM = [
     name: 'Md Kashfi Or Rashid Pranta',
     role: 'UX Lead Designer',
     contribution:
-      'Owned the UX from the first sketch to validation. Defined the design challenge from lived experience, then ran the 45-interview bias test to confirm it generalized. Led the direction through rapid sketching, set the micro-step model, and held that through-line from research into the final screens.',
+      'Framed the design challenge, ran the 45-interview bias test, and set the micro-step model.',
   },
   {
     name: 'Kate Luonge',
@@ -27,10 +27,7 @@ export default function Credits() {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
         {TEAM.map((m) => (
           <div key={m.name}>
-            <p className="font-[family-name:var(--font-mono)] text-sm uppercase tracking-[0.2em] text-[#F4C26B]">
-              {m.name.toUpperCase()}
-            </p>
-            <h3 className="mt-2 font-[family-name:var(--font-display)] text-[20px] font-normal text-white">
+            <h3 className="font-[family-name:var(--font-display)] text-[20px] font-normal text-white">
               {m.name}
             </h3>
             <p className="mt-1 font-[family-name:var(--font-sans)] text-sm text-zinc-400">

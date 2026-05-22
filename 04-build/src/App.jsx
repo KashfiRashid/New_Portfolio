@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, memo, Suspense, useEffect, useRef, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -18,21 +18,24 @@ import ScrollProgress from './components/ScrollProgress.jsx'
 import GridBackground from './components/GridBackground.jsx'
 import ErrorBoundary from './components/ErrorBoundary.jsx'
 
-import Home from './sections/Home.jsx'
-import Voice from './sections/Voice.jsx'
-import Eye from './sections/Eye.jsx'
-import Work from './sections/Work.jsx'
-import Process from './sections/Process.jsx'
-import People from './sections/People.jsx'
-import Origin from './sections/Origin.jsx'
-import HallOfFame from './sections/HallOfFame.jsx'
+// Route pages are code-split: each is its own lazy() chunk, fetched only
+// when its route is first visited. This pulls all 9 pages — plus every case
+// study (see pages/projects.js) — out of the initial bundle. <Suspense>
+// inside AppRoutes covers the load.
+const Home = lazy(() => import('./sections/Home.jsx'))
+const Voice = lazy(() => import('./sections/Voice.jsx'))
+const Eye = lazy(() => import('./sections/Eye.jsx'))
+const Work = lazy(() => import('./sections/Work.jsx'))
+const Process = lazy(() => import('./sections/Process.jsx'))
+const People = lazy(() => import('./sections/People.jsx'))
+const Origin = lazy(() => import('./sections/Origin.jsx'))
+const HallOfFame = lazy(() => import('./sections/HallOfFame.jsx'))
 
 // Case studies are routed through one shared route, /projects/:slug, which
 // reads the project registry (pages/projects.js) and renders the matching
-// case study component. This replaces the old hardcoded per-project URL
-// conditionals — adding a new case study is now a registry entry, not an
-// App.jsx change.
-import ProjectRoute from './pages/ProjectRoute.jsx'
+// case study component. ProjectRoute is itself a lazy chunk, and each case
+// study inside the registry is lazy too — see pages/projects.js.
+const ProjectRoute = lazy(() => import('./pages/ProjectRoute.jsx'))
 
 /**
  * App — top-level shell.
@@ -195,32 +198,12 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
           content and the character. See components/GridBackground.jsx. */}
       <GridBackground />
 
-      {/* Section cross-fade — quiet 280ms opacity-only transition.
-          mode="wait" ensures the outgoing section finishes before incoming starts. */}
+      {/* Thin scroll-progress line, fixed at the top of the viewport. */}
       <ScrollProgress />
 
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={location.pathname}
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -6 }}
-          transition={{ duration: 0.28, ease: [0.22, 0.61, 0.36, 1] }}
-        >
-          <Routes location={location} key={location.pathname}>
-            <Route path="/"               element={<Home />} />
-            <Route path="/voice"          element={<Voice />} />
-            <Route path="/eye"            element={<Eye />} />
-            <Route path="/work"           element={<Work />} />
-            <Route path="/projects/:slug" element={<ProjectRoute />} />
-            <Route path="/process"        element={<Process />} />
-            <Route path="/people"         element={<People />} />
-            <Route path="/origin"         element={<Origin />} />
-            <Route path="/hall-of-fame"   element={<HallOfFame />} />
-            <Route path="*"               element={<NotFound />} />
-          </Routes>
-        </motion.div>
-      </AnimatePresence>
+      {/* Routed page tree — isolated behind React.memo so the character's
+          per-frame context updates can't reconcile it. See AppRoutes. */}
+      <AppRoutes location={location} />
 
       <Footer
         identity={identity}
@@ -244,6 +227,53 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
       </ErrorBoundary>
     </>
   )
+}
+
+/* -----------------------------------------------------------------------
+   AppRoutes — the routed page tree, isolated behind React.memo.
+
+   AppShell consumes character context, which changes on every frame while
+   the character is walking. Without this boundary each of those updates
+   would reconcile the entire routed page (hundreds of nodes, every SVG
+   diagram) — the root cause of the site-wide scroll / mouse jank. memo +
+   the stable `location` object means the page tree re-renders only on a
+   real navigation, never from the character loop.
+
+   Each <Route> element is a lazy() chunk; <Suspense> covers the load.
+   ----------------------------------------------------------------------- */
+const AppRoutes = memo(function AppRoutes({ location }) {
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -6 }}
+        transition={{ duration: 0.28, ease: [0.22, 0.61, 0.36, 1] }}
+      >
+        <Suspense fallback={<RouteFallback />}>
+          <Routes location={location} key={location.pathname}>
+            <Route path="/"               element={<Home />} />
+            <Route path="/voice"          element={<Voice />} />
+            <Route path="/eye"            element={<Eye />} />
+            <Route path="/work"           element={<Work />} />
+            <Route path="/projects/:slug" element={<ProjectRoute />} />
+            <Route path="/process"        element={<Process />} />
+            <Route path="/people"         element={<People />} />
+            <Route path="/origin"         element={<Origin />} />
+            <Route path="/hall-of-fame"   element={<HallOfFame />} />
+            <Route path="*"               element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </motion.div>
+    </AnimatePresence>
+  )
+})
+
+/* Minimal route-load placeholder - holds viewport height so the layout
+   doesn't collapse during a lazy chunk fetch. */
+function RouteFallback() {
+  return <div className="min-h-screen" aria-hidden="true" />
 }
 
 function NotFound() {

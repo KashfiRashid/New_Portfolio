@@ -35,27 +35,40 @@ export default function CursorGlow({ className = '', children }) {
     return () => mq.removeEventListener('change', update)
   }, [])
 
-  // Track cursor relative to container
+  // Track cursor relative to container.
+  //
+  // The container's bounding rect is cached rather than read on every
+  // mousemove: getBoundingClientRect() forces a synchronous layout, so
+  // calling it per mouse event is a layout-thrash hot path. The rect only
+  // changes on scroll / resize / layout, so it is refreshed on those
+  // events (and on mouseenter) and simply read from the cache while the
+  // cursor moves.
   useEffect(() => {
     if (!isFinePointer) return
     const el = containerRef.current
     if (!el) return
 
+    let rect = el.getBoundingClientRect()
+    const refreshRect = () => { rect = el.getBoundingClientRect() }
+
     const handleMove = (e) => {
-      const rect = el.getBoundingClientRect()
       glowX.set(e.clientX - rect.left)
       glowY.set(e.clientY - rect.top)
     }
-    const handleEnter = () => setIsInside(true)
+    const handleEnter = () => { refreshRect(); setIsInside(true) }
     const handleLeave = () => setIsInside(false)
 
     el.addEventListener('mousemove', handleMove, { passive: true })
     el.addEventListener('mouseenter', handleEnter)
     el.addEventListener('mouseleave', handleLeave)
+    window.addEventListener('scroll', refreshRect, { passive: true })
+    window.addEventListener('resize', refreshRect)
     return () => {
       el.removeEventListener('mousemove', handleMove)
       el.removeEventListener('mouseenter', handleEnter)
       el.removeEventListener('mouseleave', handleLeave)
+      window.removeEventListener('scroll', refreshRect)
+      window.removeEventListener('resize', refreshRect)
     }
   }, [isFinePointer, glowX, glowY])
 

@@ -1,36 +1,33 @@
-import { SectionHead } from '../primitives.jsx'
+import { SectionHead, Highlight } from '../primitives.jsx'
 
 const ACTIONS = [
   {
     label: 'ACTION 01',
     title: 'Audited competitors, confirmed client priorities.',
     body:
-      'Day 1. We audited Shasha Consulting and HRSBS for interaction patterns, CTA placement, and trust cues. The client interview confirmed three priorities: cut stock imagery, add engagement, guide users toward services. Mapped the redesigned flow.',
+      'Day 1. With the team I audited Shasha Consulting and HRSBS for interaction patterns, CTA placement, and trust cues. The client interview confirmed three priorities: cut stock imagery, add engagement, guide users toward services. We mapped the redesigned flow.',
   },
   {
     label: 'ACTION 02',
     title: 'Built the design system and mockups.',
     body:
-      'Day 2. Low-fidelity wireframes for Home, About Us, Services, then high-fidelity mockups with the system: typography, color, spacing, components, and curated imagery in place of stock. The system went only as deep as three pages required.',
+      'Day 2. Low-fidelity wireframes for Home, About Us, and Services, then high-fidelity mockups with the system: typography, color, spacing, components, and curated imagery in place of stock. Shared team work; the system went only as deep as three pages required.',
   },
   {
     label: 'ACTION 03',
-    title: 'Built the prototype with four interactions.',
+    title: 'Built the prototype and the four interaction patterns.',
     body:
-      'Day 3. I built the interactive Figma prototype and the four interaction patterns. Each pattern tied to a problem from the audit, not added for polish. Detailed in Interaction Design.',
+      'Day 3, and the part I owned. I built the interactive Figma prototype and designed all four interaction patterns: entrance, scroll, click, and hover. Each one answers a problem from the audit, not added for polish. Detailed in Interaction Design.',
   },
 ]
 
 export default function WhatIDid() {
   return (
     <section id="what-i-did" className="scroll-mt-28 py-20 lg:py-32">
-      <SectionHead
-        kicker="WHAT WE DID"
-        title="Three days, three phases."
-      />
+      <SectionHead kicker="WHAT I DID" title="Three days, three phases." />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200">
         <p>
-          We split the three days by deliverable. The competitor audit, the user flow, the wireframes, the mockups, and the design system were team work. I owned the prototype and the four interaction patterns on Day 3.
+          I was the interaction designer on a four-person team. <Highlight>I owned the interactive prototype and the four interaction patterns.</Highlight> The competitor audit, the user flow, the wireframes, the mockups, and the design system were shared work I built alongside the team.
         </p>
       </div>
       <div>

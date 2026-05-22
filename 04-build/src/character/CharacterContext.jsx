@@ -94,6 +94,14 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   const rafRef = useRef(null)
   const lastTimeRef = useRef(0)
   const stateModuleRef = useRef(null)
+  // Change-detection mirror for the rAF loop. The loop runs at 60fps but
+  // only pushes a setState when one of these values actually changes — so a
+  // stationary character (idle / perched, the common case) produces zero
+  // re-renders per frame instead of reconciling the whole app every frame.
+  const syncedRef = useRef({
+    x: -100, y: -100, facing: 'right', posture: 'standing',
+    reelCarried: false, activity: null, laptop: false, mug: false, sway: 0,
+  })
   const reelShownRef = useRef(false)
   const bubbleTimerRef = useRef(null)
   const spawnedRef = useRef(false)
@@ -482,20 +490,50 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
         transition(nextState)
       }
 
-      // ── Sync React state (throttled — every 2 frames is fine visually) ──
-      setPositionState({ x: ctx.position.x, y: ctx.position.y })
-      setFacingState(ctx.facing)
-      setPostureState(ctx.posture)
-      if (ctx.reelCarried !== undefined) {
+      // ── Sync React state — change-detected ──
+      // The loop runs at 60fps, but it only commits to React when a value
+      // has actually changed. A stationary character produces zero setState
+      // calls (and therefore zero re-renders) per frame; only real movement
+      // or a posture/activity change pushes an update. This is what keeps
+      // the 60fps loop from reconciling the whole app every frame.
+      const synced = syncedRef.current
+      if (ctx.position.x !== synced.x || ctx.position.y !== synced.y) {
+        synced.x = ctx.position.x
+        synced.y = ctx.position.y
+        setPositionState({ x: ctx.position.x, y: ctx.position.y })
+      }
+      if (ctx.facing !== synced.facing) {
+        synced.facing = ctx.facing
+        setFacingState(ctx.facing)
+      }
+      if (ctx.posture !== synced.posture) {
+        synced.posture = ctx.posture
+        setPostureState(ctx.posture)
+      }
+      if (ctx.reelCarried !== undefined && ctx.reelCarried !== synced.reelCarried) {
+        synced.reelCarried = ctx.reelCarried
         setReelCarried(ctx.reelCarried)
       }
-      // Sync activity state
-      setActiveActivity(ctx.stateData?.activeActivity?.name || null)
-      setActiveProps(ctx.activeProps || {})
+      const activityName = ctx.stateData?.activeActivity?.name || null
+      if (activityName !== synced.activity) {
+        synced.activity = activityName
+        setActiveActivity(activityName)
+      }
       // patch v1.4 — surface sway rotation so the sprite can rotate. Only
-      // grabbed/thrown ever write nonzero values; in every other state the
-      // value sits at 0 and this set is a no-op for React (same value).
-      setSwayRotation(ctx.swayRotation || 0)
+      // grabbed/thrown ever write nonzero values; every other state holds 0.
+      const props = ctx.activeProps || {}
+      const laptop = !!props.laptop
+      const mug = !!props.mug
+      if (laptop !== synced.laptop || mug !== synced.mug) {
+        synced.laptop = laptop
+        synced.mug = mug
+        setActiveProps(props)
+      }
+      const sway = ctx.swayRotation || 0
+      if (sway !== synced.sway) {
+        synced.sway = sway
+        setSwayRotation(sway)
+      }
       // project-mode — re-render only on phase change, not every frame.
       const proj = ctx.stateData?.project
       const projPhase = proj?.phase || null

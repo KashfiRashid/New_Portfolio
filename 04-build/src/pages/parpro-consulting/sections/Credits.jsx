@@ -7,21 +7,21 @@ const TEAM = [
     name: 'Md Kashfi Or Rashid Pranta',
     role: 'Interaction Designer',
     contribution:
-      'Owned the interactive prototype and the four interaction patterns (entrance, scroll, click, hover). Shared work across the competitor audit, the user flow, the wireframes, the mockups, and the design system.',
+      'Built the interactive prototype and its four interaction patterns — entrance, scroll, click, hover.',
   },
   {
     name: 'Benjamin Nichiporik',
-    role: 'Team',
+    role: 'Interaction Designer',
     contribution: TEAMMATE_LINE,
   },
   {
     name: 'Mariyam',
-    role: 'Team',
+    role: 'UI Designer · Art Direction',
     contribution: TEAMMATE_LINE,
   },
   {
     name: 'Rahil Virani',
-    role: 'Team',
+    role: 'UX Research',
     contribution: TEAMMATE_LINE,
   },
 ]
@@ -34,10 +34,7 @@ export default function Credits() {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {TEAM.map((member) => (
           <div key={member.name}>
-            <p className="font-[family-name:var(--font-mono)] text-sm uppercase tracking-[0.2em] text-[#EC613B]">
-              {member.name.toUpperCase()}
-            </p>
-            <h3 className="mt-2 font-[family-name:var(--font-display)] text-[20px] font-normal text-white">
+            <h3 className="font-[family-name:var(--font-display)] text-[20px] font-normal text-white">
               {member.name}
             </h3>
             <p className="mt-1 font-[family-name:var(--font-sans)] text-sm text-zinc-400">

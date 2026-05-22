@@ -11,13 +11,20 @@
  * To give an existing project a real case study: build the page under
  * src/pages/<slug>/ and set its `component` here.
  */
-import BCConnectPage from './bc-connect/index.jsx'
-import BLUPage from './blu/index.jsx'
-import SpectralBloomPage from './spectral-bloom/index.jsx'
-import SomethingLurkingPage from './something-lurking/index.jsx'
-import ParproConsultingPage from './parpro-consulting/index.jsx'
-import DocumentorPage from './documentor/index.jsx'
-import NightshiftPage from './nightshift/index.jsx'
+import { lazy } from 'react'
+
+// Each case study is its own lazy() chunk — loaded only when its
+// /projects/<slug> route is actually visited, never in the initial bundle.
+// Home and Work import this file only for project *metadata* (name, blurb,
+// slug, …); lazy() means doing so pulls in no case study code. ProjectRoute
+// renders the component inside App's <Suspense>, which covers the load.
+const BCConnectPage = lazy(() => import('./bc-connect/index.jsx'))
+const BLUPage = lazy(() => import('./blu/index.jsx'))
+const SpectralBloomPage = lazy(() => import('./spectral-bloom/index.jsx'))
+const SomethingLurkingPage = lazy(() => import('./something-lurking/index.jsx'))
+const ParproConsultingPage = lazy(() => import('./parpro-consulting/index.jsx'))
+const DocumentorPage = lazy(() => import('./documentor/index.jsx'))
+const NightshiftPage = lazy(() => import('./nightshift/index.jsx'))
 
 export const PROJECTS = [
   {
@@ -98,7 +105,7 @@ export const PROJECTS = [
   },
 ]
 
-/** Older work — listed by name on the Work archive, no case study pages. */
+/** Older work - listed by name on the Work archive, no case study pages. */
 export const OLDER_WORK = [
   { slug: 'trucking-academy', name: 'Trucking Academy' },
 ]

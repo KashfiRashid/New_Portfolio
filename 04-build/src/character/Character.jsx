@@ -140,6 +140,23 @@ export default function Character() {
     !warping &&
     performance.now() - reappearStartRef.current < PROJECT_VANISH_DURATION * 1000
 
+  // The reappearing flag above is a render-time check against
+  // performance.now(), so it only flips to false when this component
+  // happens to re-render. The pinned character is static and - since the
+  // rAF loop became change-detected - triggers no re-renders, so the
+  // reverse vanish would otherwise freeze on its last frame (vanish-1)
+  // instead of returning to idle. Schedule one explicit re-render just
+  // past the reappear window so the teleport ends on its own.
+  const [, endReappearTick] = useState(0)
+  useEffect(() => {
+    if (projectPhase !== 'tr' && projectPhase !== 'bl') return
+    const t = setTimeout(
+      () => endReappearTick((n) => n + 1),
+      PROJECT_VANISH_DURATION * 1000 + 60,
+    )
+    return () => clearTimeout(t)
+  }, [projectPhase])
+
   // While the teleport frames play, the normal sprite is swapped out for
   // <VanishFrames>. Reduced motion shows neither — the teleport snaps.
   const showVanishFrames = !reduceMotion && (warping || reappearing)

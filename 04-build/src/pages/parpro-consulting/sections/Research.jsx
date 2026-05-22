@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { SectionHead } from '../primitives.jsx'
+import { SectionHead, Highlight } from '../primitives.jsx'
 
-const SHASHA_SRC = 'https://kashfirashid.com/media/static_Images/SHasha_Website.png'
-const HRSBS_SRC = 'https://kashfirashid.com/media/static_Images/Hrsbs_Website.png'
+const SHASHA_SRC = '/parpro/shasha-site.png'
+const HRSBS_SRC = '/parpro/hrsbs-site.png'
 
 function CompetitorImage({ src, alt, href, label }) {
   const [failed, setFailed] = useState(false)
@@ -56,7 +56,7 @@ export default function Research() {
       />
       <div className="max-w-[760px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          Before any design, we studied how established BC bookkeeping firms turn a visitor into a booked client.
+          Before any design, we studied <Highlight>how established BC bookkeeping firms turn a visitor into a booked client.</Highlight>
         </p>
       </div>
 

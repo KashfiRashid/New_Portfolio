@@ -141,3 +141,11 @@ export function CaptionedMedia({ children, caption, className = '' }) {
     </figure>
   )
 }
+
+export function Highlight({ children }) {
+  return (
+    <mark className="box-decoration-clone rounded-[3px] bg-[#EC613B]/30 px-1.5 py-0.5 font-medium text-white">
+      {children}
+    </mark>
+  )
+}

@@ -1,4 +1,4 @@
-import { SectionHead } from '../primitives.jsx'
+import { SectionHead, Highlight } from '../primitives.jsx'
 import UserFlowDiagram from '../diagrams/UserFlowDiagram.jsx'
 
 export default function UserFlow() {
@@ -10,7 +10,7 @@ export default function UserFlow() {
       />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          The original site gave a visitor no next step after landing. The redesigned flow funnels users toward a consultation with the primary CTA present across the journey.
+          The original site gave a visitor no next step after landing. The redesigned flow funnels users toward a consultation with <Highlight>the primary CTA present across the journey.</Highlight>
         </p>
       </div>
 

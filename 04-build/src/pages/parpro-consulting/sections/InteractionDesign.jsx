@@ -1,4 +1,4 @@
-import { SectionHead } from '../primitives.jsx'
+import { SectionHead, Highlight } from '../primitives.jsx'
 
 const INTERACTIONS = [
   {
@@ -44,11 +44,11 @@ export default function InteractionDesign() {
       />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          Engagement was the top priority after the imagery problem. Each pattern serves a user goal that maps to an audited problem.
+          This is the part of the project I owned outright. Engagement was the top priority for the client after the imagery problem, so I designed four interaction patterns. <Highlight>Each one is a fix for a specific audited problem.</Highlight>
         </p>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+      <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 max-w-[860px]">
         {INTERACTIONS.map((item) => (
           <div key={item.src} className="space-y-3">
             <video

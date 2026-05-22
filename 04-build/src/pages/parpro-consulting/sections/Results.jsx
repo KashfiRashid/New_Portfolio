@@ -1,4 +1,4 @@
-import { SectionHead } from '../primitives.jsx'
+import { SectionHead, Highlight } from '../primitives.jsx'
 import BeforeAfterComparison from '../diagrams/BeforeAfterComparison.jsx'
 
 const STATS = [
@@ -14,10 +14,10 @@ export default function Results() {
       <SectionHead kicker="RESULTS" title="What shipped, and what we did not get to." />
       <div className="max-w-[720px] space-y-6 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200">
         <p>
-          I delivered a complete interaction redesign in three days: competitor audit, user flow, wireframes, mockups, design system foundations, and an interactive prototype with four interaction types. The four audited problems each have a response in the artifact.
+          In three days the team delivered a complete interaction redesign: competitor audit, user flow, wireframes, mockups, design system foundations, and an interactive prototype. I owned the prototype and its four interaction patterns. Each of the four audited problems has a response in the artifact.
         </p>
         <p>
-          What did not happen is validation. There was no time to test the redesign with users or the client, and the case study says so plainly rather than implying a proof that was never run.
+          <Highlight>What did not happen is validation.</Highlight> There was no time to test the redesign with users or the client, and the case study says so plainly rather than implying a proof that was never run.
         </p>
       </div>
 

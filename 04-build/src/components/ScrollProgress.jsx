@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 
 /**
@@ -9,7 +10,7 @@ import { motion, useScroll, useSpring } from 'framer-motion'
  * — laggy progress bars feel unresponsive, especially on fast scrolls
  * down long case studies.
  */
-export default function ScrollProgress() {
+function ScrollProgress() {
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, {
     damping: 28,
@@ -36,3 +37,8 @@ export default function ScrollProgress() {
     />
   )
 }
+
+// memo: no props, so it renders once and is skipped on every subsequent
+// AppShell re-render. The progress line still tracks scroll - useScroll +
+// useSpring drive it through a motion value, which bypasses React renders.
+export default memo(ScrollProgress)

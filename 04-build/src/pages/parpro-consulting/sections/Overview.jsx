@@ -1,4 +1,4 @@
-import { SectionHead } from '../primitives.jsx'
+import { SectionHead, Highlight } from '../primitives.jsx'
 
 export default function Overview() {
   return (
@@ -9,7 +9,7 @@ export default function Overview() {
       />
       <div className="mt-8 max-w-[720px] space-y-6 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          Parpro is a Canadian bookkeeping firm whose site read like a 2010 template. Stock imagery, no motion, the consultation path buried in a footer. Four of us had three hackathon days to deliver a full interaction redesign: competitor audit, client interview, user flow, wireframes, mockups, design system foundations, and an interactive prototype with four interaction types. I owned the prototype and the four interaction patterns. The audit, the flow, the mockups, and the system were team deliverables we built together.
+          Parpro is a Canadian bookkeeping firm whose site read like a 2010 template: stock imagery, no motion, the consultation path buried in a footer. Four of us had three hackathon days to deliver a full interaction redesign, from competitor audit to a working prototype. <Highlight>I was the interaction designer: I owned the prototype and the four interaction patterns.</Highlight> The audit, the flow, the mockups, and the design system were team deliverables we built together.
         </p>
       </div>
 

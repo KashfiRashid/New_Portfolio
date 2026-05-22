@@ -1,4 +1,4 @@
-import { SectionHead } from '../primitives.jsx'
+import { SectionHead, Highlight } from '../primitives.jsx'
 
 const SYSTEM = [
   {
@@ -39,7 +39,7 @@ export default function DesignSystem() {
       />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          The brand authenticity problem got solved in the mockup phase: typography, a curated palette, spacing, components, and real imagery in place of stock.
+          The brand authenticity problem got solved in the mockup phase: typography, a curated palette, spacing, components, and <Highlight>real imagery in place of stock.</Highlight>
         </p>
       </div>
 
