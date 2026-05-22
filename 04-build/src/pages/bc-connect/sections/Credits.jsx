@@ -17,7 +17,7 @@ const TEAM = [
   },
   {
     label: 'KASHFI RASHID',
-    name: 'Kashfi Rashid',
+    name: 'Md Kashfi Or Rashid Pranta',
     role: 'Design system and frontend lead',
     contribution:
       'Built Open Ground and the component library, and all frontend architecture: auth UI, routing, the hybrid map view, the member dashboard, the generated business detail pages, navigation and branding, and the system documentation.',

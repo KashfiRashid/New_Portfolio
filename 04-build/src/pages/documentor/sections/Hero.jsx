@@ -18,15 +18,17 @@ export default function Hero() {
 
         <MetaBlock
           rows={[
-            { label: 'Role', value: 'UX Lead Designer' },
-            { label: 'Team', value: 'Kashfi Rashid · Kate Luonge (UI) · Mariyam (UX Research)' },
-            { label: 'Timeline', value: '8 weeks' },
-            { label: 'Platform', value: 'Mobile app · Figma prototype' },
+            { label: 'Team', value: 'Md Kashfi Or Rashid Pranta · Kate Luonge (UI) · Mariyam (UX Research)' },
+            { label: 'My Roles', value: 'UX Lead · UX Research · Interaction Design' },
+            { label: 'Duration', value: '8 weeks' },
+            { label: 'Tools', value: 'Figma' },
+            { label: 'Context', value: 'International students' },
+            { label: 'Format', value: 'Mobile app prototype' },
           ]}
         />
 
         <AppShot
-          src="https://kashfirashid.com/media/documentor/App.png"
+          src="/documentor/App.png"
           alt="The DocuMentor mobile app interface."
           caption="DocuMentor · the shipped interface"
         />

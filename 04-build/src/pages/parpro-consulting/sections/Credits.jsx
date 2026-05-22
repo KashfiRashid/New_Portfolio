@@ -4,7 +4,7 @@ const TEAMMATE_LINE = 'Collaborated across the competitor audit, design system, 
 
 const TEAM = [
   {
-    name: 'Kashfi Rashid',
+    name: 'Md Kashfi Or Rashid Pranta',
     role: 'Interaction Designer',
     contribution:
       'Owned the interactive prototype and the four interaction patterns (entrance, scroll, click, hover). Shared work across the competitor audit, the user flow, the wireframes, the mockups, and the design system.',

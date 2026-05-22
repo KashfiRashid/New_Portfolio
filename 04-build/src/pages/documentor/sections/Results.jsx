@@ -1,4 +1,4 @@
-import { SectionHead, StatBlock, PullQuote } from '../primitives.jsx'
+import { SectionHead, StatBlock, PullQuote, Highlight } from '../primitives.jsx'
 
 const STATS = [
   { value: '45', label: 'interviews' },
@@ -15,7 +15,7 @@ export default function Results() {
       />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          12 international students tested DocuMentor over 2 weeks. 11 of 12 reported satisfied.
+          12 international students tested DocuMentor over 2 weeks. <Highlight>11 of 12 reported satisfied.</Highlight>
         </p>
       </div>
 

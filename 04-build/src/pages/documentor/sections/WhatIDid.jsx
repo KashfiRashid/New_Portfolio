@@ -1,4 +1,4 @@
-import { SectionHead, ActionBlock, PullQuote } from '../primitives.jsx'
+import { SectionHead, ActionBlock, PullQuote, Highlight } from '../primitives.jsx'
 
 export default function WhatIDid() {
   return (
@@ -10,7 +10,7 @@ export default function WhatIDid() {
 
       <div className="mt-12 space-y-16">
         <ActionBlock n="01" title="Defined the design challenge from lived experience, then disowned my own bias.">
-          I framed the challenge around cognitive overload because I had felt it. Then I treated my own experience as a hypothesis to test, not a brief to execute. The 45 interviews were the test.
+          I framed the challenge around cognitive overload because I had felt it. Then <Highlight>I treated my own experience as a hypothesis to test, not a brief to execute.</Highlight> The 45 interviews were the test.
         </ActionBlock>
 
         <ActionBlock n="02" title="Led the UX direction through rapid sketching.">

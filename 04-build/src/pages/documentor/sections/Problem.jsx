@@ -1,4 +1,4 @@
-import { SectionHead, AppShot } from '../primitives.jsx'
+import { SectionHead, AppShot, Highlight } from '../primitives.jsx'
 
 export default function Problem() {
   return (
@@ -12,18 +12,18 @@ export default function Problem() {
           I am an international student. I lived the cognitive overload of dense government websites turning a single task into a stressful, error-prone process.
         </p>
         <p>
-          That is not a problem I researched my way into. It is one I started with.
+          <Highlight>That is not a problem I researched my way into. It is one I started with.</Highlight>
         </p>
       </div>
 
       <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
         <AppShot
-          src="https://kashfirashid.com/media/documentor/Challenges_1.png"
+          src="/documentor/Challenges_1.png"
           alt="Screenshot of a typical dense government bureaucracy page, illustrating the cognitive overload an international student faces."
           caption="The wall every international student hits"
         />
         <AppShot
-          src="https://kashfirashid.com/media/documentor/Challenges_2.png"
+          src="/documentor/Challenges_2.png"
           alt="A second screenshot showing more of the dense, overwhelming layout of typical study-abroad administrative pages."
           caption="Information density without scaffolding"
         />

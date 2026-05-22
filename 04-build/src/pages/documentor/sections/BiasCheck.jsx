@@ -1,4 +1,4 @@
-import { SectionHead, AppShot } from '../primitives.jsx'
+import { SectionHead, AppShot, Highlight } from '../primitives.jsx'
 import BiasCheckDiagram from '../diagrams/BiasCheckDiagram.jsx'
 import ResearchSynthesis from '../diagrams/ResearchSynthesis.jsx'
 
@@ -14,7 +14,7 @@ export default function BiasCheck() {
           I knew my frustration. I did not yet know if it was universal or just mine.
         </p>
         <p>
-          So I ran 45 interviews across more than 12 countries, not to confirm what I felt, but to find out whether it generalized.
+          So I ran 45 interviews across more than 12 countries, <Highlight>not to confirm what I felt, but to find out whether it generalized.</Highlight>
         </p>
       </div>
 
@@ -30,7 +30,7 @@ export default function BiasCheck() {
 
       <div className="mt-12">
         <AppShot
-          src="https://kashfirashid.com/media/documentor/PainPoints.png"
+          src="/documentor/PainPoints.png"
           alt="Research synthesis showing the three pain points that emerged from 45 interviews: information overload, unclear progress, complex navigation."
           caption="45 interviews · 12+ countries · three pain points held"
         />

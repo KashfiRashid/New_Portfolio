@@ -1,4 +1,4 @@
-import { SectionHead } from '../primitives.jsx'
+import { SectionHead, Highlight } from '../primitives.jsx'
 
 export default function Overview() {
   return (
@@ -9,7 +9,7 @@ export default function Overview() {
       />
       <div className="mt-8 max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          DocuMentor is a mobile app for international students facing the administrative maze of studying abroad. It decomposes dense government processes into sequential micro-steps with visual progress, so a student faces one confident action at a time instead of an intimidating wall.
+          DocuMentor is a mobile app for international students facing the administrative maze of studying abroad. It decomposes dense government processes into sequential micro-steps with visual progress, so a student faces <Highlight>one confident action at a time instead of an intimidating wall.</Highlight>
         </p>
       </div>
     </section>

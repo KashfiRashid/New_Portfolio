@@ -19,7 +19,7 @@ export default function Hero() {
         <MetaBlock
           rows={[
             { label: 'Role', value: 'Interaction Designer (prototype and four interaction patterns)' },
-            { label: 'Team', value: 'Kashfi Rashid · Benjamin Nichiporik · Mariyam · Rahil Virani' },
+            { label: 'Team', value: 'Md Kashfi Or Rashid Pranta · Benjamin Nichiporik · Mariyam · Rahil Virani' },
             { label: 'Stack', value: 'Figma · prototype animation' },
             { label: 'Timeline', value: '3 days · FLUI-25 hackathon' },
             { label: 'Audience', value: 'Canadian SMB bookkeeping clients' },

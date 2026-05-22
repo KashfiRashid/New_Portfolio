@@ -18,7 +18,7 @@ export default function Hero() {
 
         <MetaBlock
           rows={[
-            { label: 'Team', value: 'Eric Cheng Li · Kento Weil · Michael Kim · Kashfi Rashid' },
+            { label: 'Team', value: 'Eric Cheng Li · Kento Weil · Michael Kim · Md Kashfi Or Rashid Pranta' },
             { label: 'My roles', value: 'Story arc · Design philosophy · Sound · Iteration' },
             { label: 'Stack', value: 'Unity · Blender · Audacity · Eleven Labs · XR Toolkit' },
             { label: 'Context', value: 'Immersive Environments · SFU SIAT · Fall 2025' },

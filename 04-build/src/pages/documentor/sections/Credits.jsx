@@ -2,10 +2,10 @@ import { SectionHead } from '../primitives.jsx'
 
 const TEAM = [
   {
-    name: 'Kashfi Rashid',
+    name: 'Md Kashfi Or Rashid Pranta',
     role: 'UX Lead Designer',
     contribution:
-      'Defined the design challenge, ran the 45-interview bias test, led UX direction through rapid sketching, held the micro-step through-line from research to final UI, ran user validation.',
+      'Owned the UX from the first sketch to validation. Defined the design challenge from lived experience, then ran the 45-interview bias test to confirm it generalized. Led the direction through rapid sketching, set the micro-step model, and held that through-line from research into the final screens.',
   },
   {
     name: 'Kate Luonge',

@@ -22,7 +22,7 @@ export default function Credits() {
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
         <div>
           <p className="font-[family-name:var(--font-mono)] text-sm uppercase tracking-[0.2em] text-[#FF3D6E]">
-            Kashfi Rashid
+            Md Kashfi Or Rashid Pranta
           </p>
           <p className="mt-2 font-[family-name:var(--font-sans)] text-sm text-zinc-400">
             Concept, real-time engine, AI semantic layer, interface, design

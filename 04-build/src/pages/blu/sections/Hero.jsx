@@ -17,7 +17,7 @@ export default function Hero() {
         </header>
         <MetaBlock
           rows={[
-            { label: 'Team', value: 'Semyon Kuznetsov, Benjamin Nichiporik, Kashfi Rashid, Abdul Aziz Hamoui, Cohen Jasper ter Heide, Eric Gabriel Cheng Li' },
+            { label: 'Team', value: 'Semyon Kuznetsov, Benjamin Nichiporik, Md Kashfi Or Rashid Pranta, Abdul Aziz Hamoui, Cohen Jasper ter Heide, Eric Gabriel Cheng Li' },
             { label: 'My Roles', value: 'Creative Director · 3D Environment Modeler · Immersive Sound Engineer' },
             { label: 'Duration', value: 'Summer 2025 · 10 weeks' },
             { label: 'Software', value: 'Blender · Adobe Suite · immersive sound design' },

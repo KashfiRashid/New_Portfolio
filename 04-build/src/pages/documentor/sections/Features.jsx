@@ -1,6 +1,6 @@
-import { SectionHead, AppVideo } from '../primitives.jsx'
+import { SectionHead, AppVideo, Highlight } from '../primitives.jsx'
 
-const V = 'https://kashfirashid.com/media/videos'
+const V = '/documentor'
 
 const FEATURES = [
   {
@@ -27,11 +27,11 @@ export default function Features() {
       <SectionHead kicker="FEATURES" title="Four flows. One principle." />
       <div className="max-w-[720px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          Every feature applies the same rule: reduce what the user must hold in their head at once.
+          Every feature applies the same rule: <Highlight>reduce what the user must hold in their head at once.</Highlight>
         </p>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+      <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 max-w-[720px]">
         {FEATURES.map((f) => (
           <AppVideo key={f.src} src={f.src} caption={f.caption} />
         ))}

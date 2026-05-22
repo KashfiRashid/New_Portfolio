@@ -1,4 +1,4 @@
-import { SectionHead, AppShot } from '../primitives.jsx'
+import { SectionHead, AppShot, Highlight } from '../primitives.jsx'
 import CognitiveOverloadContrast from '../diagrams/CognitiveOverloadContrast.jsx'
 import MicroStepDecomposition from '../diagrams/MicroStepDecomposition.jsx'
 
@@ -11,7 +11,7 @@ export default function MicroStep() {
       />
       <div className="max-w-[720px] space-y-5 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          A government process is intimidating because it presents every requirement at once. DocuMentor presents one step, confirms it, then reveals the next.
+          A government process is intimidating because it presents every requirement at once. <Highlight>DocuMentor presents one step, confirms it, then reveals the next.</Highlight>
         </p>
       </div>
 
@@ -25,12 +25,12 @@ export default function MicroStep() {
 
       <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
         <AppShot
-          src="https://kashfirashid.com/media/documentor/App_Stacked.png"
+          src="/documentor/App_Stacked.png"
           alt="Stacked DocuMentor app screens showing the step-by-step progression."
           caption="One step on screen at a time"
         />
         <AppShot
-          src="https://kashfirashid.com/media/documentor/Feature-Highlight.png"
+          src="/documentor/Feature-Highlight.png"
           alt="A DocuMentor feature highlight showing the progress indicator in context."
           caption="Progress always visible"
         />
