@@ -29,13 +29,17 @@ const POSTURE_TO_SPRITE = {
   peeking:       'peek',
   stretching:    'stretch',
   contemplating: 'sit',
-  holding_mug:   'idle',
+  holding_mug:   'Cofee',
+  coffee_hold:   'Cofee',
+  coffee_sip:    'sipping-cofee',
+  coffee_sipoff: 'sipping-off-cofeea',
   showcasing:    'idle',
 }
 
 const WALKING_POSTURES = new Set(['walking1', 'walking2', 'running'])
 const SEATED_POSTURES = new Set(['sitting', 'laptop_open', 'contemplating', 'peeking'])
 const WALK_SPRITES = new Set(['walk-a', 'walk-b'])
+const NO_BOB_POSTURES = new Set(['coffee_hold', 'coffee_sip', 'coffee_sipoff'])
 
 export function getSpriteForPosture(posture) {
   return POSTURE_TO_SPRITE[posture] || 'idle'
@@ -82,7 +86,7 @@ export default function CharacterSprite({
   // Bob behavior depends on posture
   const bobAmplitude = reduceMotion ? 0
     : SEATED_POSTURES.has(posture) ? 0
-      : WALKING_POSTURES.has(posture) ? 0
+      : NO_BOB_POSTURES.has(posture) ? 0
         : 2
   const bobPeriod = WALKING_POSTURES.has(posture) ? 0.5 : 2.0
 

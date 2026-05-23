@@ -264,17 +264,9 @@ export default function Character() {
 
       {/* Mug overlay — separate sibling so it doesn't inherit scaleX or scale variant.
           Positioned in viewport coords; mirrors with facing. */}
-      <AnimatePresence>
-        {showSprite && activeActivity === 'beverage' && (
-          <MugOverlay
-            key="mug"
-            charLeft={charLeft}
-            charTop={charTop}
-            size={size}
-            facing={facing}
-          />
-        )}
-      </AnimatePresence>
+      {/* Coffee/beverage uses dedicated sprite art now (Cofee /
+          sipping-cofee / sipping-off-cofeea); the inline-SVG mug
+          overlay is retired. */}
 
       {/* Reel custody */}
       <ReelHandoff

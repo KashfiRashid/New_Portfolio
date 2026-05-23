@@ -62,7 +62,8 @@ export const entering = {
     ctx.position.x = fromLeft ? -40 : ctx.viewport.width + 40
     ctx.position.y = vy
     ctx.facing = fromLeft ? 'right' : 'left'
-    ctx.posture = 'walking'
+    ctx.posture = 'walking1'
+    ctx.stateData.walkTimer = 0
 
     // Target: settle perch
     ctx.stateData.target = getSettlePerch(ctx.perches)
@@ -213,8 +214,8 @@ function applyActivity(ctx, activity) {
       ctx.activeProps = {}
       break
     case 'beverage':
-      ctx.posture = 'holding_mug'
-      ctx.activeProps = { mug: true }
+      ctx.posture = 'coffee_hold'
+      ctx.activeProps = {}
       break
   }
 }
@@ -255,11 +256,17 @@ function tickActivity(ctx, activity, elapsed, dt) {
       break
 
     case 'beverage':
-      // Sip motion: raise at 1.5s, hold, lower
-      if (!reducedMotion && elapsed > 1.5 && elapsed < 3) {
-        ctx.stateData.sipping = true
+      // Three-sprite sip cycle across the 4-6s activity:
+      //   hold (Cofee) -> raise & sip (sipping-cofee) -> lower
+      //   (sipping-off-cofeea) -> hold again.
+      if (reducedMotion || elapsed < 1.2) {
+        ctx.posture = 'coffee_hold'
+      } else if (elapsed < 2.4) {
+        ctx.posture = 'coffee_sip'
+      } else if (elapsed < 3.4) {
+        ctx.posture = 'coffee_sipoff'
       } else {
-        ctx.stateData.sipping = false
+        ctx.posture = 'coffee_hold'
       }
       break
   }
@@ -483,7 +490,7 @@ export const curious = {
         // Speak a quip and stay
         ctx.speakIdle('...you good?')
       }
-      return 'idling'
+      return 'wandering'
     }
 
     return null
