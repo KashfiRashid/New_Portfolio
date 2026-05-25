@@ -1,20 +1,15 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useCompanion } from '../companion/CompanionContext.jsx'
 import Breadcrumb from '../components/Breadcrumb.jsx'
-import Reveal from '../components/Reveal.jsx'
-import { RevealGroup } from '../components/Reveal.jsx'
+import Reveal, { RevealGroup } from '../components/Reveal.jsx'
+import ProjectCard from '../components/ProjectCard.jsx'
 import { PROJECTS, OLDER_WORK } from '../pages/projects.js'
 
 /**
- * <Work /> — the project archive.
- * Per /02-wireframes/05-work.md.
- *
- * Reads the project registry (pages/projects.js) — the single source of
- * truth shared with Home's Featured Work. Every project links to
- * /projects/<slug>; ProjectRoute resolves that to the case study, or a
- * graceful "coming soon" for projects without a page yet.
+ * <Work /> — the project archive. Image cards via the shared
+ * <ProjectCard />; reads the project registry (pages/projects.js) —
+ * the single source of truth shared with Home's Featured Work.
  */
 
 export default function Work() {
@@ -49,24 +44,11 @@ export default function Work() {
 
       <RevealGroup staggerMs={80} className="space-y-6">
         {PROJECTS.map((p) => (
-          <Link
+          <ProjectCard
             key={p.slug}
-            to={`/projects/${p.slug}`}
-            onMouseEnter={() => fire(p.bubbleId, { elementId: `work-card-${p.slug}` })}
-            className="card-lift block bg-surface-mid hover:bg-surface-raised border border-surface-raised rounded-sm group"
-          >
-            {/* Hero placeholder — replace with image / video */}
-            <div className="aspect-video bg-surface-deep border-b border-surface-raised flex items-center justify-center text-text-faint italic text-sm">
-              [hero image / video — {p.name}]
-            </div>
-            <div className="px-6 py-5 flex items-baseline justify-between">
-              <div>
-                <h2 className="text-display-md font-display mb-2">{p.name}</h2>
-                <p className="text-text-muted leading-snug max-w-prose">{p.blurb}</p>
-              </div>
-              <span className="text-text-muted group-hover:text-accent-glow arrow-slide transition-colors duration-250 ml-4">→</span>
-            </div>
-          </Link>
+            project={p}
+            onHover={() => fire(p.bubbleId, { elementId: `work-card-${p.slug}` })}
+          />
         ))}
       </RevealGroup>
 

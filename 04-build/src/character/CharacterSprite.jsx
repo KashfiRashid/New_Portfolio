@@ -1,21 +1,15 @@
-import { useEffect, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 
 /**
  * CharacterSprite — pixel-art sprite renderer.
- * Per character-spec-v2-pixel.md:
  *   - PNG sprites in /public/character/, image-rendering: pixelated
- *   - 96px on desktop, 72px on mobile (size controlled by parent)
- *   - Cross-fade on sprite swap (250ms)
- *   - Walk cycle alternation comes from the state machine (postures
- *     `walking1` / `walking2` already swap inside states.js)
- *   - Vertical bob (±2px sine) on idle and walking postures, suppressed
- *     for seated / peeking / contemplating postures
- *   - Direction via scaleX(-1) — same asset, mirrored
- *   - Missing sprite: 404 → falls back to idle.png; calls onSpriteMissing
- *
- * Whole-pixel positioning is enforced by the parent (Character.jsx),
- * which rounds left/top before placing the wrapper.
+ *   - 96px desktop / 72px mobile (size from parent)
+ *   - Walk frames walk-a / walk-b stay mounted for the whole session and
+ *     swap by opacity, so the cycle can never stutter or "stick on walk-a".
+ *   - Every other sprite change cross-fades (250ms) via AnimatePresence.
+ *   - Vertical bob (±2px) on idle/walking, suppressed for seated postures.
+ *   - Direction via scaleX(-1). Missing sprite: 404 -> falls back to idle.
  */
 
 const POSTURE_TO_SPRITE = {
@@ -40,6 +34,8 @@ const WALKING_POSTURES = new Set(['walking1', 'walking2', 'running'])
 const SEATED_POSTURES = new Set(['sitting', 'laptop_open', 'contemplating', 'peeking'])
 const WALK_SPRITES = new Set(['walk-a', 'walk-b'])
 const NO_BOB_POSTURES = new Set(['coffee_hold', 'coffee_sip', 'coffee_sipoff'])
+// Both walk frames are kept mounted (see render below) so they decode once.
+const WALK_FRAMES = ['walk-a', 'walk-b']
 
 export function getSpriteForPosture(posture) {
   return POSTURE_TO_SPRITE[posture] || 'idle'
@@ -57,52 +53,54 @@ export default function CharacterSprite({
   const reduceMotion = useReducedMotion()
 
   const requested = getSpriteForPosture(posture)
-  // Track which sprite files have 404'd this session — render idle in their place.
+  // Track sprite files that 404'd this session — render idle in their place.
   const missingRef = useRef(new Set())
-  const prevSpriteRef = useRef('idle')
   const [, force] = useState(0)
   const sprite = missingRef.current.has(requested) ? 'idle' : requested
-  const previousSprite = prevSpriteRef.current
-  const isWalkFrameSwap = WALK_SPRITES.has(previousSprite)
-    && WALK_SPRITES.has(sprite)
-    && previousSprite !== sprite
+  const isWalkSprite = WALK_SPRITES.has(sprite)
 
-  useEffect(() => {
-    prevSpriteRef.current = sprite
-  }, [sprite])
-
-  const handleError = () => {
-    if (!missingRef.current.has(requested)) {
-      missingRef.current.add(requested)
-      onSpriteMissing?.(requested)
+  const markMissing = (name) => {
+    if (!missingRef.current.has(name)) {
+      missingRef.current.add(name)
+      onSpriteMissing?.(name)
       force(n => n + 1)
     }
   }
 
-  const handleLoad = () => {
-    onSpriteLoaded?.(sprite)
-  }
-
-  // Bob behavior depends on posture
+  // Bob behaviour depends on posture.
   const bobAmplitude = reduceMotion ? 0
     : SEATED_POSTURES.has(posture) ? 0
       : NO_BOB_POSTURES.has(posture) ? 0
         : 2
   const bobPeriod = WALKING_POSTURES.has(posture) ? 0.5 : 2.0
 
-  const cycle = bobAmplitude > 0
-    ? { y: [0, -bobAmplitude, 0] }
-    : { y: 0 }
+  // Memoized so a per-frame re-render can't restart the bob mid-cycle.
+  const cycle = useMemo(
+    () => (bobAmplitude > 0 ? { y: [0, -bobAmplitude, 0] } : { y: 0 }),
+    [bobAmplitude],
+  )
+  const bobTransition = useMemo(
+    () => (bobAmplitude > 0
+      ? { duration: bobPeriod, repeat: Infinity, ease: 'easeInOut' }
+      : { duration: 0 }),
+    [bobAmplitude, bobPeriod],
+  )
+
+  const imgStyle = {
+    width: size,
+    height: size,
+    userSelect: 'none',
+    display: 'block',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+  }
 
   return (
     <div
       style={{
         width: size,
         height: size,
-        // Sway rotation (patch-grab-and-throw §"Rotation pendulum") rides on
-        // the outermost wrapper with a pivot near the top of the sprite —
-        // the spot the cursor visually "holds" while dragging. Combined
-        // with the pixel-inspect scale so both transforms compose.
         transform: `rotate(${rotation}deg) scale(${pixelInspect ? 2 : 1})`,
         transformOrigin: '50% 12%',
       }}
@@ -121,33 +119,33 @@ export default function CharacterSprite({
         <motion.div
           style={{ width: size, height: size, position: 'relative' }}
           animate={cycle}
-          transition={
-            bobAmplitude > 0
-              ? { duration: bobPeriod, repeat: Infinity, ease: 'easeInOut' }
-              : { duration: 0 }
-          }
+          transition={bobTransition}
         >
-          {isWalkFrameSwap ? (
+          {/* Walk frames — walk-a and walk-b are BOTH mounted for the whole
+              session, so each decodes exactly once. Only the active frame is
+              opaque; the swap is a pure opacity flip (no src change, no
+              re-decode), so the walk cycle can never stutter or stick on one
+              frame. Both stay hidden (opacity 0) whenever not walking. */}
+          {WALK_FRAMES.map((frame) => (
             <img
-              src={`/character/${sprite}.png`}
+              key={frame}
+              src={`/character/${frame}.png`}
               width={size}
               height={size}
               alt=""
               draggable={false}
-              onError={handleError}
-              onLoad={handleLoad}
+              onError={() => markMissing(frame)}
+              onLoad={() => onSpriteLoaded?.(frame)}
               className="pixel-sprite"
               style={{
-                width: size,
-                height: size,
-                userSelect: 'none',
-                display: 'block',
-                position: 'absolute',
-                left: 0,
-                top: 0,
+                ...imgStyle,
+                opacity: isWalkSprite && sprite === frame ? 1 : 0,
               }}
             />
-          ) : (
+          ))}
+
+          {/* Non-walk sprites — 250ms cross-fade. Not rendered while walking. */}
+          {!isWalkSprite && (
             <AnimatePresence mode="wait" initial={false}>
               <motion.img
                 key={sprite}
@@ -156,22 +154,14 @@ export default function CharacterSprite({
                 height={size}
                 alt=""
                 draggable={false}
-                onError={handleError}
-                onLoad={handleLoad}
+                onError={() => markMissing(requested)}
+                onLoad={() => onSpriteLoaded?.(sprite)}
                 initial={{ opacity: reduceMotion ? 1 : 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: reduceMotion ? 1 : 0 }}
                 transition={{ duration: reduceMotion ? 0 : 0.25 }}
                 className="pixel-sprite"
-                style={{
-                  width: size,
-                  height: size,
-                  userSelect: 'none',
-                  display: 'block',
-                  position: 'absolute',
-                  left: 0,
-                  top: 0,
-                }}
+                style={imgStyle}
               />
             </AnimatePresence>
           )}

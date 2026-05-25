@@ -16,8 +16,8 @@ import {
 /* ── Speeds (px/s) ─────────────────────────────────────────────────── */
 const WALK_SPEED = 80
 const CURIOUS_SPEED = 40
-const RUN_SPEED = 200
-const RUN_SPEED_MAX = 280
+const RUN_SPEED = 150
+const RUN_SPEED_MAX = 200
 
 /* ── Helpers ───────────────────────────────────────────────────────── */
 
@@ -508,12 +508,17 @@ export const chased = {
 
   enter(ctx) {
     ctx.posture = 'running'
-    // Run to the corner farthest from cursor
+    // Run to the corner farthest from the cursor. x is the sprite centre
+    // and y is the feet, so a top corner needs y >= sprite height + margin
+    // or the character flies up off the top edge. EDGE_X / TOP_Y keep the
+    // full 96px sprite ~40px clear of every edge.
+    const EDGE_X = 88
+    const TOP_Y = 140
     const corners = [
-      { x: 30, y: 30 },
-      { x: ctx.viewport.width - 30, y: 30 },
-      { x: 30, y: ctx.viewport.height - 30 },
-      { x: ctx.viewport.width - 30, y: ctx.viewport.height - 30 },
+      { x: EDGE_X, y: TOP_Y },
+      { x: ctx.viewport.width - EDGE_X, y: TOP_Y },
+      { x: EDGE_X, y: ctx.viewport.height - 40 },
+      { x: ctx.viewport.width - EDGE_X, y: ctx.viewport.height - 40 },
     ]
     let best = corners[0]
     let bestDist = 0
@@ -534,7 +539,11 @@ export const chased = {
     const speed = dist < 100 ? RUN_SPEED_MAX : RUN_SPEED
 
     ctx.stateData.walkTimer = (ctx.stateData.walkTimer || 0) + dt
-    ctx.posture = ctx.stateData.walkTimer % 0.3 < 0.15 ? 'running' : 'walking1'
+    // Fast walk-a / walk-b alternation (0.15s) reads as a run. There is no
+    // separate run sprite — 'running' maps to walk-a exactly like 'walking1',
+    // so the old 'running'/'walking1' pair never actually swapped frames and
+    // a chase stayed locked on walk-a. walking1/walking2 alternates properly.
+    ctx.posture = ctx.stateData.walkTimer % 0.3 < 0.15 ? 'walking1' : 'walking2'
 
     const arrived = moveToward(ctx, t.x, t.y, speed, dt)
     if (arrived) return 'hiding'

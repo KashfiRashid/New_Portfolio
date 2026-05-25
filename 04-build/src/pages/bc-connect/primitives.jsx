@@ -17,7 +17,7 @@ export const BC_CONNECT_NAV = [
 export function SideNav({ activeId = '' }) {
   return (
     <nav
-      className="fixed left-0 top-0 z-40 hidden h-screen w-[220px] flex-col border-r border-white/[0.06] bg-[#0F1216]/95 px-5 py-10 backdrop-blur-sm lg:flex"
+      className="fixed left-0 top-12 z-40 hidden h-[calc(100vh-3rem)] w-[220px] flex-col border-r border-white/[0.06] bg-[#0F1216]/95 px-5 py-10 backdrop-blur-sm lg:flex"
       aria-label="Case study sections"
     >
       <Link

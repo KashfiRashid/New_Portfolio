@@ -66,7 +66,7 @@ export default function ParproConsultingPage() {
 
       <SideNav activeId={activeId} />
 
-      <main className="relative mx-auto max-w-[860px] px-6 pb-32 pt-16 lg:ml-[220px] lg:max-w-[calc(100vw-220px-2rem)] lg:px-10 lg:pt-20">
+      <main className="relative mx-auto max-w-[860px] px-6 pb-32 pt-20 lg:ml-[220px] lg:max-w-[calc(100vw-220px-2rem)] lg:px-10 lg:pt-24">
         <Hero />
         <Overview />
         <Research />

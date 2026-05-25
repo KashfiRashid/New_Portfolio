@@ -880,7 +880,9 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
       peek_reveal: ['peeking', {}],
       stretch: ['stretching', {}],
       contemplation: ['contemplating', {}],
-      beverage: ['holding_mug', { mug: true }],
+      // Beverage drives the 3-sprite coffee cycle (coffee_hold → sip →
+      // sipoff) from tickActivity; the inline-SVG mug is retired.
+      beverage: ['coffee_hold', {}],
     }
     const [postureName, props] = postureMap[activityName]
     ctx.posture = postureName

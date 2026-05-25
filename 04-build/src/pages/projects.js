@@ -7,17 +7,19 @@
  * /projects/<slug> — entries with `component: null` show a graceful
  * "coming soon" instead of a real page.
  *
+ * Per-card display fields (read by components/ProjectCard.jsx):
+ *   - category : one of Product Design | Engineering | Creative
+ *   - image    : path to a hero image (served from /public). Cropped to
+ *                fit the card via object-cover.
+ *   - color    : used INSTEAD of image when a project has no hero image —
+ *                the card shows a themed solid-color panel.
+ *
  * To add a project: add one entry here. That is the only file to touch.
- * To give an existing project a real case study: build the page under
- * src/pages/<slug>/ and set its `component` here.
  */
 import { lazy } from 'react'
 
 // Each case study is its own lazy() chunk — loaded only when its
 // /projects/<slug> route is actually visited, never in the initial bundle.
-// Home and Work import this file only for project *metadata* (name, blurb,
-// slug, …); lazy() means doing so pulls in no case study code. ProjectRoute
-// renders the component inside App's <Suspense>, which covers the load.
 const BCConnectPage = lazy(() => import('./bc-connect/index.jsx'))
 const BLUPage = lazy(() => import('./blu/index.jsx'))
 const SpectralBloomPage = lazy(() => import('./spectral-bloom/index.jsx'))
@@ -30,7 +32,12 @@ export const PROJECTS = [
   {
     slug: 'bc-connect',
     name: 'BC Connect',
+    category: 'Engineering',
     blurb: 'open ground design system + six frontend features built in antigravity.',
+    // Save Abdul's BC Connect hero (the device mockup) to
+    // public/bc-connect/hero.png — it then replaces the panel automatically.
+    image: '/bc-connect/hero.png',
+    color: '#3B6E8F', // fallback panel until hero.png is added
     featured: true,
     bubbleId: 'H20',
     component: BCConnectPage,
@@ -38,7 +45,10 @@ export const PROJECTS = [
   {
     slug: 'blu',
     name: 'BLU',
+    category: 'Creative',
     blurb: 'proudest of the sound. the moment that matters is 0:42.',
+    image: 'https://framerusercontent.com/images/dquDNrFwQ9hzCWLFQ1R8IxLEn1I.png',
+    color: '#5B4B8A', // fallback panel if the remote poster fails
     featured: true,
     bubbleId: 'H17',
     component: BLUPage,
@@ -46,7 +56,9 @@ export const PROJECTS = [
   {
     slug: 'spectral-bloom',
     name: 'Spectral Bloom',
+    category: 'Creative',
     blurb: 'an audio visualizer with an AI layer that reads the mood of the music, not just its volume.',
+    image: '/spectral-bloom/spectral-bloom-poster.jpg',
     featured: true,
     bubbleId: 'H18',
     component: SpectralBloomPage,
@@ -54,7 +66,9 @@ export const PROJECTS = [
   {
     slug: 'something-lurking',
     name: 'Something Lurking',
+    category: 'Creative',
     blurb: 'a VR sci-fi horror on a failing space station. the antagonist is the sound, not the model.',
+    image: '/something-lurking/fig-art-collage.png',
     featured: true,
     bubbleId: 'H19',
     component: SomethingLurkingPage,
@@ -62,7 +76,9 @@ export const PROJECTS = [
   {
     slug: 'pitchflow',
     name: 'PitchFlow',
+    category: 'Creative',
     blurb: 'the pitch deck that won the room.',
+    color: '#B07D3C', // no hero image yet — themed panel
     featured: false,
     bubbleId: 'H21',
     component: null,
@@ -70,7 +86,10 @@ export const PROJECTS = [
   {
     slug: 'foresee',
     name: 'ForeSee',
+    // [NEEDS KASH INPUT — ForeSee's real blurb + confirm the category]
+    category: 'Product Design',
     blurb: '[real description needed].',
+    color: '#4F7A5C', // no hero image yet — themed panel
     featured: false,
     bubbleId: 'H22',
     component: null,
@@ -78,7 +97,9 @@ export const PROJECTS = [
   {
     slug: 'parpro-consulting',
     name: 'Parpro Consulting',
+    category: 'Product Design',
     blurb: 'a 3-day interaction design redesign for a Canadian SMB bookkeeping firm.',
+    image: '/parpro/mockups.png',
     featured: false,
     bubbleId: 'H23',
     component: ParproConsultingPage,
@@ -86,18 +107,20 @@ export const PROJECTS = [
   {
     slug: 'documentor',
     name: 'DocuMentor',
+    category: 'Product Design',
     blurb: 'a mobile guide for international students. i was the user before i was the designer.',
+    image: '/documentor/App.png',
     featured: true,
     bubbleId: 'H24',
     component: DocumentorPage,
   },
   {
-    // Nightshift — unannounced. `component` is a single-screen
-    // coming-soon teaser (not a case study). `status: 'coming-soon'`
-    // is read by Home.jsx to render a badge on the Featured card.
+    // Nightshift — unannounced. `status: 'coming-soon'` renders a badge.
     slug: 'nightshift',
     name: 'Nightshift',
+    category: 'Engineering',
     blurb: 'the next one. being built after hours.',
+    image: '/nightshift/nightshift-poster.jpg',
     featured: true,
     bubbleId: 'H28',
     component: NightshiftPage,

@@ -425,7 +425,7 @@ export default function HomeHero({ children } = {}) {
         {/* Clock + scene status content. Painted on top of the
             fade-mask backdrop within this z-30 layer. */}
         <div className="absolute top-0 left-0 right-0">
-          <div className="max-w-6xl mx-auto w-full flex items-start justify-between gap-4 px-6 pt-8 pb-7 md:px-10 md:pt-10 md:pb-9">
+          <div className="max-w-6xl mx-auto w-full flex items-start justify-between gap-4 px-6 pt-16 pb-7 md:px-10 md:pt-20 md:pb-9">
             {/* Clock — Heading 1 register, mono, tabular-nums.
                 `text-hero-legible` adds a soft dark halo via text-shadow
                 so the digits stay readable on bright video frames

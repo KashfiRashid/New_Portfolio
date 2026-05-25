@@ -1,0 +1,112 @@
+import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import Breadcrumb from '../components/Breadcrumb.jsx'
+import Reveal, { RevealGroup } from '../components/Reveal.jsx'
+
+/**
+ * <About /> — the longer version. Replaces the old Origin section.
+ *
+ * The draft copy below is assembled from facts already on the site
+ * (homepage hero + footer). Lines tagged [NEEDS KASH INPUT] are
+ * placeholders for Kash to confirm or rewrite.
+ */
+
+export default function About() {
+  return (
+    <div className="section-page">
+      <Reveal>
+        <Breadcrumb section="about" />
+      </Reveal>
+
+      <header className="section-header">
+        <motion.h1
+          initial={{ opacity: 0, x: -12 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 0.61, 0.36, 1] }}
+        >
+          About me
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          the longer version — who&apos;s behind the 2am commits.
+        </motion.p>
+      </header>
+
+      <RevealGroup staggerMs={90} className="space-y-12">
+        {/* Intro */}
+        <section>
+          <p className="text-text-primary text-lg leading-relaxed max-w-prose">
+            I&apos;m Kashfi — a design engineer based in Delta, BC. I design and
+            ship: interfaces, interactions, and the small details most people
+            only notice when they&apos;re missing. Mostly at 2am. Mostly with AI
+            as the orchestra and me as the conductor.
+          </p>
+        </section>
+
+        {/* Now */}
+        <section>
+          <h2 className="text-text-muted text-sm uppercase tracking-wider mb-3">
+            — now —
+          </h2>
+          <p className="text-text-muted leading-relaxed max-w-prose">
+            Currently on the IT Squad at FIC, and graduating from SFU&apos;s
+            School of Interactive Arts &amp; Technology (SIAT) on June 10, 2026.
+            {/* [NEEDS KASH INPUT — confirm role title + anything else current] */}
+          </p>
+        </section>
+
+        {/* The route */}
+        <section>
+          <h2 className="text-text-muted text-sm uppercase tracking-wider mb-3">
+            — the route —
+          </h2>
+          <p className="text-text-muted leading-relaxed max-w-prose">
+            Dhaka → Delta. I grew up in Bangladesh and took the long way to the
+            Vancouver area.{' '}
+            <span className="text-text-faint italic">
+              [a line about the move, and what it taught you, goes here]
+            </span>
+            {/* [NEEDS KASH INPUT — the year you moved + one honest line] */}
+          </p>
+        </section>
+
+        {/* What I do */}
+        <section>
+          <h2 className="text-text-muted text-sm uppercase tracking-wider mb-3">
+            — what i do —
+          </h2>
+          <p className="text-text-muted leading-relaxed max-w-prose">
+            A design engineer who loves designing creative solutions for user
+            experience — the seam between how something looks and how it
+            actually behaves.
+            {/* [NEEDS KASH INPUT — tools, focus areas, the work you want more of] */}
+          </p>
+        </section>
+
+        {/* Contact */}
+        <section className="pt-8 border-t border-surface-raised">
+          <p className="text-text-muted leading-relaxed">
+            Want to talk?{' '}
+            <a
+              href="mailto:contactkashfi@gmail.com"
+              className="text-text-primary underline-offset-4 hover:underline hover:text-accent-glow transition-colors duration-200"
+            >
+              contactkashfi@gmail.com
+            </a>
+            {' · '}
+            or{' '}
+            <Link
+              to="/work"
+              className="text-text-primary underline-offset-4 hover:underline hover:text-accent-glow transition-colors duration-200"
+            >
+              see the work →
+            </Link>
+          </p>
+        </section>
+      </RevealGroup>
+    </div>
+  )
+}

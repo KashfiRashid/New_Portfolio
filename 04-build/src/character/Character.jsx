@@ -93,12 +93,23 @@ export default function Character() {
   // Whole-pixel anchor: character horizontally centered on position.x,
   // feet at position.y. During grab/thrown the spec allows sub-pixel
   // positioning so the spring physics reads as smooth motion.
-  const charLeft = allowSubpixel
+  let charLeft = allowSubpixel
     ? position.x - size / 2
     : Math.round(position.x - size / 2)
-  const charTop = allowSubpixel
+  let charTop = allowSubpixel
     ? position.y - size
     : Math.round(position.y - size)
+
+  // On-screen clamp — the character never renders past EDGE_MARGIN of any
+  // viewport edge. `entering` (walks in from off-screen) and `taking_reel`
+  // (carries the reel off-screen) are exempt: they travel off by design.
+  const EDGE_MARGIN = 36
+  if (state !== 'entering' && state !== 'taking_reel' && typeof window !== 'undefined') {
+    const maxLeft = Math.max(EDGE_MARGIN, window.innerWidth - size - EDGE_MARGIN)
+    const maxTop = Math.max(EDGE_MARGIN, window.innerHeight - size - EDGE_MARGIN)
+    charLeft = Math.min(Math.max(charLeft, EDGE_MARGIN), maxLeft)
+    charTop = Math.min(Math.max(charTop, EDGE_MARGIN), maxTop)
+  }
 
   const handleGrabStart = (e) => {
     if (e.button !== 0) return
@@ -319,72 +330,6 @@ function GlowAccent({ size }) {
         zIndex: 0,
       }}
     />
-  )
-}
-
-/* -----------------------------------------------------------------------
-   MugOverlay — small mug + 3 steam particles, rendered as a discrete
-   element next to the character during the `beverage` activity.
-   Per character-spec-v2-pixel.md §"Mug rendering" + brief pseudocode.
-   ----------------------------------------------------------------------- */
-
-function MugOverlay({ charLeft, charTop, size, facing }) {
-  const mugSize = 16
-  const reduceMotion = useReducedMotion()
-
-  // Place the mug roughly at the character's hand area. Right of center by
-  // default; mirror to the left when facing left.
-  const offsetX = facing === 'left'
-    ? Math.round(charLeft + size * 0.18 - mugSize / 2)
-    : Math.round(charLeft + size * 0.82 - mugSize / 2)
-  const offsetY = Math.round(charTop + size * 0.45)
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 4 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 4, transition: { duration: 0.2 } }}
-      transition={{ duration: 0.3 }}
-      style={{
-        position: 'fixed',
-        left: offsetX,
-        top: offsetY,
-        width: mugSize,
-        height: mugSize,
-        zIndex: 41,
-        pointerEvents: 'none',
-      }}
-      aria-hidden="true"
-    >
-      <svg
-        viewBox="0 0 16 16"
-        width={mugSize}
-        height={mugSize}
-        className="pixel-sprite"
-        style={{ display: 'block' }}
-      >
-        <rect x="3" y="6" width="9" height="9" fill="#3a2820" />
-        <rect x="12" y="8" width="2" height="5" fill="#3a2820" />
-        <rect x="3" y="6" width="9" height="2" fill="#c8b582" />
-      </svg>
-
-      {!reduceMotion && [0, 0.3, 0.6].map((delay, i) => (
-        <motion.div
-          key={i}
-          style={{
-            position: 'absolute',
-            left: 4 + i * 3,
-            top: -4,
-            width: 2,
-            height: 2,
-            background: '#c8b582',
-            borderRadius: '50%',
-          }}
-          animate={{ y: [-4, -16], opacity: [0.6, 0] }}
-          transition={{ duration: 1.6, delay, repeat: Infinity, ease: 'easeOut' }}
-        />
-      ))}
-    </motion.div>
   )
 }
 

@@ -15,6 +15,7 @@ import Companion from './companion/Companion.jsx'
 import OnboardingModal from './components/OnboardingModal.jsx'
 import Footer from './components/Footer.jsx'
 import ScrollProgress from './components/ScrollProgress.jsx'
+import SiteNav from './components/SiteNav.jsx'
 import GridBackground from './components/GridBackground.jsx'
 import ErrorBoundary from './components/ErrorBoundary.jsx'
 
@@ -23,12 +24,8 @@ import ErrorBoundary from './components/ErrorBoundary.jsx'
 // study (see pages/projects.js) — out of the initial bundle. <Suspense>
 // inside AppRoutes covers the load.
 const Home = lazy(() => import('./sections/Home.jsx'))
-const Voice = lazy(() => import('./sections/Voice.jsx'))
-const Eye = lazy(() => import('./sections/Eye.jsx'))
 const Work = lazy(() => import('./sections/Work.jsx'))
-const Process = lazy(() => import('./sections/Process.jsx'))
-const People = lazy(() => import('./sections/People.jsx'))
-const Origin = lazy(() => import('./sections/Origin.jsx'))
+const About = lazy(() => import('./sections/About.jsx'))
 const HallOfFame = lazy(() => import('./sections/HallOfFame.jsx'))
 
 // Case studies are routed through one shared route, /projects/:slug, which
@@ -184,12 +181,10 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
   // Exit-intent
   useExitIntent(() => {
     const path = location.pathname
-    if (path === '/')                    fire('X1', { elementId: 'exit-home' })
-    else if (path.startsWith('/voice'))  fire('X2', { elementId: 'exit-voice' })
-    else if (path.startsWith('/work'))   fire('X4', { elementId: 'exit-work' })
-    else if (path.startsWith('/origin')) fire('X5', { elementId: 'exit-origin' })
+    if (path === '/')                          fire('X1', { elementId: 'exit-home' })
+    else if (path.startsWith('/work'))         fire('X4', { elementId: 'exit-work' })
     else if (path.startsWith('/hall-of-fame')) fire('X6', { elementId: 'exit-hof' })
-    else                                  fire('X1', { elementId: 'exit-default' })
+    else                                        fire('X1', { elementId: 'exit-default' })
   }, !!identity && !showOnboarding)
 
   return (
@@ -200,6 +195,9 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
 
       {/* Thin scroll-progress line, fixed at the top of the viewport. */}
       <ScrollProgress />
+
+      {/* Persistent top navigation — Work / About me / Resume. */}
+      <SiteNav />
 
       {/* Routed page tree — isolated behind React.memo so the character's
           per-frame context updates can't reconcile it. See AppRoutes. */}
@@ -254,13 +252,9 @@ const AppRoutes = memo(function AppRoutes({ location }) {
         <Suspense fallback={<RouteFallback />}>
           <Routes location={location} key={location.pathname}>
             <Route path="/"               element={<Home />} />
-            <Route path="/voice"          element={<Voice />} />
-            <Route path="/eye"            element={<Eye />} />
             <Route path="/work"           element={<Work />} />
             <Route path="/projects/:slug" element={<ProjectRoute />} />
-            <Route path="/process"        element={<Process />} />
-            <Route path="/people"         element={<People />} />
-            <Route path="/origin"         element={<Origin />} />
+            <Route path="/about"          element={<About />} />
             <Route path="/hall-of-fame"   element={<HallOfFame />} />
             <Route path="*"               element={<NotFound />} />
           </Routes>

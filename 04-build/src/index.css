@@ -164,7 +164,8 @@ body::after {
 
   /* Section content wrapper */
   .section-page {
-    @apply max-w-3xl mx-auto px-6 py-12;
+    /* pt-24 clears the fixed 48px SiteNav; pb-12 unchanged. */
+    @apply max-w-3xl mx-auto px-6 pt-24 pb-12;
   }
 
   /* Card lift — used on Home section cards and Work project cards.

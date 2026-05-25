@@ -37,3 +37,6 @@ node_modules
 # Misc
 coverage
 .nyc_output
+
+# Vite writes a temp compiled config on every run — never commit these
+vite.config.js.timestamp-*
