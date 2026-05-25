@@ -8,11 +8,11 @@
  * "coming soon" instead of a real page.
  *
  * Per-card display fields (read by components/ProjectCard.jsx):
- *   - category : one of Product Design | Engineering | Creative
- *   - image    : path to a hero image (served from /public). Cropped to
+ *   - category : a short discipline tag (e.g. Design System, UX Design)
+ *   - image    : path to a hero image (served from /public), cropped to
  *                fit the card via object-cover.
- *   - color    : used INSTEAD of image when a project has no hero image —
- *                the card shows a themed solid-color panel.
+ *   - color    : used INSTEAD of image when a project has no hero image,
+ *                or as a fallback if the image fails to load.
  *
  * To add a project: add one entry here. That is the only file to touch.
  */
@@ -27,17 +27,16 @@ const SomethingLurkingPage = lazy(() => import('./something-lurking/index.jsx'))
 const ParproConsultingPage = lazy(() => import('./parpro-consulting/index.jsx'))
 const DocumentorPage = lazy(() => import('./documentor/index.jsx'))
 const NightshiftPage = lazy(() => import('./nightshift/index.jsx'))
+const UsAmongAiPage = lazy(() => import('./us-among-ai/index.jsx'))
 
 export const PROJECTS = [
   {
     slug: 'bc-connect',
     name: 'BC Connect',
-    category: 'Engineering',
-    blurb: 'open ground design system + six frontend features built in antigravity.',
-    // Save Abdul's BC Connect hero (the device mockup) to
-    // public/bc-connect/hero.png — it then replaces the panel automatically.
+    category: 'Design System',
+    blurb: 'A startup directory for British Columbia, built on a custom design system with six production frontend features.',
     image: '/bc-connect/hero.png',
-    color: '#3B6E8F', // fallback panel until hero.png is added
+    color: '#3B6E8F', // fallback panel if the hero image fails to load
     featured: true,
     bubbleId: 'H20',
     component: BCConnectPage,
@@ -45,8 +44,8 @@ export const PROJECTS = [
   {
     slug: 'blu',
     name: 'BLU',
-    category: 'Creative',
-    blurb: 'proudest of the sound. the moment that matters is 0:42.',
+    category: '3D Animation',
+    blurb: 'A 3-act CG animated short film where sound, not the visuals, carries the story.',
     image: 'https://framerusercontent.com/images/dquDNrFwQ9hzCWLFQ1R8IxLEn1I.png',
     color: '#5B4B8A', // fallback panel if the remote poster fails
     featured: true,
@@ -56,8 +55,8 @@ export const PROJECTS = [
   {
     slug: 'spectral-bloom',
     name: 'Spectral Bloom',
-    category: 'Creative',
-    blurb: 'an audio visualizer with an AI layer that reads the mood of the music, not just its volume.',
+    category: 'Creative Coding',
+    blurb: "An audio visualizer with an AI layer that reads a track's mood, not just its volume.",
     image: '/spectral-bloom/spectral-bloom-poster.jpg',
     featured: true,
     bubbleId: 'H18',
@@ -66,30 +65,30 @@ export const PROJECTS = [
   {
     slug: 'something-lurking',
     name: 'Something Lurking',
-    category: 'Creative',
-    blurb: 'a VR sci-fi horror on a failing space station. the antagonist is the sound, not the model.',
+    category: 'Game Design',
+    blurb: 'A VR sci-fi horror on a failing space station, where the antagonist is the sound.',
     image: '/something-lurking/fig-art-collage.png',
     featured: true,
     bubbleId: 'H19',
     component: SomethingLurkingPage,
   },
   {
-    slug: 'pitchflow',
-    name: 'PitchFlow',
-    category: 'Creative',
-    blurb: 'the pitch deck that won the room.',
-    color: '#B07D3C', // no hero image yet — themed panel
-    featured: false,
-    bubbleId: 'H21',
-    component: null,
+    slug: 'us-among-ai',
+    name: 'Us Among AI',
+    category: 'Game Design',
+    blurb: 'A reverse Turing test game — pretend to be the machine while an AI auditor watches for anything too human.',
+    image: '/us-among-ai/landing.png',
+    color: '#22897F', // fallback panel if the hero image fails to load
+    featured: true,
+    bubbleId: 'H25',
+    component: UsAmongAiPage,
   },
   {
     slug: 'foresee',
     name: 'ForeSee',
-    // [NEEDS KASH INPUT — ForeSee's real blurb + confirm the category]
     category: 'Product Design',
-    blurb: '[real description needed].',
-    color: '#4F7A5C', // no hero image yet — themed panel
+    blurb: 'A personal finance app that organizes spending into social boards and uses AI to predict what upcoming events will cost.',
+    color: '#4F7A5C',
     featured: false,
     bubbleId: 'H22',
     component: null,
@@ -97,9 +96,9 @@ export const PROJECTS = [
   {
     slug: 'parpro-consulting',
     name: 'Parpro Consulting',
-    category: 'Product Design',
-    blurb: 'a 3-day interaction design redesign for a Canadian SMB bookkeeping firm.',
-    image: '/parpro/mockups.png',
+    category: 'Web Design',
+    blurb: 'A 3-day interaction design sprint redesigning the site for a Canadian bookkeeping firm.',
+    image: '/parpro/Parpro-hero.png',
     featured: false,
     bubbleId: 'H23',
     component: ParproConsultingPage,
@@ -107,8 +106,8 @@ export const PROJECTS = [
   {
     slug: 'documentor',
     name: 'DocuMentor',
-    category: 'Product Design',
-    blurb: 'a mobile guide for international students. i was the user before i was the designer.',
+    category: 'UX Design',
+    blurb: 'A mobile guide that helps international students settle into a new city — designed from lived experience.',
     image: '/documentor/App.png',
     featured: true,
     bubbleId: 'H24',
@@ -118,8 +117,8 @@ export const PROJECTS = [
     // Nightshift — unannounced. `status: 'coming-soon'` renders a badge.
     slug: 'nightshift',
     name: 'Nightshift',
-    category: 'Engineering',
-    blurb: 'the next one. being built after hours.',
+    category: 'Data Analysis',
+    blurb: 'An AI-powered tool for turning raw data into clear, readable analysis.',
     image: '/nightshift/nightshift-poster.jpg',
     featured: true,
     bubbleId: 'H28',
