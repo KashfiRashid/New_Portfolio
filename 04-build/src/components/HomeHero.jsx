@@ -458,20 +458,6 @@ export default function HomeHero({ children } = {}) {
           </div>
         </div>
 
-        {/* Hairline — fades in with the mask (invisible at top of page,
-            visible only when the mask is actively protecting the
-            clock). Sits at the bottom of the fade zone where editorial
-            text becomes fully visible. */}
-        <motion.div
-          aria-hidden="true"
-          className="absolute inset-x-6 md:inset-x-10 h-px"
-          style={{
-            top: '210px',
-            opacity: stickyMaskOpacity,
-            background:
-              'linear-gradient(90deg, transparent 0%, rgba(232, 230, 225, 0.10) 20%, rgba(232, 230, 225, 0.10) 80%, transparent 100%)',
-          }}
-        />
       </motion.div>
 
       {/* Sticky frame — pins the scene for the welcome act / entire page.
