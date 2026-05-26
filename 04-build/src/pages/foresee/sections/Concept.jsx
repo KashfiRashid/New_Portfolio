@@ -9,7 +9,7 @@ export default function Concept() {
           Budgeting apps treat money like numbers. $46 at Cactus Club tells you nothing. <Highlight>$46 at Cactus Club with the work team, the third time this month, tells you everything.</Highlight>
         </p>
         <p>
-          ForeSee throws away the SKU-style category list and organizes finances by the people you spend with. Work, Friends, Spouse, Personal. Each board is a living feed of events (dinners, outings, trips, subscriptions) with the real transactions linked underneath, so you can see who you spend with, where, and how much.
+          ForeSee throws away the SKU-style category list and organizes finances by the people you spend with. Work, Friends, Spouse, Personal. Each board is a living feed of events with the real transactions linked underneath.
         </p>
       </div>
     </section>

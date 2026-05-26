@@ -31,7 +31,6 @@ export default function Hero() {
           </p>
         </header>
 
-        {/* Hero image — the comic poster art from the SIAT showcase. */}
         <img
           src="/something-lurking/poster.png"
           alt="Something Lurking comic poster — an astronaut in a green-smeared helmet against a dark starfield, with the title set above."

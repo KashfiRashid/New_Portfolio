@@ -617,25 +617,14 @@ export default function HomeHero({ children } = {}) {
                 }
                 className="inline-block"
               >
-                ↓
               </motion.span>
-              scroll
+              {' '}scroll
             </span>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Children — the rest of the homepage (top bar, editorial,
-          cards, HoF, Featured Work, "shipped"). Flows after the sticky
-          in document order, so each section rises up over the held
-          video as the visitor scrolls. The scale + vignette release
-          lands right before the section ends and the footer takes
-          over. */}
-      {hasChildren && (
-        <div className="relative z-10">
-          {children}
-        </div>
-      )}
+      {children}
     </section>
   )
 }

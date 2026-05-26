@@ -235,11 +235,7 @@ export function LinkButton({ href, children }) {
   )
 }
 
-/**
- * Highlight — marker band behind one key line per section. Same shape as
- * the bc-connect highlight; this one carries the alien purple register.
- * Use sparingly: one highlight per section.
- */
+
 export function Highlight({ children, className = '' }) {
   return (
     <mark

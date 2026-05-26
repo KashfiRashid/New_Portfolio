@@ -6,10 +6,10 @@ export default function Results() {
       <SectionHead kicker="RESULTS" title="Best Use of ElevenLabs at Mountain Madness 2026." />
       <div className="mt-8 max-w-[720px] space-y-6 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-300 lg:text-xl">
         <p>
-          ForeSee won the <strong className="text-white">[MLH] Best Use of ElevenLabs</strong> prize at Mountain Madness 2026, hosted by CSSS at SFU. The voice coach was the moment in the demo. People reacted to the coach speaking instantly more than they did to anything else on the page.
+          ForeSee won the <strong className="text-white">[MLH] Best Use of ElevenLabs</strong> prize at Mountain Madness 2026, hosted by CSSS at SFU. The voice coach was the moment in the demo.
         </p>
         <p>
-          The emotional bubble landed in particular because the audio and the visual hit together. Hearing the coach start mid-sentence while the bubble breathed in time made the agent read as something present, not as a recording playing back.
+          The emotional bubble landed in particular because the audio and the visual hit together. Hearing the coach start mid-sentence while the bubble breathed in time made the agent read as something present.
         </p>
       </div>
 
@@ -21,7 +21,7 @@ export default function Results() {
           className="w-full rounded-xl border border-white/[0.08]"
         />
         <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-          <span className="text-[#A5B4FC]">Saving challenge</span> · completing a suggestion as a board fires confetti for the whole group
+          <span className="text-[#A5B4FC]">Saving challenge</span> · completing a suggestion fires confetti for the whole board
         </figcaption>
       </figure>
     </section>

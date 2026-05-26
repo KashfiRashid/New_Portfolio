@@ -9,20 +9,17 @@ export default function DiegeticUI() {
       />
       <div className="max-w-[720px] space-y-5 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          Early in pre-production the team decided the UI would be fully diegetic. No 2D menus. No floating health bars. No HUD overlays. Inspired by Dead Space, where the player&rsquo;s vitals appear on the suit, every piece of information lives in the world. This was a team decision, not my individual call. I want to be clear about that. The instinct to remove the UI was collective.
+          Early in pre-production the team decided the UI would be fully diegetic. No 2D menus. No floating health bars. No HUD overlays. Inspired by Dead Space, every piece of information lives in the world.
         </p>
         <p>
-          What we missed: <Highlight>removing UI does not remove the need for feedback.</Highlight> The diegetic interaction layer was designed early. The diegetic feedback layer was not. After the P1 review, the professor named audio and visual feedback as the project&rsquo;s clearest weakness, especially around interactable objects. We patched it in the final cut. Color-based puzzle feedback on the fusebox and the chip-space. Highlighted scale buttons. Poke interactions instead of unrealistic raycast button presses. Better armband models.
-        </p>
-        <p>
-          The honest version: we treated &ldquo;no UI&rdquo; as the design rule and forgot that no UI just shifts the feedback work elsewhere. Next time I would design the diegetic feedback layer at the same time as the diegetic interaction layer.
+          What we missed: <Highlight>removing UI does not remove the need for feedback.</Highlight> The diegetic interaction layer was designed early. The diegetic feedback layer was not. We patched it in the final cut: color-based puzzle feedback, highlighted scale buttons, poke interactions instead of unrealistic raycasts.
         </p>
       </div>
 
       <Figure
         className="mt-16"
         src="/something-lurking/fig-armband-poke.png"
-        alt="Two screenshots showing the diegetic UI. Left: the player using a poke interactor on the wrist-mounted armband. Right: a player pressing an in-world elevator switch labelled 'Activate Elevator'."
+        alt="Two screenshots showing the diegetic UI."
         label="Figure 3"
         caption="Diegetic UI · wrist armband (poke) and external elevator switch"
       />

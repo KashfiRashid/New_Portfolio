@@ -5,25 +5,25 @@ const TEAM = [
     name: 'Md Kashfi Or Rashid Pranta',
     role: 'Story arc · Design philosophy · Sound · Iteration',
     contribution:
-      'Drafted the three-act narrative spine. Brought two earlier design papers (one on purposeful scaling, one proposing pipe-and-valve hand mechanics) into the project\'s mechanic vocabulary. Generated the character voices in Eleven Labs and treated them in Audacity. Authored the environmental sound cues. Held the iteration loop from whiteboard to Unity.',
+      'Drafted the three-act narrative spine. Generated the character voices in Eleven Labs and treated them in Audacity. Authored the environmental sound cues. Held the iteration loop from whiteboard to Unity.',
   },
   {
     name: 'Eric Gabriel Cheng Li',
     role: 'Sole 3D Modeler · Environments',
     contribution:
-      'Modeled every 3D asset in the experience. Corridor, stairway, generator platform, the 1:100 fusebox interior, the 1:1000 vent and chip-space, control room, elevator and corridor, garage, escape pod, the astronaut, the armband. After P1, built the entire second-half environment in one push.',
+      'Modeled every 3D asset in the experience. After P1, built the entire second-half environment in one push.',
   },
   {
     name: 'Michael Kim',
     role: 'Mechanics · Socket Interactors · Poke UI',
     contribution:
-      'Built the socket interactor systems that drive the wire, fuse, and chip-grid puzzles. Wired the doors, the teleport speed changers, the poke-based armband UI after the P1 raycast feedback. Made the ship feel like a working machine.',
+      'Built the socket interactor systems that drive the wire, fuse, and chip-grid puzzles. Made the ship feel like a working machine.',
   },
   {
     name: 'Kento Weil',
     role: 'Mechanics · Mystery & Isolation Beats',
     contribution:
-      'Co-built the mechanics layer with Michael. Brought his prior work on a murder-mystery plot set in an isolated location (the foundation the team built Something Lurking on top of) into the experience\'s atmosphere. The empty-corridor pacing and the captain-cuts-out beat carry his fingerprints.',
+      'Co-built the mechanics layer with Michael. The empty-corridor pacing and the captain-cuts-out beat carry his fingerprints.',
   },
 ]
 
@@ -58,25 +58,6 @@ export default function Credits() {
             </p>
           </div>
         ))}
-      </div>
-
-      <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-2">
-        <div>
-          <p className="font-[family-name:var(--font-mono)] text-sm uppercase tracking-[0.2em] text-zinc-500">
-            Tools
-          </p>
-          <p className="mt-3 font-[family-name:var(--font-sans)] text-[15px] leading-relaxed text-zinc-300">
-            Unity (XR Toolkit, scenes, scripting) · Blender (modeling) · Sketchfab and Adobe Substance (assets and materials) · Audacity (sound post) · Eleven Labs (voice generation) · Pixabay (button and item SFX).
-          </p>
-        </div>
-        <div>
-          <p className="font-[family-name:var(--font-mono)] text-sm uppercase tracking-[0.2em] text-zinc-500">
-            Inspirations
-          </p>
-          <p className="mt-3 font-[family-name:var(--font-sans)] text-[15px] leading-relaxed text-zinc-300">
-            Dead Space (Visceral Games, 2008 / 2023) for the diegetic UI. Among Us (InnerSloth, 2018) for the wire fixing minigame. Flow Free (2012) for the chip-grid connection puzzle. Alien (Ridley Scott, 1979) for the unseen-threat atmosphere. Red Matter (Vertical Robot, 2018) for the VR object handling register.
-          </p>
-        </div>
       </div>
 
       <p className="mt-14 text-center font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">

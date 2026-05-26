@@ -8,9 +8,6 @@ export default function Challenges() {
         <p>
           Tracking inputs was easy. Deciding what &ldquo;too human&rdquo; looks like at a threshold level was the real problem. Making the behaviour analysis feel earned instead of random took far more tuning than we expected, deep into the night.
         </p>
-        <p>
-          Spatial interactions fought back too. Because the game is browser-based and coordinate-dependent, hitboxes and render scaling had to be handled carefully across screen sizes, or the whole thing fell apart. There was a brief period where clicking one plinth teleported your cursor somewhere else entirely.
-        </p>
       </div>
     </section>
   )

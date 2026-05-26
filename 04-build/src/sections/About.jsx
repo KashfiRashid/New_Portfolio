@@ -101,7 +101,7 @@ export default function About() {
               to="/work"
               className="text-text-primary underline-offset-4 hover:underline hover:text-accent-glow transition-colors duration-200"
             >
-              see the work →
+              see the work
             </Link>
           </p>
         </section>

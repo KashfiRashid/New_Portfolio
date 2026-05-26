@@ -8,9 +8,6 @@ export default function Reflection() {
         <p>
           Us Among AI isn&rsquo;t really about the tasks. It&rsquo;s about feeling audited. The interface, the sound, and the interaction design all say the same thing, and that&rsquo;s where it lands.
         </p>
-        <p>
-          The architecture scales. Today it reads keystrokes, timing, and movement, but every human micro-habit is a detection vector: mouse paths, scroll behaviour, even facial expression. The same pipeline could drive a multiplayer mode where one player becomes the live auditor, adaptive difficulty that learns your tells across runs, or real behavioural verification for fraud detection.
-        </p>
       </div>
       <p className="mt-12 text-center font-[family-name:var(--font-display)] text-2xl italic text-[#3DE8B0] md:text-3xl">
         The AI isn&rsquo;t the enemy. Your own instincts are.

@@ -33,8 +33,6 @@ export default function Results() {
         ))}
       </div>
 
-      {/* Demo video — the team's full walkthrough. Sits right under the
-          highlights grid as the proof of "shipped". */}
       <figure className="mt-12 space-y-3">
         <div className="aspect-video w-full overflow-hidden rounded-lg border border-white/[0.08] bg-black">
           <iframe
@@ -51,14 +49,12 @@ export default function Results() {
         </figcaption>
       </figure>
 
-      {/* Showcase event photos — both wrapped in matching 4:3 frames so
-          they read as a uniform pair. */}
       <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
         <figure className="space-y-3">
           <div className="aspect-[4/3] w-full overflow-hidden rounded-lg border border-white/[0.08]">
             <img
               src="/something-lurking/Project-on-table-full.png"
-              alt="The Something Lurking demo station at the SFU SIAT Fall 2025 showcase: VR headset, controllers, a monitor mirroring the in-game view, and the printed comic posters laid out on a red tablecloth."
+              alt="The Something Lurking demo station at the SFU SIAT Fall 2025 showcase."
               loading="lazy"
               className="h-full w-full object-cover object-center"
             />
@@ -71,7 +67,7 @@ export default function Results() {
           <div className="aspect-[4/3] w-full overflow-hidden rounded-lg border border-white/[0.08]">
             <img
               src="/something-lurking/Project-on-table.png"
-              alt="The printed Something Lurking comic posters fanned out on the showcase table — a black-and-white astronaut illustration with the title set in chunky lettering."
+              alt="The printed Something Lurking comic posters on the showcase table."
               loading="lazy"
               className="h-full w-full object-cover object-center"
             />
@@ -85,7 +81,7 @@ export default function Results() {
       <Figure
         className="mt-16"
         src="/something-lurking/fig-art-collage.png"
-        alt="The full 3D asset collage from the project report: corridor, stairway, generator platform, 1:100 fusebox, lower corridor, 1:1000 vent, control room, 1:1000 chips, elevator corridor, inside elevator, garage, inside spacepod, the astronaut model, armband, and the escape pod, with Blender, Sketchfab, and Adobe Substance noted as software."
+        alt="The full 3D asset collage from the project report."
         label="Figure 5"
         caption="The full art set Eric modeled · seven scaled environments · armband · escape pod · astronaut"
       />

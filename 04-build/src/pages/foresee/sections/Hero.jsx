@@ -47,7 +47,7 @@ export default function Hero() {
 
         <img
           src="/foresee/hero.png"
-          alt="ForeSee — the home page showing the social boards (Work, Friends, Spouse, Personal) with the voice coach surface."
+          alt="ForeSee — the home page showing the social boards with the voice coach surface."
           loading="eager"
           className="w-full rounded-xl border border-white/[0.08]"
         />

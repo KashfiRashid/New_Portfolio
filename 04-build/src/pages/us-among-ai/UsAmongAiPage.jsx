@@ -93,7 +93,6 @@ export default function UsAmongAiPage() {
         <Concept />
         <Role />
         <Gameplay />
-        <Build />
         <Challenges />
         <Results />
         <Reflection />

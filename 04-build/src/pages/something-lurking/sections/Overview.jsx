@@ -21,7 +21,7 @@ export default function Overview() {
           Something Lurking is an immersive VR experience set inside an abandoned space station. The player is Jack, the maintenance crew left behind the night the ship starts failing. The captain&rsquo;s radio cuts. The lights die. Something else is aboard, and the player has to keep the ship alive long enough to escape. The threat is never shown.
         </p>
         <p>
-          Four people built this for an Immersive Environments project at SFU SIAT. Eric was the sole 3D modeler, modelling every environment in the experience. Michael and Kento built the mechanics and the socket interactors that drive the puzzles and the diegetic UI. <Highlight>I drafted the story, argued the design philosophy, and held the sound.</Highlight>
+          Four people built this for an Immersive Environments project at SFU SIAT. Eric was the sole 3D modeler. Michael and Kento built the mechanics. <Highlight>I drafted the story, argued the design philosophy, and held the sound.</Highlight>
         </p>
       </div>
 

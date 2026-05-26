@@ -1,5 +1,4 @@
 import { SectionHead, Figure, Highlight } from '../primitives.jsx'
-import CourseworkToPuzzleTranslation from '../diagrams/CourseworkToPuzzleTranslation.jsx'
 
 export default function Translation() {
   return (
@@ -10,24 +9,17 @@ export default function Translation() {
       />
       <div className="max-w-[720px] space-y-5 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          What landed on the headset is a complete, atmospheric space station you can move through, listen to, and repair. Eric modelled twelve environments (corridor, fusebox interior, control room, vent, chip-space, elevator and corridor, garage, escape pod, the captain&rsquo;s armband and helmet, the astronaut) so every act has a real place to happen. Michael and Kento built the socket interactor layer that turns the world into a thing you can fix with your hands: wires you plug in, fuses you slot, doors you slide, the armband you poke.
+          What landed on the headset is a complete, atmospheric space station you can move through, listen to, and repair. Eric modelled twelve environments so every act has a real place to happen. Michael and Kento built the socket interactor layer that turns the world into a thing you can fix with your hands: wires you plug in, fuses you slot, doors you slide, the armband you poke.
         </p>
         <p>
-          The story spine sits underneath it: routine shift, the descent into a failing ship, the breach. The captain&rsquo;s radio cuts on cue. The helmet is exactly where the player can find it. The escape pod hisses shut. <Highlight>The world, the puzzles, and the moments were built in the same passes, so the ship feels lived-in instead of staged.</Highlight>
+          <Highlight>The world, the puzzles, and the moments were built in the same passes, so the ship feels lived-in instead of staged.</Highlight>
         </p>
-        <p>
-          The hand-driven puzzles came from two design papers I&rsquo;d written before the project started, on purposeful scaling and on pipe-and-valve manipulation. Those arguments became the project&rsquo;s puzzle vocabulary: the wire mechanic inside the 1:100 fusebox, the circuit work at 1:1000, the valve and pipe logic in the vents. Scaling earns its place because there&rsquo;s something to do at every size.
-        </p>
-      </div>
-
-      <div className="mt-16">
-        <CourseworkToPuzzleTranslation />
       </div>
 
       <Figure
         className="mt-16"
         src="/something-lurking/fig-grab-interactions.png"
-        alt="Three in-game screenshots showing the grab-based puzzle interactions: a fusebox with multi-color fuses, a manually dragged sci-fi door, and the chip-space wire grid puzzle."
+        alt="Three in-game screenshots showing the grab-based puzzle interactions."
         label="Figure 2"
         caption="Grab-based puzzles · fusebox fuses (1:100) · manual sliding door · chip-grid wire puzzle (1:1000)"
       />

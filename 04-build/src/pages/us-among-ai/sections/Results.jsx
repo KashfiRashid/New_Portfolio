@@ -9,22 +9,8 @@ export default function Results() {
           We shipped a finished game, not a tech demo. It won <strong className="text-white">Best UI at SillyHacks 2026</strong>, hosted by SFU Surge.
         </p>
         <p>
-          The aesthetic carried it: glowing plinths, scanlines, a retro-futuristic server room. The Auditor makes players feel observed and judged on behaviours they&rsquo;d never normally think about: a hesitation before pressing Enter, an uneven rhythm. That feeling was the point, and we built the interface to land it.
+          The aesthetic carried it: glowing plinths, scanlines, a retro-futuristic server room.
         </p>
-      </div>
-      <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
-        <img
-          src="/us-among-ai/analyzing.png"
-          alt="Us Among AI: behavioral data analysis screen"
-          loading="lazy"
-          className="w-full rounded-lg border border-white/10"
-        />
-        <img
-          src="/us-among-ai/verdict.png"
-          alt="Us Among AI: verdict screen, FLAGGED as human"
-          loading="lazy"
-          className="w-full rounded-lg border border-white/10"
-        />
       </div>
     </section>
   )
