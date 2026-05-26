@@ -108,4 +108,4 @@ export default function About() {
       </RevealGroup>
     </div>
   )
-}
+}

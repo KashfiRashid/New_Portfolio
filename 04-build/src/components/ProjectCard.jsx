@@ -3,12 +3,8 @@ import { Link } from 'react-router-dom'
 
 /**
  * <ProjectCard /> — one project, rendered as an image card.
- * Shared by Home's Featured Work and the Work archive.
- *
- * The category label is intentionally ONE style across the whole archive.
- * It's discipline metadata, not decoration — a senior designer's archive
- * doesn't need a different color per category for the page to read.
- * The single treatment scales to any number of projects.
+ * Single category-label treatment across the archive. Scales to any
+ * number of projects/categories.
  */
 export default function ProjectCard({ project, onHover }) {
   const { slug, name, blurb, category, image, imagePosition, color, status } = project
@@ -25,7 +21,6 @@ export default function ProjectCard({ project, onHover }) {
       onMouseEnter={onHover}
       className="card-lift block bg-surface-mid hover:bg-surface-raised border border-surface-raised rounded-sm overflow-hidden group"
     >
-      {/* Media */}
       <div className="aspect-video relative overflow-hidden border-b border-surface-raised">
         {showImage ? (
           <img
@@ -54,12 +49,8 @@ export default function ProjectCard({ project, onHover }) {
         )}
       </div>
 
-      {/* Meta */}
       <div className="px-6 py-5">
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          {/* Category label — one consistent treatment across the
-              archive. Mono uppercase, a thin pill in the brand accent.
-              Reads as discipline metadata, not decoration. */}
           <span className="inline-flex items-center font-mono text-[11px] uppercase tracking-[0.18em] text-accent-glow border border-accent-glow/40 rounded-full px-2.5 py-1 leading-none">
             {category}
           </span>

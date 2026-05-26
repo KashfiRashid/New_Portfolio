@@ -18,17 +18,15 @@ export default function Overview() {
       />
       <div className="max-w-[720px] space-y-5 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          Something Lurking is an immersive VR experience set inside an abandoned space station. The player is Jack, the maintenance crew left behind the night the ship starts failing. The captain&rsquo;s radio cuts. The lights die. Something else is aboard, and the player has to keep the ship alive long enough to escape. The threat is never shown.
+          Something Lurking is an immersive VR experience set inside an abandoned space station. The player is Jack, the maintenance crew left behind the night the ship starts failing. The captain&rsquo;s radio cuts. The lights die. Something else is aboard.
         </p>
         <p>
           Four people built this for an Immersive Environments project at SFU SIAT. Eric was the sole 3D modeler. Michael and Kento built the mechanics. <Highlight>I drafted the story, argued the design philosophy, and held the sound.</Highlight>
         </p>
       </div>
-
       <div className="mt-12">
         <StatBlock stats={STATS} />
       </div>
-
       <div className="mt-16">
         <PullQuote>
           The threat is the part you never see. The antagonist lives in the sound.

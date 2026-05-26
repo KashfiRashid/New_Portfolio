@@ -8,15 +8,11 @@ export default function Results() {
         <p>
           ForeSee won the <strong className="text-white">[MLH] Best Use of ElevenLabs</strong> prize at Mountain Madness 2026, hosted by CSSS at SFU. The voice coach was the moment in the demo.
         </p>
-        <p>
-          The emotional bubble landed in particular because the audio and the visual hit together. Hearing the coach start mid-sentence while the bubble breathed in time made the agent read as something present.
-        </p>
       </div>
-
       <figure className="mt-12 space-y-3">
         <img
           src="/foresee/saving.png"
-          alt="A ForeSee board mid-celebration — confetti raining down over a smart-spending suggestion the board just completed together."
+          alt="A ForeSee board mid-celebration with confetti."
           loading="lazy"
           className="w-full rounded-xl border border-white/[0.08]"
         />

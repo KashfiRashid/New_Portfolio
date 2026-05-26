@@ -29,6 +29,7 @@ const DocumentorPage = lazy(() => import('./documentor/index.jsx'))
 const NightshiftPage = lazy(() => import('./nightshift/index.jsx'))
 const UsAmongAiPage = lazy(() => import('./us-among-ai/index.jsx'))
 const ForeseePage = lazy(() => import('./foresee/index.jsx'))
+const TruckingAcademyPage = lazy(() => import('./trucking-academy/index.jsx'))
 
 export const PROJECTS = [
   {
@@ -116,6 +117,17 @@ export const PROJECTS = [
     component: DocumentorPage,
   },
   {
+    slug: 'trucking-academy',
+    name: 'Trucking Academy',
+    category: 'UX Design',
+    blurb: 'A mobile learning platform addressing the trucking industry’s worker shortage. Ten driver interviews, three personas, one participatory workshop.',
+    image: '/trucking-academy/hero.png',
+    color: '#8B0000', // fallback panel if the hero image fails to load
+    featured: true,
+    bubbleId: 'H26',
+    component: TruckingAcademyPage,
+  },
+  {
     // Nightshift — unannounced. `status: 'coming-soon'` renders a badge.
     slug: 'nightshift',
     name: 'Nightshift',
@@ -130,9 +142,7 @@ export const PROJECTS = [
 ]
 
 /** Older work - listed by name on the Work archive, no case study pages. */
-export const OLDER_WORK = [
-  { slug: 'trucking-academy', name: 'Trucking Academy' },
-]
+export const OLDER_WORK = []
 
 /** Look up a single project by slug. Returns null if not found. */
 export const getProject = (slug) => PROJECTS.find((p) => p.slug === slug) || null
