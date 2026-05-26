@@ -8,8 +8,8 @@ export const TA_NAV = [
   { id: 'challenge', label: 'The Challenge' },
   { id: 'research', label: 'Research Process' },
   { id: 'insights', label: 'Key Insights' },
-  { id: 'solution', label: 'The Solution' },
   { id: 'journey', label: 'User Journey' },
+  { id: 'solution', label: 'The Solution' },
   { id: 'features', label: 'App Features' },
   { id: 'final-design', label: 'Final Design' },
   { id: 'impact', label: 'Impact' },
@@ -90,7 +90,7 @@ export function MetaBlock({ rows = [], className = '' }) {
 
 export function Highlight({ children, className = '' }) {
   return (
-    <mark className={`box-decoration-clone rounded-[3px] bg-[#8B0000]/35 px-1.5 py-0.5 font-medium text-white ${className}`}>
+    <mark className={`box-decoration-clone rounded-[3px] bg-[#DC143C]/25 px-1.5 py-0.5 font-medium text-white ${className}`}>
       {children}
     </mark>
   )

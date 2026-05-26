@@ -11,8 +11,8 @@ import FinalDesign from './sections/FinalDesign.jsx'
 import Impact from './sections/Impact.jsx'
 
 const SECTION_IDS = [
-  'challenge', 'research', 'insights', 'solution',
-  'journey', 'features', 'final-design', 'impact',
+  'challenge', 'research', 'insights', 'journey',
+  'solution', 'features', 'final-design', 'impact',
 ]
 
 export default function TruckingAcademyPage() {
@@ -59,8 +59,8 @@ export default function TruckingAcademyPage() {
         <Challenge />
         <Research />
         <Insights />
-        <Solution />
         <Journey />
+        <Solution />
         <Features />
         <FinalDesign />
         <Impact />
