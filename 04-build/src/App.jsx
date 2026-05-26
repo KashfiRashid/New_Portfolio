@@ -25,7 +25,7 @@ import ErrorBoundary from './components/ErrorBoundary.jsx'
 // inside AppRoutes covers the load.
 const Home = lazy(() => import('./sections/Home.jsx'))
 const Work = lazy(() => import('./sections/Work.jsx'))
-const About = lazy(() => import('./sections/About.jsx'))
+const About = lazy(() => import('./pages/about/AboutPage.jsx'))
 const HallOfFame = lazy(() => import('./sections/HallOfFame.jsx'))
 
 // Case studies are routed through one shared route, /projects/:slug, which
