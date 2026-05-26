@@ -23,10 +23,10 @@ const POSTURE_TO_SPRITE = {
   peeking:       'peek',
   stretching:    'stretch',
   contemplating: 'sit',
-  holding_mug:   'Cofee',
-  coffee_hold:   'Cofee',
-  coffee_sip:    'sipping-cofee',
-  coffee_sipoff: 'sipping-off-cofeea',
+  holding_mug:   'Coffee',
+  coffee_hold:   'Coffee',
+  coffee_sip:    'sipping-coffee',
+  coffee_sipoff: 'sipping-off-coffee',
   showcasing:    'idle',
 }
 

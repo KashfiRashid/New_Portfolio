@@ -257,8 +257,8 @@ function tickActivity(ctx, activity, elapsed, dt) {
 
     case 'beverage':
       // Three-sprite sip cycle across the 4-6s activity:
-      //   hold (Cofee) -> raise & sip (sipping-cofee) -> lower
-      //   (sipping-off-cofeea) -> hold again.
+      //   hold (Coffee) -> raise & sip (sipping-coffee) -> lower
+      //   (sipping-off-coffee) -> hold again.
       if (reducedMotion || elapsed < 1.2) {
         ctx.posture = 'coffee_hold'
       } else if (elapsed < 2.4) {
@@ -386,8 +386,27 @@ export const wandering = {
     // minus the current perch — never starve.
     const CURSOR_BUFFER = 200
     const currentId = ctx.stateData.currentPerchId
+
+    // Same-side constraint — the character must not walk across the
+    // viewport's horizontal center during wandering. A destination
+    // perch is only valid if it lies on the same side of center as
+    // the character's current position. Perches at the centerline
+    // (e.g. the home-bm occluded perch) are excluded by both
+    // branches of this test, so the character never aims at the
+    // middle either.
+    const vw = (typeof window !== 'undefined' && window.innerWidth > 0)
+      ? window.innerWidth
+      : 0
+    const center = vw / 2
+    const charOnLeft = ctx.position.x < center
+    const isOnSameSide = (p) => {
+      if (vw === 0) return true // SSR / pre-mount safety: don't filter
+      return charOnLeft ? p.x < center : p.x > center
+    }
+
     const candidates = ctx.perches.filter(p => {
       if (p.id === currentId) return false
+      if (!isOnSameSide(p)) return false
       const dx = p.x - ctx.cursorPos.x
       const dy = p.y - ctx.cursorPos.y
       return Math.hypot(dx, dy) > CURSOR_BUFFER
@@ -396,9 +415,19 @@ export const wandering = {
     if (candidates.length > 0) {
       target = candidates[Math.floor(Math.random() * candidates.length)]
     } else {
-      // Defensive fallback — use the existing helper which already excludes
-      // the current perch.
-      target = pickRandomPerch(ctx.perches, currentId)
+      // Same-side fallback — relax the cursor buffer but KEEP the
+      // side constraint, so the character never crosses center even
+      // when its own side's perches happen to be crowded by the
+      // cursor.
+      const sameSideOnly = ctx.perches.filter(p => p.id !== currentId && isOnSameSide(p))
+      if (sameSideOnly.length > 0) {
+        target = sameSideOnly[Math.floor(Math.random() * sameSideOnly.length)]
+      } else {
+        // Last-resort fallback — no same-side perch exists for this
+        // section (shouldn't happen for any defined perch set, but
+        // defensive so target is always assigned).
+        target = pickRandomPerch(ctx.perches, currentId)
+      }
     }
 
     ctx.stateData.target = target

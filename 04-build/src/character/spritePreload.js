@@ -7,7 +7,7 @@
 // fetch the browser caches; nothing is rendered here.
 const SPRITES = [
   'idle', 'walk-a', 'walk-b', 'sit', 'sit-laptop', 'peek', 'wave',
-  'stretch', 'showcase', 'Cofee', 'sipping-cofee', 'sipping-off-cofeea',
+  'stretch', 'showcase', 'Coffee', 'sipping-coffee', 'sipping-off-coffee',
   'vanish-1', 'vanish-2', 'vanish-3', 'vanish-4',
 ]
 

@@ -109,6 +109,21 @@ export default function Character() {
     const maxTop = Math.max(EDGE_MARGIN, window.innerHeight - size - EDGE_MARGIN)
     charLeft = Math.min(Math.max(charLeft, EDGE_MARGIN), maxLeft)
     charTop = Math.min(Math.max(charTop, EDGE_MARGIN), maxTop)
+
+    // Middle-screen barrier — an imaginary vertical wall down the
+    // viewport centerline. The character can rest or wander on either
+    // side, but its sprite is not allowed to cross the middle. If its
+    // intended center is on the left of viewport center, the sprite
+    // is held with its right edge at center; if on the right, with
+    // its left edge at center. Render-only constraint — the state
+    // machine, perches, and walking logic are unchanged.
+    const middleCenter = window.innerWidth / 2
+    const charCenter = charLeft + size / 2
+    if (charCenter < middleCenter) {
+      charLeft = Math.min(charLeft, middleCenter - size)
+    } else {
+      charLeft = Math.max(charLeft, middleCenter)
+    }
   }
 
   const handleGrabStart = (e) => {
@@ -275,8 +290,8 @@ export default function Character() {
 
       {/* Mug overlay — separate sibling so it doesn't inherit scaleX or scale variant.
           Positioned in viewport coords; mirrors with facing. */}
-      {/* Coffee/beverage uses dedicated sprite art now (Cofee /
-          sipping-cofee / sipping-off-cofeea); the inline-SVG mug
+      {/* Coffee/beverage uses dedicated sprite art now (Coffee /
+          sipping-coffee / sipping-off-coffee); the inline-SVG mug
           overlay is retired. */}
 
       {/* Reel custody */}
