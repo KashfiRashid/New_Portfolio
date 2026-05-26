@@ -1,4 +1,4 @@
-import { SectionHead, PullQuote } from '../primitives.jsx'
+import { SectionHead, Highlight } from '../primitives.jsx'
 import SoundPipelineDiagram from '../diagrams/SoundPipelineDiagram.jsx'
 import SoundMoments from '../diagrams/SoundMoments.jsx'
 
@@ -8,7 +8,7 @@ export default function Sound() {
       <SectionHead kicker="SOUND AS ARCHITECTURE" title="The antagonist is the sound." />
       <div className="max-w-[720px] space-y-5 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          The unseen presence has no visual model. We agreed early that the threat is more frightening implied than shown. That decision put the entire antagonist budget on the sound layer. The shift in the ship's ambient layer when the player crosses a threshold. The voice line at the edge of audibility. The mechanical groan from a corridor the player has not entered yet. The growl that follows the escape pod.
+          The unseen presence has no visual model. We agreed early that the threat is more frightening implied than shown. <Highlight>That decision put the entire antagonist budget on the sound layer.</Highlight> The shift in the ship&rsquo;s ambient layer when the player crosses a threshold. The voice line at the edge of audibility. The mechanical groan from a corridor the player has not entered yet. The growl that follows the escape pod.
         </p>
         <p>
           I built the character voices in Eleven Labs and treated each one in Audacity to sit inside the geometry of the scene: reverb to match the corridor, EQ to suggest distance through metal, subtle pitch variation to suggest something not quite human breathing nearby. Environmental cues, footsteps and alarms and the banging on the door, were authored in Audacity directly. The voices feel diegetic because they were processed diegetically.
@@ -43,12 +43,6 @@ export default function Sound() {
             Alarms. Banging on a door from the outside. The escape pod hisses shut. Then, from behind Jack, the growl that ends the experience without resolving it.
           </p>
         </div>
-      </div>
-
-      <div className="mt-16">
-        <PullQuote>
-          The sound is the antagonist because the antagonist is never shown.
-        </PullQuote>
       </div>
     </section>
   )

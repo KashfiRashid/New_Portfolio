@@ -1,16 +1,14 @@
 import { Link } from 'react-router-dom'
 
-// Us Among AI primitives — same component shapes as the other case
-// studies so all the case studies render as siblings. Signal color is
-// #3DE8B0 (neon mint — reads as a system terminal "online" glow).
+// ForeSee primitives — same shapes as the other case studies so they all
+// render as siblings. Accent: indigo #6366F1 with #A5B4FC bright, matching
+// the zinc/white/indigo design system ForeSee actually shipped with.
 
-export const US_AMONG_AI_NAV = [
+export const FORESEE_NAV = [
   { id: 'overview', label: 'Overview' },
   { id: 'concept', label: 'The Concept' },
   { id: 'what-i-did', label: 'What I Did' },
-  { id: 'how-it-plays', label: 'How It Plays' },
   { id: 'the-build', label: 'The Build' },
-  { id: 'challenges', label: 'Challenges' },
   { id: 'results', label: 'Results' },
   { id: 'reflection', label: 'Reflection' },
   { id: 'credits', label: 'Credits' },
@@ -29,18 +27,18 @@ export function SideNav({ activeId = '' }) {
         Return
       </Link>
       <ul className="flex flex-col gap-1">
-        {US_AMONG_AI_NAV.map((item) => {
+        {FORESEE_NAV.map((item) => {
           const active = activeId === item.id
           return (
             <li key={item.id}>
               <a
                 href={`#${item.id}`}
                 className={`flex items-center gap-2 py-1.5 font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.14em] transition-colors ${
-                  active ? 'text-[#3DE8B0]' : 'text-zinc-500 hover:text-zinc-300'
+                  active ? 'text-[#A5B4FC]' : 'text-zinc-500 hover:text-zinc-300'
                 }`}
               >
                 <span
-                  className={`h-1 w-1 shrink-0 rounded-full ${active ? 'bg-[#3DE8B0]' : 'bg-transparent'}`}
+                  className={`h-1 w-1 shrink-0 rounded-full ${active ? 'bg-[#A5B4FC]' : 'bg-transparent'}`}
                   aria-hidden
                 />
                 {item.label}
@@ -96,47 +94,10 @@ export function MetaBlock({ rows = [], className = '' }) {
 export function Highlight({ children, className = '' }) {
   return (
     <mark
-      className={`box-decoration-clone rounded-[3px] bg-[#3DE8B0]/20 px-1.5 py-0.5 font-medium text-white ${className}`}
+      className={`box-decoration-clone rounded-[3px] bg-[#6366F1]/25 px-1.5 py-0.5 font-medium text-white ${className}`}
     >
       {children}
     </mark>
-  )
-}
-
-/**
- * AssetPlaceholder — a dashed slot for a real screenshot. Drop the file
- * in /public/us-among-ai/ with the filename shown, then swap this for an
- * <img src="/us-among-ai/FILENAME" />.
- */
-export function AssetPlaceholder({
-  slotId = '',
-  filename = '',
-  dimensions = '',
-  description = '',
-  className = '',
-}) {
-  return (
-    <div
-      role="img"
-      aria-label={`Screenshot placeholder: ${slotId}. ${description}`}
-      className={`flex min-h-[240px] flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-zinc-600 bg-zinc-900/40 px-6 py-12 text-center ${className}`}
-    >
-      <span className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.2em] text-[#3DE8B0]">
-        screenshot placeholder
-      </span>
-      <span className="mt-1 font-[family-name:var(--font-mono)] text-sm text-zinc-300">{slotId}</span>
-      {filename ? (
-        <span className="mt-2 rounded bg-zinc-800/80 px-2 py-1 font-[family-name:var(--font-mono)] text-xs text-zinc-200">
-          save as: {filename}
-        </span>
-      ) : null}
-      {dimensions ? (
-        <span className="mt-1 font-[family-name:var(--font-mono)] text-xs text-zinc-500">{dimensions}</span>
-      ) : null}
-      {description ? (
-        <p className="mt-2 max-w-md font-[family-name:var(--font-sans)] text-sm text-zinc-400">{description}</p>
-      ) : null}
-    </div>
   )
 }
 
@@ -146,7 +107,7 @@ export function LinkButton({ href, children }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 rounded-md border border-[#3DE8B0]/40 bg-[#3DE8B0]/[0.08] px-4 py-2 font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-[#3DE8B0] transition-colors hover:border-[#3DE8B0] hover:bg-[#3DE8B0]/[0.16] hover:text-white"
+      className="inline-flex items-center gap-1.5 rounded-md border border-[#6366F1]/40 bg-[#6366F1]/[0.08] px-4 py-2 font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-[#A5B4FC] transition-colors hover:border-[#6366F1] hover:bg-[#6366F1]/[0.16] hover:text-white"
     >
       {children}
     </a>

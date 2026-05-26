@@ -28,6 +28,7 @@ const ParproConsultingPage = lazy(() => import('./parpro-consulting/index.jsx'))
 const DocumentorPage = lazy(() => import('./documentor/index.jsx'))
 const NightshiftPage = lazy(() => import('./nightshift/index.jsx'))
 const UsAmongAiPage = lazy(() => import('./us-among-ai/index.jsx'))
+const ForeseePage = lazy(() => import('./foresee/index.jsx'))
 
 export const PROJECTS = [
   {
@@ -67,7 +68,7 @@ export const PROJECTS = [
     name: 'Something Lurking',
     category: 'Game Design',
     blurb: 'A VR sci-fi horror on a failing space station, where the antagonist is the sound.',
-    image: '/something-lurking/fig-art-collage.png',
+    image: '/something-lurking/poster.png',
     featured: true,
     bubbleId: 'H19',
     component: SomethingLurkingPage,
@@ -88,10 +89,11 @@ export const PROJECTS = [
     name: 'ForeSee',
     category: 'Product Design',
     blurb: 'A personal finance app that organizes spending into social boards and uses AI to predict what upcoming events will cost.',
-    color: '#4F7A5C',
-    featured: false,
+    image: '/foresee/hero.png',
+    color: '#6366F1', // fallback panel if the hero image fails to load
+    featured: true,
     bubbleId: 'H22',
-    component: null,
+    component: ForeseePage,
   },
   {
     slug: 'parpro-consulting',

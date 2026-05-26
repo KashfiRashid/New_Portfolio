@@ -31,7 +31,8 @@ export default function Hero() {
           </p>
         </header>
 
-        {/* Hero image — the comic poster art from the SIAT showcase. */}
+        {/* Hero image — the comic poster art from the SIAT showcase. Sits
+            in the prominent spot directly under the subtitle. */}
         <img
           src="/something-lurking/poster.png"
           alt="Something Lurking comic poster — an astronaut in a green-smeared helmet against a dark starfield, with the title set above."
@@ -55,6 +56,24 @@ export default function Hero() {
             </LinkButton>
           ))}
         </div>
+
+        {/* Demo video — sits below the meta + links, supporting evidence
+            for the poster above rather than the lead image. */}
+        <figure className="space-y-3">
+          <div className="aspect-video w-full overflow-hidden rounded-lg border border-white/[0.08] bg-black">
+            <iframe
+              src="https://www.youtube.com/embed/eK9rhROT4ds?rel=0"
+              title="Something Lurking demo walkthrough"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+              className="h-full w-full"
+            />
+          </div>
+          <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-600">
+            Full demo · final critique cut · Fall 2025
+          </figcaption>
+        </figure>
       </div>
     </section>
   )

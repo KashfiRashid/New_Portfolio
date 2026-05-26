@@ -8,15 +8,21 @@ import { Link } from 'react-router-dom'
  * Media area (16:9):
  *   - project.image → the hero image, cropped to fit (object-cover).
  *     If that image fails to load, it falls back to the color panel.
+ *   - project.imagePosition → 'top' | 'center' | 'bottom' (default center).
+ *     Use 'top' for posters where the title sits at the top.
  *   - otherwise     → a themed solid-color panel (project.color) with
  *     the project's initial as a faint watermark.
  *
  * Meta: category line · name · blurb. A 'coming-soon' status adds a badge.
  */
 export default function ProjectCard({ project, onHover }) {
-  const { slug, name, blurb, category, image, color, status } = project
+  const { slug, name, blurb, category, image, imagePosition, color, status } = project
   const [imgFailed, setImgFailed] = useState(false)
   const showImage = image && !imgFailed
+  const objectPosClass =
+    imagePosition === 'top' ? 'object-top'
+      : imagePosition === 'bottom' ? 'object-bottom'
+      : 'object-center'
 
   return (
     <Link
@@ -33,7 +39,7 @@ export default function ProjectCard({ project, onHover }) {
             loading="lazy"
             draggable={false}
             onError={() => setImgFailed(true)}
-            className="absolute inset-0 w-full h-full object-cover"
+            className={`absolute inset-0 w-full h-full object-cover ${objectPosClass}`}
           />
         ) : (
           <div

@@ -5,10 +5,8 @@ import { SideNav } from './primitives.jsx'
 import Hero from './sections/Hero.jsx'
 import Overview from './sections/Overview.jsx'
 import Concept from './sections/Concept.jsx'
-import Role from './sections/Role.jsx'
-import Gameplay from './sections/Gameplay.jsx'
+import WhatIDid from './sections/WhatIDid.jsx'
 import Build from './sections/Build.jsx'
-import Challenges from './sections/Challenges.jsx'
 import Results from './sections/Results.jsx'
 import Reflection from './sections/Reflection.jsx'
 import Credits from './sections/Credits.jsx'
@@ -17,23 +15,16 @@ const SECTION_IDS = [
   'overview',
   'concept',
   'what-i-did',
-  'how-it-plays',
   'the-build',
-  'challenges',
   'results',
   'reflection',
   'credits',
 ]
 
-export default function UsAmongAiPage() {
+export default function ForeseePage() {
   const [activeId, setActiveId] = useState('')
 
   useEffect(() => {
-    // Scroll-based detection. Pick the section whose top is the
-    // largest value still <= TRIGGER (i.e. the most recent section
-    // the reader has scrolled past). Falls back to the last section
-    // once we scroll past credits. This matches what the eye is
-    // reading much better than IntersectionObserver's ratio heuristic.
     const TRIGGER = 140
 
     let raf = 0
@@ -73,7 +64,7 @@ export default function UsAmongAiPage() {
 
   return (
     <div
-      className="relative min-h-screen bg-[#0F1216] text-zinc-200 antialiased selection:bg-[#3DE8B0]/30"
+      className="relative min-h-screen bg-[#0F1216] text-zinc-200 antialiased selection:bg-[#6366F1]/30"
       style={{
         '--font-display': '"Instrument Serif", Georgia, serif',
         '--font-sans': '"DM Sans", system-ui, sans-serif',
@@ -81,7 +72,7 @@ export default function UsAmongAiPage() {
       }}
     >
       <div
-        className="pointer-events-none fixed inset-0 bg-gradient-to-br from-emerald-950/[0.05] via-transparent to-transparent"
+        className="pointer-events-none fixed inset-0 bg-gradient-to-br from-indigo-950/[0.06] via-transparent to-transparent"
         aria-hidden
       />
 
@@ -91,10 +82,8 @@ export default function UsAmongAiPage() {
         <Hero />
         <Overview />
         <Concept />
-        <Role />
-        <Gameplay />
+        <WhatIDid />
         <Build />
-        <Challenges />
         <Results />
         <Reflection />
         <Credits />

@@ -65,7 +65,3 @@ export default function Iteration() {
         alt="A screenshot of the Unity Editor showing the project hierarchy with detection cube triggers used to gate doors, lights, and audio cues as the player crosses thresholds."
         label="Figure 4"
         caption="The detection-cube trigger system that made the ship feel scripted-on-the-fly"
-      />
-    </section>
-  )
-}

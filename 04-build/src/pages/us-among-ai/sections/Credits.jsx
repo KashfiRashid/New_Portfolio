@@ -5,7 +5,7 @@ const TEAM = [
     name: 'Kashfi Pranta',
     role: 'Team Lead · Designer · Developer',
     contribution:
-      'Set the team direction two hours in — assigned roles, scoped the build, and held the foundation everyone worked from. Worked across design and development through the night.',
+      'Set team direction two hours in: assigned roles, scoped the build, held the foundation the rest of the team worked from. Worked across design and development through the night.',
   },
   {
     name: 'Brett Rodrigues',
@@ -17,7 +17,7 @@ const TEAM = [
     name: 'Tawheed Sarker Aakash',
     role: 'Backend Engineer',
     contribution:
-      'Engineered the backend — the server-side systems that ran the game logic and state.',
+      'Engineered the backend (the server-side systems that ran the game logic and state).',
   },
   {
     name: 'Sadab Khan',
@@ -31,12 +31,19 @@ export default function Credits() {
   return (
     <section id="credits" className="scroll-mt-28 py-20 lg:py-32">
       <SectionHead kicker="CREDITS" title="Team and attribution." />
-      <img
-        src="/us-among-ai/team.png"
-        alt="The Us Among AI team at SillyHacks 2026"
-        loading="lazy"
-        className="mb-12 w-full max-w-sm rounded-lg border border-white/10"
-      />
+
+      <figure className="mb-12">
+        <img
+          src="/us-among-ai/team.png"
+          alt="The Us Among AI team at SillyHacks 2026"
+          loading="lazy"
+          className="w-full max-w-sm rounded-lg border border-white/10"
+        />
+        <figcaption className="mt-3 font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">
+          The team at SillyHacks 2026, Best UI
+        </figcaption>
+      </figure>
+
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {TEAM.map((member) => (
           <div key={member.name}>

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { SectionHead, Highlight } from '../primitives.jsx'
 
+// Verbatim per the approved brief: three Q3 reflection paragraphs plus
+// the pattern-across-three-teams positioning paragraph. Do not paraphrase.
 const PARAGRAPHS = [
   "I loved this project. The iteration loop from board to paper to Discord to sketches to 3D to color to form to implementation was the kind of work I want to keep doing. Small wins mattered. A voice line that landed right. A vent geometry that read clearly at 1:1000 scale. A sound cue that made someone flinch in playtest. The bigger picture stayed in view, but every small win along the way was worth marking.",
   "We committed to fully diegetic UI from the start because Dead Space taught us that 2D menus break immersion. We were right about removing the menus. We were wrong about not building the diegetic feedback to replace them. After the P1 review, the professor named audio and visual feedback as the project's clearest weakness, and we patched it in the final cut. The honest version: we treated 'no UI' as the design rule and forgot that no UI just shifts the feedback work elsewhere. Next time I would design the diegetic feedback layer at the same time as the diegetic interaction layer. Removing the menus is the easy part. Replacing what they did is the harder part.",
@@ -32,7 +34,4 @@ export default function Reflection() {
           <Link to="/projects/spectral-bloom" className={linkClass}>Spectral Bloom</Link>
           {' '}Three.js). What I want to grow into: knowing when to stop being the conscience and start being a peer who pushes back on technical scope.
         </p>
-      </div>
-    </section>
-  )
-}
+    
