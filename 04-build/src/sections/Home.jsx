@@ -281,3 +281,18 @@ function CollageCard({ project, pos }) {
     </Link>
   )
 }
+          <p
+            className="font-display text-text-primary text-[20px] leading-tight tracking-tight"
+            style={{ textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}
+          >
+            {project.name}
+          </p>
+        </div>
+      </div>
+    </Link>
+  )
+}
+
+  )
+}
+}
