@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useCompanion } from '../companion/CompanionContext.jsx'
@@ -9,15 +9,13 @@ import { PROJECTS } from '../pages/projects.js'
 
 /**
  * <Home /> — landing surface.
- * Page order: editorial hero → Featured Projects (4) → Other Projects
- *             collage → Hall of Fame → shipped line.
  *
- * REVISION (later 5/27): mono micro-kickers above each section heading
- * are removed — they were chrome with no information value. Section
- * headings now stand alone in display serif. CTA promoted to a fuller
- * button with stronger amber emphasis. Collage container height
- * increased to fit the tilted bottom-row cells without overlapping
- * the CTA below.
+ * Hero "executioneery." word: tooltip follows the cursor when hovered.
+ * The tooltip's `transform` is updated directly on the ref element on
+ * every mousemove — no React re-renders, so it stays smooth.
+ *
+ * Other Projects CTA: monitor-warmed-up hover (border brightens, text
+ * shifts to amber, soft amber halo via box-shadow). No block fill.
  */
 
 const HEADLINE = ['Ambitious', 'but', 'executioneery.']
@@ -30,6 +28,61 @@ const COLLAGE_POSITIONS = [
   { top: '52%',  left: '34%',   width: '36%', rot: '-2deg',  z: 30 },
   { top: '48%',  left: '62%',   width: '36%', rot: '3deg',   z: 18 },
 ]
+
+function SectionRule() {
+  return <div className="mt-3 h-[2px] w-16 bg-accent-glow" aria-hidden="true" />
+}
+
+/**
+ * HeroWord — single word in the hero headline. The last word
+ * ("executioneery.") gets a cursor-following tooltip that explains
+ * the made-up word. Position is updated via direct DOM mutation on
+ * the tooltip's transform — no React re-renders during mousemove.
+ */
+function HeroWord({ word, isLast, delay }) {
+  const tooltipRef = useRef(null)
+
+  const updatePos = isLast
+    ? (e) => {
+        if (!tooltipRef.current) return
+        const rect = e.currentTarget.getBoundingClientRect()
+        const x = e.clientX - rect.left
+        const y = e.clientY - rect.top
+        tooltipRef.current.style.transform = `translate(${x + 16}px, ${y + 18}px)`
+      }
+    : undefined
+
+  return (
+    <motion.span
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay, ease: [0.22, 0.61, 0.36, 1] }}
+      onMouseEnter={updatePos}
+      onMouseMove={updatePos}
+      className={`relative inline-block mr-[0.25em] ${isLast ? 'group/exec' : ''}`}
+    >
+      {word}
+      {/* Tooltip styled exactly like the ProjectCard category pill
+          (DESIGN SYSTEM / PRODUCT DESIGN etc.): amber text, amber
+          border at 40% opacity, rounded-full, mono 11px uppercase
+          with 0.18em tracking. Quiet dark backdrop with light blur
+          for legibility over the pixel-art hero. */}
+      {isLast && (
+        <span
+          ref={tooltipRef}
+          role="tooltip"
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 top-0 z-50 inline-flex items-center whitespace-nowrap font-mono text-[11px] uppercase tracking-[0.18em] text-accent-glow leading-none rounded-full px-2.5 py-1 opacity-0 group-hover/exec:opacity-100 transition-opacity duration-200 ease-kash-out"
+          style={{
+            backgroundColor: '#16191B',
+          }}
+        >
+          a word i made up. means i ship.
+        </span>
+      )}
+    </motion.span>
+  )
+}
 
 export default function Home() {
   const { fire } = useCompanion()
@@ -49,7 +102,7 @@ export default function Home() {
       {/* Editorial hero */}
       <section className="relative z-10 px-6 pt-10 pb-24 md:pt-14 md:pb-32 max-w-3xl mx-auto w-full">
           <h1
-            className="text-display-xl font-display leading-tight mb-8 tracking-tight transition-[letter-spacing] duration-500"
+            className="text-display-xl font-display leading-tight mb-8 tracking-tight transition-[letter-spacing] duration-500 ease-kash-out"
             onMouseEnter={(e) => {
               e.currentTarget.style.letterSpacing = '-0.04em'
               fire('H1', { elementId: 'home-headline' })
@@ -57,22 +110,19 @@ export default function Home() {
             onMouseLeave={(e) => { e.currentTarget.style.letterSpacing = '' }}
           >
             {HEADLINE.map((word, i) => (
-              <motion.span
+              <HeroWord
                 key={`${word}-${i}`}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 0.61, 0.36, 1] }}
-                className="inline-block mr-[0.25em]"
-              >
-                {word}
-              </motion.span>
+                word={word}
+                isLast={i === HEADLINE.length - 1}
+                delay={i * 0.08}
+              />
             ))}
           </h1>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.6, ease: [0.22, 0.61, 0.36, 1] }}
             className="text-text-faint text-sm font-mono"
           >
             Currently at FIC IT Squad · graduating SFU SIAT June 10 · Delta, BC
@@ -81,14 +131,9 @@ export default function Home() {
 
       {/* Featured Projects */}
       <section className="relative z-10 px-6 py-12 max-w-6xl mx-auto w-full">
-        <div className="flex items-end justify-between mb-10 gap-4 flex-wrap">
+        <div className="mb-10">
           <h2 className="text-display-md font-display tracking-tight text-text-primary">Featured Projects</h2>
-          <Link
-            to="/work"
-            className="text-text-faint text-xs hover:text-text-muted underline-offset-4 hover:underline whitespace-nowrap font-mono uppercase tracking-[0.14em]"
-          >
-            see all work →
-          </Link>
+          <SectionRule />
         </div>
         <RevealGroup staggerMs={80} className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {featured.map((p) => (
@@ -103,57 +148,49 @@ export default function Home() {
 
       {/* Other Projects */}
       <section className="relative z-10 px-6 pt-20 pb-12 max-w-6xl mx-auto w-full">
-        <div className="mb-12">
-          <h2 className="text-display-md font-display tracking-tight text-text-primary">Other Projects</h2>
-          <p className="text-text-muted text-sm mt-3 max-w-md">Hover to bring one forward. Click to read.</p>
+        <h2 className="text-display-md font-display tracking-tight text-text-primary">Other Projects</h2>
+        <SectionRule />
+
+        <p className="text-text-muted text-sm mt-4 max-w-md">
+          Hover to preview. Click to read.
+        </p>
+
+        <div className="mt-10 flex justify-center">
+          <Link
+            to="/work"
+            className="group font-mono inline-flex items-center gap-3 border border-accent-glow/50 text-text-primary hover:border-accent-glow hover:text-accent-glow px-10 py-5 text-[14px] uppercase tracking-[0.22em] transition-[border-color,color,box-shadow] duration-300 ease-kash-out hover:[box-shadow:0_0_32px_-4px_rgba(232,184,106,0.4)]"
+          >
+            explore other work
+            <span className="inline-block transition-transform duration-200 ease-kash-out motion-safe:group-hover:translate-x-1">→</span>
+          </Link>
         </div>
 
-        {/* Desktop collage — container height tuned so the bottom-row
-            tilted cells don't bleed into the CTA below. The tallest
-            possible cell is ~top:52% + rotated aspect-[4/3], which at
-            36% width of max-w-6xl puts the bottom edge near ~620px. */}
-        <div className="hidden md:block relative h-[640px] mb-20">
+        <div className="hidden md:block relative h-[640px] mt-16">
           {others.map((p, i) => {
             const pos = COLLAGE_POSITIONS[i] || COLLAGE_POSITIONS[0]
             return <CollageCard key={p.slug} project={p} pos={pos} />
           })}
         </div>
 
-        {/* Mobile fallback */}
-        <div className="grid grid-cols-2 gap-3 mb-12 md:hidden">
+        <div className="grid grid-cols-2 gap-3 mt-10 md:hidden">
           {others.map((p) => (
             <Link to={`/projects/${p.slug}`} key={p.slug} className="group block">
               <div
-                className="aspect-[4/3] overflow-hidden border"
+                className="aspect-[4/3] overflow-hidden border transition-colors duration-200 ease-kash-out group-hover:border-accent-glow/50"
                 style={{ borderColor: 'rgba(232,184,106,0.18)' }}
               >
                 <img
                   src={p.image}
                   alt={`${p.name} preview.`}
                   loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  className="h-full w-full object-cover transition-transform duration-200 ease-kash-out motion-safe:group-hover:scale-[1.03]"
                 />
               </div>
-              <p className="text-text-muted text-xs font-mono mt-2 uppercase tracking-wider">{p.name}</p>
+              <p className="font-display text-text-primary text-[15px] mt-2 transition-colors duration-200 ease-kash-out group-hover:text-accent-glow">
+                {p.name}
+              </p>
             </Link>
           ))}
-        </div>
-
-        {/* CTA — promoted to a fuller bordered button with stronger
-            amber emphasis. Sits on its own with breathing room above
-            and below so it reads as a clear next step, not as a tag
-            tacked onto the collage. */}
-        <div className="flex justify-center pt-4">
-          <Link
-            to="/work"
-            className="font-mono group inline-flex items-center gap-3 border-2 px-8 py-4 text-[13px] uppercase tracking-[0.2em] text-text-primary transition-all duration-200 hover:bg-accent-glow/10"
-            style={{ borderColor: 'rgba(232,184,106,0.55)' }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#E8B86A' }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(232,184,106,0.55)' }}
-          >
-            explore other work
-            <span className="text-accent-glow transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </Link>
         </div>
       </section>
 
@@ -170,7 +207,7 @@ export default function Home() {
                 <h2 className="text-display-md font-display mb-2">Hall of Fame</h2>
                 <p className="text-text-muted text-sm">the site got better because these people showed up.</p>
               </div>
-              <span className="text-text-muted group-hover:text-accent-glow arrow-slide transition-colors duration-200">→</span>
+              <span className="text-text-muted group-hover:text-accent-glow arrow-slide transition-colors duration-200 ease-kash-out">→</span>
             </div>
           </Link>
         </Reveal>
@@ -181,7 +218,7 @@ export default function Home() {
         <section className="relative z-10 px-6 py-8 max-w-3xl mx-auto w-full">
           <p className="text-text-faint text-sm leading-relaxed">
             the site updates when someone helps make it better.{' '}
-            <Link to="/hall-of-fame" className="hover:text-text-muted underline-offset-4 hover:underline">
+            <Link to="/hall-of-fame" className="hover:text-text-muted underline-offset-4 hover:underline transition-colors duration-200 ease-kash-out">
               see what&apos;s shipped
             </Link>
           </p>
@@ -193,29 +230,25 @@ export default function Home() {
 }
 
 /**
- * CollageCard — one tilted framed image in the desktop overlapping collage.
+ * CollageCard — spotlight hover pattern.
  */
 function CollageCard({ project, pos }) {
   return (
     <Link
       to={`/projects/${project.slug}`}
-      className="group absolute block transition-all duration-300 ease-out hover:!z-50"
+      className="group absolute block transition-transform duration-200 ease-kash-out hover:!z-50 motion-safe:hover:scale-[1.03] hover:[transform:rotate(0deg)] motion-reduce:hover:[transform:rotate(var(--rest-rot))]"
       style={{
         top: pos.top,
         left: pos.left,
         width: pos.width,
-        transform: `rotate(${pos.rot})`,
+        '--rest-rot': pos.rot,
+        transform: 'rotate(var(--rest-rot))',
+        transformOrigin: 'center bottom',
         zIndex: pos.z,
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'rotate(0deg) scale(1.03)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = `rotate(${pos.rot})`
       }}
     >
       <div
-        className="relative aspect-[4/3] overflow-hidden"
+        className="relative aspect-[4/3] overflow-hidden transition-colors duration-200 ease-kash-out group-hover:border-accent-glow/60"
         style={{
           backgroundColor: 'rgba(232,230,225,0.04)',
           border: '1px solid rgba(232,184,106,0.22)',
@@ -227,14 +260,24 @@ function CollageCard({ project, pos }) {
           src={project.image}
           alt={`${project.name} preview.`}
           loading="lazy"
-          className="absolute inset-1.5 h-[calc(100%-12px)] w-[calc(100%-12px)] object-cover"
+          className="absolute inset-1.5 h-[calc(100%-12px)] w-[calc(100%-12px)] object-cover brightness-[0.55] group-hover:brightness-100 transition-[filter] duration-200 ease-kash-out"
         />
+
+        <div
+          className="absolute inset-1.5 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-kash-out pointer-events-none"
+          style={{
+            background:
+              'linear-gradient(to top, rgba(15,17,18,0.9) 0%, rgba(15,17,18,0.45) 40%, rgba(15,17,18,0) 75%)',
+          }}
+        >
+          <p
+            className="font-display text-text-primary text-[20px] leading-tight tracking-tight"
+            style={{ textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}
+          >
+            {project.name}
+          </p>
+        </div>
       </div>
-      <p
-        className="font-mono mt-2 text-center text-[10px] uppercase tracking-[0.16em] text-text-muted transition-colors duration-200 group-hover:text-accent-glow"
-      >
-        {project.name}
-      </p>
     </Link>
   )
 }
