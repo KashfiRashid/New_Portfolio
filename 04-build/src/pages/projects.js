@@ -7,19 +7,13 @@
  * /projects/<slug> — entries with `component: null` show a graceful
  * "coming soon" instead of a real page.
  *
- * Per-card display fields (read by components/ProjectCard.jsx):
- *   - category : a short discipline tag (e.g. Design System, UX Design)
- *   - image    : path to a hero image (served from /public), cropped to
- *                fit the card via object-cover.
- *   - color    : used INSTEAD of image when a project has no hero image,
- *                or as a fallback if the image fails to load.
- *
- * To add a project: add one entry here. That is the only file to touch.
+ * Featured set is currently the four design-engineer ships:
+ *   BC Connect, ForeSee, Parpro Consulting, DocuMentor.
+ * Everything else is featured: false and shows in the homepage's
+ * "more in the studio" collage that funnels to /work.
  */
 import { lazy } from 'react'
 
-// Each case study is its own lazy() chunk — loaded only when its
-// /projects/<slug> route is actually visited, never in the initial bundle.
 const BCConnectPage = lazy(() => import('./bc-connect/index.jsx'))
 const BLUPage = lazy(() => import('./blu/index.jsx'))
 const SpectralBloomPage = lazy(() => import('./spectral-bloom/index.jsx'))
@@ -38,7 +32,7 @@ export const PROJECTS = [
     category: 'Design System',
     blurb: 'A startup directory for British Columbia, built on a custom design system with six production frontend features.',
     image: '/bc-connect/hero.png',
-    color: '#3B6E8F', // fallback panel if the hero image fails to load
+    color: '#3B6E8F',
     featured: true,
     bubbleId: 'H20',
     component: BCConnectPage,
@@ -49,8 +43,8 @@ export const PROJECTS = [
     category: '3D Animation',
     blurb: 'A 3-act CG animated short film where sound, not the visuals, carries the story.',
     image: 'https://framerusercontent.com/images/dquDNrFwQ9hzCWLFQ1R8IxLEn1I.png',
-    color: '#5B4B8A', // fallback panel if the remote poster fails
-    featured: true,
+    color: '#5B4B8A',
+    featured: false,
     bubbleId: 'H17',
     component: BLUPage,
   },
@@ -60,7 +54,7 @@ export const PROJECTS = [
     category: 'Creative Coding',
     blurb: "An audio visualizer with an AI layer that reads a track's mood, not just its volume.",
     image: '/spectral-bloom/spectral-bloom-poster.jpg',
-    featured: true,
+    featured: false,
     bubbleId: 'H18',
     component: SpectralBloomPage,
   },
@@ -70,7 +64,7 @@ export const PROJECTS = [
     category: 'Game Design',
     blurb: 'A VR sci-fi horror on a failing space station, where the antagonist is the sound.',
     image: '/something-lurking/poster.png',
-    featured: true,
+    featured: false,
     bubbleId: 'H19',
     component: SomethingLurkingPage,
   },
@@ -80,8 +74,8 @@ export const PROJECTS = [
     category: 'Game Design',
     blurb: 'A reverse Turing test game — pretend to be the machine while an AI auditor watches for anything too human.',
     image: '/us-among-ai/landing.png',
-    color: '#22897F', // fallback panel if the hero image fails to load
-    featured: true,
+    color: '#22897F',
+    featured: false,
     bubbleId: 'H25',
     component: UsAmongAiPage,
   },
@@ -91,7 +85,7 @@ export const PROJECTS = [
     category: 'Product Design',
     blurb: 'A personal finance app that organizes spending into social boards and uses AI to predict what upcoming events will cost.',
     image: '/foresee/hero.png',
-    color: '#6366F1', // fallback panel if the hero image fails to load
+    color: '#6366F1',
     featured: true,
     bubbleId: 'H22',
     component: ForeseePage,
@@ -102,7 +96,7 @@ export const PROJECTS = [
     category: 'Web Design',
     blurb: 'A 3-day interaction design sprint redesigning the site for a Canadian bookkeeping firm.',
     image: '/parpro/Parpro-hero.png',
-    featured: false,
+    featured: true,
     bubbleId: 'H23',
     component: ParproConsultingPage,
   },
@@ -120,21 +114,20 @@ export const PROJECTS = [
     slug: 'trucking-academy',
     name: 'Trucking Academy',
     category: 'UX Design',
-    blurb: 'A mobile learning platform addressing the trucking industry’s worker shortage. Ten driver interviews, three personas, one participatory workshop.',
+    blurb: "A mobile learning platform addressing the trucking industry's worker shortage. Ten driver interviews, three personas, one participatory workshop.",
     image: '/trucking-academy/hero.png',
-    color: '#8B0000', // fallback panel if the hero image fails to load
-    featured: true,
+    color: '#8B0000',
+    featured: false,
     bubbleId: 'H26',
     component: TruckingAcademyPage,
   },
   {
-    // Nightshift — unannounced. `status: 'coming-soon'` renders a badge.
     slug: 'nightshift',
     name: 'Nightshift',
     category: 'Data Analysis',
     blurb: 'An AI-powered tool for turning raw data into clear, readable analysis.',
     image: '/nightshift/nightshift-poster.jpg',
-    featured: true,
+    featured: false,
     bubbleId: 'H28',
     component: NightshiftPage,
     status: 'coming-soon',
