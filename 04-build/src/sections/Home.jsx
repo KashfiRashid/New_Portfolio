@@ -8,11 +8,11 @@ import ProjectCard from '../components/ProjectCard.jsx'
 import { PROJECTS } from '../pages/projects.js'
 
 /**
- * <Home /> — landing surface.
+ * <Home /> - landing surface.
  *
  * Hero "executioneery." word: tooltip follows the cursor when hovered.
  * The tooltip's `transform` is updated directly on the ref element on
- * every mousemove — no React re-renders, so it stays smooth.
+ * every mousemove - no React re-renders, so it stays smooth.
  *
  * Other Projects CTA: monitor-warmed-up hover (border brightens, text
  * shifts to amber, soft amber halo via box-shadow). No block fill.
@@ -34,10 +34,10 @@ function SectionRule() {
 }
 
 /**
- * HeroWord — single word in the hero headline. The last word
+ * HeroWord - single word in the hero headline. The last word
  * ("executioneery.") gets a cursor-following tooltip that explains
  * the made-up word. Position is updated via direct DOM mutation on
- * the tooltip's transform — no React re-renders during mousemove.
+ * the tooltip's transform - no React re-renders during mousemove.
  */
 function HeroWord({ word, isLast, delay }) {
   const tooltipRef = useRef(null)
@@ -125,7 +125,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.6, ease: [0.22, 0.61, 0.36, 1] }}
             className="text-text-faint text-sm font-mono"
           >
-            Currently at FIC IT Squad · graduating SFU SIAT June 10 · Delta, BC
+            Currently at FIC IT Squad &middot; graduating SFU SIAT June 10 &middot; Delta, BC
           </motion.p>
         </section>
 
@@ -161,7 +161,7 @@ export default function Home() {
             className="group font-mono inline-flex items-center gap-3 border border-accent-glow/50 text-text-primary hover:border-accent-glow hover:text-accent-glow px-10 py-5 text-[14px] uppercase tracking-[0.22em] transition-[border-color,color,box-shadow] duration-300 ease-kash-out hover:[box-shadow:0_0_32px_-4px_rgba(232,184,106,0.4)]"
           >
             explore other work
-            <span className="inline-block transition-transform duration-200 ease-kash-out motion-safe:group-hover:translate-x-1">→</span>
+            <span className="inline-block transition-transform duration-200 ease-kash-out motion-safe:group-hover:translate-x-1">&rarr;</span>
           </Link>
         </div>
 
@@ -207,7 +207,7 @@ export default function Home() {
                 <h2 className="text-display-md font-display mb-2">Hall of Fame</h2>
                 <p className="text-text-muted text-sm">the site got better because these people showed up.</p>
               </div>
-              <span className="text-text-muted group-hover:text-accent-glow arrow-slide transition-colors duration-200 ease-kash-out">→</span>
+              <span className="text-text-muted group-hover:text-accent-glow arrow-slide transition-colors duration-200 ease-kash-out">&rarr;</span>
             </div>
           </Link>
         </Reveal>
@@ -230,7 +230,7 @@ export default function Home() {
 }
 
 /**
- * CollageCard — spotlight hover pattern.
+ * CollageCard - spotlight hover pattern.
  */
 function CollageCard({ project, pos }) {
   return (
@@ -280,19 +280,4 @@ function CollageCard({ project, pos }) {
       </div>
     </Link>
   )
-}
-          <p
-            className="font-display text-text-primary text-[20px] leading-tight tracking-tight"
-            style={{ textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}
-          >
-            {project.name}
-          </p>
-        </div>
-      </div>
-    </Link>
-  )
-}
-
-  )
-}
 }

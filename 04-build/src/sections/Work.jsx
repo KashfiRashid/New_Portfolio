@@ -6,31 +6,19 @@ import ProjectCard from '../components/ProjectCard.jsx'
 import { PROJECTS, KINDS, OLDER_WORK } from '../pages/projects.js'
 
 /**
- * <Work /> — the project archive.
+ * <Work /> - the project archive.
  *
- * Layout, type and motion all mirror the home page's Featured Work
- * surface so the two pages read as the same site: max-w-6xl, display
- * heading + amber SectionRule, 2-col ProjectCard grid, ease-kash-out
- * 200ms motion. No HomeHero — Work is an archive, not a stage.
+ * Layout, type and motion mirror the home page's Featured Work surface so the
+ * two pages read as the same site: max-w-6xl, display heading + amber rule,
+ * 2-col ProjectCard grid, ease-kash-out 200ms motion. No HomeHero.
  *
- * Filtering:
- *   - Four HR-vocabulary chips (UX / Product / Engineering / 3D) plus
- *     an "All" chip that's the default.
- *   - State syncs to the URL via ?kind=ux so deep links are shareable
- *     and the back button restores filter state.
- *   - Active chip uses the same amber-text + amber-border + soft-tint
- *     recipe as the ProjectCard category pill — one pill system for the
- *     whole site.
- *   - Chip counts (the small number after the label) come from the
- *     registry so the bar is always honest about what each chip returns.
+ * Filtering: HR-vocabulary chips + an "All" default. State syncs to the URL
+ * via ?kind=ux so deep links are shareable and the back button restores it.
+ * Active chip uses the ProjectCard category-pill recipe.
  *
- * Motion:
- *   - AnimatePresence mode="popLayout" lets cards leave in place while
- *     the remaining cards reflow with a Framer layout animation. Feels
- *     tactile, not noisy.
- *   - All transforms are motion-safe via Framer's reduced-motion handling.
+ * (Pure ASCII source: the editor's on-save formatter truncates files with
+ * em-dashes / multibyte glyphs, which took down this page mid-edit.)
  */
-
 const ALL = 'all'
 
 function SectionRule() {
@@ -46,8 +34,6 @@ export default function Work() {
     fire('E6', { elementId: 'work-page-entry' })
   }, [fire])
 
-  // Counts per chip — computed once. Drives the small numeric badge
-  // beside each chip label so the row reads as a live index.
   const counts = useMemo(() => {
     const map = { [ALL]: PROJECTS.length }
     KINDS.forEach((k) => {
@@ -69,8 +55,6 @@ export default function Work() {
 
   return (
     <div className="min-h-screen flex flex-col pt-24 pb-12">
-      {/* Header — display heading + amber rule + one-line subtitle.
-          Matches the home page's section header pattern exactly. */}
       <section className="relative z-10 px-6 max-w-6xl mx-auto w-full">
         <motion.h1
           initial={{ opacity: 0, y: 8 }}
@@ -83,10 +67,6 @@ export default function Work() {
         <SectionRule />
       </section>
 
-      {/* Filter bar — chips share the ProjectCard category-pill recipe
-          (amber text, amber border, mono 11px uppercase, rounded-full).
-          Active state adds a soft amber tint. Count on the right keeps
-          the visitor oriented when filters are applied. */}
       <section className="relative z-10 px-6 mt-12 max-w-6xl mx-auto w-full">
         <div
           role="tablist"
@@ -114,8 +94,6 @@ export default function Work() {
         </div>
       </section>
 
-      {/* Grid — 2-col on md+, single column on mobile. Matches the home
-          Featured grid exactly so the two surfaces share one card system. */}
       <section className="relative z-10 px-6 mt-10 max-w-6xl mx-auto w-full">
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <AnimatePresence mode="popLayout" initial={false}>
@@ -166,15 +144,6 @@ export default function Work() {
   )
 }
 
-/**
- * <FilterChip /> — one chip in the filter bar.
- *
- * Shares the visual recipe with ProjectCard's category pill so the site
- * has one pill system, not two. Active state adds a soft amber tint
- * (bg-accent-glow/6%) so the row's selection is unmistakable at a glance
- * without the chip flipping to a solid amber fill (which would clash
- * with the rest of the muted UI).
- */
 function FilterChip({ label, count, isActive, onClick }) {
   return (
     <button
