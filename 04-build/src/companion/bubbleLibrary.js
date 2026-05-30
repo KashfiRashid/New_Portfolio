@@ -2,20 +2,20 @@
 // Source of truth: /01-brand-book/04-companion-spec.md
 //
 // 60 bubbles across 7 trigger categories:
-//   E — Entry             (7 bubbles)
-//   H — Hover             (18 bubbles)
-//   C — Click             (8 bubbles)
-//   S — Scroll            (7 bubbles)
-//   I — Idle              (8 bubbles)
-//   X — Exit-intent       (6 bubbles)
-//   R — Returning visitor (6 bubbles)
+//   E - Entry             (7 bubbles)
+//   H - Hover             (18 bubbles)
+//   C - Click             (8 bubbles)
+//   S - Scroll            (7 bubbles)
+//   I - Idle              (8 bubbles)
+//   X - Exit-intent       (6 bubbles)
+//   R - Returning visitor (6 bubbles)
 //
 // Variables:
-//   {name}  — replaced with visitor name (or 'stranger')
-//   {color} — replaced with visitor color label
+//   {name}  - replaced with visitor name (or 'stranger')
+//   {color} - replaced with visitor color label
 //
 // Rules (enforced in <Companion />):
-//   - Max 5–8 bubbles per session
+//   - Max 5-8 bubbles per session
 //   - 8s cooldown between bubbles
 //   - Per-element cap: max 1 bubble per element ID per session
 //   - Idle reel fires at most once per session
@@ -24,7 +24,7 @@
 // v2 may add LLM augmentation with this library as voice anchor.
 
 const bubbles = [
-  // ─── ENTRY (E) ─────────────────────────────────────────────────────────
+  // --- ENTRY (E) ---------------------------------------------------------
   { id: 'E1', trigger: 'entry', context: 'onboarding-complete',
     text: "hey {name}. you're {color}. sit anywhere." },
   { id: 'E2', trigger: 'entry', context: 'onboarding-skipped',
@@ -40,7 +40,7 @@ const bubbles = [
   { id: 'E7', trigger: 'entry', context: 'origin-page',
     text: "this is the page where i had to be specific." },
 
-  // ─── HOVER (H) ─────────────────────────────────────────────────────────
+  // --- HOVER (H) ---------------------------------------------------------
   { id: 'H1', trigger: 'hover', context: 'home-headline',
     text: "this is the line. don't ask." },
   { id: 'H2', trigger: 'hover', context: 'home-card-voice',
@@ -54,7 +54,7 @@ const bubbles = [
   { id: 'H6', trigger: 'hover', context: 'home-card-people',
     text: "people. named credits. the site doesn't pretend i did this alone." },
   { id: 'H7', trigger: 'hover', context: 'home-card-origin',
-    text: "origin. dhaka → delta. the long route." },
+    text: "origin. dhaka -> delta. the long route." },
   { id: 'H8', trigger: 'hover', context: 'home-card-hof',
     text: "this is the closest thing to a contact form i'll let you have." },
   { id: 'H9', trigger: 'hover', context: 'voice-opinion-1',
@@ -104,7 +104,7 @@ const bubbles = [
   { id: 'H35', trigger: 'hover', context: 'footer-reset',
     text: "reset wipes your name and color. won't break anything." },
 
-  // ─── CLICK (C) ─────────────────────────────────────────────────────────
+  // --- CLICK (C) ---------------------------------------------------------
   { id: 'C1', trigger: 'click', context: 'voice-entry',
     text: "these are real takes. i had to argue myself into most of them." },
   { id: 'C2', trigger: 'click', context: 'voice-essay',
@@ -120,7 +120,7 @@ const bubbles = [
   { id: 'C7', trigger: 'click', context: 'process-entry',
     text: "this is the framing i argue for. tools are tools. the conducting matters." },
   { id: 'C8', trigger: 'click', context: 'people-entry',
-    text: "this page exists because the alternative — pretending — is worse." },
+    text: "this page exists because the alternative - pretending - is worse." },
   { id: 'C10', trigger: 'click', context: 'hof-entry',
     text: "this is what i replaced the contact form with. start at the bottom, scroll up." },
   { id: 'C11', trigger: 'click', context: 'hof-empty-state',
@@ -130,7 +130,7 @@ const bubbles = [
   { id: 'C13', trigger: 'click', context: 'hof-submitted',
     text: "got it. i read every one. only the ones i ship show up here." },
 
-  // ─── SCROLL (S) ────────────────────────────────────────────────────────
+  // --- SCROLL (S) --------------------------------------------------------
   { id: 'S1', trigger: 'scroll', context: 'voice-50pct',
     text: "a few more below." },
   { id: 'S2', trigger: 'scroll', context: 'eye-references',
@@ -146,8 +146,8 @@ const bubbles = [
   { id: 'S7', trigger: 'scroll', context: 'origin-dhaka',
     text: "this part i had to write specifically. anything general fell flat." },
 
-  // ─── IDLE (I) ──────────────────────────────────────────────────────────
-  // These trigger the idle reel — see useIdleDetection + reelPlaylist.
+  // --- IDLE (I) ----------------------------------------------------------
+  // These trigger the idle reel - see useIdleDetection + reelPlaylist.
   { id: 'I1', trigger: 'idle', context: 'home',
     text: "want to see what i was working on at 2am last tuesday?",
     surfacesReel: true },
@@ -171,7 +171,7 @@ const bubbles = [
   { id: 'I8', trigger: 'idle', context: 'generic',
     text: "no rush. keep reading." },
 
-  // ─── EXIT-INTENT (X) ───────────────────────────────────────────────────
+  // --- EXIT-INTENT (X) ---------------------------------------------------
   { id: 'X1', trigger: 'exit-intent', context: 'home',
     text: "leaving? cool. tell a friend, or don't." },
   { id: 'X2', trigger: 'exit-intent', context: 'voice',
@@ -185,7 +185,7 @@ const bubbles = [
   { id: 'X6', trigger: 'exit-intent', context: 'hof',
     text: "if you have a note, drop it. monthly review." },
 
-  // ─── RETURNING (R) ─────────────────────────────────────────────────────
+  // --- RETURNING (R) -----------------------------------------------------
   { id: 'R1', trigger: 'returning', context: 'visit-2',
     text: "you're back. the site's a little different than last time." },
   { id: 'R2', trigger: 'returning', context: 'visit-3',
@@ -220,7 +220,7 @@ export function getBubblesByTrigger(trigger) {
 
 /**
  * Substitute {name} and {color} into a bubble text given a visitor object.
- * @param {string} text — raw bubble text with placeholders
+ * @param {string} text - raw bubble text with placeholders
  * @param {{name: string, color: {label: string}}} visitor
  */
 export function renderBubbleText(text, visitor) {

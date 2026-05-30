@@ -1,10 +1,10 @@
 /**
- * Project registry — single source of truth for portfolio projects.
+ * Project registry - single source of truth for portfolio projects.
  *
  * Home reads `featured` to show the Featured Work cards.
  * Work reads the whole list as the archive (with `kind`-based filtering).
  * ProjectRoute uses `component` to render the case study at
- * /projects/<slug> — entries with `component: null` show a graceful
+ * /projects/<slug> - entries with `component: null` show a graceful
  * "coming soon" instead of a real page.
  *
  * Featured set is currently the four design-engineer ships:
@@ -21,10 +21,10 @@
  *     value maps to a job-title recruiters actually search for, so the
  *     filter row reads like a role-skills index.
  *
- *     ux          — research-led, mobile UX, web redesign
- *     product     — full product design + design systems
- *     engineering — creative coding, tools, AI-mechanic builds
- *     3d          — 3D animation, VR, real-time 3D work
+ *     ux          - research-led, mobile UX, web redesign
+ *     product     - full product design + design systems
+ *     engineering - creative coding, tools, AI-mechanic builds
+ *     3d          - 3D animation, VR, real-time 3D work
  */
 import { lazy } from 'react'
 
@@ -38,8 +38,34 @@ const NightshiftPage = lazy(() => import('./nightshift/index.jsx'))
 const UsAmongAiPage = lazy(() => import('./us-among-ai/index.jsx'))
 const ForeseePage = lazy(() => import('./foresee/index.jsx'))
 const TruckingAcademyPage = lazy(() => import('./trucking-academy/index.jsx'))
+const AslExpressPage = lazy(() => import('./asl-express/index.jsx'))
+const PharmaBoticsPage = lazy(() => import('./pharmabotics/index.jsx'))
 
 export const PROJECTS = [
+  {
+    slug: 'asl-express',
+    name: 'ASL Express',
+    category: 'Accessibility / AI + Hardware',
+    kind: 'engineering',
+    blurb: 'A touchless food-ordering system that lets deaf and non-verbal people order with hand signs. Computer vision reads the gesture, AI maps the order, and an ESP32 rig confirms it. Won Best Hardware at StormHacks 2025.',
+    image: '/asl-express/asl-card.png',
+    color: '#10B981',
+    featured: true,
+    bubbleId: 'H29',
+    component: AslExpressPage,
+  },
+  {
+    slug: 'pharmabotics',
+    name: 'PharmaBotics',
+    category: 'Physical Computing',
+    kind: 'engineering',
+    blurb: 'An autonomous, fingerprint-secured pill dispenser - a full-stack React/Node/Arduino system. I built the 3D-printed dispensing mechanism and the embedded hardware. Demoed 15/15 at the SFU showcase.',
+    image: '/pharmabotics/hero.png',
+    color: '#14B8A6',
+    featured: true,
+    bubbleId: 'H30',
+    component: PharmaBoticsPage,
+  },
   {
     slug: 'bc-connect',
     name: 'BC Connect',
@@ -91,7 +117,7 @@ export const PROJECTS = [
     name: 'Us Among AI',
     category: 'Game Design',
     kind: 'engineering',
-    blurb: 'A reverse Turing test game — pretend to be the machine while an AI auditor watches for anything too human.',
+    blurb: 'A reverse Turing test game - pretend to be the machine while an AI auditor watches for anything too human.',
     image: '/us-among-ai/landing.png',
     color: '#22897F',
     featured: false,
@@ -126,7 +152,7 @@ export const PROJECTS = [
     name: 'DocuMentor',
     category: 'UX Design',
     kind: 'ux',
-    blurb: 'A mobile guide that helps international students settle into a new city — designed from lived experience.',
+    blurb: 'A mobile guide that helps international students settle into a new city - designed from lived experience.',
     image: '/documentor/App.png',
     featured: true,
     bubbleId: 'H24',
@@ -159,7 +185,7 @@ export const PROJECTS = [
 ]
 
 /**
- * Kind definitions — single source of truth for the /work filter chips.
+ * Kind definitions - single source of truth for the /work filter chips.
  * Order here is render order; the "all" chip is rendered separately.
  */
 export const KINDS = [
@@ -172,5 +198,5 @@ export const KINDS = [
 /** Older work - listed by name on the Work archive, no case study pages. */
 export const OLDER_WORK = []
 
-/** Look up a single project by slug. Returns null if not found. */
+/** Look up a project by slug. Used by ProjectRoute. */
 export const getProject = (slug) => PROJECTS.find((p) => p.slug === slug) || null
