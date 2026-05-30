@@ -1,13 +1,13 @@
 /**
- * BC Connect case study — design-system showcase primitives.
+ * BC Connect case study - design-system showcase primitives.
  *
  * The case study runs on a dark canvas (#0F1216). The Open Ground design
  * system is a *white*-themed product. Instead of screenshotting the style
  * guide, we recreate its elements live and frame each one inside an
- * <ExhibitPanel> — a white "museum" surface embedded in the dark page.
+ * <ExhibitPanel> - a white "museum" surface embedded in the dark page.
  *
  * Inside a panel the world flips to the white product theme (ink text on
- * white ground). Outside it, the dark case-study voice continues — mono
+ * white ground). Outside it, the dark case-study voice continues - mono
  * kickers and reason notes narrate what the reader is looking at.
  */
 
@@ -29,7 +29,7 @@ export const OG = {
   signalMist: '#D0E8DD',
 }
 
-/* ─── PanelChrome — a restrained window bar for "real artifact" credibility ─── */
+/* --- PanelChrome - a restrained window bar for "real artifact" credibility --- */
 function PanelChrome({ path }) {
   return (
     <div className="flex items-center gap-3 border-b border-[#E8EAED] bg-[#FAFBFC] px-4 py-2.5">
@@ -48,7 +48,7 @@ function PanelChrome({ path }) {
   )
 }
 
-/* ─── ExhibitPanel — the white framed surface the recreations live in ─── */
+/* --- ExhibitPanel - the white framed surface the recreations live in --- */
 export function ExhibitPanel({ chrome, grid = false, padded = true, children, className = '' }) {
   return (
     <figure
@@ -74,7 +74,7 @@ export function ExhibitPanel({ chrome, grid = false, padded = true, children, cl
   )
 }
 
-/* ─── PanelHeader — the artifact's own heading, in the white product theme ─── */
+/* --- PanelHeader - the artifact's own heading, in the white product theme --- */
 export function PanelHeader({ eyebrow, title, children }) {
   return (
     <header className="mb-7">
@@ -95,7 +95,7 @@ export function PanelHeader({ eyebrow, title, children }) {
   )
 }
 
-/* ─── SpecRow — a mono label / value row inside a panel ─── */
+/* --- SpecRow - a mono label / value row inside a panel --- */
 export function SpecRow({ label, value }) {
   return (
     <div className="flex items-center justify-between gap-6 border-b border-[#E8EAED] py-2 last:border-b-0">
@@ -109,7 +109,7 @@ export function SpecRow({ label, value }) {
   )
 }
 
-/* ─── SpecimenGrid — responsive grid for swatches and specimens ─── */
+/* --- SpecimenGrid - responsive grid for swatches and specimens --- */
 export function SpecimenGrid({ cols = 3, children, className = '' }) {
   const map = {
     2: 'grid-cols-1 sm:grid-cols-2',
@@ -123,7 +123,7 @@ export function SpecimenGrid({ cols = 3, children, className = '' }) {
   )
 }
 
-/* ─── ReasonNote — the case study's "why", spoken on the dark canvas ─── */
+/* --- ReasonNote - the case study's "why", spoken on the dark canvas --- */
 export function ReasonNote({ children, className = '' }) {
   return (
     <p
@@ -135,7 +135,7 @@ export function ReasonNote({ children, className = '' }) {
   )
 }
 
-/* ─── ExhibitBlock — the repeating unit: dark kicker + white panel + reason ─── */
+/* --- ExhibitBlock - the repeating unit: dark kicker + white panel + reason --- */
 export function ExhibitBlock({
   index,
   name,

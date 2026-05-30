@@ -4,9 +4,9 @@ import {
 } from '../primitives.jsx'
 
 /**
- * Window — the intro block.
+ * Window - the intro block.
  *
- * REVISION 3 — the Dhaka → Delta migration narrative is stripped out
+ * REVISION 3 - the Dhaka -> Delta migration narrative is stripped out
  * entirely per Kash's instruction. The block title is also gone; the
  * portrait + "Hi, I'm Kashfi." caption carries the section opener on
  * its own. The two-windows pixel-art placeholder (which was tied to
@@ -15,7 +15,7 @@ import {
  * Entry image is portrait.png (the close headshot Kash provided), per
  * his explicit pick.
  *
- * Body copy is left as a visible placeholder — the rule of "no
+ * Body copy is left as a visible placeholder - the rule of "no
  * fabricated copy" from the original brief still applies, and now
  * doubly so because the previous seed copy referenced material the
  * page is no longer telling.
@@ -23,7 +23,7 @@ import {
 export default function Window() {
   return (
     <WideShell id="window">
-      {/* PORTRAIT — the section anchor. No title; the photo and its
+      {/* PORTRAIT - the section anchor. No title; the photo and its
           caption are the title. */}
       <figure className="mx-auto mb-12 w-full max-w-[360px]">
         <div
@@ -47,12 +47,12 @@ export default function Window() {
         </figcaption>
       </figure>
 
-      {/* Intro copy — Kash to write. Two sentences max. Anything he
+      {/* Intro copy - Kash to write. Two sentences max. Anything he
           wants the reader to know up top that is not autobiography. */}
       <div className="mx-auto max-w-[680px]">
         <CopyPlaceholder
           targetWords="two short sentences"
-          note="Intro copy for the top of the page. Kash to write — no constraints from the previous brief. Anything you want the reader to know up top before the desk / work / wall / door blocks land."
+          note="Intro copy for the top of the page. Kash to write \u2014 no constraints from the previous brief. Anything you want the reader to know up top before the desk / work / wall / door blocks land."
         />
       </div>
     </WideShell>

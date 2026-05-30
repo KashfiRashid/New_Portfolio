@@ -1,13 +1,13 @@
 import { MetaBlock, LinkButton } from '../primitives.jsx'
 
 const LINKS = [
-  { label: 'Devpost ↗', href: 'https://devpost.com/software/forsee' },
+  { label: 'Devpost \u2197', href: 'https://devpost.com/software/forsee' },
   {
-    label: 'LinkedIn post ↗',
+    label: 'LinkedIn post \u2197',
     href: 'https://www.linkedin.com/posts/kashfi-rashid_goated-team-ugcPost-7435081220029370368-Z3rl/',
   },
-  { label: 'Mountain Madness 2026 ↗', href: 'https://csss-mountain-madness-2026.devpost.com/' },
-  { label: 'GitHub ↗', href: 'https://github.com/harjotsk03/ForeSee' },
+  { label: 'Mountain Madness 2026 \u2197', href: 'https://csss-mountain-madness-2026.devpost.com/' },
+  { label: 'GitHub \u2197', href: 'https://github.com/harjotsk03/ForeSee' },
 ]
 
 export default function Hero() {
@@ -28,11 +28,11 @@ export default function Hero() {
 
         <MetaBlock
           rows={[
-            { label: 'Team', value: 'Harjot Singh · Faaiz Abdullah · Md Kashfi Or Rashid Pranta' },
-            { label: 'My Role', value: 'Designer · Voice Coach UI (the emotional bubble)' },
-            { label: 'Hackathon', value: 'Mountain Madness 2026 (CSSS × MLH, SFU)' },
+            { label: 'Team', value: 'Harjot Singh \u00b7 Faaiz Abdullah \u00b7 Md Kashfi Or Rashid Pranta' },
+            { label: 'My Role', value: 'Designer \u00b7 Voice Coach UI (the emotional bubble)' },
+            { label: 'Hackathon', value: 'Mountain Madness 2026 (CSSS \u00d7 MLH, SFU)' },
             { label: 'Result', value: 'Winner, Best Use of ElevenLabs' },
-            { label: 'Stack', value: 'React · TypeScript · Express · Supabase · Gemini · GPT-4o-mini · ElevenLabs' },
+            { label: 'Stack', value: 'React \u00b7 TypeScript \u00b7 Express \u00b7 Supabase \u00b7 Gemini \u00b7 GPT-4o-mini \u00b7 ElevenLabs' },
             { label: 'Track', value: 'RBC Nomi' },
           ]}
         />
@@ -47,7 +47,7 @@ export default function Hero() {
 
         <img
           src="/foresee/hero.png"
-          alt="ForeSee — the home page showing the social boards with the voice coach surface."
+          alt="ForeSee \u2014 the home page showing the social boards with the voice coach surface."
           loading="eager"
           className="w-full rounded-xl border border-white/[0.08]"
         />

@@ -1,5 +1,5 @@
 /**
- * CourseworkToPuzzleTranslation — the case study's hardest evidence.
+ * CourseworkToPuzzleTranslation - the case study's hardest evidence.
  *
  * Left column lists the two prior design papers I argued. Right column
  * shows the in-game puzzles that came from them. Arrows in between.
@@ -9,7 +9,7 @@
  */
 
 const MONO = '"JetBrains Mono", "Geist Mono", ui-monospace, monospace'
-const SANS = 'Inter, "Söhne", system-ui, sans-serif'
+const SANS = 'Inter, "S\u00f6hne", system-ui, sans-serif'
 
 const LEFT = [
   {
@@ -60,7 +60,7 @@ export default function CourseworkToPuzzleTranslation() {
         WHAT SHIPPED IN THE BUILD
       </text>
 
-      {/* Left blocks — earlier design papers */}
+      {/* Left blocks - earlier design papers */}
       {LEFT.map((item, i) => {
         const y = 50 + i * 130
         return (
@@ -78,7 +78,7 @@ export default function CourseworkToPuzzleTranslation() {
         )
       })}
 
-      {/* Right blocks — in-game puzzles */}
+      {/* Right blocks - in-game puzzles */}
       {RIGHT.map((item, i) => {
         const y = 50 + i * (ROW_H + ROW_GAP)
         return (
@@ -96,7 +96,7 @@ export default function CourseworkToPuzzleTranslation() {
 
       {/* Arrows from earlier design papers to each puzzle */}
       <g stroke="#6E3FB3" strokeWidth="1.5" fill="none" opacity="0.7">
-        {/* Philosophy paper feeds all three puzzles — branching arrow */}
+        {/* Philosophy paper feeds all three puzzles - branching arrow */}
         <path d={`M ${L_X + L_W + 4} 100 L 430 100 L 430 80 L ${R_X - 6} 80`} />
         <path d={`M ${R_X - 6} 80 l -6 -4 m 6 4 l -6 4`} />
         <path d={`M 430 100 L 430 158 L ${R_X - 6} 158`} />

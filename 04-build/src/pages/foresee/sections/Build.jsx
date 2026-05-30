@@ -20,7 +20,7 @@ export default function Build() {
           className="w-full rounded-xl border border-white/[0.08]"
         />
         <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-          <span className="text-[#A5B4FC]">Smart spending</span> · o3 returns a save-amount, a confidence, and a reason
+          <span className="text-[#A5B4FC]">Smart spending</span> &#xB7; o3 returns a save-amount, a confidence, and a reason
         </figcaption>
       </figure>
     </section>

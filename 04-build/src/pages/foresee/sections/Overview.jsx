@@ -16,12 +16,12 @@ export default function Overview() {
       <figure className="mt-12 space-y-3">
         <img
           src="/foresee/interface.png"
-          alt="ForeSee Spouse Board — an event timeline with actual and predicted spending traces."
+          alt="ForeSee Spouse Board \u2014 an event timeline with actual and predicted spending traces."
           loading="lazy"
           className="w-full rounded-xl border border-white/[0.08]"
         />
         <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-          <span className="text-[#A5B4FC]">Board view</span> · spending laid out on a timeline, with the predicted trace extending past today
+          <span className="text-[#A5B4FC]">Board view</span> &#xB7; spending laid out on a timeline, with the predicted trace extending past today
         </figcaption>
       </figure>
     </section>

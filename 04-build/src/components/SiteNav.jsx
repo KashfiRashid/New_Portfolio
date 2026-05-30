@@ -1,14 +1,14 @@
 import { NavLink, Link } from 'react-router-dom'
 
 /**
- * <SiteNav /> — persistent top navigation.
+ * <SiteNav /> - persistent top navigation.
  *
  * Brand mark: pixel-bitmap K monogram, no frame, no wordmark. The K
  * carries identity alone (page title + URL + hero copy already establish
- * whose portfolio this is). Drawn as a 5×7 pixel grid via filled rects
+ * whose portfolio this is). Drawn as a 5x7 pixel grid via filled rects
  * with shape-rendering=crispEdges so the pixels stay sharp on retina +
  * odd zooms. The pixel form bridges the editorial display serif and the
- * pixel-art hero scene — the mark visibly belongs to both worlds.
+ * pixel-art hero scene - the mark visibly belongs to both worlds.
  * Hover: K shifts to amber-glow and lifts 1px (motion-safe only).
  *
  * Nav links: mono uppercase with animated 1.5px amber underline.
@@ -18,10 +18,10 @@ import { NavLink, Link } from 'react-router-dom'
  *
  * Resume arrow translates NE on hover (motion-safe).
  *
- * Layout: fixed 48px tall (h-12) — load-bearing, do not change.
+ * Layout: fixed 48px tall (h-12) - load-bearing, do not change.
  */
 
-const RESUME_URL = '/kashfi-rashid-resume.pdf'
+const RESUME_URL = 'https://drive.google.com/file/d/1Xkc3TBm40Nrc7kQFNv8FEMYcAeOPt0xg/view?usp=sharing'
 
 export default function SiteNav() {
   return (
@@ -30,15 +30,15 @@ export default function SiteNav() {
       className="fixed top-0 inset-x-0 z-50 h-12 bg-surface-deep/85 backdrop-blur-md border-b border-white/[0.06]"
     >
       <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
-        {/* Brand mark — pixel-bitmap K, no frame, no wordmark. The K is drawn
-            as a 5×7 pixel grid (classic terminal-font dimensions) via filled
+        {/* Brand mark - pixel-bitmap K, no frame, no wordmark. The K is drawn
+            as a 5x7 pixel grid (classic terminal-font dimensions) via filled
             rects, with shape-rendering=crispEdges so the pixels stay sharp on
             retina + odd zooms. Sized at ~50% of the 48px nav height to keep
             confident presence without the frame around it. Hover: amber-glow
             color + 1px lift, both motion-safe. */}
         <Link
           to="/"
-          aria-label="kashfi rashid — home"
+          aria-label="kashfi rashid - home"
           className="group inline-flex items-center"
         >
           <svg
@@ -59,7 +59,7 @@ export default function SiteNav() {
             {/* Row 2 */}
             <rect x="0" y="2" width="1" height="1" />
             <rect x="2" y="2" width="1" height="1" />
-            {/* Row 3: junction — arms meet stem */}
+            {/* Row 3: junction - arms meet stem */}
             <rect x="0" y="3" width="1" height="1" />
             <rect x="1" y="3" width="1" height="1" />
             {/* Row 4 */}
@@ -120,7 +120,7 @@ function ResumeLink() {
         aria-hidden="true"
         className="inline-block transition-transform duration-200 ease-kash-out motion-safe:group-hover:translate-x-0.5 motion-safe:group-hover:-translate-y-0.5"
       >
-        ↗
+        ^
       </span>
     </a>
   )

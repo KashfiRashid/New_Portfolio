@@ -17,7 +17,7 @@ export default function DiegeticUI() {
         src="/something-lurking/fig-armband-poke.png"
         alt="Two screenshots showing the diegetic UI."
         label="Figure 3"
-        caption="Diegetic UI · wrist armband (poke) and external elevator switch"
+        caption="Diegetic UI \u00b7 wrist armband (poke) and external elevator switch"
       />
     </section>
   )

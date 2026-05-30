@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 /**
- * <OnboardingModal /> — cursor-attached visitor identity prompt.
+ * <OnboardingModal /> - cursor-attached visitor identity prompt.
  *
  * Behavior:
  *   1. Appears near cursor, follows it for ~1.5s (entrance feel)
@@ -149,7 +149,7 @@ export default function OnboardingModal({ open, onSubmit, onSkip }) {
                   className="text-text-muted hover:text-accent-glow transition-colors duration-250 px-1.5 py-1.5 text-base"
                   aria-label="Submit name"
                 >
-                  →
+                  &#x2192;
                 </button>
               </div>
 

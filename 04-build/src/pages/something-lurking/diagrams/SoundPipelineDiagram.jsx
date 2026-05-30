@@ -1,5 +1,5 @@
 /**
- * SoundPipelineDiagram — two parallel sound pipelines, one diegetic
+ * SoundPipelineDiagram - two parallel sound pipelines, one diegetic
  * soundscape. Voices run through Eleven Labs then Audacity then Unity.
  * Environmental cues skip Eleven Labs and go Audacity to Unity directly.
  *
@@ -7,7 +7,7 @@
  */
 
 const MONO = '"JetBrains Mono", "Geist Mono", ui-monospace, monospace'
-const SANS = 'Inter, "Söhne", system-ui, sans-serif'
+const SANS = 'Inter, "S\u00f6hne", system-ui, sans-serif'
 
 const BOX_W = 170
 const BOX_H = 60
@@ -66,8 +66,8 @@ export default function SoundPipelineDiagram() {
         accent="#6E3FB3"
         stages={[
           { label: 'ELEVEN LABS', sub: 'TTS voice generation' },
-          { label: 'AUDACITY', sub: 'Reverb · EQ · pitch' },
-          { label: 'UNITY', sub: 'Spatialization · cues' },
+          { label: 'AUDACITY', sub: 'Reverb \u00b7 EQ \u00b7 pitch' },
+          { label: 'UNITY', sub: 'Spatialization \u00b7 cues' },
         ]}
       />
 
@@ -76,8 +76,8 @@ export default function SoundPipelineDiagram() {
         label="ENVIRONMENTAL CUES (footsteps, alarms, banging, growls)"
         accent="#7FA050"
         stages={[
-          { label: 'AUDACITY', sub: 'Authoring · trim · mix' },
-          { label: 'UNITY', sub: 'Spatialization · cues' },
+          { label: 'AUDACITY', sub: 'Authoring \u00b7 trim \u00b7 mix' },
+          { label: 'UNITY', sub: 'Spatialization \u00b7 cues' },
         ]}
       />
 

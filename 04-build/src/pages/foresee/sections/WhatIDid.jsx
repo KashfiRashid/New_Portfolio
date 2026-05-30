@@ -27,7 +27,7 @@ export default function WhatIDid() {
           />
         </div>
         <figcaption className="text-center font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-          <span className="text-[#A5B4FC]">Voice coach</span> · listening → speaking → settled
+          <span className="text-[#A5B4FC]">Voice coach</span> &#xB7; listening &#x2192; speaking &#x2192; settled
         </figcaption>
       </figure>
     </section>

@@ -1,33 +1,33 @@
 /**
  * DesignSystemAnatomy. 4 columns of the design system foundations.
  *
- * Typography · Color · Spacing · Components. Restrained card layout with
+ * Typography - Color - Spacing - Components. Restrained card layout with
  * mono labels. Color swatches are TBD placeholders because the actual
  * tokens depend on Kash's finalized palette.
  */
 
 const TYPE_ROWS = [
-  { label: 'H1', sample: 'Display 56', size: 'Display · 56px' },
-  { label: 'H2', sample: 'Heading 32', size: 'Heading · 32px' },
-  { label: 'BODY', sample: 'Body copy 16', size: 'Body · 16px' },
-  { label: 'CAPTION', sample: 'Caption 13', size: 'Caption · 13px' },
-  { label: 'MONO', sample: 'MONO 11', size: 'Mono · 11px' },
+  { label: 'H1', sample: 'Display 56', size: 'Display \u00b7 56px' },
+  { label: 'H2', sample: 'Heading 32', size: 'Heading \u00b7 32px' },
+  { label: 'BODY', sample: 'Body copy 16', size: 'Body \u00b7 16px' },
+  { label: 'CAPTION', sample: 'Caption 13', size: 'Caption \u00b7 13px' },
+  { label: 'MONO', sample: 'MONO 11', size: 'Mono \u00b7 11px' },
 ]
 
 const COLOR_TOKENS = [
-  { name: 'PRIMARY', note: 'TBD · Kash to provide' },
-  { name: 'ACCENT', note: 'TBD · Kash to provide' },
-  { name: 'SURFACE', note: 'TBD · Kash to provide' },
-  { name: 'TEXT', note: 'TBD · Kash to provide' },
+  { name: 'PRIMARY', note: 'TBD \u00b7 Kash to provide' },
+  { name: 'ACCENT', note: 'TBD \u00b7 Kash to provide' },
+  { name: 'SURFACE', note: 'TBD \u00b7 Kash to provide' },
+  { name: 'TEXT', note: 'TBD \u00b7 Kash to provide' },
 ]
 
 const SPACING_STEPS = [4, 8, 16, 24, 32, 48]
 
 const COMPONENT_ROWS = [
-  'Button · default · hover · active',
-  'Card · static · elevated',
-  'Form input · idle · focus · error',
-  'Nav link · idle · active',
+  'Button \u00b7 default \u00b7 hover \u00b7 active',
+  'Card \u00b7 static \u00b7 elevated',
+  'Form input \u00b7 idle \u00b7 focus \u00b7 error',
+  'Nav link \u00b7 idle \u00b7 active',
 ]
 
 export default function DesignSystemAnatomy() {

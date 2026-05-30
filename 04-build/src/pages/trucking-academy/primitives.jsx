@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-// Trucking Academy primitives — deep crimson register matching the
+// Trucking Academy primitives - deep crimson register matching the
 // original case study's red dot identity (#8B0000 / #DC143C). Same
 // case-study shell as the others.
 

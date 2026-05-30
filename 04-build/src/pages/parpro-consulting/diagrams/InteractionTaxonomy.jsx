@@ -8,22 +8,22 @@
 const INTERACTIONS = [
   {
     name: 'ENTRANCE',
-    tie: 'Problem 4 · Template brand voice',
+    tie: 'Problem 4 \u00b7 Template brand voice',
     body: 'Cues attention to brand identity on arrival. The first thing a visitor sees is the brand, not a stock photo.',
   },
   {
     name: 'SCROLLING',
-    tie: 'Problem 2 · Static engagement',
+    tie: 'Problem 2 \u00b7 Static engagement',
     body: 'Reveals content progressively as the user moves down. Motion is tied to attention, not to decoration.',
   },
   {
     name: 'CLICK',
-    tie: 'Problem 3 · Buried consultation path',
+    tie: 'Problem 3 \u00b7 Buried consultation path',
     body: 'Provides immediate CTA feedback for the consultation funnel. Every press confirms direction.',
   },
   {
     name: 'HOVER',
-    tie: 'Problem 2 · Static engagement',
+    tie: 'Problem 2 \u00b7 Static engagement',
     body: 'Previews interactive content to encourage exploration. Surfaces depth before commitment.',
   },
 ]

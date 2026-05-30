@@ -1,5 +1,5 @@
 /**
- * ThreeActStructure — the narrative spine that drove the project.
+ * ThreeActStructure - the narrative spine that drove the project.
  *
  * Three horizontal columns. Act I (The Routine), Act II (The Descent),
  * Act III (The Breach). Each column carries its design intent and the
@@ -9,13 +9,13 @@
  */
 
 const MONO = '"JetBrains Mono", "Geist Mono", ui-monospace, monospace'
-const SANS = 'Inter, "Söhne", system-ui, sans-serif'
+const SANS = 'Inter, "S\u00f6hne", system-ui, sans-serif'
 
 const ACTS = [
   {
     n: 'I',
     name: 'THE ROUTINE',
-    scale: 'Scale 1:1 → 1:100',
+    scale: 'Scale 1:1 \u2192 1:100',
     intent: 'Calm tutorial. Jack fixes a fusebox under the captain\'s friendly radio cover. The ship feels broken but stable.',
   },
   {
@@ -27,7 +27,7 @@ const ACTS = [
   {
     n: 'III',
     name: 'THE BREACH',
-    scale: 'Scale 1:1000 → escape',
+    scale: 'Scale 1:1000 \u2192 escape',
     intent: 'Jack restores power inside the chip-space. Alarms. Banging on the door. Escape pod. The growl that ends the story.',
   },
 ]
@@ -54,10 +54,10 @@ export default function ThreeActStructure() {
         title, the scale Jack is at, and the design intent of that act.
       </desc>
 
-      {/* Intensity arc — a hairline that rises from left to right */}
+      {/* Intensity arc - a hairline that rises from left to right */}
       <line x1={X0} y1="44" x2={X0 + 3 * COL_W + 2 * GAP} y2="44" stroke="#27272a" strokeWidth="1" strokeDasharray="3 4" />
       <text x={X0} y="34" fill="#71717a" fontFamily={MONO} fontSize="10" letterSpacing="1.4">
-        TENSION →
+        TENSION &#x2192;
       </text>
 
       {ACTS.map((act, i) => {
@@ -73,7 +73,7 @@ export default function ThreeActStructure() {
               {act.name}
             </text>
 
-            {/* Sub-line — scale */}
+            {/* Sub-line - scale */}
             <text x={x + 18} y={TOP + 70} fill="#a1a1aa" fontFamily={MONO} fontSize="10" letterSpacing="0.8">
               {act.scale}
             </text>

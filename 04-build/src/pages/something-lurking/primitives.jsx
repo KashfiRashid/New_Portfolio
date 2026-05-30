@@ -1,18 +1,18 @@
 import { Link } from 'react-router-dom'
 
 /**
- * Something Lurking — case study primitives.
+ * Something Lurking - case study primitives.
  *
  * Shares the dark-canvas register with bc-connect, blu, and spectral-bloom
  * (same fonts, same layout rhythm) but carries its own accent: deep
- * alien purple #6E3FB3 with a bright variant #9268E0 — reads cold,
+ * alien purple #6E3FB3 with a bright variant #9268E0 - reads cold,
  * otherworldly, and "lurking," fitting a sci-fi horror on a failing
  * space station where the antagonist is the sound. The sickly green
  * #7FA050 stays as the counterpoint used inside diagrams for the
  * 1:1000 bioluminescent register.
  *
  * Distinct from parpro coral / bc-connect green / spectral-bloom
- * magenta — the violet sits cleanly between blue and pink without
+ * magenta - the violet sits cleanly between blue and pink without
  * touching either project's hue.
  *
  * Accent-neutral primitives (SectionHead, MonoKicker, MetaBlock) are
@@ -122,7 +122,7 @@ export function PainPointCard({ index, title, children, className = '' }) {
 }
 
 /**
- * ActionBlock — the WHAT I DID layout. Numbered, titled, body prose, with
+ * ActionBlock - the WHAT I DID layout. Numbered, titled, body prose, with
  * room for a single illustrative image below. Matches the StepCard rhythm
  * but stays inline with its evidence.
  */
@@ -199,7 +199,7 @@ export function AssetPlaceholder({
 }
 
 /**
- * Figure — captioned image, used everywhere the case study lands a real
+ * Figure - captioned image, used everywhere the case study lands a real
  * artifact from the project report or the build. The figure number and
  * label echo the academic register the work came from.
  */
@@ -216,7 +216,7 @@ export function Figure({ src, alt, caption, label, className = '' }) {
         {label ? (
           <span className="text-[#9268E0]">{label}</span>
         ) : null}
-        {label && caption ? ' · ' : null}
+        {label && caption ? ' \u00b7 ' : null}
         {caption}
       </figcaption>
     </figure>

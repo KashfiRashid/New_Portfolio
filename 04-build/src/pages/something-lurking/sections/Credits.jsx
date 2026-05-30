@@ -1,10 +1,10 @@
 import { SectionHead } from '../primitives.jsx'
 
 const TEAM = [
-  { name: 'Md Kashfi Or Rashid Pranta', role: 'Story arc · Design philosophy · Sound · Iteration', contribution: 'Drafted the three-act narrative spine. Generated the character voices in Eleven Labs and treated them in Audacity. Held the iteration loop from whiteboard to Unity.' },
-  { name: 'Eric Gabriel Cheng Li', role: 'Sole 3D Modeler · Environments', contribution: 'Modeled every 3D asset in the experience. After P1, built the entire second-half environment in one push.' },
-  { name: 'Michael Kim', role: 'Mechanics · Socket Interactors · Poke UI', contribution: 'Built the socket interactor systems that drive the wire, fuse, and chip-grid puzzles.' },
-  { name: 'Kento Weil', role: 'Mechanics · Mystery & Isolation Beats', contribution: 'Co-built the mechanics layer with Michael.' },
+  { name: 'Md Kashfi Or Rashid Pranta', role: 'Story arc \u00b7 Design philosophy \u00b7 Sound \u00b7 Iteration', contribution: 'Drafted the three-act narrative spine. Generated the character voices in Eleven Labs and treated them in Audacity. Held the iteration loop from whiteboard to Unity.' },
+  { name: 'Eric Gabriel Cheng Li', role: 'Sole 3D Modeler \u00b7 Environments', contribution: 'Modeled every 3D asset in the experience. After P1, built the entire second-half environment in one push.' },
+  { name: 'Michael Kim', role: 'Mechanics \u00b7 Socket Interactors \u00b7 Poke UI', contribution: 'Built the socket interactor systems that drive the wire, fuse, and chip-grid puzzles.' },
+  { name: 'Kento Weil', role: 'Mechanics \u00b7 Mystery & Isolation Beats', contribution: 'Co-built the mechanics layer with Michael.' },
 ]
 
 export default function Credits() {
@@ -21,7 +21,7 @@ export default function Credits() {
         ))}
       </div>
       <p className="mt-14 text-center font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">
-        Immersive Environments · SFU SIAT · Fall 2025
+        Immersive Environments &#xB7; SFU SIAT &#xB7; Fall 2025
       </p>
     </section>
   )

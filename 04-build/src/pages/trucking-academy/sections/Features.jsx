@@ -22,13 +22,13 @@ export default function Features() {
             <div className="w-full overflow-hidden rounded-lg border border-white/[0.08] bg-zinc-900">
               <img
                 src={s.src}
-                alt={`${s.label} — ${s.body}`}
+                alt={`${s.label} \u2014 ${s.body}`}
                 loading="lazy"
                 className="block w-full h-auto"
               />
             </div>
             <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-              <span className="text-[#FF6B6B]">{s.label}</span> · {s.body}
+              <span className="text-[#FF6B6B]">{s.label}</span> &#xB7; {s.body}
             </figcaption>
           </figure>
         ))}

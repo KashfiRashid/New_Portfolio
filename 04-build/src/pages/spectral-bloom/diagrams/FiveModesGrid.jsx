@@ -1,5 +1,5 @@
 /**
- * FiveModesGrid — the five visualization modes, each with a schematic
+ * FiveModesGrid - the five visualization modes, each with a schematic
  * glyph and a one-line description. The glyphs are not screenshots; they
  * are diagrams of the underlying geometry, so the grid reads even before
  * the real captures land in the section above it.

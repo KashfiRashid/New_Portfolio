@@ -1,5 +1,5 @@
 /**
- * ProposedVsShippedDiagram — the scope decision, drawn.
+ * ProposedVsShippedDiagram - the scope decision, drawn.
  *
  * Two pipelines side by side. Left: what the proposal called for, a
  * learned cross-modal diffusion stack on a GPU backend, rendered in cool
@@ -103,8 +103,8 @@ export default function ProposedVsShippedDiagram() {
       <title id="pivot-title">Proposed pipeline versus shipped pipeline</title>
       <desc id="pivot-desc">
         Two five-stage pipelines side by side. The proposed pipeline
-        chained trained AI models — Wav2CLIP, CLIP embeddings, and SDXL
-        Turbo — on a remote cloud GPU. The shipped pipeline does its
+        chained trained AI models &#x2014; Wav2CLIP, CLIP embeddings, and SDXL
+        Turbo &#x2014; on a remote cloud GPU. The shipped pipeline does its
         frequency analysis and its AI interpretation entirely in the
         browser. Both start from audio and both end in the same scene.
       </desc>

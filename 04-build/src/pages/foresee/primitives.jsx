@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-// ForeSee primitives — same shapes as the other case studies so they all
+// ForeSee primitives - same shapes as the other case studies so they all
 // render as siblings. Accent: indigo #6366F1 with #A5B4FC bright, matching
 // the zinc/white/indigo design system ForeSee actually shipped with.
 

@@ -5,11 +5,11 @@ import Breadcrumb from '../components/Breadcrumb.jsx'
 import Reveal from '../components/Reveal.jsx'
 
 /**
- * <HallOfFame /> — public log + Lego-brick submission.
+ * <HallOfFame /> - public log + Lego-brick submission.
  * Per /02-wireframes/09-hall-of-fame.md and /01-brand-book/07-hall-of-fame-spec.md.
  *
  * v1 launches empty. Submission goes to POST /api/submit (built by Claude Code).
- * Curation cadence: monthly (recommendation; [NEEDS KASH INPUT — Q E2]).
+ * Curation cadence: monthly (recommendation; [NEEDS KASH INPUT - Q E2]).
  */
 
 // In v1 the entry list is empty. Once backend is wired, fetch from /api/hall-of-fame.
@@ -94,20 +94,20 @@ export default function HallOfFame() {
       {submitted && (
         <Reveal y={6}>
           <section className="bg-surface-mid border border-surface-raised rounded-sm px-6 py-6 mb-12">
-            <h2 className="text-display-md font-display mb-2">✓ noted.</h2>
+            <h2 className="text-display-md font-display mb-2">&#x2713; noted.</h2>
             <p className="text-text-muted leading-relaxed">
               i&apos;ll review this in the next batch. if it ships, you&apos;ll see it here.
-              if not, no message — but every one gets read.
+              if not, no message &#x2014; but every one gets read.
             </p>
           </section>
         </Reveal>
       )}
 
-      {/* Entries — empty in v1 */}
+      {/* Entries - empty in v1 */}
       {ENTRIES.length === 0 ? (
         <Reveal>
           <section className="text-center py-16">
-            <h2 className="text-text-muted text-sm uppercase tracking-wider mb-6">— nothing here yet —</h2>
+            <h2 className="text-text-muted text-sm uppercase tracking-wider mb-6">&#x2014; nothing here yet &#x2014;</h2>
             <p className="text-text-muted leading-relaxed max-w-prose mx-auto mb-6">
               this is the page where the site evolves. it&apos;s empty at launch on purpose.
               the first entry ships when someone shapes something.
@@ -126,7 +126,7 @@ export default function HallOfFame() {
 }
 
 /* -----------------------------------------------------------------------
-   SubmissionPanel — Lego-brick prompt UI
+   SubmissionPanel - Lego-brick prompt UI
    ----------------------------------------------------------------------- */
 
 function SubmissionPanel({ onCancel, onSubmit }) {
@@ -241,7 +241,7 @@ function SubmissionPanel({ onCancel, onSubmit }) {
           disabled={!canSubmit}
           className="border border-surface-raised hover:border-accent-glow text-text-primary hover:text-accent-glow text-sm px-4 py-2 rounded-sm transition-all duration-250 disabled:opacity-30 disabled:cursor-not-allowed"
         >
-          send →
+          send &#x2192;
         </button>
       </div>
 
@@ -256,13 +256,13 @@ function EntryCard({ entry }) {
         <span aria-hidden="true" className="inline-block w-2 h-2 rounded-full" style={{ backgroundColor: entry.color }} />
         <span className="text-text-primary">{entry.name}</span>
         <span className="text-text-faint font-mono text-xs">
-          Section: {entry.section} · Shipped {entry.shippedAt}
+          Section: {entry.section} &#xB7; Shipped {entry.shippedAt}
         </span>
       </div>
       <blockquote className="text-text-muted italic leading-relaxed pl-5 mb-3">
         &ldquo;{entry.suggestion}&rdquo;
       </blockquote>
-      <p className="text-text-primary leading-relaxed">→ {entry.changeNote}</p>
+      <p className="text-text-primary leading-relaxed">&#x2192; {entry.changeNote}</p>
     </li>
   )
 }

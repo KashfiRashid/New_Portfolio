@@ -25,13 +25,13 @@ export default function Research() {
             <div className="w-full overflow-hidden rounded-lg border border-white/[0.08] bg-zinc-900">
               <img
                 src={p.src}
-                alt={`${p.label} — ${p.name}`}
+                alt={`${p.label} \u2014 ${p.name}`}
                 loading="lazy"
                 className="block w-full h-auto"
               />
             </div>
             <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-              <span className="text-[#FF6B6B]">{p.label}</span> · {p.name}
+              <span className="text-[#FF6B6B]">{p.label}</span> &#xB7; {p.name}
             </figcaption>
           </figure>
         ))}

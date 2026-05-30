@@ -1,15 +1,15 @@
 import { useEffect, useRef } from 'react'
 
 /**
- * useExitIntent — fires a callback when the cursor moves toward the top of
+ * useExitIntent - fires a callback when the cursor moves toward the top of
  * the viewport, suggesting the visitor is heading for the close button or
  * tab bar.
  *
- * Desktop only — mobile has no equivalent gesture and would need a separate
+ * Desktop only - mobile has no equivalent gesture and would need a separate
  * "back gesture" detection.
  *
- * @param {function} onExit — callback fired once per session on first detect
- * @param {boolean} enabled — gate the listener
+ * @param {function} onExit - callback fired once per session on first detect
+ * @param {boolean} enabled - gate the listener
  */
 export function useExitIntent(onExit, enabled = true) {
   const firedRef = useRef(false)

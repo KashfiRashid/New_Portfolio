@@ -1,5 +1,5 @@
 /**
- * Exhibit 03 — Typography.
+ * Exhibit 03 - Typography.
  *
  * The three Open Ground typefaces and the full 14-step scale, recreated
  * live inside a white ExhibitPanel. Every sample renders at its real size
@@ -16,19 +16,19 @@ const FONTS = [
     cls: DISPLAY,
     name: 'Instrument Serif',
     role: 'Display & headings: for reading.',
-    detail: 'Regular 400 + Italic · font-display',
+    detail: 'Regular 400 + Italic \u00b7 font-display',
   },
   {
     cls: SANS,
     name: 'DM Sans',
     role: 'Body, UI, buttons: for doing.',
-    detail: 'Light 300 to Bold 700 · font-sans',
+    detail: 'Light 300 to Bold 700 \u00b7 font-sans',
   },
   {
     cls: MONO,
     name: 'DM Mono',
     role: 'Data, code, metadata: for knowing.',
-    detail: 'Light 300 to Medium 500 · font-mono',
+    detail: 'Light 300 to Medium 500 \u00b7 font-mono',
   },
 ]
 
@@ -61,7 +61,7 @@ const SCALE = [
   {
     group: 'Utility, DM Sans & DM Mono',
     rows: [
-      { name: 'Caption', sample: 'Vancouver, BC · 12 employees', cls: SANS, color: '#6B7080', spec: '13 / 500 / 1.4', style: { fontSize: 13, fontWeight: 500, lineHeight: 1.4 } },
+      { name: 'Caption', sample: 'Vancouver, BC \u00b7 12 employees', cls: SANS, color: '#6B7080', spec: '13 / 500 / 1.4', style: { fontSize: 13, fontWeight: 500, lineHeight: 1.4 } },
       { name: 'Overline', sample: 'ACTIVE STARTUPS', cls: SANS, color: '#8B90A0', spec: '11 / 600 / 0.1em', style: { fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' } },
       { name: 'Mono M', sample: '2,847', cls: MONO, color: '#4B5162', spec: '15 / 400', style: { fontSize: 15, fontWeight: 400 } },
       { name: 'Mono S', sample: '--signal: #1B6B4F', cls: MONO, color: '#4B5162', spec: '13 / 400', style: { fontSize: 13, fontWeight: 400 } },

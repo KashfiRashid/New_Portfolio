@@ -3,19 +3,19 @@ import { SectionHead } from '../primitives.jsx'
 const TEAM = [
   {
     name: 'Md Kashfi Or Rashid Pranta',
-    role: 'Designer · Voice Coach UI',
+    role: 'Designer \u00b7 Voice Coach UI',
     contribution:
       'Built the emotional bubble: the moving, reacting visual layer of the AI Coach. Designed the breathing idle state, the live audio-synced reaction, and the color and pulse shifts that ride along with what the coach is saying.',
   },
   {
     name: 'Harjot Singh',
-    role: 'Backend Architecture · AI Pipeline · AI Coach',
+    role: 'Backend Architecture \u00b7 AI Pipeline \u00b7 AI Coach',
     contribution:
       'Built the four-step AI pipeline (Gemini classification, cost prediction, o3 suggestion engine) and the streaming voice coach backend: GPT-4o-mini and ElevenLabs running in parallel over Server-Sent Events.',
   },
   {
     name: 'Faaiz Abdullah',
-    role: 'Project Founder · Build',
+    role: 'Project Founder \u00b7 Build',
     contribution:
       'Started the project. Contributed across the build through the weekend.',
   },
@@ -53,7 +53,7 @@ export default function Credits() {
       </div>
 
       <p className="mt-12 text-center font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">
-        Mountain Madness 2026 · CSSS × MLH · SFU
+        Mountain Madness 2026 &#xB7; CSSS &#xD7; MLH &#xB7; SFU
       </p>
     </section>
   )

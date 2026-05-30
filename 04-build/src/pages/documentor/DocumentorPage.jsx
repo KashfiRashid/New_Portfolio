@@ -53,7 +53,7 @@ export default function DocumentorPage() {
       className="relative min-h-screen bg-[#0F1216] text-zinc-200 antialiased selection:bg-[#E8A53B]/30"
       style={{
         '--font-display': '"Editorial New", "Reckless Neue", Georgia, ui-serif, serif',
-        '--font-sans': 'Inter, "Söhne", "Geist Sans", system-ui, sans-serif',
+        '--font-sans': 'Inter, "S\u00f6hne", "Geist Sans", system-ui, sans-serif',
         '--font-mono': '"JetBrains Mono", "Geist Mono", ui-monospace, monospace',
       }}
     >

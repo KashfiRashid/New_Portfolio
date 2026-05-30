@@ -138,7 +138,7 @@ export function StepCard({ step, title, children, className = '' }) {
 }
 
 /**
- * AssetPlaceholder — renders a dashed slot with everything Kash needs to
+ * AssetPlaceholder - renders a dashed slot with everything Kash needs to
  * drop in a real asset: the exact filename to save it as, the dimensions,
  * a plain-words description of the content, and optional annotation
  * guidance. When the real file is in place, swap this component for an
@@ -190,7 +190,7 @@ export function AssetPlaceholder({
 }
 
 /**
- * Highlight — a marker band behind one key line per section. Picks out the
+ * Highlight - a marker band behind one key line per section. Picks out the
  * sentence that carries the section's gist, so a fast scroll still reads as
  * a story. Use sparingly: one highlight per section.
  */

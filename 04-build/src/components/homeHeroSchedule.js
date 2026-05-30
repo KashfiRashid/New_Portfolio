@@ -1,9 +1,9 @@
 /**
- * homeHeroSchedule — the homepage hero's time engine.
+ * homeHeroSchedule - the homepage hero's time engine.
  *
  * The hero is a window into Kash's day. The video and the status line
  * swap based on the current hour in America/Vancouver (Kash's timezone,
- * deliberately — viewers see his day, not theirs).
+ * deliberately - viewers see his day, not theirs).
  *
  * HONESTY RULE
  * Only `working` has a real video file today. The other three scenes
@@ -63,7 +63,7 @@ export function getVancouverHour(date = new Date()) {
 
 /**
  * Returns the ticking time + place line shown in the top-left of the hero.
- * Format: "HH:MM:SS PT · Delta, BC"
+ * Format: "HH:MM:SS PT - Delta, BC"
  * Uses tabular numerals at the CSS layer so the width does not jitter.
  */
 export function getVancouverTimeString(date = new Date()) {
@@ -76,24 +76,24 @@ export function getVancouverTimeString(date = new Date()) {
   })
   // en-CA returns "HH:MM:SS"
   const t = fmt.format(date)
-  // Detect PT vs PST/PDT label — Intl gives short generic if we ask. Keep it simple.
+  // Detect PT vs PST/PDT label - Intl gives short generic if we ask. Keep it simple.
   const tzFmt = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/Vancouver',
     timeZoneName: 'short',
   })
   const parts = tzFmt.formatToParts(date)
   const tz = parts.find((p) => p.type === 'timeZoneName')?.value || 'PT'
-  return `${t} ${tz} · Delta, BC`
+  return `${t} ${tz} \u00b7 Delta, BC`
 }
 
 /**
  * Picks the active scene based on the Vancouver hour.
  *
  * Schedule (Vancouver local time):
- *   00:00 - 05:59 → asleep
- *   06:00 - 10:59 → transit
- *   11:30 - 14:00 → meal     (handled by minute check below)
- *   all other     → working
+ *   00:00 - 05:59 -> asleep
+ *   06:00 - 10:59 -> transit
+ *   11:30 - 14:00 -> meal     (handled by minute check below)
+ *   all other     -> working
  *
  * If the chosen scene is not available, returns the working scene's
  * video but keeps the chosen scene's status text. This way the time

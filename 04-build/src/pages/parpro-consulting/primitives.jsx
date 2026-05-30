@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 /**
- * Parpro Consulting — case study primitives.
+ * Parpro Consulting - case study primitives.
  *
  * Shares the dark-canvas register with the other case studies but
  * carries its own accent: Parpro's redesigned brand coral #EC613B

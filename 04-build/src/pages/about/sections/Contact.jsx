@@ -9,8 +9,8 @@ import Reveal from '../../../components/Reveal.jsx'
 const LINKS = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/kashfi-rashid', external: true },
   { label: 'GitHub',   href: 'https://github.com/KashfiRashid',           external: true },
-  { label: 'Email',    href: 'mailto:contactkashfi@gmail.com',            external: false },
-  { label: 'Resume',   href: '/resume.pdf',                               external: true },
+  { label: 'Email',    href: 'mailto:mailkashfirashid@gmail.com',            external: false },
+  { label: 'Resume',   href: 'https://drive.google.com/file/d/1Xkc3TBm40Nrc7kQFNv8FEMYcAeOPt0xg/view?usp=sharing', external: true },
 ]
 
 export default function Contact() {
@@ -19,7 +19,7 @@ export default function Contact() {
       <Reveal>
         <BodyText>
           Graduating June 10, 2026, and open to design-engineer roles. The{' '}
-          <QuietLink href="/resume.pdf" external>resume</QuietLink> is here if
+          <QuietLink href="https://drive.google.com/file/d/1Xkc3TBm40Nrc7kQFNv8FEMYcAeOPt0xg/view?usp=sharing" external>resume</QuietLink> is here if
           it&apos;s useful. Otherwise, the work speaks first.
         </BodyText>
 

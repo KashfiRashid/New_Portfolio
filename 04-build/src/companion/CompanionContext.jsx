@@ -3,15 +3,15 @@ import { useCharacter } from '../character/CharacterContext.jsx'
 import { getBubble, renderBubbleText } from './bubbleLibrary.js'
 
 /**
- * CompanionContext — provides fire() for section triggers and fireIdle() for
+ * CompanionContext - provides fire() for section triggers and fireIdle() for
  * the continuous idle cycle. Two separate systems:
  *
- * fire() — section triggers (entry, hover, click, scroll, exit-intent)
+ * fire() - section triggers (entry, hover, click, scroll, exit-intent)
  *   - Max 8 bubbles per session
  *   - 8s cooldown between bubbles
  *   - Per-element cap: each elementId fires at most once per session
  *
- * fireIdle() — idle cycle content (bypasses normal frequency rules)
+ * fireIdle() - idle cycle content (bypasses normal frequency rules)
  *   - No cooldown (the cycle timer handles pacing)
  *   - No session cap (idle content is free)
  *   - Each idle item shown at most once per session (shuffled pool)
@@ -29,20 +29,20 @@ export function CompanionProvider({ visitor, children }) {
 
   // Active bubble being rendered (or null)
   const [active, setActive] = useState(null)
-  // Active idle reel reference (or null) — legacy, character handles reels now
+  // Active idle reel reference (or null) - legacy, character handles reels now
   const [activeReel, setActiveReel] = useState(null)
 
-  // Per-session counters — refs so they don't trigger re-renders
+  // Per-session counters - refs so they don't trigger re-renders
   const firedCountRef = useRef(0)
   const lastFiredAtRef = useRef(0)
   const firedElementsRef = useRef(new Set())
   const dismissTimerRef = useRef(null)
 
   /**
-   * fire — attempt to fire a bubble from the library. Respects frequency rules.
-   * @param {string} bubbleId — e.g. 'H17'
+   * fire - attempt to fire a bubble from the library. Respects frequency rules.
+   * @param {string} bubbleId - e.g. 'H17'
    * @param {object} opts
-   * @param {string} opts.elementId — optional unique key for per-element cap
+   * @param {string} opts.elementId - optional unique key for per-element cap
    * @returns {boolean} true if fired, false if suppressed
    */
   const fire = useCallback((bubbleId, opts = {}) => {
@@ -54,17 +54,17 @@ export function CompanionProvider({ visitor, children }) {
 
     const now = Date.now()
 
-    // Frequency rule 1 — session cap
+    // Frequency rule 1 - session cap
     if (firedCountRef.current >= SESSION_BUBBLE_CAP) return false
 
-    // Frequency rule 2 — cooldown
+    // Frequency rule 2 - cooldown
     if (now - lastFiredAtRef.current < COOLDOWN_MS) return false
 
-    // Frequency rule 3 — per-element cap
+    // Frequency rule 3 - per-element cap
     const elementKey = opts.elementId || bubbleId
     if (firedElementsRef.current.has(elementKey)) return false
 
-    // Distance gating — character must be within 250px of cursor
+    // Distance gating - character must be within 250px of cursor
     // Exception: exit-intent bubbles fire regardless of distance
     const isExitIntent = bubble.trigger === 'exit-intent'
     if (!isExitIntent && character?.getPosition) {
@@ -104,7 +104,7 @@ export function CompanionProvider({ visitor, children }) {
   }, [visitor, character])
 
   /**
-   * fireIdle — fire idle content directly (bypasses cooldown/cap).
+   * fireIdle - fire idle content directly (bypasses cooldown/cap).
    * Used by the idle cycle system in App.jsx.
    *
    * @param {{ type: string, text: string, clip?: string }} content
@@ -135,7 +135,7 @@ export function CompanionProvider({ visitor, children }) {
   }, [visitor, character])
 
   /**
-   * dismiss — cancel the active bubble manually.
+   * dismiss - cancel the active bubble manually.
    */
   const dismiss = useCallback(() => {
     if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current)
@@ -143,14 +143,14 @@ export function CompanionProvider({ visitor, children }) {
   }, [])
 
   /**
-   * dismissReel — stop the active idle reel.
+   * dismissReel - stop the active idle reel.
    */
   const dismissReel = useCallback(() => {
     setActiveReel(null)
   }, [])
 
   /**
-   * dismissAll — dismiss both bubble and reel (used when activity resumes).
+   * dismissAll - dismiss both bubble and reel (used when activity resumes).
    */
   const dismissAll = useCallback(() => {
     if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current)

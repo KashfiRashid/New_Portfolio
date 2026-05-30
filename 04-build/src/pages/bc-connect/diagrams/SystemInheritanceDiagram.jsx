@@ -1,5 +1,5 @@
 /**
- * SystemInheritanceDiagram — each layer constrained by the one above.
+ * SystemInheritanceDiagram - each layer constrained by the one above.
  *
  * Engineering-diagram register. Four tiers stacked top to bottom: laws
  * constrain tokens, tokens constrain components, components constrain
@@ -11,26 +11,26 @@
  * narrowing pyramid would clip it.
  *
  * Pure inline SVG. Tailwind intent translated to SVG:
- *   zinc-700 #3f3f46 (tier stroke) · zinc-500 #71717a (arrow labels)
- *   zinc-300 #d4d4d8 (sub-labels) · signal #1B6B4F (tier labels, arrows).
+ *   zinc-700 #3f3f46 (tier stroke) - zinc-500 #71717a (arrow labels)
+ *   zinc-300 #d4d4d8 (sub-labels) - signal #1B6B4F (tier labels, arrows).
  */
 
 const TIERS = [
   {
     label: 'OPEN GROUND LAWS',
-    sub: "Earn Your Pixel · Ground Before Signal · Connect Don't Decorate",
+    sub: "Earn Your Pixel \u00b7 Ground Before Signal \u00b7 Connect Don't Decorate",
   },
   {
     label: 'DESIGN TOKENS',
-    sub: 'Color · Type · Spacing · Motion · Radius',
+    sub: 'Color \u00b7 Type \u00b7 Spacing \u00b7 Motion \u00b7 Radius',
   },
   {
     label: 'COMPONENTS',
-    sub: 'BusinessCard · FilterPills · Hero · Navbar · +12 more',
+    sub: 'BusinessCard \u00b7 FilterPills \u00b7 Hero \u00b7 Navbar \u00b7 +12 more',
   },
   {
     label: 'PRODUCT SURFACES',
-    sub: 'Landing · Directory · Detail · Auth · Dashboard · Admin',
+    sub: 'Landing \u00b7 Directory \u00b7 Detail \u00b7 Auth \u00b7 Dashboard \u00b7 Admin',
   },
 ]
 

@@ -1,5 +1,5 @@
 /**
- * DataNormalizationDiagram — two schemas in, one queryable surface out.
+ * DataNormalizationDiagram - two schemas in, one queryable surface out.
  *
  * Engineering-diagram register. Two municipal input schemas on the left
  * (Vancouver, Surrey) with their raw field names, flowing through
@@ -7,9 +7,9 @@
  * the right.
  *
  * Pure inline SVG. Tailwind intent translated to SVG:
- *   zinc-700 #3f3f46 (input box stroke) · zinc-500 #71717a (merge stroke,
- *   arrow labels) · zinc-400 #a1a1aa (raw field labels) · zinc-200
- *   #e4e4e7 (normalized field labels) · signal #1B6B4F (arrows, merge
+ *   zinc-700 #3f3f46 (input box stroke) - zinc-500 #71717a (merge stroke,
+ *   arrow labels) - zinc-400 #a1a1aa (raw field labels) - zinc-200
+ *   #e4e4e7 (normalized field labels) - signal #1B6B4F (arrows, merge
  *   header).
  */
 

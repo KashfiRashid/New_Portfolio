@@ -1,5 +1,5 @@
 /**
- * BiasCheckDiagram — the methodological spine of the case study.
+ * BiasCheckDiagram - the methodological spine of the case study.
  *
  * Four nodes left to right. Node 1 (My experience, n=1) is small and
  * tentative, drawn with a dashed stroke. Node 4 (Design from evidence)
@@ -8,7 +8,7 @@
  */
 
 const MONO = '"JetBrains Mono", "Geist Mono", ui-monospace, monospace'
-const SANS = 'Inter, "Söhne", system-ui, sans-serif'
+const SANS = 'Inter, "S\u00f6hne", system-ui, sans-serif'
 
 const NODES = [
   { label: 'MY EXPERIENCE', sub: 'n = 1', tentative: true },

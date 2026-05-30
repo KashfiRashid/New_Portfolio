@@ -1,5 +1,5 @@
 /**
- * CognitiveOverloadContrast — before vs. DocuMentor, side by side.
+ * CognitiveOverloadContrast - before vs. DocuMentor, side by side.
  *
  * Left, a single phone screen icon densely filled with chaotic small
  * elements. Right, the same phone shape with a single clear element
@@ -7,7 +7,7 @@
  */
 
 const MONO = '"JetBrains Mono", "Geist Mono", ui-monospace, monospace'
-const SANS = 'Inter, "Söhne", system-ui, sans-serif'
+const SANS = 'Inter, "S\u00f6hne", system-ui, sans-serif'
 
 // Deterministic clutter for the left screen
 function clutter() {
@@ -89,7 +89,7 @@ export default function CognitiveOverloadContrast() {
           Upload your study permit.
         </text>
         <text x="572" y="186" fill="#71717a" fontFamily={MONO} fontSize="9" letterSpacing="1">
-          ↑ TAP TO ADD FILE
+          &#x2191; TAP TO ADD FILE
         </text>
         {/* CTA */}
         <rect x="560" y="270" width="160" height="36" rx="18" fill="#E8A53B" />

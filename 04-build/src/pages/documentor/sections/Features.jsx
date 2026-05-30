@@ -5,19 +5,19 @@ const V = '/documentor'
 const FEATURES = [
   {
     src: `${V}/Documentor_Onboarding.mp4`,
-    caption: 'Onboarding · orients without overwhelming',
+    caption: 'Onboarding \u00b7 orients without overwhelming',
   },
   {
     src: `${V}/Documentor_Progress_Tracker.mp4`,
-    caption: 'Progress tracking · the user always knows where they are',
+    caption: 'Progress tracking \u00b7 the user always knows where they are',
   },
   {
     src: `${V}/Documentor_Step_by_Step.mp4`,
-    caption: 'Step-by-step · one action, then the next',
+    caption: 'Step-by-step \u00b7 one action, then the next',
   },
   {
     src: `${V}/Documentor_Language_Preferences.mp4`,
-    caption: 'Language preferences · the guide meets the user in their language',
+    caption: 'Language preferences \u00b7 the guide meets the user in their language',
   },
 ]
 

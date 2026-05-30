@@ -1,14 +1,14 @@
 /**
- * EcosystemMap — the 8-region BC startup ecosystem wheel.
+ * EcosystemMap - the 8-region BC startup ecosystem wheel.
  *
  * Phase 2 of the Christina-inspired rebuild (/00-brief/cursor-bcconnect-rebuild.md).
  * Renders the Background section's diagram: one central node (BC Connect) with
  * eight region nodes arranged around it, connected by spokes.
  *
  * Design laws applied (Open Ground):
- *   - Earn Your Pixel — no ornament. Every node, label, and spoke maps to a
+ *   - Earn Your Pixel - no ornament. Every node, label, and spoke maps to a
  *     real region or a real relationship. Spatial clarity over decoration.
- *   - Connect, Don't Decorate — the spokes ARE the point: they show eight
+ *   - Connect, Don't Decorate - the spokes ARE the point: they show eight
  *     regions resolving into one directory.
  *
  * Palette (dark-canvas variant of the real Open Ground tokens):
@@ -17,7 +17,7 @@
  *   - ink-200       #B8BCCA   region labels
  *   - ink-400       #6B7080   region sub-labels (approximate startup counts)
  *
- * Region startup counts are approximate (~ prefix) — they sum to the ~90k
+ * Region startup counts are approximate (~ prefix) - they sum to the ~90k
  * figure the case study cites, weighted toward the Lower Mainland where the
  * real density sits. They are illustrative, not surveyed data.
  *
@@ -28,13 +28,13 @@
 
 const CENTER = { x: 400, y: 300 }
 // A true circle (single radius) so all eight regions sit at exactly equal
-// angular spacing — 45 degrees apart — rather than an ellipse where the
+// angular spacing - 45 degrees apart - rather than an ellipse where the
 // visual bearings would drift off 45.
 const RADIUS = 200
 
 // Eight regions, ordered clockwise from 12 o'clock. Angle is degrees from
 // vertical (0 = straight up), converted to a position on the circle. The
-// order and the 45-degree step are both load-bearing — do not reorder.
+// order and the 45-degree step are both load-bearing - do not reorder.
 const REGIONS = [
   { name: 'Mainland / Southwest',    count: '~52k startups', angle: 0 },
   { name: 'Vancouver Island / Coast', count: '~14k startups', angle: 45 },

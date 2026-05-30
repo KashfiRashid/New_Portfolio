@@ -3,7 +3,7 @@ import { SectionHead, StatBlock, PullQuote, Highlight } from '../primitives.jsx'
 const STATS = [
   { value: '4', label: 'team members' },
   { value: '16 weeks', label: 'build duration' },
-  { value: '3 scales', label: '1:1 · 1:100 · 1:1000' },
+  { value: '3 scales', label: '1:1 \u00b7 1:100 \u00b7 1:1000' },
   { value: '3 acts', label: 'narrative structure' },
   { value: '12', label: 'environments modeled' },
   { value: '0 menus', label: 'fully diegetic UI' },

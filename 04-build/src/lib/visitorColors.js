@@ -1,4 +1,4 @@
-// Visitor color palette — 8 colors from /01-brand-book/06-visual-direction.md
+// Visitor color palette - 8 colors from /01-brand-book/06-visual-direction.md
 // Locked v1 set. Hex values are starting points; principle (desaturated,
 // dark-surface-friendly, distinguishable from accent.glow) is what matters.
 // [NEEDS KASH INPUT] confirm palette, or adjust hex values.
@@ -14,7 +14,7 @@ export const VISITOR_COLORS = [
   { id: 'sand',    label: 'sand',    hex: '#BFAA82' },
 ]
 
-// Default color for "stranger" (skipped onboarding) — neutral-leaning slate.
+// Default color for "stranger" (skipped onboarding) - neutral-leaning slate.
 export const DEFAULT_COLOR = VISITOR_COLORS.find(c => c.id === 'slate')
 
 // Lookup helper used by hooks + components

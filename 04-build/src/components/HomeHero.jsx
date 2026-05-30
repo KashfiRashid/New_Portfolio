@@ -8,7 +8,7 @@ import {
 } from './homeHeroSchedule.js'
 
 /**
- * <HomeHero /> — full-viewport living window into Kash's day.
+ * <HomeHero /> - full-viewport living window into Kash's day.
  *
  * Welcome-act mechanics:
  *   - The outer <section> is HOME_HERO_PIN_VH * 100vh tall (default 2x).
@@ -20,7 +20,7 @@ import {
  *     in the last ~18% of the section.
  *   - The sticky is contained inside the hero section, so the video
  *     never extends behind the Work / cards / Hall of Fame / Featured
- *     Work sections — the room is the prologue, the work is the canvas.
+ *     Work sections - the room is the prologue, the work is the canvas.
  *
  * Layer order (back to front), inside the sticky frame:
  *   0. Poster image (instant paint, no blank frame ever)
@@ -28,7 +28,7 @@ import {
  *      not reduced-motion; faded in on canplay; muted, loop, playsInline)
  *   2. Legibility scrim (fixed gradient, never animates)
  *   3. Vignette darken (scroll-driven, fires once at release)
- *   4. Identity content layer — translates up; opacity fades at release
+ *   4. Identity content layer - translates up; opacity fades at release
  *
  * Accessibility:
  *   - prefers-reduced-motion: video does not mount; scale + bounce gated
@@ -41,7 +41,7 @@ import {
  */
 
 const SURFACE_DEEP = '#0F1112'
-// Legibility scrim — a constant vertical wash on top of the held video.
+// Legibility scrim - a constant vertical wash on top of the held video.
 // Three-stop gradient with the mid stop pulled UP to 45% of the height,
 // so the upper-middle (where the name and identity lines sit) gets
 // dark fast enough for the off-white text to read clearly against
@@ -50,38 +50,38 @@ const SURFACE_DEEP = '#0F1112'
 // banner.
 //
 // The bottom is pushed to ~95% surface-deep so the held video meets
-// the footer's solid surface-deep background almost exactly — no
+// the footer's solid surface-deep background almost exactly - no
 // visible seam where the section ends and the footer begins. The
 // existing scale + vignette release at HOME_HERO_RELEASE_START closes
 // the last 5% during the transition.
 //
-// Stays at full opacity for the entire pin — does NOT fade out. The
+// Stays at full opacity for the entire pin - does NOT fade out. The
 // steady-state dim is what makes the room read as the 2am studio it
 // is, not as a bright wallpaper.
 //
 // Tunable:
-//   - SCRIM_TOP ~0.18–0.32 for top legibility
-//   - SCRIM_MID ~0.50–0.65 for the name area
-//   - SCRIM_BOTTOM ~0.88–1.00 for the footer blend
+//   - SCRIM_TOP ~0.18-0.32 for top legibility
+//   - SCRIM_MID ~0.50-0.65 for the name area
+//   - SCRIM_BOTTOM ~0.88-1.00 for the footer blend
 const SCRIM_TOP = 'rgba(15, 17, 18, 0.28)'
 const SCRIM_MID = 'rgba(15, 17, 18, 0.58)'
 const SCRIM_BOTTOM = 'rgba(15, 17, 18, 0.95)'
 
 // === Welcome-act pin distance (standalone fallback) ===
-// Used only when HomeHero is rendered without children — in that case
+// Used only when HomeHero is rendered without children - in that case
 // the section is `HOME_HERO_PIN_VH * 100vh` tall and pins the scene
 // for that span. One-line tunable between 1.5 and 3.0. Default 2.0.
 //
 // In the primary usage (Home wraps its content as `<HomeHero>...</HomeHero>`),
 // the section height is content-driven and the video stays pinned for
-// the entire homepage scroll — see the `HOME_HERO_RELEASE_START` constant
+// the entire homepage scroll - see the `HOME_HERO_RELEASE_START` constant
 // below for where the scale + vignette release fires.
 const HOME_HERO_PIN_VH = 2.0
 
 // === Release fraction ===
 // Where the scale + vignette release fires inside the section's
 // scrollYProgress. Progress 1 corresponds to the section's bottom
-// hitting the top of the viewport — i.e., the moment the footer would
+// hitting the top of the viewport - i.e., the moment the footer would
 // enter. Default 0.88 means the room dims through the last 12% of the
 // homepage scroll, landing the release right before the footer.
 const HOME_HERO_RELEASE_START = 0.88
@@ -95,8 +95,8 @@ const HOME_HERO_RELEASE_START = 0.88
 // staying pinned at the top.
 const IDENTITY_FADE_PX = 700
 
-/** Photo slot — honest placeholder until /home/kash.jpg lands.
- *  NOTE: As of the welcome-act refinement, this is no longer rendered —
+/** Photo slot - honest placeholder until /home/kash.jpg lands.
+ *  NOTE: As of the welcome-act refinement, this is no longer rendered -
  *  the name block stands on its own. The function is kept dormant so the
  *  visual treatment is recoverable if a real photo ships later. */
 // eslint-disable-next-line no-unused-vars
@@ -113,8 +113,8 @@ function PhotoPlaceholder() {
         font-mono text-[9px] uppercase tracking-[0.16em] text-text-faint
         select-none
       "
-      aria-label="Photo placeholder — pending /home/kash.jpg"
-      title="/home/kash.jpg pending — square, face crop"
+      aria-label="Photo placeholder \u2014 pending /home/kash.jpg"
+      title="/home/kash.jpg pending \u2014 square, face crop"
     >
       <span>photo</span>
       <span className="text-text-faint/60 mt-0.5 normal-case tracking-normal text-[8px]">pending</span>
@@ -148,7 +148,7 @@ export default function HomeHero({ children } = {}) {
   const shouldMountVideo = !reducedMotion && !isNarrow
 
   // -------------------------------------------------------------------
-  // Active scene — re-evaluated every minute (covers boundary crossings
+  // Active scene - re-evaluated every minute (covers boundary crossings
   // on long-open tabs)
   // -------------------------------------------------------------------
   const [scene, setScene] = useState(() => getActiveScene())
@@ -158,7 +158,7 @@ export default function HomeHero({ children } = {}) {
   }, [])
 
   // -------------------------------------------------------------------
-  // Live clock — 1s tick
+  // Live clock - 1s tick
   // -------------------------------------------------------------------
   const [timeString, setTimeString] = useState(() => getVancouverTimeString())
   useEffect(() => {
@@ -167,7 +167,7 @@ export default function HomeHero({ children } = {}) {
   }, [])
 
   // -------------------------------------------------------------------
-  // Video element — autoplay after canplay, opacity fade in.
+  // Video element - autoplay after canplay, opacity fade in.
   // Includes a cached-asset shim: if readyState >= 3 by the time the
   // effect attaches (Safari, back-forward cache, repeat visits), the
   // canplay event may never fire, so we trigger manually.
@@ -220,7 +220,7 @@ export default function HomeHero({ children } = {}) {
     offset: ['start start', 'end start'],
   })
 
-  // Scale + vignette release — fires once in the last ~12% of the
+  // Scale + vignette release - fires once in the last ~12% of the
   // section, landing right before the footer enters the viewport.
   const sceneScale = useTransform(
     scrollYProgress,
@@ -234,7 +234,7 @@ export default function HomeHero({ children } = {}) {
   )
 
   // Identity column translates up and fades within the first viewport
-  // of scroll — by ~700px the centered name + lines + scroll cue are
+  // of scroll - by ~700px the centered name + lines + scroll cue are
   // off-screen and the cards rise into place over the held video.
   // Driven by raw scrollY (px) so the curve is consistent regardless
   // of how tall the section grows from the children below.
@@ -249,7 +249,7 @@ export default function HomeHero({ children } = {}) {
     reducedMotion ? [1, 1] : [1, 0]
   )
 
-  // Sticky clock + status header fade — stays full while the page
+  // Sticky clock + status header fade - stays full while the page
   // scrolls; fades quickly through the scale + vignette release so the
   // chrome doesn't bleed into the footer.
   const stickyHeaderOpacity = useTransform(
@@ -259,14 +259,14 @@ export default function HomeHero({ children } = {}) {
   )
 
   // Sticky header MASK fade-in. The mask + hairline behind the clock
-  // are INVISIBLE when the visitor lands on the page — so the room
+  // are INVISIBLE when the visitor lands on the page - so the room
   // reads cleanly with the clock floating on it, no dark band cutting
   // off the view. As the visitor starts scrolling and the editorial
   // content rises toward the clock zone, the mask fades in to
   // protect the clock from visual collision with the rising text.
   //
-  // 0–150px scroll: mask fully invisible (clean hero)
-  // 150–450px:      fades in (catches the editorial as it rises)
+  // 0-150px scroll: mask fully invisible (clean hero)
+  // 150-450px:      fades in (catches the editorial as it rises)
   // 450px+:         fully visible (mask doing its job)
   const stickyMaskOpacity = useTransform(
     scrollY,
@@ -277,16 +277,16 @@ export default function HomeHero({ children } = {}) {
   // -------------------------------------------------------------------
   // Identity copy
   // -------------------------------------------------------------------
-  // Identity line — a role descriptor, two semantic emphases:
+  // Identity line - a role descriptor, two semantic emphases:
   // "Design engineer" (the role) and "user experience" (the focus).
   // Both rendered in the same warm token color via Tailwind class
   // (`text-accent-glow` resolves through
   // theme.extend.colors.accent.glow in tailwind.config.js) plus
-  // `font-semibold` — Apple HIG uses BOTH color and weight together
+  // `font-semibold` - Apple HIG uses BOTH color and weight together
   // for emphasis, not color alone. Single color, two hits.
   //
   // The "I am a" opener was dropped. The name "Kashfi" sits directly
-  // above, so the line already has its subject — it reads as a
+  // above, so the line already has its subject - it reads as a
   // descriptor of that name, no first-person framing needed. Starts
   // straight on the role, which also puts the first accent phrase at
   // the very top-left of the block.
@@ -295,14 +295,14 @@ export default function HomeHero({ children } = {}) {
   // that land close together compete instead of creating hierarchy. A
   // desktop-only line break is forced after "designing" so the two
   // lines come out balanced and the emphases land in opposite corners:
-  //   line 1 — "[Design engineer] who loves designing"    → accent top-left
-  //   line 2 — "creative solutions for [user experience]." → accent bottom-right
+  //   line 1 - "[Design engineer] who loves designing"    -> accent top-left
+  //   line 2 - "creative solutions for [user experience]." -> accent bottom-right
   // The break is `hidden md:block` so on mobile the sentence flows
   // naturally and wraps on its own. Each accent span is
   // `whitespace-nowrap` so a phrase never fragments across a wrap.
   //
   // Voice line, status line, and scene-fallback note were intentionally
-  // removed from the hero (Apple-style restraint — one intro line, no
+  // removed from the hero (Apple-style restraint - one intro line, no
   // bluff). Their copy is still defined elsewhere in the project if we
   // want them back somewhere.
   //
@@ -324,7 +324,7 @@ export default function HomeHero({ children } = {}) {
   )
 
   // -------------------------------------------------------------------
-  // Reveal cadence — matches the rest of the site
+  // Reveal cadence - matches the rest of the site
   // -------------------------------------------------------------------
   const easing = useMemo(() => [0.22, 0.61, 0.36, 1], [])
   const fadeUp = (delay) => ({
@@ -334,17 +334,17 @@ export default function HomeHero({ children } = {}) {
   })
 
   // -------------------------------------------------------------------
-  // Clock parts — split the engine's string into a prominent time and a
-  // secondary "PST · Delta, BC" meta line. We do NOT change the engine
-  // (homeHeroSchedule.js stays exactly as it is) — we just present it
+  // Clock parts - split the engine's string into a prominent time and a
+  // secondary "PST - Delta, BC" meta line. We do NOT change the engine
+  // (homeHeroSchedule.js stays exactly as it is) - we just present it
   // with hierarchy.
   //
   // Timezone label is normalized to "PST" per brand preference. The Intl
   // engine returns "PDT" in summer (Pacific Daylight) and "PST" in winter
   // (Pacific Standard); the brand wants the static "PST" tag, so we
-  // rewrite at the display layer only — the actual displayed time stays
+  // rewrite at the display layer only - the actual displayed time stays
   // accurate for America/Vancouver regardless of season.
-  // Format coming in: "HH:MM:SS <PDT|PST|PT> · Delta, BC".
+  // Format coming in: "HH:MM:SS <PDT|PST|PT> - Delta, BC".
   // -------------------------------------------------------------------
   const clockSpaceIdx = timeString.indexOf(' ')
   const clockTime =
@@ -374,27 +374,27 @@ export default function HomeHero({ children } = {}) {
       ref={wrapperRef}
       className="relative w-full"
       style={sectionStyle}
-      aria-label="Kashfi Rashid — designer and developer"
+      aria-label="Kashfi Rashid \u2014 designer and developer"
     >
-      {/* Sticky top header (z-30) — clock + scene status pinned to
+      {/* Sticky top header (z-30) - clock + scene status pinned to
           viewport top for the entire section scroll. Lives OUTSIDE the
           video sticky frame so it stacks above children (z-10) in the
           section's stacking context; otherwise children's editorial
           content would paint over the clock as it scrolls up.
 
-          Zero-height (`h-0`) — content is positioned absolutely from
-          this anchor — so this layer doesn't take flow space; the
+          Zero-height (`h-0`) - content is positioned absolutely from
+          this anchor - so this layer doesn't take flow space; the
           video sticky below it still occupies the first 100vh of flow
           and pins normally.
 
           The fade-mask backdrop inside this layer is a vertical
           gradient from opaque (top of viewport) to transparent (where
           the hairline sits). As children scroll up through the clock
-          zone, they pass behind the gradient and gradually fade out —
+          zone, they pass behind the gradient and gradually fade out -
           so the editorial text appears to lose opacity as it
           approaches the clock and disappears by the time it crosses
           the hairline. */}
-      {/* Clock + scene status header. Non-sticky — scrolls away with
+      {/* Clock + scene status header. Non-sticky - scrolls away with
           the rest of the hero like a normal in-flow element. */}
       <motion.div
         initial={{ y: 8 }}
@@ -404,7 +404,7 @@ export default function HomeHero({ children } = {}) {
       >
         <div className="absolute top-0 left-0 right-0">
           <div className="max-w-6xl mx-auto w-full flex items-start justify-between gap-4 px-6 pt-16 pb-7 md:px-10 md:pt-20 md:pb-9">
-            {/* Clock — Heading 1 register, mono, tabular-nums.
+            {/* Clock - Heading 1 register, mono, tabular-nums.
                 `text-hero-legible` adds a soft dark halo via text-shadow
                 so the digits stay readable on bright video frames
                 without needing a visible dark backdrop band. */}
@@ -428,7 +428,7 @@ export default function HomeHero({ children } = {}) {
                 </span>
               )}
             </div>
-            {/* Scene status — Caption, right-aligned, subordinate to clock.
+            {/* Scene status - Caption, right-aligned, subordinate to clock.
                 Same legibility halo so it doesn't dissolve on bright frames. */}
             <span className="font-mono text-[11px] md:text-xs uppercase tracking-[0.18em] text-text-faint text-right pt-2 max-w-[14rem] text-hero-legible">
               {scene.status}
@@ -438,7 +438,7 @@ export default function HomeHero({ children } = {}) {
 
       </motion.div>
 
-      {/* Sticky frame — pins the scene for the welcome act / entire page.
+      {/* Sticky frame - pins the scene for the welcome act / entire page.
           When children are passed, this sticky stays pinned through the
           editorial sections (cards rise up over the held video). When
           standalone, it pins for HOME_HERO_PIN_VH viewport heights. */}
@@ -452,7 +452,7 @@ export default function HomeHero({ children } = {}) {
           className="absolute inset-0 overflow-hidden"
           style={{ scale: sceneScale }}
         >
-          {/* Layer 0 — poster (instant paint) */}
+          {/* Layer 0 - poster (instant paint) */}
           <picture aria-hidden="true">
             <source srcSet={HOME_HERO_POSTER} type="image/webp" />
             <img
@@ -464,7 +464,7 @@ export default function HomeHero({ children } = {}) {
             />
           </picture>
 
-          {/* Layer 1 — video (capable surfaces only) */}
+          {/* Layer 1 - video (capable surfaces only) */}
           {shouldMountVideo && !videoErrored && (
             <video
               ref={videoRef}
@@ -481,7 +481,7 @@ export default function HomeHero({ children } = {}) {
             />
           )}
 
-          {/* Layer 2 — legibility scrim. Constant 3-stop vertical wash
+          {/* Layer 2 - legibility scrim. Constant 3-stop vertical wash
               on the held video. The mid stop is pulled up to 45% of
               the height so the upper-middle (where the name + identity
               lines live) gets dark fast enough for off-white text to
@@ -497,7 +497,7 @@ export default function HomeHero({ children } = {}) {
             }}
           />
 
-          {/* Vignette darken — scroll-driven (the room dimming). Fires
+          {/* Vignette darken - scroll-driven (the room dimming). Fires
               once in the last segment of the pin span. */}
           <motion.div
             aria-hidden="true"
@@ -510,7 +510,7 @@ export default function HomeHero({ children } = {}) {
           />
         </motion.div>
 
-        {/* Scrolling identity column — name + identity + voice + status
+        {/* Scrolling identity column - name + identity + voice + status
             + fallback note + scroll cue. Translates up via contentY and
             slides under the pinned clock/status header above; opacity
             fades through the existing scale + vignette release. */}
@@ -518,12 +518,12 @@ export default function HomeHero({ children } = {}) {
           className="relative z-10 flex flex-col w-full h-full"
           style={{ y: contentY, opacity: contentOpacity, willChange: 'transform, opacity' }}
         >
-          {/* Centered identity column — name + identity + voice + status
+          {/* Centered identity column - name + identity + voice + status
               + fallback note share one aligned measure. Type scale per
               01-brand-book/06-visual-direction.md. */}
           <div className="flex-1 flex items-center">
             <div className="px-6 md:px-10 mx-auto max-w-2xl w-full py-16 md:py-24">
-              {/* Kicker — natural sentence intro, sized to read at
+              {/* Kicker - natural sentence intro, sized to read at
                   arm's length without straining. Sans-serif (same
                   family as the name), normal case. Scaled up one notch
                   to 18-24px (was 16-20px) so the whole identity column
@@ -538,11 +538,11 @@ export default function HomeHero({ children } = {}) {
                 my name is
               </motion.p>
 
-              {/* Name — single-word display treatment, set in the
+              {/* Name - single-word display treatment, set in the
                   display serif (`font-display` resolves through
-                  tailwind.config.js → fontFamily.display = Editorial
+                  tailwind.config.js -> fontFamily.display = Editorial
                   New / Reckless Neue / Georgia / ui-serif). The serif
-                  is Kashfi's voice — warm-reflective, editorial,
+                  is Kashfi's voice - warm-reflective, editorial,
                   named-not-product. Distinct from Harjot's playful
                   bubble display and from the modernist sans of
                   Vercel/Linear; pairs with the body sans (Inter) for
@@ -550,17 +550,17 @@ export default function HomeHero({ children } = {}) {
                   for system chrome (clock, status) to form a clear
                   three-register combo that's specifically Kashfi's.
 
-                  KERNING — the f/i problem. In a display serif the
+                  KERNING - the f/i problem. In a display serif the
                   lowercase f has a top hook that physically overhangs
                   the letter after it; followed by a dotted i, the two
                   read as merged. A brief stint at -0.03em tracking made
                   it worse. Three things fix it here:
                     1. Overall tracking loosened to -0.01em (was -0.03em)
-                       — gives every pair room without looking sprawled.
+                       - gives every pair room without looking sprawled.
                     2. `fontVariantLigatures: none` so the font can't
                        swap in a single merged "fi" ligature glyph.
                     3. The f is wrapped in a span carrying 0.04em of
-                       letter-spacing — that trailing space pushes the i
+                       letter-spacing - that trailing space pushes the i
                        clear of the hook. 0.04em is the ONE knob to tune
                        if the gap ever reads too wide or too tight.
                   Leading 0.95 gives the serif breath without sacrificing
@@ -574,7 +574,7 @@ export default function HomeHero({ children } = {}) {
                 Kash<span style={{ letterSpacing: '0.04em' }}>f</span>i
               </motion.h1>
 
-              {/* Intro line — Apple HIG "Headline" / web-product-page
+              {/* Intro line - Apple HIG "Headline" / web-product-page
                   intro scale, scaled up one notch to a 22-28px range
                   (was 20-26px) so it holds its own under the now-larger
                   name. Regular weight on the prose, semibold + accent on
@@ -594,7 +594,7 @@ export default function HomeHero({ children } = {}) {
                   intentionally removed for hero restraint. The intro
                   above carries the load: who you are + what you focus
                   on. Apple's iPhone landing pages model this exact
-                  pattern — one product name, one intro sentence, one
+                  pattern - one product name, one intro sentence, one
                   CTA at most. */}
             </div>
           </div>

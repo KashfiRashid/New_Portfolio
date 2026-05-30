@@ -1,5 +1,5 @@
 /**
- * MicroStepDecomposition — one large task breaking into a sequence.
+ * MicroStepDecomposition - one large task breaking into a sequence.
  *
  * Left: a single large block labeled "STUDY PERMIT PROCESS". A fan-out
  * to the right into six small numbered steps connected in a line,
@@ -7,7 +7,7 @@
  */
 
 const MONO = '"JetBrains Mono", "Geist Mono", ui-monospace, monospace'
-const SANS = 'Inter, "Söhne", system-ui, sans-serif'
+const SANS = 'Inter, "S\u00f6hne", system-ui, sans-serif'
 
 const STEPS = [
   'Account',
@@ -95,7 +95,7 @@ export default function MicroStepDecomposition() {
             </text>
             {done ? (
               <text x={x + STEP_W - 12} y={STEP_Y + 14} fill="#E8A53B" fontFamily={MONO} fontSize="10" textAnchor="middle">
-                ✓
+                &#x2713;
               </text>
             ) : null}
           </g>

@@ -1,5 +1,5 @@
 /**
- * AudioPipelineDiagram — one FFT pass, six features, six jobs.
+ * AudioPipelineDiagram - one FFT pass, six features, six jobs.
  *
  * The Web Audio API runs a 2048-point FFT every frame. From that single
  * pass the engine pulls six features, and each feature drives a specific

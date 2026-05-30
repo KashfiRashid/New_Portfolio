@@ -13,7 +13,7 @@ export default function Journey() {
       <figure className="mt-12 space-y-3">
         <img src="/trucking-academy/journey-map.png" alt="Ben's user journey map, from delivery driver to Class 3 license." loading="lazy" className="w-full rounded-xl border border-white/[0.08]" />
         <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-          <span className="text-[#FF6B6B]">Journey map</span> · Ben, 28, delivery driver → Class 3
+          <span className="text-[#FF6B6B]">Journey map</span> &#xB7; Ben, 28, delivery driver &#x2192; Class 3
         </figcaption>
       </figure>
     </section>

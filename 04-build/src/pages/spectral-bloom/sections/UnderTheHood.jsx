@@ -23,7 +23,7 @@ const SPECS = [
   },
   {
     label: 'Footprint',
-    value: 'One HTML file. No build step, no setup — the only thing it loads is the Three.js library. It opens in a browser and runs.',
+    value: 'One HTML file. No build step, no setup \u2014 the only thing it loads is the Three.js library. It opens in a browser and runs.',
   },
 ]
 

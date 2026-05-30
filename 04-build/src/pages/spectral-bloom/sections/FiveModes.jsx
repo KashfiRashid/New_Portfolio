@@ -9,13 +9,13 @@ import {
 } from '../diagrams/FiveModesGrid.jsx'
 
 /**
- * Five Modes — each mode is a row.
+ * Five Modes - each mode is a row.
  *
  * Row anatomy:
- *   ┌────────────────────────┬────────────────────────┐
- *   │ Glyph card    16:9     │ Media card    16:9     │
- *   │ (geometry diagram)     │ (image or video)       │
- *   └────────────────────────┴────────────────────────┘
+ *   +------------------------+------------------------+
+ *   | Glyph card    16:9     | Media card    16:9     |
+ *   | (geometry diagram)     | (image or video)       |
+ *   +------------------------+------------------------+
  *   Description sits below with breathing space.
  *
  * Glyph card and media card are equal-width and share the same 16:9
@@ -25,11 +25,11 @@ import {
  * Media kinds: 'image' (still frame), 'video' (lazy-loaded, loops only
  * while in viewport, never preloads off-screen), or 'placeholder'
  * (dashed slot with drop-in instructions). Swap a mode from image to
- * video by changing `media.kind` and the file path — the IntersectionObserver
+ * video by changing `media.kind` and the file path - the IntersectionObserver
  * inside ModeMedia handles play/pause on scroll automatically.
  *
- * Target media spec: 1920 × 1080 (16:9). Images JPG or PNG, ~200–600 KB.
- * Videos MP4 H.264, no audio, ~5–10s loopable, ~3–8 MB each.
+ * Target media spec: 1920 x 1080 (16:9). Images JPG or PNG, ~200-600 KB.
+ * Videos MP4 H.264, no audio, ~5-10s loopable, ~3-8 MB each.
  */
 
 const MODES = [
@@ -76,7 +76,7 @@ const MODES = [
 ]
 
 /**
- * ModeMedia — renders the right-hand cell. Same 16:9 frame regardless of
+ * ModeMedia - renders the right-hand cell. Same 16:9 frame regardless of
  * kind. For video, an IntersectionObserver pauses it whenever it leaves
  * the viewport so off-screen clips never burn cycles or bandwidth.
  */
@@ -87,7 +87,7 @@ function ModeMedia({ media }) {
         kind="MEDIA"
         slotId={media.slotId}
         filename={media.filename}
-        dimensions="1920 × 1080 · 16:9 · image or video"
+        dimensions="1920 \u00d7 1080 \u00b7 16:9 \u00b7 image or video"
         description={media.description}
         className="aspect-video min-h-0"
       />
@@ -172,7 +172,7 @@ export default function FiveModes() {
             <article key={mode.name}>
               {/* Top row: glyph card | media card, both 16:9 equal-width */}
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                {/* Glyph card — kicker top, big SVG with breathing space above name */}
+                {/* Glyph card - kicker top, big SVG with breathing space above name */}
                 <div className="relative flex aspect-video flex-col items-center justify-center border border-white/[0.06] bg-white/[0.02] p-6">
                   <span className="absolute left-6 top-6 font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.18em] text-zinc-600">
                     Mode {mode.n} / 5
@@ -194,7 +194,7 @@ export default function FiveModes() {
                 <ModeMedia media={mode.media} />
               </div>
 
-              {/* Description — caption beneath the row, no container.
+              {/* Description - caption beneath the row, no container.
                   Tight mt-4 so it reads as belonging to the row above;
                   the space-y-16 between modes does the row separation. */}
               <p className="mx-auto mt-4 max-w-[680px] text-center font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-300">

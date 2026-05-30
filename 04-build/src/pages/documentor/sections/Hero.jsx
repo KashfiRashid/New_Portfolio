@@ -18,8 +18,8 @@ export default function Hero() {
 
         <MetaBlock
           rows={[
-            { label: 'Team', value: 'Md Kashfi Or Rashid Pranta · Kate Luonge (UI) · Mariyam (UX Research)' },
-            { label: 'My Roles', value: 'UX Lead · UX Research · Interaction Design' },
+            { label: 'Team', value: 'Md Kashfi Or Rashid Pranta \u00b7 Kate Luonge (UI) \u00b7 Mariyam (UX Research)' },
+            { label: 'My Roles', value: 'UX Lead \u00b7 UX Research \u00b7 Interaction Design' },
             { label: 'Duration', value: '8 weeks' },
             { label: 'Tools', value: 'Figma' },
             { label: 'Context', value: 'International students' },
@@ -30,7 +30,7 @@ export default function Hero() {
         <AppShot
           src="/documentor/App.png"
           alt="The DocuMentor mobile app interface."
-          caption="DocuMentor · the shipped interface"
+          caption="DocuMentor \u00b7 the shipped interface"
         />
       </div>
     </section>

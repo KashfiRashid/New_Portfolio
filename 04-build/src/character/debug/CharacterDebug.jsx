@@ -3,22 +3,22 @@ import { useCharacter } from '../CharacterContext.jsx'
 import { getSpriteForPosture } from '../CharacterSprite.jsx'
 
 /**
- * CharacterDebug — live debug panel for the character system.
+ * CharacterDebug - live debug panel for the character system.
  *
  * Armed when: running in dev (import.meta.env.DEV), OR the URL carries
  * ?debug=character (so a deployed build can still be inspected on demand).
  *
- * Toggle the panel with the `9` key — press to open, press 9 again to close.
+ * Toggle the panel with the `9` key - press to open, press 9 again to close.
  *
  * Panel sections:
- *   STATE     — state machine, position, facing, posture, rotation, bubble
- *   SPRITE    — resolved sprite + a live preview thumbnail, load/missing tally
- *   WALK      — live walk-frame (a/b) indicator, per-frame counters, velocity.
+ *   STATE     - state machine, position, facing, posture, rotation, bubble
+ *   SPRITE    - resolved sprite + a live preview thumbnail, load/missing tally
+ *   WALK      - live walk-frame (a/b) indicator, per-frame counters, velocity.
  *               This is the section for diagnosing the walk glitch: if only
  *               walk-a ever lights up, the alternation is broken.
- *   ACTIVITY  — current activity + props
- *   PERF      — live FPS / frame-time
- *   LOG       — recent state transitions
+ *   ACTIVITY  - current activity + props
+ *   PERF      - live FPS / frame-time
+ *   LOG       - recent state transitions
  *
  * Extra shortcuts (while armed):
  *   1-5  force an activity (laptop / peek / stretch / contemplate / beverage)
@@ -94,7 +94,7 @@ export default function CharacterDebug() {
   const [walkStats, setWalkStats] = useState({ a: 0, b: 0 })
   const [velocity, setVelocity] = useState(0)
 
-  // Key handling — `9` toggles the panel; the rest are armed shortcuts.
+  // Key handling - `9` toggles the panel; the rest are armed shortcuts.
   useEffect(() => {
     if (!armed) return undefined
     const handler = (e) => {
@@ -110,7 +110,7 @@ export default function CharacterDebug() {
     return () => window.removeEventListener('keydown', handler)
   }, [armed, forceActivity, forceShowcase, forceGrab, togglePixelInspect])
 
-  // Live FPS / frame-time meter — only runs while the panel is open.
+  // Live FPS / frame-time meter - only runs while the panel is open.
   useEffect(() => {
     if (!open) return undefined
     let raf = 0
@@ -136,7 +136,7 @@ export default function CharacterDebug() {
     return () => cancelAnimationFrame(raf)
   }, [open])
 
-  // Walk-frame tally — counts each distinct walk-a / walk-b frame the state
+  // Walk-frame tally - counts each distinct walk-a / walk-b frame the state
   // machine commits. On a healthy walk these climb together; if the walk is
   // glitched ("only walk-a"), `b` stays at 0 and the bug is visible at a
   // glance. Runs whether the panel is open or not.
@@ -152,7 +152,7 @@ export default function CharacterDebug() {
     }))
   }, [posture])
 
-  // Character velocity (px/s) — sampled off position changes.
+  // Character velocity (px/s) - sampled off position changes.
   const posTrackRef = useRef({ x: position.x, y: position.y, t: performance.now() })
   useEffect(() => {
     const now = performance.now()
@@ -218,7 +218,7 @@ export default function CharacterDebug() {
           width: 286,
           maxHeight: '92vh',
           overflowY: 'auto',
-          // Click-through HUD — the panel must NOT capture mouse events, or
+          // Click-through HUD - the panel must NOT capture mouse events, or
           // it blocks grabbing the character anywhere beneath it. Only the
           // interactive bits below re-enable pointer events on themselves.
           pointerEvents: 'none',
@@ -327,7 +327,7 @@ export default function CharacterDebug() {
         />
         {walkGlitch && (
           <div style={{ color: '#FF6B6B', fontSize: 9, marginTop: 2 }}>
-            walk-b never shown — alternation broken
+            walk-b never shown &#x2014; alternation broken
           </div>
         )}
         <div
@@ -377,7 +377,7 @@ export default function CharacterDebug() {
         </div>
       </div>
 
-      {/* Position marker — a small dot at the character's feet. */}
+      {/* Position marker - a small dot at the character's feet. */}
       <div
         aria-hidden="true"
         style={{

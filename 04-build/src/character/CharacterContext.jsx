@@ -10,14 +10,14 @@ import { pickReel } from './reelPools.js'
 import { pickThrowQuip } from './throwQuips.js'
 
 /**
- * CharacterContext — state machine + context provider.
- * Per character-spec.md Sections 3–6, 8–10.
+ * CharacterContext - state machine + context provider.
+ * Per character-spec.md Sections 3-6, 8-10.
  *
  * Owns: state machine (11 states), position, facing, posture,
  *       idle speech, reel custody, debug info.
  *
  * The rAF loop calls the active state's tick() each frame.
- * Speaking is overlaid — any state can have a bubble.
+ * Speaking is overlaid - any state can have a bubble.
  *
  * Spawn timing (per Kash's answers):
  *   - First-time visitor: enters after onboarding completes
@@ -28,14 +28,14 @@ import { pickThrowQuip } from './throwQuips.js'
 
 const CharacterContext = createContext(null)
 
-/* ── Speeds & constants ────────────────────────────────────────────── */
+/* -- Speeds & constants ---------------------------------------------- */
 const CHASE_SPEED_THRESHOLD = 600 // px/s
 const CHASE_DISTANCE_THRESHOLD = 150 // px
 const BUBBLE_DURATION = 5000 // ms
 const STUCK_GUARD_SECONDS = 60
 
-/* ── patch v1.4 §"Suppression": states during which a grab cannot start.
- *    `entering` is intentionally omitted — grab may interrupt walk-in. */
+/* -- patch v1.4 Sec"Suppression": states during which a grab cannot start.
+ *    `entering` is intentionally omitted - grab may interrupt walk-in. */
 const GRAB_SUPPRESSION_LIST = new Set([
   'summoning_reel', 'watching_reel', 'taking_reel',
   'showcasing', 'chased', 'hiding',
@@ -44,19 +44,19 @@ const GRAB_SUPPRESSION_LIST = new Set([
   'project_pinned',
 ])
 
-/* ── Reduced-motion check ──────────────────────────────────────────── */
+/* -- Reduced-motion check -------------------------------------------- */
 function prefersReducedMotion() {
   return typeof window !== 'undefined'
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-/* ── Mobile check ──────────────────────────────────────────────────── */
+/* -- Mobile check ---------------------------------------------------- */
 function isMobileViewport() {
   return typeof window !== 'undefined' && window.innerWidth < 768
 }
 
 export function CharacterProvider({ children, identity, isReturning, onboardingDone }) {
-  /* ── React state (triggers re-renders for the UI) ──────────────── */
+  /* -- React state (triggers re-renders for the UI) ---------------- */
   const [state, setState] = useState('inactive') // 'inactive' until spawn
   const [position, setPositionState] = useState({ x: -100, y: -100 })
   const [facing, setFacingState] = useState('right')
@@ -74,10 +74,10 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     missing: [],   // sprite names that 404'd (e.g., ['walk-a', 'walk-b'])
     loaded: [],    // sprite names that loaded successfully (e.g., ['idle'])
   })
-  // patch v1.4 — sway rotation surfaced to React for the sprite transform.
+  // patch v1.4 - sway rotation surfaced to React for the sprite transform.
   // Written every rAF tick from ctxRef.current.swayRotation.
   const [swayRotation, setSwayRotation] = useState(0)
-  // Project-mode — surfaced to Character.jsx so it can render the Goku
+  // Project-mode - surfaced to Character.jsx so it can render the Goku
   // vanish effect and enable hover while the character is parked
   // top-right. null off project pages; { phase, warpX, warpY } otherwise.
   const [projectMode, setProjectMode] = useState(null)
@@ -85,17 +85,17 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   const location = useLocation()
   const section = sectionFromPath(location.pathname)
   // Project case-study routes (/projects/*) put the character into a
-  // separate pinned mode — see the project_pinned state in states.js.
+  // separate pinned mode - see the project_pinned state in states.js.
   // sectionFromPath coarsely maps these to 'home', so detect the route
   // explicitly here.
   const isProjectPage = location.pathname.startsWith('/projects/')
 
-  /* ── Refs (mutable, no re-renders) ─────────────────────────────── */
+  /* -- Refs (mutable, no re-renders) ------------------------------- */
   const rafRef = useRef(null)
   const lastTimeRef = useRef(0)
   const stateModuleRef = useRef(null)
   // Change-detection mirror for the rAF loop. The loop runs at 60fps but
-  // only pushes a setState when one of these values actually changes — so a
+  // only pushes a setState when one of these values actually changes - so a
   // stationary character (idle / perched, the common case) produces zero
   // re-renders per frame instead of reconciling the whole app every frame.
   const syncedRef = useRef({
@@ -108,7 +108,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   const pausedRef = useRef(false)
   const isMobileRef = useRef(isMobileViewport())
   const reducedMotionRef = useRef(prefersReducedMotion())
-  // Project-mode plumbing — live route flag for effects/loops, and the
+  // Project-mode plumbing - live route flag for effects/loops, and the
   // last project phase seen (so the rAF loop only re-renders on change).
   const isProjectPageRef = useRef(isProjectPage)
   const lastProjectPhaseRef = useRef(null)
@@ -132,11 +132,11 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   const showcaseCountRef = useRef({})            // { '/work/foo': 1, ... }
   const hoverStateRef = useRef(null)             // { cardId, el, startX, startY, timerId }
 
-  // Sprite registry (debug — see /character/*.png 404 / load state)
+  // Sprite registry (debug - see /character/*.png 404 / load state)
   const spriteMissingRef = useRef(new Set())
   const spriteLoadedRef = useRef(new Set())
 
-  // patch v1.3 §A4: reel-trigger plumbing.
+  // patch v1.3 SecA4: reel-trigger plumbing.
   // - seenReelsRef: session-shared set so the three triggers never repeat a clip.
   // - currentSectionRef: lets the rAF loop sync ctx.section without a deps change.
   // - charBubbleRef: lets the rAF loop / hook gates read live bubble state.
@@ -170,11 +170,11 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     reelShown: false,
     reelFinished: false,
     reelCarried: false,
-    // patch v1.3 §A4 + §B: contextual fields synced per frame in the rAF loop.
+    // patch v1.3 SecA4 + SecB: contextual fields synced per frame in the rAF loop.
     section: section,          // current section key (e.g. 'work', 'voice')
     bubbleActive: false,       // true when charBubble != null
     lastActivity: null,        // name of last activity (for no-repeat + sequencing)
-    // patch v1.4 — grab/throw scratchpad. Written by grabbed.tick (sway),
+    // patch v1.4 - grab/throw scratchpad. Written by grabbed.tick (sway),
     // read by mouseup handler on release, consumed by thrown.tick.
     swayVelocityX: 0,
     swayVelocityY: 0,
@@ -191,7 +191,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     setReelShown: () => {},
   })
 
-  /* ── Recalculate perches on section/resize ──────────────────────── */
+  /* -- Recalculate perches on section/resize ------------------------ */
   useEffect(() => {
     const recalc = () => {
       const vw = window.innerWidth
@@ -207,7 +207,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     return () => window.removeEventListener('resize', recalc)
   }, [section])
 
-  /* ── Cursor tracking ────────────────────────────────────────────── */
+  /* -- Cursor tracking ---------------------------------------------- */
   useEffect(() => {
     const handleMove = (e) => {
       const now = performance.now()
@@ -232,7 +232,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     return () => window.removeEventListener('mousemove', handleMove)
   }, [])
 
-  /* ── Tab visibility pause ───────────────────────────────────────── */
+  /* -- Tab visibility pause ----------------------------------------- */
   useEffect(() => {
     const handler = () => {
       pausedRef.current = document.hidden
@@ -241,10 +241,10 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     return () => document.removeEventListener('visibilitychange', handler)
   }, [])
 
-  /* ── Idle speech ────────────────────────────────────────────────── */
-  // patch v1.3 §C4 — one bubble at a time: if a bubble is already on
+  /* -- Idle speech -------------------------------------------------- */
+  // patch v1.3 SecC4 - one bubble at a time: if a bubble is already on
   // screen, drop the new line silently. Matches the patch's "Option B:
-  // drop" recommendation — rarer and quieter than queueing.
+  // drop" recommendation - rarer and quieter than queueing.
   const speakIdle = useCallback((text) => {
     if (charBubbleRef.current) return false
     if (bubbleTimerRef.current) clearTimeout(bubbleTimerRef.current)
@@ -257,7 +257,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   const speakIdleRef = useRef(speakIdle)
   useEffect(() => { speakIdleRef.current = speakIdle }, [speakIdle])
 
-  /* ── Reel controls ──────────────────────────────────────────────── */
+  /* -- Reel controls ------------------------------------------------ */
   const triggerReel = useCallback(() => {
     const clip = pendingReelClipRef.current
     setReelActive(true)
@@ -277,7 +277,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     reelShownRef.current = true
   }, [])
 
-  /* ── Contextual reel firing (patch v1.3 §A4) ────────────────────── */
+  /* -- Contextual reel firing (patch v1.3 SecA4) ---------------------- */
   // useReelTriggers fires { triggerType, section } when one of its three
   // detectors (bottom-of-page, section dwell, deep idle) crosses its
   // threshold. We pick a clip from the right pool, dedupe against the
@@ -290,7 +290,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     }
     seenReelsRef.current.add(clip)
     pendingReelClipRef.current = clip
-    console.log(`[CHARACTER] reel trigger: ${triggerType} (${sec || '-'}) → ${clip}`)
+    console.log(`[CHARACTER] reel trigger: ${triggerType} (${sec || '-'}) \u2192 ${clip}`)
     // transition is stable (defined below); refer through ref-less reference
     // is fine because useCallback below has empty deps for the same reason.
     transitionRef.current?.('summoning_reel')
@@ -299,7 +299,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   // Forward ref so fireContextualReel (declared before transition) can call it.
   const transitionRef = useRef(null)
 
-  /* ── Transition function ────────────────────────────────────────── */
+  /* -- Transition function ------------------------------------------ */
   const transition = useCallback((nextStateName) => {
     const nextModule = ALL_STATES[nextStateName]
     if (!nextModule) {
@@ -329,7 +329,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     setPostureState(ctxRef.current.posture)
 
     // Debug log
-    const entry = `${prevName} → ${nextStateName}`
+    const entry = `${prevName} \u2192 ${nextStateName}`
     console.log(`[CHARACTER] ${entry}`)
     setDebugLog(prev => [...prev.slice(-19), entry])
   }, [])
@@ -337,7 +337,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   // Keep the ref pointed at the latest transition for fireContextualReel.
   useEffect(() => { transitionRef.current = transition }, [transition])
 
-  /* ── Wire reel triggers (patch v1.3 §A1+§A4) ────────────────────── */
+  /* -- Wire reel triggers (patch v1.3 SecA1+SecA4) ---------------------- */
   // Enabled only after spawn, on desktop. The hook's internal `canFire`
   // gate filters out reel-blocking states (chased/hiding/showcasing/the
   // three reel states) and defers deep-idle while a bubble is reading.
@@ -351,7 +351,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     fire: fireContextualReel,
   })
 
-  /* ── Spawn logic ────────────────────────────────────────────────── */
+  /* -- Spawn logic -------------------------------------------------- */
   useEffect(() => {
     if (spawnedRef.current) return
     if (!identity) return
@@ -360,14 +360,14 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
       spawnedRef.current = true
       setVisible(true)
 
-      // Landing directly on a project page — skip the walk-in and go
+      // Landing directly on a project page - skip the walk-in and go
       // straight to the pinned project state.
       if (isProjectPageRef.current) {
         transition('project_pinned')
         return
       }
 
-      // For reduced motion, skip entering — appear at perch
+      // For reduced motion, skip entering - appear at perch
       if (reducedMotionRef.current) {
         const perches = perchesRef.current
         if (perches.length > 0) {
@@ -400,7 +400,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     }
   }, [identity, isReturning, onboardingDone, transition])
 
-  /* ── Wire ctx methods ───────────────────────────────────────────── */
+  /* -- Wire ctx methods --------------------------------------------- */
   useEffect(() => {
     ctxRef.current.speakIdle = speakIdle
     ctxRef.current.triggerReel = triggerReel
@@ -408,14 +408,14 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     ctxRef.current.setReelShown = markReelShown
   }, [speakIdle, triggerReel, dismissReel, markReelShown])
 
-  /* ── Mirror charBubble into a ref ───────────────────────────────── */
+  /* -- Mirror charBubble into a ref --------------------------------- */
   // The rAF loop and useReelTriggers read live bubble state without
   // re-binding listeners or rebuilding the loop.
   useEffect(() => {
     charBubbleRef.current = charBubble
   }, [charBubble])
 
-  /* ── Main rAF loop ──────────────────────────────────────────────── */
+  /* -- Main rAF loop ------------------------------------------------ */
   useEffect(() => {
     if (!visible) return
 
@@ -441,14 +441,14 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
         : 0
       ctx.reelShown = reelShownRef.current
       ctx.reelFinished = reelFinishedRef.current
-      // patch v1.3 §A4 + §B: contextual fields pulled from refs each frame.
+      // patch v1.3 SecA4 + SecB: contextual fields pulled from refs each frame.
       ctx.section = currentSectionRef.current
       ctx.bubbleActive = charBubbleRef.current != null
       ctx.elapsed += dt
 
       const currentState = stateModuleRef.current.name
 
-      // ── Global chase detection ──
+      // -- Global chase detection --
       // patch v1.3 cross-system: suppress chase while a bubble is reading.
       // The visitor should be able to finish a bubble without the character
       // bolting mid-sentence.
@@ -469,8 +469,8 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
         }
       }
 
-      // ── Stuck guard ──
-      // patch v1.4 §"Edge cases": exempt `grabbed` — long holds are valid
+      // -- Stuck guard --
+      // patch v1.4 Sec"Edge cases": exempt `grabbed` - long holds are valid
       // (the visitor may be dragging across the page for many seconds).
       if (
         ctx.elapsed > STUCK_GUARD_SECONDS
@@ -484,13 +484,13 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
         return
       }
 
-      // ── State tick ──
+      // -- State tick --
       const nextState = stateModuleRef.current.tick(ctx, dt)
       if (nextState) {
         transition(nextState)
       }
 
-      // ── Sync React state — change-detected ──
+      // -- Sync React state - change-detected --
       // The loop runs at 60fps, but it only commits to React when a value
       // has actually changed. A stationary character produces zero setState
       // calls (and therefore zero re-renders) per frame; only real movement
@@ -519,7 +519,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
         synced.activity = activityName
         setActiveActivity(activityName)
       }
-      // patch v1.4 — surface sway rotation so the sprite can rotate. Only
+      // patch v1.4 - surface sway rotation so the sprite can rotate. Only
       // grabbed/thrown ever write nonzero values; every other state holds 0.
       const props = ctx.activeProps || {}
       const laptop = !!props.laptop
@@ -534,7 +534,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
         synced.sway = sway
         setSwayRotation(sway)
       }
-      // project-mode — re-render only on phase change, not every frame.
+      // project-mode - re-render only on phase change, not every frame.
       const proj = ctx.stateData?.project
       const projPhase = proj?.phase || null
       if (projPhase !== lastProjectPhaseRef.current) {
@@ -553,10 +553,10 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     }
   }, [visible, transition])
 
-  /* ── Section change: fade out and reposition ────────────────────── */
+  /* -- Section change: fade out and reposition ---------------------- */
   const prevSectionRef = useRef(section)
   useEffect(() => {
-    // patch v1.3 §A4: keep currentSectionRef live every render even before
+    // patch v1.3 SecA4: keep currentSectionRef live every render even before
     // spawn, so useReelTriggers reads the right section on its first fire.
     currentSectionRef.current = section
 
@@ -587,7 +587,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     }
   }, [section, visible, transition])
 
-  /* ── Project-page mode ──────────────────────────────────────────── */
+  /* -- Project-page mode -------------------------------------------- */
   // On /projects/* the character drops its autonomous behavior and runs
   // the project_pinned state (pinned corner + Goku teleport). Leaving a
   // project page hands control straight back to the normal idling loop.
@@ -602,11 +602,11 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     }
   }, [isProjectPage, visible, transition])
 
-  /* ── External API ───────────────────────────────────────────────── */
+  /* -- External API ------------------------------------------------- */
 
   /** Called by CompanionContext when a section bubble fires */
-  // patch v1.3 §C4 + cross-system priority: bubble triggers (priority 4)
-  // drop while a higher-priority moment is on-screen — any reel state or
+  // patch v1.3 SecC4 + cross-system priority: bubble triggers (priority 4)
+  // drop while a higher-priority moment is on-screen - any reel state or
   // showcase. One bubble at a time also applies.
   const BUBBLE_BLOCKING_STATES = useMemo(() => new Set([
     'chased', 'hiding', 'showcasing',
@@ -628,11 +628,11 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   /** Called by App.jsx idle detection */
   const handleIdleContent = useCallback((content) => {
     if (!content) return
-    // patch v1.3 §A2: reels now fire exclusively through useReelTriggers
+    // patch v1.3 SecA2: reels now fire exclusively through useReelTriggers
     // (bottom-of-page / section-dwell / deep-idle). Silently drop any reel
     // items the idle quip-cycle hands us so the priority hierarchy holds.
     if (content.type === 'reel') return
-    // Quip or fact — speak it
+    // Quip or fact - speak it
     speakIdle(content.text)
   }, [speakIdle])
 
@@ -651,7 +651,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   }, [])
 
   /** Called by Character.jsx on mouse-enter while the character is parked
-   *  top-right in project mode — sends it warping back to bottom-left.
+   *  top-right in project mode - sends it warping back to bottom-left.
    *  No-op in any other phase. */
   const onProjectCharacterHover = useCallback(() => {
     const proj = ctxRef.current.stateData?.project
@@ -660,7 +660,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     }
   }, [])
 
-  /* ── Sprite registry ───────────────────────────────────────────── */
+  /* -- Sprite registry --------------------------------------------- */
 
   const markSpriteMissing = useCallback((name) => {
     if (spriteMissingRef.current.has(name)) return
@@ -684,9 +684,9 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     setPixelInspect(v => !v)
   }, [])
 
-  /* ── Hover-on-project showcase trigger ─────────────────────────── */
-  /* Per character-spec-patch-showcase.md §"Trigger logic":            */
-  /*   Visitor dwells on a Work card ≥2000ms with cursor moving <30px. */
+  /* -- Hover-on-project showcase trigger --------------------------- */
+  /* Per character-spec-patch-showcase.md Sec"Trigger logic":            */
+  /*   Visitor dwells on a Work card >=2000ms with cursor moving <30px. */
   /*   Frequency cap: 2 showcase moments per project per session.      */
   /*   Skipped: on mobile, while chased/hidden/already-showcasing.     */
   useEffect(() => {
@@ -770,7 +770,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     }
   }, [transition])
 
-  /* ── Grab / Throw input wiring (patch v1.4) ────────────────────── */
+  /* -- Grab / Throw input wiring (patch v1.4) ---------------------- */
   /* mousedown on Character.jsx calls enterGrab. Release: window        */
   /* mouseup + pointerup (same handler) so the drop always runs.        */
   const enterGrab = useCallback(({ clientX, clientY }) => {
@@ -811,7 +811,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     }
   }, [])
 
-  /** Force a full grab → thrown → running_away sequence (debug). */
+  /** Force a full grab -> thrown -> running_away sequence (debug). */
   // Synthesizes a grab at the current cursor position, then dispatches
   // a real `mouseup` after ~600ms so the natural release path runs.
   const forceGrab = useCallback(() => {
@@ -880,7 +880,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
       peek_reveal: ['peeking', {}],
       stretch: ['stretching', {}],
       contemplation: ['contemplating', {}],
-      // Beverage drives the 3-sprite coffee cycle (coffee_hold → sip →
+      // Beverage drives the 3-sprite coffee cycle (coffee_hold -> sip ->
       // sipoff) from tickActivity; the inline-SVG mug is retired.
       beverage: ['coffee_hold', {}],
     }

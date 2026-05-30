@@ -40,7 +40,7 @@ function CompetitorImage({ src, alt, href, label }) {
           className="font-[family-name:var(--font-mono)] text-[12px] text-[#EC613B] transition-transform duration-200 group-hover:translate-x-0.5"
           aria-hidden
         >
-          {'↗'}
+          {'\u2197'}
         </span>
       </div>
     </a>

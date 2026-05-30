@@ -17,7 +17,7 @@ export default function Results() {
           className="w-full rounded-xl border border-white/[0.08]"
         />
         <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-          <span className="text-[#A5B4FC]">Saving challenge</span> · completing a suggestion fires confetti for the whole board
+          <span className="text-[#A5B4FC]">Saving challenge</span> &#xB7; completing a suggestion fires confetti for the whole board
         </figcaption>
       </figure>
     </section>

@@ -2,10 +2,10 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 /**
- * CharacterBubble — speech bubble anchored to the character.
+ * CharacterBubble - speech bubble anchored to the character.
  *
  * The bubble is a FIXED width (BUBBLE_WIDTH) so it never resizes between
- * quips — every bubble is the same shape, and there is no measure-then-
+ * quips - every bubble is the same shape, and there is no measure-then-
  * resize jump on first paint. Only the height is measured, and only to
  * decide whether the bubble sits above or below the character.
  *
@@ -26,7 +26,7 @@ export default function CharacterBubble({
   text, id, charX, charY, charWidth, charHeight,
 }) {
   const bubbleRef = useRef(null)
-  // Only the height is dynamic — the width is fixed.
+  // Only the height is dynamic - the width is fixed.
   const [boxH, setBoxH] = useState(56)
 
   useLayoutEffect(() => {
@@ -54,7 +54,7 @@ export default function CharacterBubble({
     placement = 'below'
   }
 
-  // Horizontal clamp — keep the whole bubble on-screen.
+  // Horizontal clamp - keep the whole bubble on-screen.
   const maxX = Math.max(VIEWPORT_PAD, vw - BUBBLE_WIDTH - VIEWPORT_PAD)
   if (bubbleX < VIEWPORT_PAD) bubbleX = VIEWPORT_PAD
   if (bubbleX > maxX) bubbleX = maxX
@@ -101,7 +101,7 @@ export default function CharacterBubble({
 }
 
 /* -----------------------------------------------------------------------
-   BubbleTail — pixel-art stair-step triangle. shape-rendering="crispEdges"
+   BubbleTail - pixel-art stair-step triangle. shape-rendering="crispEdges"
    disables anti-aliasing so the rects sit on the pixel grid like the
    sprite. Flipped vertically when the bubble drops below the character.
    ----------------------------------------------------------------------- */

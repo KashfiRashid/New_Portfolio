@@ -45,7 +45,7 @@ export default function Results() {
           />
         </div>
         <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-          <span className="text-[#9268E0]">Demo</span> · full walkthrough · final critique cut · Fall 2025
+          <span className="text-[#9268E0]">Demo</span> &#xB7; full walkthrough &#xB7; final critique cut &#xB7; Fall 2025
         </figcaption>
       </figure>
 
@@ -60,7 +60,7 @@ export default function Results() {
             />
           </div>
           <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-            <span className="text-[#9268E0]">Figure 6</span> · demo station, SIAT Fall 2025 showcase
+            <span className="text-[#9268E0]">Figure 6</span> &#xB7; demo station, SIAT Fall 2025 showcase
           </figcaption>
         </figure>
         <figure className="space-y-3">
@@ -73,7 +73,7 @@ export default function Results() {
             />
           </div>
           <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-            <span className="text-[#9268E0]">Figure 7</span> · printed comic posters
+            <span className="text-[#9268E0]">Figure 7</span> &#xB7; printed comic posters
           </figcaption>
         </figure>
       </div>
@@ -83,7 +83,7 @@ export default function Results() {
         src="/something-lurking/fig-art-collage.png"
         alt="The full 3D asset collage from the project report."
         label="Figure 5"
-        caption="The full art set Eric modeled · seven scaled environments · armband · escape pod · astronaut"
+        caption="The full art set Eric modeled \u00b7 seven scaled environments \u00b7 armband \u00b7 escape pod \u00b7 astronaut"
       />
     </section>
   )

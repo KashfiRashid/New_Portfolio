@@ -2,15 +2,15 @@ import { MetaBlock, LinkButton } from '../primitives.jsx'
 
 const LINKS = [
   {
-    label: 'SFU Showcase ↗',
+    label: 'SFU Showcase \u2197',
     href: 'https://www.sfu.ca/siat/showcase/fall-2025-project-showcase/iat-445-something-lurking.html',
   },
   {
-    label: 'LinkedIn post ↗',
+    label: 'LinkedIn post \u2197',
     href: 'https://www.linkedin.com/posts/kashfi-rashid_vr-dedication-siat-ugcPost-7422011407979798528-gaOW/',
   },
   {
-    label: 'Comic PDF ↗',
+    label: 'Comic PDF \u2197',
     href: 'https://www.sfu.ca/content/dam/sfu/siat/Showcase/2025-Fall/IAT-445-Something-Lurking/Something_Lurking_Comic.pdf',
   },
 ]
@@ -33,17 +33,17 @@ export default function Hero() {
 
         <img
           src="/something-lurking/poster.png"
-          alt="Something Lurking comic poster — an astronaut in a green-smeared helmet against a dark starfield, with the title set above."
+          alt="Something Lurking comic poster \u2014 an astronaut in a green-smeared helmet against a dark starfield, with the title set above."
           loading="eager"
           className="w-full rounded-xl border border-white/[0.08]"
         />
 
         <MetaBlock
           rows={[
-            { label: 'Team', value: 'Eric Cheng Li · Kento Weil · Michael Kim · Md Kashfi Or Rashid Pranta' },
-            { label: 'My roles', value: 'Story arc · Design philosophy · Sound · Iteration' },
-            { label: 'Stack', value: 'Unity · Blender · Audacity · Eleven Labs · XR Toolkit' },
-            { label: 'Context', value: 'Immersive Environments · SFU SIAT · Fall 2025' },
+            { label: 'Team', value: 'Eric Cheng Li \u00b7 Kento Weil \u00b7 Michael Kim \u00b7 Md Kashfi Or Rashid Pranta' },
+            { label: 'My roles', value: 'Story arc \u00b7 Design philosophy \u00b7 Sound \u00b7 Iteration' },
+            { label: 'Stack', value: 'Unity \u00b7 Blender \u00b7 Audacity \u00b7 Eleven Labs \u00b7 XR Toolkit' },
+            { label: 'Context', value: 'Immersive Environments \u00b7 SFU SIAT \u00b7 Fall 2025' },
           ]}
         />
 

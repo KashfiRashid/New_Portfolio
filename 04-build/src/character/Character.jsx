@@ -8,7 +8,7 @@ import { PROJECT_VANISH_DURATION, PROJECT_VANISH_FRAME_COUNT } from './states.js
 import './vanishEffect.css'
 
 /**
- * Character — main rendered component.
+ * Character - main rendered component.
  * Per character-spec-v2-pixel.md + character-spec.md + patches:
  *   - Viewport-fixed sprite wrapper, whole-pixel positioning
  *   - z-index 48 at rest (above most page content); 60 while grab/throw
@@ -37,12 +37,12 @@ const TRANSLATING_STATES = new Set([
   'grabbed', 'thrown', 'running_away',
 ])
 
-// patch v1.4 §"Input handling": states during which clicking the character
+// patch v1.4 Sec"Input handling": states during which clicking the character
 // MUST NOT start a grab. Mirrors GRAB_SUPPRESSION_LIST in CharacterContext.
 const GRAB_SUPPRESSION_LIST = new Set([
   'summoning_reel', 'watching_reel', 'taking_reel',
   'showcasing', 'chased', 'hiding',
-  // project_pinned: pinned to its corner on /projects/* — not grab-able.
+  // project_pinned: pinned to its corner on /projects/* - not grab-able.
   'project_pinned',
 ])
 
@@ -79,11 +79,11 @@ export default function Character() {
   const size = isMobile ? MOBILE_SIZE : DESKTOP_SIZE
   const reduceMotion = useReducedMotion()
 
-  // Project-teleport render bookkeeping — see the project-mode block below.
+  // Project-teleport render bookkeeping - see the project-mode block below.
   const prevProjectPhaseRef = useRef(null)
   const reappearStartRef = useRef(-Infinity)
 
-  // patch v1.4: grab eligibility — desktop only, not while a higher-priority
+  // patch v1.4: grab eligibility - desktop only, not while a higher-priority
   // moment owns the character.
   const grabbable = !isMobile && !GRAB_SUPPRESSION_LIST.has(state)
   const isGrabbed = state === 'grabbed'
@@ -100,7 +100,7 @@ export default function Character() {
     ? position.y - size
     : Math.round(position.y - size)
 
-  // On-screen clamp — the character never renders past EDGE_MARGIN of any
+  // On-screen clamp - the character never renders past EDGE_MARGIN of any
   // viewport edge. `entering` (walks in from off-screen) and `taking_reel`
   // (carries the reel off-screen) are exempt: they travel off by design.
   const EDGE_MARGIN = 36
@@ -110,12 +110,12 @@ export default function Character() {
     charLeft = Math.min(Math.max(charLeft, EDGE_MARGIN), maxLeft)
     charTop = Math.min(Math.max(charTop, EDGE_MARGIN), maxTop)
 
-    // Middle-screen barrier — an imaginary vertical wall down the
+    // Middle-screen barrier - an imaginary vertical wall down the
     // viewport centerline. The character can rest or wander on either
     // side, but its sprite is not allowed to cross the middle. If its
     // intended center is on the left of viewport center, the sprite
     // is held with its right edge at center; if on the right, with
-    // its left edge at center. Render-only constraint — the state
+    // its left edge at center. Render-only constraint - the state
     // machine, perches, and walking logic are unchanged.
     const middleCenter = window.innerWidth / 2
     const charCenter = charLeft + size / 2
@@ -138,14 +138,14 @@ export default function Character() {
   const offscreen = typeof window !== 'undefined'
     && (position.x < -size || position.x > window.innerWidth + size)
 
-  // Project-mode teleport — the Goku-style vanish. During a warp the normal
+  // Project-mode teleport - the Goku-style vanish. During a warp the normal
   // sprite is swapped for <VanishFrames>, which steps the vanish-N.png
   // frames across the warp (forward to vanish, reversed to reappear).
-  //   warping     — a warp_to_* phase is live: play the vanish forward.
-  //   reappearing — the destination phase (tr/bl) just began straight out
+  //   warping     - a warp_to_* phase is live: play the vanish forward.
+  //   reappearing - the destination phase (tr/bl) just began straight out
   //     of a warp: play the frames reversed for one PROJECT_VANISH_DURATION
   //     window. Derived from the phase transition during render (not via an
-  //     effect) so the vanish → reappear hand-off has no gap at the
+  //     effect) so the vanish -> reappear hand-off has no gap at the
   //     invisible teleport midpoint.
   const projectPhase = projectMode?.phase || null
   const warping =
@@ -184,16 +184,16 @@ export default function Character() {
   }, [projectPhase])
 
   // While the teleport frames play, the normal sprite is swapped out for
-  // <VanishFrames>. Reduced motion shows neither — the teleport snaps.
+  // <VanishFrames>. Reduced motion shows neither - the teleport snaps.
   const showVanishFrames = !reduceMotion && (warping || reappearing)
   const showSprite = visible && !offscreen && state !== 'inactive'
 
-  // willChange only during active translation (per main spec §11)
+  // willChange only during active translation (per main spec Sec11)
   const translating = TRANSLATING_STATES.has(state)
 
   return (
     <>
-      {/* Character wrapper — viewport-fixed, whole-pixel positioned */}
+      {/* Character wrapper - viewport-fixed, whole-pixel positioned */}
       <AnimatePresence>
         {showSprite && (
           <motion.div
@@ -225,7 +225,7 @@ export default function Character() {
                 : grabbable
                   ? 'grab'
                   : 'auto',
-              // Soft drop-shadow polish only while held — sells the lift.
+              // Soft drop-shadow polish only while held - sells the lift.
               filter: isGrabbed
                 ? 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))'
                 : 'none',
@@ -234,7 +234,7 @@ export default function Character() {
             aria-hidden="true"
           >
             {showVanishFrames ? (
-              /* Teleport — the full vanish effect (frames + glow + sparks)
+              /* Teleport - the full vanish effect (frames + glow + sparks)
                  plays in place of the normal sprite. Keyed per warp phase
                  so each vanish / reappear gets a fresh run. */
               <VanishEffect
@@ -276,7 +276,7 @@ export default function Character() {
         )}
       </AnimatePresence>
 
-      {/* Speech bubble anchored to character (patch v1.3 §C). */}
+      {/* Speech bubble anchored to character (patch v1.3 SecC). */}
       {showSprite && charBubble && (
         <CharacterBubble
           text={charBubble.text}
@@ -288,7 +288,7 @@ export default function Character() {
         />
       )}
 
-      {/* Mug overlay — separate sibling so it doesn't inherit scaleX or scale variant.
+      {/* Mug overlay - separate sibling so it doesn't inherit scaleX or scale variant.
           Positioned in viewport coords; mirrors with facing. */}
       {/* Coffee/beverage uses dedicated sprite art now (Coffee /
           sipping-coffee / sipping-off-coffee); the inline-SVG mug
@@ -307,14 +307,14 @@ export default function Character() {
 }
 
 /* -----------------------------------------------------------------------
-   GlowAccent — warm radial gradient pulse behind the sprite during
+   GlowAccent - warm radial gradient pulse behind the sprite during
    the `showcasing` state's flourish.
-   Per character-spec-patch-showcase.md §"Glow pulse".
+   Per character-spec-patch-showcase.md Sec"Glow pulse".
    ----------------------------------------------------------------------- */
 
 function GlowAccent({ size }) {
   const reduceMotion = useReducedMotion()
-  // Radius ~24px from spec; we scale with sprite (size/4 ≈ 24 for 96px).
+  // Radius ~24px from spec; we scale with sprite (size/4 ~= 24 for 96px).
   const radius = Math.round(size * 0.6)
   return (
     <motion.div
@@ -349,15 +349,15 @@ function GlowAccent({ size }) {
 }
 
 /* -----------------------------------------------------------------------
-   VanishEffect — the Goku teleport. Three layers, tied together:
-     1. Frame art — /public/character/vanish-1.png .. vanish-N.png, stepped
+   VanishEffect - the Goku teleport. Three layers, tied together:
+     1. Frame art - /public/character/vanish-1.png .. vanish-N.png, stepped
         across the warp (1..N to vanish, N..1 to reappear), and mirrored
-        (scaleX) to the character's facing — so a teleport to the top-right
+        (scaleX) to the character's facing - so a teleport to the top-right
         corner faces left, into the page.
-     2. CSS opacity + glow — the `goku-warp-*` class (vanishEffect.css)
+     2. CSS opacity + glow - the `goku-warp-*` class (vanishEffect.css)
         fades the frame out with a warming glow; the same keyframes
         reversed give the reappear.
-     3. Spark particles — <VanishParticles>, warm pixels drifting out (or
+     3. Spark particles - <VanishParticles>, warm pixels drifting out (or
         converging inward, on reappear).
    Rendered in place of the normal sprite during a warp.
    ----------------------------------------------------------------------- */
@@ -414,16 +414,16 @@ function VanishEffect({ reverse, facing, size, mobile }) {
           }}
         />
       </div>
-      {/* Spark particles — a sibling, so they keep their own fade curve. */}
+      {/* Spark particles - a sibling, so they keep their own fade curve. */}
       <VanishParticles reverse={reverse} count={mobile ? 6 : 12} />
     </>
   )
 }
 
 /* -----------------------------------------------------------------------
-   VanishParticles — warm pixel-art sparks layered over the teleport.
+   VanishParticles - warm pixel-art sparks layered over the teleport.
    `count` 4px squares scatter up + outward while fading (vanishEffect.css
-   → goku-particle). On reappear `reverse` runs the same animation
+   -> goku-particle). On reappear `reverse` runs the same animation
    backwards, so the sparks converge inward as the character re-forms.
    ----------------------------------------------------------------------- */
 

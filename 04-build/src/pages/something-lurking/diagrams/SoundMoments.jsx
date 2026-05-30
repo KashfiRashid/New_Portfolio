@@ -1,14 +1,14 @@
 /**
- * SoundMoments — a horizontal timeline showing the five sound beats
+ * SoundMoments - a horizontal timeline showing the five sound beats
  * that carry the story. Labels alternate above and below the timeline
  * so they never overlap. Color tells voice from environment.
  */
 
 const MONO = '"JetBrains Mono", "Geist Mono", ui-monospace, monospace'
-const SANS = 'Inter, "Söhne", system-ui, sans-serif'
+const SANS = 'Inter, "S\u00f6hne", system-ui, sans-serif'
 
 const MOMENTS = [
-  { t: 0.08, label: "Captain Harry's radio",       sub: 'friendly · routine', kind: 'voice', side: 'top' },
+  { t: 0.08, label: "Captain Harry's radio",       sub: 'friendly \u00b7 routine', kind: 'voice', side: 'top' },
   { t: 0.34, label: 'Radio cuts. Silence.',         sub: 'the descent begins',  kind: 'voice', side: 'bottom' },
   { t: 0.52, label: 'Footsteps in the unwalked corridor', sub: 'the presence implied', kind: 'env',   side: 'top' },
   { t: 0.78, label: 'Banging on the door',          sub: 'monster, off-frame',  kind: 'env',   side: 'bottom' },

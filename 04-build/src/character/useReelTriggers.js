@@ -1,17 +1,17 @@
 import { useEffect, useRef } from 'react'
 
 /**
- * useReelTriggers — three contextual reel detectors.
- * Per character-spec-patch-contextual-intelligence.md §A:
+ * useReelTriggers - three contextual reel detectors.
+ * Per character-spec-patch-contextual-intelligence.md SecA:
  *
- *   1. bottom-of-page    — visitor scrolled within 200px of doc bottom,
- *                          session ≥90s, fires AT MOST ONCE PER SESSION
- *   2. section-dwell     — 40s in same section with no click, fires AT
+ *   1. bottom-of-page    - visitor scrolled within 200px of doc bottom,
+ *                          session >=90s, fires AT MOST ONCE PER SESSION
+ *   2. section-dwell     - 40s in same section with no click, fires AT
  *                          MOST ONCE PER SECTION PER SESSION
- *   3. deep-idle         — 60s of no activity (mousemove/scroll/key/touch/
+ *   3. deep-idle         - 60s of no activity (mousemove/scroll/key/touch/
  *                          wheel/click), 3-minute cooldown between fires
  *
- * Returns nothing — fires via the injected `fire({ triggerType, section })`
+ * Returns nothing - fires via the injected `fire({ triggerType, section })`
  * callback. The parent (CharacterContext) chooses the reel clip and
  * transitions the state machine.
  *
@@ -20,11 +20,11 @@ import { useEffect, useRef } from 'react'
  * Deep-idle additionally defers when a bubble is active (priority 4 > 5).
  *
  * @param {object}   opts
- * @param {string}   opts.section        — current section key
- * @param {boolean}  opts.enabled        — gate (mobile + spawn + visibility)
- * @param {function} opts.getState       — () => current state name
- * @param {function} opts.isBubbleActive — () => boolean
- * @param {function} opts.fire           — ({ triggerType, section }) => void
+ * @param {string}   opts.section        - current section key
+ * @param {boolean}  opts.enabled        - gate (mobile + spawn + visibility)
+ * @param {function} opts.getState       - () => current state name
+ * @param {function} opts.isBubbleActive - () => boolean
+ * @param {function} opts.fire           - ({ triggerType, section }) => void
  */
 export function useReelTriggers({
   section,
@@ -68,10 +68,10 @@ export function useReelTriggers({
     return true
   }
 
-  /* ── Trigger 1: bottom-of-page ──────────────────────────────────── */
+  /* -- Trigger 1: bottom-of-page ------------------------------------ */
   // The handler reads `document.documentElement.scrollHeight`, which
   // is a layout-forcing property. Scroll events can fire dozens of
-  // times per frame, so we coalesce through requestAnimationFrame —
+  // times per frame, so we coalesce through requestAnimationFrame -
   // at most one layout read per animation frame, regardless of event
   // density. The early-exit on `bottomFiredRef` still applies: once
   // the bottom trigger has fired, both onScroll and the scheduled
@@ -116,7 +116,7 @@ export function useReelTriggers({
     }
   }, [])
 
-  /* ── Trigger 2: section dwell ───────────────────────────────────── */
+  /* -- Trigger 2: section dwell ------------------------------------- */
   useEffect(() => {
     if (typeof document === 'undefined') return
     if (!section) return
@@ -146,7 +146,7 @@ export function useReelTriggers({
     }
   }, [section])
 
-  /* ── Trigger 3: deep idle ───────────────────────────────────────── */
+  /* -- Trigger 3: deep idle ----------------------------------------- */
   useEffect(() => {
     if (typeof window === 'undefined') return
 

@@ -1,8 +1,8 @@
 /**
- * Exhibit 05 — Motion.
+ * Exhibit 05 - Motion.
  *
  * The Open Ground easing curves and duration tiers, recreated live.
- * Each curve row is a hover-to-play demo — the dot slides on the real
+ * Each curve row is a hover-to-play demo - the dot slides on the real
  * timing function, no JavaScript needed (pure CSS group-hover).
  */
 import { ExhibitBlock, PanelHeader } from './primitives.jsx'

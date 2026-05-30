@@ -5,10 +5,10 @@ import { useCompanion } from '../companion/CompanionContext.jsx'
 import Reveal from '../components/Reveal.jsx'
 
 /**
- * <ProjectPage /> — individual project page (e.g. /work/blu)
+ * <ProjectPage /> - individual project page (e.g. /work/blu)
  * Per /02-wireframes/05-work.md "/work/<slug>" section.
  *
- * Stub for v1 — content per project lands as Kash writes it.
+ * Stub for v1 - content per project lands as Kash writes it.
  * Sections (consistent across all 6):
  *   1. Title + meta row
  *   2. Hero
@@ -30,8 +30,8 @@ export default function ProjectPage() {
     <div className="section-page">
       <Reveal>
         <nav className="breadcrumb mb-12" aria-label="breadcrumb">
-          <Link to="/work" className="hover:text-text-primary transition-colors duration-250">← work</Link>
-          <span className="text-text-faint">·</span>
+          <Link to="/work" className="hover:text-text-primary transition-colors duration-250">&#x2190; work</Link>
+          <span className="text-text-faint">&#xB7;</span>
           <span className="text-text-faint">{slug}</span>
         </nav>
       </Reveal>
@@ -51,8 +51,8 @@ export default function ProjectPage() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          {/* [NEEDS KASH INPUT — meta row per project: year · role · collaborators] */}
-          year · role · with [collaborator]
+          {/* [NEEDS KASH INPUT - meta row per project: year - role - collaborators] */}
+          year &#xB7; role &#xB7; with [collaborator]
         </motion.p>
       </header>
 
@@ -63,14 +63,14 @@ export default function ProjectPage() {
         </div>
       </Reveal>
 
-      {/* Sections — placeholder for content */}
+      {/* Sections - placeholder for content */}
       <article className="space-y-12 text-text-primary leading-relaxed">
 
         <Reveal>
           <section>
             <h2 className="text-display-md font-display mb-3">The brief in one paragraph</h2>
             <p className="text-text-muted max-w-prose">
-              [NEEDS KASH INPUT — paragraph: what the project was, why it existed, who it was for.
+              [NEEDS KASH INPUT &#x2014; paragraph: what the project was, why it existed, who it was for.
               Inline credits at the bottom.]
             </p>
           </section>
@@ -80,7 +80,7 @@ export default function ProjectPage() {
           <section>
             <h2 className="text-display-md font-display mb-3">The moment that mattered</h2>
             <p className="text-text-muted max-w-prose">
-              [NEEDS KASH INPUT — the specific moment. for BLU: 0:42 sound. for BC Connect: a particular interaction.]
+              [NEEDS KASH INPUT &#x2014; the specific moment. for BLU: 0:42 sound. for BC Connect: a particular interaction.]
             </p>
           </section>
         </Reveal>
@@ -89,7 +89,7 @@ export default function ProjectPage() {
           <section>
             <h2 className="text-display-md font-display mb-3">What I changed</h2>
             <p className="text-text-muted max-w-prose">
-              [NEEDS KASH INPUT — iterations, trade-offs, decisions. notebook tone.]
+              [NEEDS KASH INPUT &#x2014; iterations, trade-offs, decisions. notebook tone.]
             </p>
           </section>
         </Reveal>
@@ -98,7 +98,7 @@ export default function ProjectPage() {
           <section>
             <h2 className="text-display-md font-display mb-3">What this taught me</h2>
             <p className="text-text-muted max-w-prose">
-              [NEEDS KASH INPUT — 1-2 sentences, voice-anchored.]
+              [NEEDS KASH INPUT &#x2014; 1-2 sentences, voice-anchored.]
             </p>
             <p className="text-text-faint text-sm mt-3">
               See also: <Link to="/voice" className="hover:text-text-primary underline-offset-4 hover:underline">opinion in /voice</Link>
@@ -111,7 +111,7 @@ export default function ProjectPage() {
       <Reveal delay={0.2}>
         <div className="mt-16 pt-8 border-t border-surface-raised">
           <Link to="/work" className="text-text-muted hover:text-text-primary transition-colors duration-250">
-            ← all work
+            &#x2190; all work
           </Link>
         </div>
       </Reveal>

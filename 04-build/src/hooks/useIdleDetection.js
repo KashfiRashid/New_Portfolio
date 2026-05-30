@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 
 /**
- * useIdleDetection — fires continuously while the visitor is idle.
+ * useIdleDetection - fires continuously while the visitor is idle.
  *
  * Behavior:
  *   1. After `idleMs` (default 12s) of no activity, calls `onIdle()` for the first hit
@@ -14,12 +14,12 @@ import { useEffect, useRef, useState, useCallback } from 'react'
  * "Activity" = mousemove, scroll, keydown, touchstart, wheel.
  *
  * @param {object} options
- * @param {number}   options.idleMs      — ms of stillness before first idle (default 12000)
- * @param {number}   options.cycleMs     — ms between idle cycle ticks (default 8000)
- * @param {boolean}  options.enabled     — turn detection on/off
- * @param {function} options.onIdle      — first idle hit
- * @param {function} options.onIdleCycle — subsequent idle ticks
- * @param {function} options.onActivity  — any activity detected (dismiss signal)
+ * @param {number}   options.idleMs      - ms of stillness before first idle (default 12000)
+ * @param {number}   options.cycleMs     - ms between idle cycle ticks (default 8000)
+ * @param {boolean}  options.enabled     - turn detection on/off
+ * @param {function} options.onIdle      - first idle hit
+ * @param {function} options.onIdleCycle - subsequent idle ticks
+ * @param {function} options.onActivity  - any activity detected (dismiss signal)
  */
 export function useIdleDetection({
   idleMs = 12000,

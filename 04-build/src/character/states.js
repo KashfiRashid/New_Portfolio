@@ -1,10 +1,10 @@
 /**
- * Character state definitions — all 11 behavioral states.
+ * Character state definitions - all 11 behavioral states.
  * Per character-spec.md Section 3.
  *
- * Each state: { name, enter(ctx), tick(ctx, dt) → nextState|null, exit(ctx) }
+ * Each state: { name, enter(ctx), tick(ctx, dt) -> nextState|null, exit(ctx) }
  *
- * The `speaking` state is NOT here — it's an overlay handled by the bubble system.
+ * The `speaking` state is NOT here - it's an overlay handled by the bubble system.
  * Any state can speak; speaking doesn't block movement.
  */
 
@@ -13,13 +13,13 @@ import {
   getSettlePerch, farthestPerchFrom,
 } from './perches.js'
 
-/* ── Speeds (px/s) ─────────────────────────────────────────────────── */
+/* -- Speeds (px/s) --------------------------------------------------- */
 const WALK_SPEED = 80
 const CURIOUS_SPEED = 40
 const RUN_SPEED = 150
 const RUN_SPEED_MAX = 200
 
-/* ── Helpers ───────────────────────────────────────────────────────── */
+/* -- Helpers --------------------------------------------------------- */
 
 function moveToward(ctx, targetX, targetY, speed, dt) {
   const dx = targetX - ctx.position.x
@@ -50,7 +50,7 @@ function randomBetween(min, max) {
   return min + Math.random() * (max - min)
 }
 
-/* ── States ────────────────────────────────────────────────────────── */
+/* -- States ---------------------------------------------------------- */
 
 export const entering = {
   name: 'entering',
@@ -103,7 +103,7 @@ export const greeting = {
   exit() {},
 }
 
-/* ── Activity catalog (patch-activities.md) ────────────────────────── */
+/* -- Activity catalog (patch-activities.md) -------------------------- */
 
 const ACTIVITIES = [
   { name: 'laptop_session',  weight: 4, minDur: 10, maxDur: 15 },
@@ -113,7 +113,7 @@ const ACTIVITIES = [
   { name: 'beverage',        weight: 1, minDur: 4,  maxDur: 6 },
 ]
 
-/* patch v1.3 §B — activity intelligence.
+/* patch v1.3 SecB - activity intelligence.
  *
  * SEQUENCE_BONUSES: multiplier applied to the next pick based on what
  *   just finished. Reads like a script:
@@ -123,9 +123,9 @@ const ACTIVITIES = [
  *
  * SECTION_BIAS: multiplier based on the current section. Reads like
  *   character voice:
- *     reflective sections (home/voice/origin) → contemplation
- *     work-heavy sections (work/process)      → laptop_session
- *     people-heavy sections (people/HoF)      → beverage
+ *     reflective sections (home/voice/origin) -> contemplation
+ *     work-heavy sections (work/process)      -> laptop_session
+ *     people-heavy sections (people/HoF)      -> beverage
  */
 const SEQUENCE_BONUSES = {
   laptop_session: { stretch: 3,        beverage: 2 },
@@ -158,7 +158,7 @@ function pickActivity(ctx) {
     return true
   })
 
-  // patch v1.3 §B1 — no-repeat: don't pick the same activity twice in a row.
+  // patch v1.3 SecB1 - no-repeat: don't pick the same activity twice in a row.
   // Defensive fallback if filtering empties the pool.
   const last = ctx.lastActivity
   if (last) {
@@ -166,7 +166,7 @@ function pickActivity(ctx) {
     if (filtered.length > 0) valid = filtered
   }
 
-  // patch v1.3 §B2 + §B3 — effective weight = base × sequence bonus × section bias.
+  // patch v1.3 SecB2 + SecB3 - effective weight = base x sequence bonus x section bias.
   const bonuses = SEQUENCE_BONUSES[last] || {}
   const bias    = SECTION_BIAS[ctx.section] || {}
   const weighted = valid.map(a => ({
@@ -193,7 +193,7 @@ function pickActivity(ctx) {
   return { ...fallback, duration: randomBetween(fallback.minDur, fallback.maxDur) }
 }
 
-/** Map activity name → posture + props */
+/** Map activity name -> posture + props */
 function applyActivity(ctx, activity) {
   switch (activity.name) {
     case 'laptop_session':
@@ -203,7 +203,7 @@ function applyActivity(ctx, activity) {
     case 'peek_reveal':
       ctx.posture = 'peeking'
       ctx.activeProps = {}
-      ctx.stateData.peekPhase = 'hidden' // hidden → peeking → ducking
+      ctx.stateData.peekPhase = 'hidden' // hidden -> peeking -> ducking
       break
     case 'stretch':
       ctx.posture = 'stretching'
@@ -320,9 +320,9 @@ export const idling = {
       ctx.stateData.cursorNearTimer = 0
     }
 
-    // patch v1.3 §A2: pure-timer reel trigger removed.
+    // patch v1.3 SecA2: pure-timer reel trigger removed.
     // Reels now fire exclusively through useReelTriggers (bottom-of-page,
-    // section dwell, deep idle) — see CharacterContext.fireContextualReel.
+    // section dwell, deep idle) - see CharacterContext.fireContextualReel.
 
     // Wander trigger: random timer.
     // patch v1.3 cross-system: suppress wander while a bubble is reading,
@@ -333,7 +333,7 @@ export const idling = {
       return 'wandering'
     }
 
-    // ── ACTIVITY LAYER (patch-activities.md) ───────────────────
+    // -- ACTIVITY LAYER (patch-activities.md) -------------------
     if (!ctx.stateData.activeActivity) {
       ctx.stateData.nextActivityAt -= dt
       if (ctx.stateData.nextActivityAt <= 0) {
@@ -344,7 +344,7 @@ export const idling = {
           applyActivity(ctx, activity)
           console.log(`[CHARACTER] activity: ${activity.name} (${activity.duration.toFixed(1)}s)`)
         } else {
-          // No valid activity — retry later
+          // No valid activity - retry later
           ctx.stateData.nextActivityAt = randomBetween(8, 15)
         }
       }
@@ -377,17 +377,17 @@ export const wandering = {
   name: 'wandering',
 
   enter(ctx) {
-    // patch v1.3 §D2 — cursor-zone avoidance.
+    // patch v1.3 SecD2 - cursor-zone avoidance.
     // Don't pick a destination perch within 200px of the cursor. The
     // character should drift to "the other side of the room", not stroll
     // directly into the visitor's pointer. Also exclude the current perch
     // to guarantee movement. Safety: if every perch is too close to the
     // cursor (small viewport, dense layout), fall back to the full set
-    // minus the current perch — never starve.
+    // minus the current perch - never starve.
     const CURSOR_BUFFER = 200
     const currentId = ctx.stateData.currentPerchId
 
-    // Same-side constraint — the character must not walk across the
+    // Same-side constraint - the character must not walk across the
     // viewport's horizontal center during wandering. A destination
     // perch is only valid if it lies on the same side of center as
     // the character's current position. Perches at the centerline
@@ -415,7 +415,7 @@ export const wandering = {
     if (candidates.length > 0) {
       target = candidates[Math.floor(Math.random() * candidates.length)]
     } else {
-      // Same-side fallback — relax the cursor buffer but KEEP the
+      // Same-side fallback - relax the cursor buffer but KEEP the
       // side constraint, so the character never crosses center even
       // when its own side's perches happen to be crowded by the
       // cursor.
@@ -423,7 +423,7 @@ export const wandering = {
       if (sameSideOnly.length > 0) {
         target = sameSideOnly[Math.floor(Math.random() * sameSideOnly.length)]
       } else {
-        // Last-resort fallback — no same-side perch exists for this
+        // Last-resort fallback - no same-side perch exists for this
         // section (shouldn't happen for any defined perch set, but
         // defensive so target is always assigned).
         target = pickRandomPerch(ctx.perches, currentId)
@@ -440,7 +440,7 @@ export const wandering = {
   tick(ctx, dt) {
     const t = ctx.stateData.target
 
-    // patch v1.3 §A2: pure-timer reel trigger removed from wandering.
+    // patch v1.3 SecA2: pure-timer reel trigger removed from wandering.
 
     // Mid-walk pause
     if (!ctx.stateData.pauseDone) {
@@ -479,7 +479,7 @@ export const curious = {
   name: 'curious',
 
   enter(ctx) {
-    ctx.stateData.phase = 'approaching' // approaching → looking → deciding
+    ctx.stateData.phase = 'approaching' // approaching -> looking -> deciding
     ctx.stateData.lookTimer = 0
     ctx.posture = 'standing'
   },
@@ -487,7 +487,7 @@ export const curious = {
   tick(ctx, dt) {
     const dist = distanceBetween(ctx.position, ctx.cursorPos)
 
-    // If cursor moves toward character aggressively → chased
+    // If cursor moves toward character aggressively -> chased
     if (ctx.cursorSpeed > 600 && dist < 150 && ctx.cursorMovingToward) {
       return 'chased'
     }
@@ -569,7 +569,7 @@ export const chased = {
 
     ctx.stateData.walkTimer = (ctx.stateData.walkTimer || 0) + dt
     // Fast walk-a / walk-b alternation (0.15s) reads as a run. There is no
-    // separate run sprite — 'running' maps to walk-a exactly like 'walking1',
+    // separate run sprite - 'running' maps to walk-a exactly like 'walking1',
     // so the old 'running'/'walking1' pair never actually swapped frames and
     // a chase stayed locked on walk-a. walking1/walking2 alternates properly.
     ctx.posture = ctx.stateData.walkTimer % 0.3 < 0.15 ? 'walking1' : 'walking2'
@@ -605,7 +605,7 @@ export const hiding = {
       ctx.stateData.spokeBubble = true
     }
 
-    // patch v1.3 §A2: pure-timer reel trigger removed from hiding.
+    // patch v1.3 SecA2: pure-timer reel trigger removed from hiding.
     // The character emerges only when the hide duration expires; any
     // contextual reel trigger that fires during hiding will be gated
     // out by useReelTriggers' state-set guard.
@@ -630,7 +630,7 @@ export const summoning_reel = {
   enter(ctx) {
     const anchor = getReelAnchor(ctx.viewport.width, ctx.viewport.height)
     ctx.stateData.target = anchor
-    ctx.stateData.phase = 'walking' // walking → sitting → pausing → revealing
+    ctx.stateData.phase = 'walking' // walking -> sitting -> pausing -> revealing
     ctx.stateData.walkTimer = 0
   },
 
@@ -714,7 +714,7 @@ export const taking_reel = {
   name: 'taking_reel',
 
   enter(ctx) {
-    ctx.stateData.phase = 'standing' // standing → carrying → gone
+    ctx.stateData.phase = 'standing' // standing -> carrying -> gone
     ctx.stateData.phaseTimer = 0
     ctx.stateData.walkTimer = 0
 
@@ -771,7 +771,7 @@ export const taking_reel = {
   },
 }
 
-/* ── Showcasing state (patch-showcase.md) ──────────────────────────── */
+/* -- Showcasing state (patch-showcase.md) ---------------------------- */
 
 export const showcasing = {
   name: 'showcasing',
@@ -793,7 +793,7 @@ export const showcasing = {
     ctx.stateData.walkTimer = 0
     ctx.posture = 'standing'
 
-    // Reduced-motion adaptation per patch §"Mobile + reduced-motion":
+    // Reduced-motion adaptation per patch Sec"Mobile + reduced-motion":
     //   appear at perch instantly, glow pulses once, skip approach.
     const reducedMotion = typeof window !== 'undefined'
       && window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -838,7 +838,7 @@ export const showcasing = {
     }
 
     if (phase === 'flourish') {
-      // Posture stays 'standing' — wrapper variant in Character.jsx
+      // Posture stays 'standing' - wrapper variant in Character.jsx
       // drives the visual hop+scale, and GlowAccent renders the pulse.
       ctx.posture = 'showcasing'
       if (t >= 0.8) {
@@ -877,9 +877,9 @@ export const showcasing = {
   },
 }
 
-/* ── Grab / Throw / Run-away (patch-grab-and-throw.md v1.4) ────────── */
+/* -- Grab / Throw / Run-away (patch-grab-and-throw.md v1.4) ---------- */
 
-// Sway physics constants — tuned per patch §"Sway physics".
+// Sway physics constants - tuned per patch Sec"Sway physics".
 const SPRING_STRENGTH = 0.15
 const SPRING_DAMPING  = 0.75
 const ROT_FACTOR      = 0.3
@@ -896,10 +896,10 @@ const ROT_DAMPING     = 0.80
 const HANG_OFFSET_Y   = 84
 
 // Thrown momentum constants.
-const THROWN_DURATION = 0.3   // seconds — ~300ms inertia per patch
+const THROWN_DURATION = 0.3   // seconds - ~300ms inertia per patch
 const THROWN_DECAY    = 0.85  // per-frame velocity decay
 
-// Running-away — 2× normal walk speed per patch.
+// Running-away - 2x normal walk speed per patch.
 const RUN_AWAY_SPEED  = WALK_SPEED * 2
 
 function clamp(v, lo, hi) {
@@ -933,7 +933,7 @@ export const grabbed = {
       ctx.position.y = ctx.cursorPos.y + HANG_OFFSET_Y
       ctx.swayRotation = 0
     } else {
-      // Position spring — catches up to cursor over a couple of frames.
+      // Position spring - catches up to cursor over a couple of frames.
       // Feet hang HANG_OFFSET_Y below the cursor so the head sits at the
       // cursor (rotation pivot = "where you're holding it").
       const targetX = ctx.cursorPos.x
@@ -945,7 +945,7 @@ export const grabbed = {
       ctx.position.x += ctx.swayVelocityX
       ctx.position.y += ctx.swayVelocityY
 
-      // Rotation pendulum — lags cursor horizontal velocity.
+      // Rotation pendulum - lags cursor horizontal velocity.
       const cursorVelX = ctx.cursorPos.x - ctx.stateData.prevCursorX
       const targetRot = clamp(-cursorVelX * ROT_FACTOR, -30, 30)
       ctx.swayRotationVelocity += (targetRot - ctx.swayRotation) * ROT_SPRING
@@ -954,7 +954,7 @@ export const grabbed = {
     }
     ctx.stateData.prevCursorX = ctx.cursorPos.x
 
-    // Viewport clamp — the character can't be dragged off-screen.
+    // Viewport clamp - the character can't be dragged off-screen.
     // `position.y` is feet, so the minimum is `size` (full sprite visible
     // from the top edge). 96 is the desktop sprite size; grab is mobile-off.
     const halfW = 48
@@ -962,7 +962,7 @@ export const grabbed = {
     ctx.position.x = clamp(ctx.position.x, halfW, ctx.viewport.width - halfW)
     ctx.position.y = clamp(ctx.position.y, spriteH, ctx.viewport.height - 4)
 
-    // No auto-transition — `mouseup` listener in CharacterContext
+    // No auto-transition - `mouseup` listener in CharacterContext
     // captures release velocity and transitions to 'thrown'.
     return null
   },
@@ -997,7 +997,7 @@ export const thrown = {
     const t = Math.min(1, ctx.elapsed / THROWN_DURATION)
     ctx.swayRotation = (ctx.releaseRotation || 0) * (1 - t)
 
-    // Viewport clamp — release can fling past edges; keep on-screen.
+    // Viewport clamp - release can fling past edges; keep on-screen.
     const halfW = 48
     const spriteH = 96
     ctx.position.x = clamp(ctx.position.x, halfW, ctx.viewport.width - halfW)
@@ -1040,14 +1040,14 @@ export const running_away = {
     if (!t) return 'idling'
 
     if (reducedMotionActive()) {
-      // No sprite alternation, no animated walk — snap to destination.
+      // No sprite alternation, no animated walk - snap to destination.
       ctx.position.x = t.x
       ctx.position.y = t.y
       ctx.stateData.currentPerchId = t.id
       return 'idling'
     }
 
-    // 150ms posture swap → 0.15s; 0.3s full cycle for walk-a/walk-b.
+    // 150ms posture swap -> 0.15s; 0.3s full cycle for walk-a/walk-b.
     ctx.stateData.walkTimer = (ctx.stateData.walkTimer || 0) + dt
     ctx.posture = ctx.stateData.walkTimer % 0.3 < 0.15
       ? 'walking1'
@@ -1066,7 +1066,7 @@ export const running_away = {
   },
 }
 
-/* ── Project-page pinned mode ───────────────────────────────────────────
+/* -- Project-page pinned mode -------------------------------------------
  *
  * On /projects/* the character stops being autonomous. It sits pinned in
  * the bottom-left corner. Every TRIP_MIN..TRIP_MAX seconds it does a
@@ -1075,14 +1075,14 @@ export const running_away = {
  * showcase are all suppressed in this mode (wired in CharacterContext).
  *
  * Phases (ctx.stateData.project.phase):
- *   'bl'         — pinned bottom-left, counting toward the next trip
- *   'warp_to_tr' — vanish effect playing; teleports to top-right at the end
- *   'tr'         — pinned top-right, waiting for a hover
- *   'warp_to_bl' — vanish effect playing; teleports to bottom-left at the end
+ *   'bl'         - pinned bottom-left, counting toward the next trip
+ *   'warp_to_tr' - vanish effect playing; teleports to top-right at the end
+ *   'tr'         - pinned top-right, waiting for a hover
+ *   'warp_to_bl' - vanish effect playing; teleports to bottom-left at the end
  *
  * The Goku-style vanish is played by Character.jsx: a sequence of frame
  * images (/public/character/vanish-1.png .. vanish-N.png) stepped across
- * the warp — forward to vanish, reversed (N..1) to reappear. This state
+ * the warp - forward to vanish, reversed (N..1) to reappear. This state
  * only owns the timing and the teleport itself. Reduced motion collapses
  * the warp to instant.
  */
@@ -1090,12 +1090,12 @@ export const running_away = {
 // PROJECT_VANISH_DURATION is the length of ONE warp phase = the vanish half
 // of the teleport. The reappear runs for the same span at the start of the
 // destination phase, so the full teleport reads as roughly 2x this.
-export const PROJECT_VANISH_DURATION = 0.5 // seconds — the vanish half
+export const PROJECT_VANISH_DURATION = 0.5 // seconds - the vanish half
 // Number of vanish-N.png frames in /public/character/. Stepped across the
 // warp; reversed for the reappear.
 export const PROJECT_VANISH_FRAME_COUNT = 4
 
-// DEV — vanish-effect tuning (Phases B-E): the teleport auto-fires every
+// DEV - vanish-effect tuning (Phases B-E): the teleport auto-fires every
 // few seconds so the effect can be iterated on autoplay. RESTORE to 32 / 60
 // in Phase F, before this ships.
 const PROJECT_TRIP_MIN = 3 // seconds pinned before an auto-trip  [DEV: was 32]
@@ -1133,13 +1133,13 @@ export const project_pinned = {
 
   tick(ctx, dt) {
     const proj = ctx.stateData.project
-    if (!proj) return 'idling' // defensive — should never happen
+    if (!proj) return 'idling' // defensive - should never happen
     const corners = projectCorners(ctx)
     // Reduced motion collapses the warp to a single tick (instant jump).
     const dur = reducedMotionActive() ? 0 : PROJECT_VANISH_DURATION
 
     if (proj.phase === 'bl') {
-      // Stay pinned — re-assert every frame so a viewport resize tracks.
+      // Stay pinned - re-assert every frame so a viewport resize tracks.
       ctx.position.x = corners.bl.x
       ctx.position.y = corners.bl.y
       ctx.facing = 'right'
@@ -1204,7 +1204,7 @@ export const project_pinned = {
   },
 }
 
-/* ── Export map ─────────────────────────────────────────────────────── */
+/* -- Export map ------------------------------------------------------- */
 
 const ALL_STATES = {
   entering, greeting, idling, wandering, curious,

@@ -1,24 +1,24 @@
 /**
- * Exhibit 09 — Cards.
+ * Exhibit 09 - Cards.
  *
  * The Open Ground content units, recreated live inside a white ExhibitPanel.
  * JobIllustration and JobCard are ported verbatim from the shipped
- * frontend/components/job-card.tsx (TypeScript → JSX) — the seven inline
+ * frontend/components/job-card.tsx (TypeScript -> JSX) - the seven inline
  * SVG illustrations are the exact product source, not approximations.
  * Stat cards and the empty state follow the style guide.
  */
 import { ExhibitBlock, PanelHeader } from './primitives.jsx'
 
-/* Sample jobs — exact data from frontend/components/jobs-section.tsx,
+/* Sample jobs - exact data from frontend/components/jobs-section.tsx,
    one per industry so all seven illustrations are on show. */
 const JOBS = [
-  { title: 'Senior ML Engineer', company: 'Rainforest AI', city: 'Vancouver', region: 'Mainland/Southwest', type: 'Full-time', salary: '$140k–$180k', industry: 'Technology', initialColor: '#3568B2', gradientFrom: '#EFF2FA', gradientTo: '#c9d4ed', posted: '2 days ago' },
-  { title: 'Product Designer', company: 'Tidal Works', city: 'Victoria', region: 'Vancouver Island/Coast', type: 'Full-time', salary: '$95k–$120k', industry: 'Clean Energy', initialColor: '#1B6B4F', gradientFrom: '#E6F3EE', gradientTo: '#b8d4c6', posted: '4 days ago' },
+  { title: 'Senior ML Engineer', company: 'Rainforest AI', city: 'Vancouver', region: 'Mainland/Southwest', type: 'Full-time', salary: '$140k\u2013$180k', industry: 'Technology', initialColor: '#3568B2', gradientFrom: '#EFF2FA', gradientTo: '#c9d4ed', posted: '2 days ago' },
+  { title: 'Product Designer', company: 'Tidal Works', city: 'Victoria', region: 'Vancouver Island/Coast', type: 'Full-time', salary: '$95k\u2013$120k', industry: 'Clean Energy', initialColor: '#1B6B4F', gradientFrom: '#E6F3EE', gradientTo: '#b8d4c6', posted: '4 days ago' },
   { title: 'Full-Stack Developer', company: 'Orca Health', city: 'Remote', region: 'BC', type: 'Remote', salary: '$80/hr', industry: 'Health & Life', initialColor: '#C07A28', gradientFrom: '#FDF4EB', gradientTo: '#edd0ab', posted: '1 week ago' },
-  { title: 'Growth Marketer', company: 'Canopy Studios', city: 'Burnaby', region: 'Mainland/Southwest', type: 'Full-time', salary: '$75k–$95k', industry: 'Media', initialColor: '#9B4D83', gradientFrom: '#F8EEF5', gradientTo: '#ddc0d5', posted: '3 days ago' },
-  { title: 'AgriTech Operations Lead', company: 'Harvest Robotics', city: 'Kelowna', region: 'Thompson-Okanagan', type: 'Full-time', salary: '$85k–$110k', industry: 'Agriculture', initialColor: '#4D7C2A', gradientFrom: '#EEF5E6', gradientTo: '#c8dbb5', posted: '5 days ago' },
+  { title: 'Growth Marketer', company: 'Canopy Studios', city: 'Burnaby', region: 'Mainland/Southwest', type: 'Full-time', salary: '$75k\u2013$95k', industry: 'Media', initialColor: '#9B4D83', gradientFrom: '#F8EEF5', gradientTo: '#ddc0d5', posted: '3 days ago' },
+  { title: 'AgriTech Operations Lead', company: 'Harvest Robotics', city: 'Kelowna', region: 'Thompson-Okanagan', type: 'Full-time', salary: '$85k\u2013$110k', industry: 'Agriculture', initialColor: '#4D7C2A', gradientFrom: '#EEF5E6', gradientTo: '#c8dbb5', posted: '5 days ago' },
   { title: 'Supply Chain Analyst', company: 'Pacific Ledger', city: 'Vancouver', region: 'Mainland/Southwest', type: 'Contract', salary: '$65/hr', industry: 'Professional Services', initialColor: '#4B5162', gradientFrom: '#F3F4F6', gradientTo: '#d1d5db', posted: '1 day ago' },
-  { title: 'Robotics Software Engineer', company: 'Northern Forge', city: 'Prince George', region: 'Nechako', type: 'Full-time', salary: '$110k–$145k', industry: 'Manufacturing', initialColor: '#92700C', gradientFrom: '#FEF8E7', gradientTo: '#ecdaab', posted: '6 days ago' },
+  { title: 'Robotics Software Engineer', company: 'Northern Forge', city: 'Prince George', region: 'Nechako', type: 'Full-time', salary: '$110k\u2013$145k', industry: 'Manufacturing', initialColor: '#92700C', gradientFrom: '#FEF8E7', gradientTo: '#ecdaab', posted: '6 days ago' },
 ]
 
 const STATS = [
@@ -27,7 +27,7 @@ const STATS = [
   { label: 'Open Roles', value: '1,203', delta: '+8% this month' },
 ]
 
-/* Industry tag colors — from frontend/components/industry-tag.tsx */
+/* Industry tag colors - from frontend/components/industry-tag.tsx */
 const TAG = {
   Technology: { bg: '#EFF2FA', text: '#3568B2' },
   'Clean Energy': { bg: '#E6F3EE', text: '#1B6B4F' },
@@ -38,7 +38,7 @@ const TAG = {
   'Professional Services': { bg: '#F3F4F6', text: '#4B5162' },
 }
 
-/* Type badge colors — from job-card.tsx typeColors */
+/* Type badge colors - from job-card.tsx typeColors */
 const TYPE = {
   'Full-time': { bg: 'rgba(27,107,79,0.1)', text: '#1B6B4F' },
   Contract: { bg: 'rgba(53,104,178,0.1)', text: '#3568B2' },
@@ -46,7 +46,7 @@ const TYPE = {
   'Part-time': { bg: 'rgba(192,122,40,0.1)', text: '#C07A28' },
 }
 
-/* ─── Inline industry illustration — verbatim from job-card.tsx ─── */
+/* --- Inline industry illustration - verbatim from job-card.tsx --- */
 function JobIllustration({ industry, color }) {
   const norm = industry.toLowerCase()
 

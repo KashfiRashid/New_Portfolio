@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 
-// Us Among AI primitives — same component shapes as the other case
+// Us Among AI primitives - same component shapes as the other case
 // studies so all the case studies render as siblings. Signal color is
-// #3DE8B0 (neon mint — reads as a system terminal "online" glow).
+// #3DE8B0 (neon mint - reads as a system terminal "online" glow).
 
 export const US_AMONG_AI_NAV = [
   { id: 'overview', label: 'Overview' },
@@ -104,7 +104,7 @@ export function Highlight({ children, className = '' }) {
 }
 
 /**
- * AssetPlaceholder — a dashed slot for a real screenshot. Drop the file
+ * AssetPlaceholder - a dashed slot for a real screenshot. Drop the file
  * in /public/us-among-ai/ with the filename shown, then swap this for an
  * <img src="/us-among-ai/FILENAME" />.
  */

@@ -8,25 +8,25 @@ import {
 } from '../primitives.jsx'
 
 /**
- * Door — Block 4, "near the door".
+ * Door - Block 4, "near the door".
  *
- * REVISION 4 — captions rewritten with Kash's own labels. Voice rule
+ * REVISION 4 - captions rewritten with Kash's own labels. Voice rule
  * holds: lowercase by default, sentence case for proper nouns (place
  * names, event names, organization names, people's names).
  *
  * Caption map (8 confirmed by Kash + 2 kept from prior pass):
- *   portrait.jpg       — Lake Louise, solo travel
- *   troy.jpg           — Troy
- *   me-at-IT-Squad.jpg — IT Squad, managing term with Rodrigo
- *   my-buddies.jpg     — buddies
- *   all-friends.jpg    — SFU hangout buddies
- *   photo-football     — SFU football
- *   photo-hackathons   — Journey Hack 2024
- *   photo-community    — BSA SFU Eid gala
- *   photo-extra        — paintball with Subvision team
- *   photo-hiking       — hiking at Des Vistas with friends
+ *   portrait.jpg       - Lake Louise, solo travel
+ *   troy.jpg           - Troy
+ *   me-at-IT-Squad.jpg - IT Squad, managing term with Rodrigo
+ *   my-buddies.jpg     - buddies
+ *   all-friends.jpg    - SFU hangout buddies
+ *   photo-football     - SFU football
+ *   photo-hackathons   - Journey Hack 2024
+ *   photo-community    - BSA SFU Eid gala
+ *   photo-extra        - paintball with Subvision team
+ *   photo-hiking       - hiking at Des Vistas with friends
  *
- * Layout unchanged from rev 3 — 12-col bento, paired portraits, mixed
+ * Layout unchanged from rev 3 - 12-col bento, paired portraits, mixed
  * mid-row spans, full-width statements top + bottom. Photos at natural
  * aspect; no cropping.
  */
@@ -40,7 +40,7 @@ export default function Door() {
           Football, both sides. I watch Bangladeshi diaspora football the way
           other people watch the Premier League. The Sullivan twins. Farhaan
           Ali Wahid. The BFF eligibility paperwork is, at this point, a
-          hobby. I play casually — rec league, pickup.
+          hobby. I play casually &#x2014; rec league, pickup.
         </BodyText>
 
         <BodyText className="mb-4">
@@ -50,7 +50,7 @@ export default function Door() {
 
         <CopyPlaceholder
           targetWords="one sentence"
-          note='Quiet heritage line. Pick one — PNE BBQ in the summer, the Bangla phrase that appears in the footer, something else. One sentence, no essay.'
+          note='Quiet heritage line. Pick one \u2014 PNE BBQ in the summer, the Bangla phrase that appears in the footer, something else. One sentence, no essay.'
         />
       </BlockShell>
 
@@ -84,7 +84,7 @@ function PhotoBento() {
 }
 
 /**
- * PhotoCell — print-framed photo + italic caption.
+ * PhotoCell - print-framed photo + italic caption.
  */
 function PhotoCell({ src, alt, caption, spanClass = '' }) {
   return (

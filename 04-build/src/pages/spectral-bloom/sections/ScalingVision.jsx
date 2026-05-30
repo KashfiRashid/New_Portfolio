@@ -10,7 +10,7 @@ const VENUES = [
 const ROADMAP = [
   {
     name: 'Wav2CLIP integration',
-    body: 'Translate audio straight into the mathematical space images live in, for a tighter read on meaning — the original proposal, picked back up.',
+    body: 'Translate audio straight into the mathematical space images live in, for a tighter read on meaning \u2014 the original proposal, picked back up.',
   },
   {
     name: 'SDXL Turbo backgrounds',
@@ -22,7 +22,7 @@ const ROADMAP = [
   },
   {
     name: 'User evaluation',
-    body: 'A formal study — using the Creativity Support Index, an established measure — comparing the AI build against a plain frequency-mapped version.',
+    body: 'A formal study \u2014 using the Creativity Support Index, an established measure \u2014 comparing the AI build against a plain frequency-mapped version.',
   },
 ]
 

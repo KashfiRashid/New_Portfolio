@@ -1,5 +1,5 @@
 /**
- * Exhibit 04 — Spacing, Radius & Shadow.
+ * Exhibit 04 - Spacing, Radius & Shadow.
  *
  * The Open Ground 4px grid, radius tokens, and shadow tiers, recreated
  * live. Kept deliberately compact: a thin spacing ramp, one row of radii,

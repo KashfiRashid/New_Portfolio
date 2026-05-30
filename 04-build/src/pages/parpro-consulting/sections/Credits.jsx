@@ -7,7 +7,7 @@ const TEAM = [
     name: 'Md Kashfi Or Rashid Pranta',
     role: 'Interaction Designer',
     contribution:
-      'Built the interactive prototype and its four interaction patterns — entrance, scroll, click, hover.',
+      'Built the interactive prototype and its four interaction patterns \u2014 entrance, scroll, click, hover.',
   },
   {
     name: 'Benjamin Nichiporik',
@@ -16,7 +16,7 @@ const TEAM = [
   },
   {
     name: 'Mariyam',
-    role: 'UI Designer · Art Direction',
+    role: 'UI Designer \u00b7 Art Direction',
     contribution: TEAMMATE_LINE,
   },
   {
@@ -48,7 +48,7 @@ export default function Credits() {
       </div>
 
       <p className="mt-12 text-center font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">
-        FLUI-25 hackathon · four-person team · 3-day timeline
+        FLUI-25 hackathon &#xB7; four-person team &#xB7; 3-day timeline
       </p>
     </section>
   )

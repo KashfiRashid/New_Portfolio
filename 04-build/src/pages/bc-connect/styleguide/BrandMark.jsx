@@ -1,5 +1,5 @@
 /**
- * Exhibit 01 — Brand Mark.
+ * Exhibit 01 - Brand Mark.
  *
  * A live recreation of the Open Ground "Brand Mark" style-guide page,
  * framed inside a white ExhibitPanel on the dark case-study canvas.
@@ -9,7 +9,7 @@
 import { ExhibitBlock, PanelHeader, SpecRow, SpecimenGrid } from './primitives.jsx'
 import { LatticeMark } from './LatticeMark.jsx'
 
-/* Spring-curve hover rotation — transition via inline style so it does not
+/* Spring-curve hover rotation - transition via inline style so it does not
    depend on the style guide's globals.css being present. */
 const SPRING = { transition: 'transform 450ms cubic-bezier(0.34, 1.56, 0.64, 1)' }
 
@@ -87,7 +87,7 @@ export default function BrandMark() {
         rotates on hover via the spring curve to convey a living network.
       </PanelHeader>
 
-      {/* Three variants on their intended grounds — hover any tile */}
+      {/* Three variants on their intended grounds - hover any tile */}
       <SpecimenGrid cols={3}>
         <MarkTile
           variant="light"
@@ -109,7 +109,7 @@ export default function BrandMark() {
         />
       </SpecimenGrid>
 
-      {/* App icon — the shipped favicon */}
+      {/* App icon - the shipped favicon */}
       <h4 className="mb-4 mt-10 font-[family-name:var(--font-display)] text-[20px] text-[#111218]">
         App Icon
       </h4>

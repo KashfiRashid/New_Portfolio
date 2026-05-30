@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 /**
- * Spectral Bloom — case study primitives.
+ * Spectral Bloom - case study primitives.
  *
  * Shares the bc-connect dark-canvas register (same fonts, same layout
  * rhythm) but carries its own accent: magenta #FF3D6E, with a bright
@@ -115,7 +115,7 @@ export function PainPointCard({ index, title, children, className = '' }) {
 }
 
 /**
- * StatBlock — headline numbers at a glance. A non-technical reader should
+ * StatBlock - headline numbers at a glance. A non-technical reader should
  * grasp the scale of the build in one look. Every figure traces back to
  * the source (the HTML, the README, the deck). Nothing invented.
  */
@@ -137,7 +137,7 @@ export function StatBlock({ stats = [] }) {
 }
 
 /**
- * AssetPlaceholder — dashed slot carrying everything Kash needs to drop in
+ * AssetPlaceholder - dashed slot carrying everything Kash needs to drop in
  * a real asset: exact filename, dimensions, plain-words description, and
  * optional annotation guidance. Swap for an <img>/<video> when the file
  * lands in /public/spectral-bloom/.

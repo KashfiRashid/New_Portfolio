@@ -18,8 +18,8 @@ export default function Hero() {
 
         <MetaBlock
           rows={[
-            { label: 'Team', value: 'Md Kashfi Or Rashid Pranta · Benjamin Nichiporik · Mariyam · Rahil Virani' },
-            { label: 'My Roles', value: 'Interaction Design · Prototyping' },
+            { label: 'Team', value: 'Md Kashfi Or Rashid Pranta \u00b7 Benjamin Nichiporik \u00b7 Mariyam \u00b7 Rahil Virani' },
+            { label: 'My Roles', value: 'Interaction Design \u00b7 Prototyping' },
             { label: 'Duration', value: '3 days' },
             { label: 'Stack', value: 'Figma' },
             { label: 'Context', value: 'Client website redesign' },
@@ -40,7 +40,7 @@ export default function Hero() {
             style={{ aspectRatio: '1440 / 1080' }}
           />
           <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-600">
-            Final redesign walkthrough · Figma capture
+            Final redesign walkthrough &#xB7; Figma capture
           </figcaption>
         </figure>
       </div>

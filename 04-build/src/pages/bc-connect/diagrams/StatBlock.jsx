@@ -1,5 +1,5 @@
 /**
- * StatBlock — the headline numbers at a glance.
+ * StatBlock - the headline numbers at a glance.
  *
  * A recruiter scanning the case study should grasp the scale of the work
  * in one look, before reading a paragraph. Six numbers, large display

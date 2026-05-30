@@ -5,12 +5,12 @@ import Character from '../character/Character.jsx'
 import CharacterDebug from '../character/debug/CharacterDebug.jsx'
 
 /**
- * <Companion /> — renders three things:
+ * <Companion /> - renders three things:
  *   1. The custom cursor (a context-aware mark in the visitor's color)
  *   2. The autonomous character (sprite + bubbles above head + reel custody)
  *   3. Mobile toast fallback (bottom-anchored bubble on coarse pointers)
  *
- * Custom cursor — the personality is in STATE, FORM, and REACTION, never
+ * Custom cursor - the personality is in STATE, FORM, and REACTION, never
  * in positional lag. Position is pixel-locked 1:1 to the pointer (raw
  * motion values, no spring) because this dot IS the cursor: the native
  * OS pointer is hidden site-wide (`cursor: none` in index.css), so any
@@ -29,7 +29,7 @@ import CharacterDebug from '../character/debug/CharacterDebug.jsx'
  *   - Bubbles now appear above the character's head, not at the cursor.
  *   - The cursor stays as the visitor's identity marker (separate entity).
  *   - Reels are handled by the character's custody mechanic.
- *   - CursorBubble (desktop cursor-attached) is removed — Character handles speech.
+ *   - CursorBubble (desktop cursor-attached) is removed - Character handles speech.
  *
  * Mobile:
  *   - Bubbles fall back to ToastBubble at bottom of screen.
@@ -40,11 +40,11 @@ export default function Companion() {
   const [isFinePointer, setIsFinePointer] = useState(true)
   const [reducedMotion, setReducedMotion] = useState(false)
 
-  // Cursor state — the dot's CONTEXT and REACTIONS, never its position.
+  // Cursor state - the dot's CONTEXT and REACTIONS, never its position.
   //   cursorMode: 'default' | 'interactive' | 'card'
   //   cardLabel : the word shown in 'card' mode ('View' / 'Soon')
-  //   isPressed : mouse button held — drives the squish
-  //   isIdle    : no movement for a beat — drives the breathing pulse
+  //   isPressed : mouse button held - drives the squish
+  //   isIdle    : no movement for a beat - drives the breathing pulse
   //   ripples   : in-flight click ripples, each pinned to its click point
   const [cursorMode, setCursorMode] = useState('default')
   const [cardLabel, setCardLabel] = useState('')
@@ -53,17 +53,17 @@ export default function Companion() {
   const [ripples, setRipples] = useState([])
   const rippleId = useRef(0)
 
-  // Cursor motion values — the dot renders at these RAW values, with
+  // Cursor motion values - the dot renders at these RAW values, with
   // NO spring.
   //
   // This dot IS the cursor: the native OS pointer is hidden site-wide
-  // (`cursor: none` in index.css). A spring — however stiff — always
+  // (`cursor: none` in index.css). A spring - however stiff - always
   // trails the real pointer by a frame or two as it settles, and with
   // no native cursor underneath to give instant feedback that trail
   // reads as a slow mouse. Rendering straight off the raw pointer
   // position (set on every mousemove below) is the closest a DOM
   // element can get to a native cursor. Do NOT reintroduce a spring
-  // here for "personality" — on a cursor it just reads as input lag.
+  // here for "personality" - on a cursor it just reads as input lag.
   const cursorX = useMotionValue(-100)
   const cursorY = useMotionValue(-100)
 
@@ -76,7 +76,7 @@ export default function Companion() {
     return () => mq.removeEventListener('change', update)
   }, [])
 
-  // Respect reduced-motion — gates the breathing loop and the ripple
+  // Respect reduced-motion - gates the breathing loop and the ripple
   // (ambient / decorative motion). The squish stays: it is direct
   // feedback to a deliberate press, not ambient motion.
   useEffect(() => {
@@ -99,7 +99,7 @@ export default function Companion() {
     let lastX = 0
     let lastY = 0
 
-    // Hover hit-test — document.elementFromPoint forces a hit-test, so
+    // Hover hit-test - document.elementFromPoint forces a hit-test, so
     // it must NOT run on every mousemove event (mousemove fires many
     // times per frame on a fast move, and a per-event hit-test on a
     // heavy page is a real source of main-thread jank). Coalesced to
@@ -118,7 +118,7 @@ export default function Companion() {
       let label = ''
       const href = link?.getAttribute?.('href') || ''
       if (labelled) {
-        // An element that declares its own cursor label — case-study
+        // An element that declares its own cursor label - case-study
         // media tagged with data-cursor-label. Takes precedence over
         // the generic link / interactive classification so the pill
         // shows the media's own 1-3 word caption instead of "View".
@@ -137,19 +137,19 @@ export default function Companion() {
     }
 
     const handleMove = (e) => {
-      // Cheap — runs every event so the dot tracks the pointer 1:1.
+      // Cheap - runs every event so the dot tracks the pointer 1:1.
       cursorX.set(e.clientX)
       cursorY.set(e.clientY)
       window.__lastCursorX = e.clientX
       window.__lastCursorY = e.clientY
-      // Expensive — coalesced to at most one hit-test per frame.
+      // Expensive - coalesced to at most one hit-test per frame.
       lastX = e.clientX
       lastY = e.clientY
       if (!hitTestPending) {
         hitTestPending = true
         rafId = requestAnimationFrame(runHitTest)
       }
-      // Idle clock — reset on every move; fires after a short rest.
+      // Idle clock - reset on every move; fires after a short rest.
       setIsIdle(false)
       clearTimeout(idleTimer)
       idleTimer = setTimeout(() => setIsIdle(true), 1500)
@@ -163,7 +163,7 @@ export default function Companion() {
     }
   }, [isFinePointer, cursorX, cursorY])
 
-  // Click feedback — squish on press, ripple from the click point.
+  // Click feedback - squish on press, ripple from the click point.
   useEffect(() => {
     if (!isFinePointer) return undefined
 
@@ -197,7 +197,7 @@ export default function Companion() {
           ================================================================ */}
       {isFinePointer && (
         <>
-          {/* Click ripples — each pinned to its OWN click point (not
+          {/* Click ripples - each pinned to its OWN click point (not
               parented to the moving cursor), so the ring expands where
               you clicked even if the mouse moves on. Animates width /
               height / opacity only, so the static translate(-50%) that
@@ -225,7 +225,7 @@ export default function Companion() {
             />
           ))}
 
-          {/* The cursor itself — a 0x0 grid "point" at the pointer.
+          {/* The cursor itself - a 0x0 grid "point" at the pointer.
               Every child is auto-centered on it (place-items: center),
               so the shapes can morph (width/height) and scale (squish,
               breathe) freely with no transform-based centering math. */}
@@ -247,7 +247,7 @@ export default function Companion() {
             }}
           >
             {cursorMode === 'card' ? (
-              /* Card mode — a labelled pill. No blend mode here: the
+              /* Card mode - a labelled pill. No blend mode here: the
                  text has to stay readable against any background. */
               <motion.div
                 key="pill"
@@ -275,7 +275,7 @@ export default function Companion() {
                 {cardLabel}
               </motion.div>
             ) : (
-              /* Default + interactive — one element that morphs between
+              /* Default + interactive - one element that morphs between
                  a filled dot and an outline ring. The breath wrapper
                  pulses the whole thing, but only while idle. */
               <motion.div
@@ -315,26 +315,26 @@ export default function Companion() {
         </>
       )}
 
-      {/* The autonomous character — handles its own movement, speech, and reel custody.
+      {/* The autonomous character - handles its own movement, speech, and reel custody.
           On desktop, bubbles appear above the character's head (not at cursor).
           On mobile, character appears only at key moments. */}
       <Character />
 
-      {/* Mobile toast fallback — coarse pointers get bottom-anchored bubbles */}
+      {/* Mobile toast fallback - coarse pointers get bottom-anchored bubbles */}
       <AnimatePresence>
         {active && !isFinePointer && (
           <ToastBubble key={active.id} active={active} visitor={visitor} onDismiss={dismiss} />
         )}
       </AnimatePresence>
 
-      {/* Debug overlay — activated via ?debug=character */}
+      {/* Debug overlay - activated via ?debug=character */}
       <CharacterDebug />
     </>
   )
 }
 
 /* -----------------------------------------------------------------------
-   ToastBubble — mobile, bottom-anchored. Text appears instantly.
+   ToastBubble - mobile, bottom-anchored. Text appears instantly.
    Preserved from v1.1 for coarse-pointer devices.
    ----------------------------------------------------------------------- */
 

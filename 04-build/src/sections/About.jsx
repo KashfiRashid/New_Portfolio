@@ -4,7 +4,7 @@ import Breadcrumb from '../components/Breadcrumb.jsx'
 import Reveal, { RevealGroup } from '../components/Reveal.jsx'
 
 /**
- * <About /> — the longer version. Replaces the old Origin section.
+ * <About /> - the longer version. Replaces the old Origin section.
  *
  * The draft copy below is assembled from facts already on the site
  * (homepage hero + footer). Lines tagged [NEEDS KASH INPUT] are
@@ -31,7 +31,7 @@ export default function About() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          the longer version — who&apos;s behind the 2am commits.
+          the longer version &#x2014; who&apos;s behind the 2am commits.
         </motion.p>
       </header>
 
@@ -39,7 +39,7 @@ export default function About() {
         {/* Intro */}
         <section>
           <p className="text-text-primary text-lg leading-relaxed max-w-prose">
-            I&apos;m Kashfi — a design engineer based in Delta, BC. I design and
+            I&apos;m Kashfi &#x2014; a design engineer based in Delta, BC. I design and
             ship: interfaces, interactions, and the small details most people
             only notice when they&apos;re missing.
           </p>
@@ -48,40 +48,40 @@ export default function About() {
         {/* Now */}
         <section>
           <h2 className="text-text-muted text-sm uppercase tracking-wider mb-3">
-            — now —
+            &#x2014; now &#x2014;
           </h2>
           <p className="text-text-muted leading-relaxed max-w-prose">
             Currently on the IT Squad at FIC, and graduating from SFU&apos;s
             School of Interactive Arts &amp; Technology (SIAT) on June 10, 2026.
-            {/* [NEEDS KASH INPUT — confirm role title + anything else current] */}
+            {/* [NEEDS KASH INPUT - confirm role title + anything else current] */}
           </p>
         </section>
 
         {/* The route */}
         <section>
           <h2 className="text-text-muted text-sm uppercase tracking-wider mb-3">
-            — the route —
+            &#x2014; the route &#x2014;
           </h2>
           <p className="text-text-muted leading-relaxed max-w-prose">
-            Dhaka → Delta. I grew up in Bangladesh and took the long way to the
+            Dhaka &#x2192; Delta. I grew up in Bangladesh and took the long way to the
             Vancouver area.{' '}
             <span className="text-text-faint italic">
               [a line about the move, and what it taught you, goes here]
             </span>
-            {/* [NEEDS KASH INPUT — the year you moved + one honest line] */}
+            {/* [NEEDS KASH INPUT - the year you moved + one honest line] */}
           </p>
         </section>
 
         {/* What I do */}
         <section>
           <h2 className="text-text-muted text-sm uppercase tracking-wider mb-3">
-            — what i do —
+            &#x2014; what i do &#x2014;
           </h2>
           <p className="text-text-muted leading-relaxed max-w-prose">
             A design engineer who loves designing creative solutions for user
-            experience — the seam between how something looks and how it
+            experience &#x2014; the seam between how something looks and how it
             actually behaves.
-            {/* [NEEDS KASH INPUT — tools, focus areas, the work you want more of] */}
+            {/* [NEEDS KASH INPUT - tools, focus areas, the work you want more of] */}
           </p>
         </section>
 
@@ -90,12 +90,12 @@ export default function About() {
           <p className="text-text-muted leading-relaxed">
             Want to talk?{' '}
             <a
-              href="mailto:contactkashfi@gmail.com"
+              href="mailto:mailkashfirashid@gmail.com"
               className="text-text-primary underline-offset-4 hover:underline hover:text-accent-glow transition-colors duration-200"
             >
-              contactkashfi@gmail.com
+              mailkashfirashid@gmail.com
             </a>
-            {' · '}
+            {' \u00b7 '}
             or{' '}
             <Link
               to="/work"
@@ -108,4 +108,4 @@ export default function About() {
       </RevealGroup>
     </div>
   )
-}
+}

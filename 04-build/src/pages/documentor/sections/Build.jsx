@@ -4,28 +4,28 @@ const M = '/documentor'
 
 const ROWS = [
   {
-    label: 'Rapid sketches · I set direction here',
+    label: 'Rapid sketches \u00b7 I set direction here',
     items: [
       { src: `${M}/sketch_1.png`, alt: 'First round of rapid sketches exploring DocuMentor directions.' },
       { src: `${M}/sketch_2.png`, alt: 'Second round of rapid sketches refining the direction.' },
     ],
   },
   {
-    label: 'Wireframes · structure and flow',
+    label: 'Wireframes \u00b7 structure and flow',
     items: [
       { src: `${M}/1.png`, alt: 'Low-fidelity wireframe defining structure for the onboarding flow.' },
       { src: `${M}/3.png`, alt: 'Low-fidelity wireframe defining structure for the progress flow.' },
     ],
   },
   {
-    label: 'Concept development · team refinement',
+    label: 'Concept development \u00b7 team refinement',
     items: [
       { src: `${M}/4.png`, alt: 'Concept development screen showing visual refinement.' },
       { src: `${M}/5.png`, alt: 'Concept development screen iterating on UI direction.' },
     ],
   },
   {
-    label: "Final UI · Kate's refinement on my structure",
+    label: "Final UI \u00b7 Kate's refinement on my structure",
     items: [
       { src: `${M}/6.png`, alt: 'Final UI screen with the applied design system.' },
       { src: `${M}/7.png`, alt: 'Second final UI screen showing the polished interface.' },

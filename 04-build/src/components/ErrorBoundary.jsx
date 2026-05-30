@@ -1,7 +1,7 @@
 import { Component } from 'react'
 
 /**
- * ErrorBoundary — catches render / lifecycle errors in its subtree so that
+ * ErrorBoundary - catches render / lifecycle errors in its subtree so that
  * one crashing component cannot tear the whole site down to a black screen.
  *
  * React only unmounts the tree on errors thrown during *rendering*; that is
@@ -9,11 +9,11 @@ import { Component } from 'react'
  * bug. An error boundary intercepts that.
  *
  * Two usages in App.jsx:
- *   - Around <Companion/> with `fallback={null}` — a SILENT boundary. If the
+ *   - Around <Companion/> with `fallback={null}` - a SILENT boundary. If the
  *     autonomous character / idle-cycle system throws, the companion subtree
  *     simply disappears and the rest of the site keeps working. The visitor
  *     most likely won't even notice.
- *   - Around the whole app with the default fallback — a last-resort net for
+ *   - Around the whole app with the default fallback - a last-resort net for
  *     a crash anywhere else: a small message + reload button instead of a
  *     dead black screen.
  *
@@ -22,8 +22,8 @@ import { Component } from 'react'
  *
  * Props:
  *   - children
- *   - label    — string, tags the console log (e.g. "companion", "app")
- *   - fallback — node to render after a crash. Pass `null` for a silent
+ *   - label    - string, tags the console log (e.g. "companion", "app")
+ *   - fallback - node to render after a crash. Pass `null` for a silent
  *                boundary. Omit entirely to use the default reload screen.
  */
 export default class ErrorBoundary extends Component {
@@ -37,9 +37,9 @@ export default class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, info) {
-    // Surfaced so the exact throwing component is always diagnosable —
+    // Surfaced so the exact throwing component is always diagnosable -
     // the component stack names the file that crashed.
-    const tag = this.props.label ? ` · ${this.props.label}` : ''
+    const tag = this.props.label ? ` \u00b7 ${this.props.label}` : ''
     // eslint-disable-next-line no-console
     console.error(
       `[ErrorBoundary${tag}] caught a render error:`,
@@ -51,11 +51,11 @@ export default class ErrorBoundary extends Component {
   render() {
     if (!this.state.hasError) return this.props.children
 
-    // `fallback` provided (including `null`) → render it verbatim. `null`
+    // `fallback` provided (including `null`) -> render it verbatim. `null`
     // makes a silent boundary: the subtree just vanishes.
     if (this.props.fallback !== undefined) return this.props.fallback
 
-    // Default last-resort fallback — a crash somewhere outside the
+    // Default last-resort fallback - a crash somewhere outside the
     // companion. Better than a black screen: a message, the error, a way out.
     return (
       <div
@@ -75,7 +75,7 @@ export default class ErrorBoundary extends Component {
         }}
       >
         <p style={{ fontSize: '15px', opacity: 0.85, margin: 0 }}>
-          Something hiccuped — the page hit an error.
+          Something hiccuped &#x2014; the page hit an error.
         </p>
         <button
           type="button"

@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
 /**
- * <Reel /> — ambient visual pane that surfaces during idle.
+ * <Reel /> - ambient visual pane that surfaces during idle.
  *
- * Shows animated "desk footage" scenes — CSS-driven visuals that simulate
+ * Shows animated "desk footage" scenes - CSS-driven visuals that simulate
  * clips from the 2am studio. Each clip ID maps to a different visual:
  *   - 'blu-0-42':           Audio waveform visualization
  *   - 'desk-ambient':       Warm desk lamp glow with floating particles
@@ -15,8 +15,8 @@ import { motion } from 'framer-motion'
  * Dismiss logic is handled ENTIRELY by the idle cycle system (CompanionContext
  * calls dismissAll on activity). The reel itself just renders and stays.
  *
- * @param {object} props.reel — { clip: string|null, firedAt: number }
- * @param {function} props.onDismiss — clears active reel from companion context
+ * @param {object} props.reel - { clip: string|null, firedAt: number }
+ * @param {function} props.onDismiss - clears active reel from companion context
  */
 
 const CAPTIONS = {
@@ -37,14 +37,14 @@ export default function Reel({ reel, onDismiss, embedded = false }) {
     return () => clearTimeout(t)
   }, [onDismiss])
 
-  // Inner visual content — shared between embedded and standalone modes
+  // Inner visual content - shared between embedded and standalone modes
   const reelContent = (
     <div className="bg-surface-deep/95 backdrop-blur-md border border-surface-raised rounded-sm overflow-hidden shadow-2xl">
-      {/* Visual pane — 16:9 */}
+      {/* Visual pane - 16:9 */}
       <div className="aspect-video relative overflow-hidden">
         <ReelVisual clip={clip} />
 
-        {/* Scanline overlay — barely visible */}
+        {/* Scanline overlay - barely visible */}
         <motion.div
           className="absolute inset-0 pointer-events-none"
           animate={{ y: ['0%', '100%'] }}
@@ -95,8 +95,8 @@ export default function Reel({ reel, onDismiss, embedded = false }) {
 }
 
 /* -----------------------------------------------------------------------
-   ReelVisual — renders a CSS-driven ambient animation per clip type.
-   No real video needed — these are atmospheric visuals.
+   ReelVisual - renders a CSS-driven ambient animation per clip type.
+   No real video needed - these are atmospheric visuals.
    ----------------------------------------------------------------------- */
 
 function ReelVisual({ clip }) {
@@ -114,7 +114,7 @@ function ReelVisual({ clip }) {
   }
 }
 
-/* Waveform — animated bars simulating audio playback */
+/* Waveform - animated bars simulating audio playback */
 function WaveformVisual() {
   const bars = 24
   return (
@@ -149,7 +149,7 @@ function WaveformVisual() {
   )
 }
 
-/* Spectrum — flowing color bands (Spectral Bloom style) */
+/* Spectrum - flowing color bands (Spectral Bloom style) */
 function SpectrumVisual() {
   const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#FF8C69']
   return (
@@ -188,7 +188,7 @@ function SpectrumVisual() {
   )
 }
 
-/* Notebook — grid paper with animated "pen strokes" */
+/* Notebook - grid paper with animated "pen strokes" */
 function NotebookVisual() {
   return (
     <div
@@ -245,7 +245,7 @@ function NotebookVisual() {
   )
 }
 
-/* Desk glow — warm light source with drifting particles */
+/* Desk glow - warm light source with drifting particles */
 function DeskGlowVisual() {
   return (
     <div className="absolute inset-0 bg-surface-deep overflow-hidden">
@@ -296,7 +296,7 @@ function DeskGlowVisual() {
   )
 }
 
-/* Monitor — scrolling code-like lines (the "2am at the desk" default) */
+/* Monitor - scrolling code-like lines (the "2am at the desk" default) */
 function MonitorVisual() {
   const lines = [
     '  const companion = useCompanion()',
@@ -351,7 +351,7 @@ function MonitorVisual() {
   )
 }
 
-/* Timer display — ticking seconds like a media player */
+/* Timer display - ticking seconds like a media player */
 function TimerDisplay() {
   const [seconds, setSeconds] = useState(42)
   useEffect(() => {

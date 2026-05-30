@@ -1,5 +1,5 @@
 /**
- * Perch definitions — valid character rest positions per section.
+ * Perch definitions - valid character rest positions per section.
  * Positions are viewport-relative percentages, resolved to px at render time.
  * Per character-spec.md Section 5.1.
  *
@@ -132,7 +132,7 @@ export function nearestPerch(perches, x, y) {
 
 /**
  * Find the nearest perch to a DOMRect (project card hover targets).
- * Per character-spec-patch-showcase.md §"showcasing" enter step.
+ * Per character-spec-patch-showcase.md Sec"showcasing" enter step.
  */
 export function nearestPerchTo(rect, perches) {
   if (!rect || !perches || perches.length === 0) return null
@@ -143,7 +143,7 @@ export function nearestPerchTo(rect, perches) {
 
 /**
  * Find the perch farthest from a point.
- * Per character-spec-patch-grab-and-throw.md §"Running away" — destination
+ * Per character-spec-patch-grab-and-throw.md Sec"Running away" - destination
  * selection. After release, the character runs to the perch furthest from
  * where it was dropped so the recovery reads as "running away".
  */
@@ -162,7 +162,7 @@ export function farthestPerchFrom(point, perches) {
 }
 
 /**
- * Default settle perch — used for initial entry.
+ * Default settle perch - used for initial entry.
  * Bottom-right area for most sections.
  */
 export function getSettlePerch(perches) {

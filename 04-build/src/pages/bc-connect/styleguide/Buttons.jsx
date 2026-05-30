@@ -1,9 +1,9 @@
 /**
- * Exhibit 06 — Buttons.
+ * Exhibit 06 - Buttons.
  *
  * The four Open Ground button variants across three sizes, recreated as
  * real, hoverable <button> elements inside a white ExhibitPanel. Hover is
- * a color shift, active is an opacity dim — never a transform.
+ * a color shift, active is an opacity dim - never a transform.
  */
 import { ExhibitBlock, PanelHeader } from './primitives.jsx'
 
@@ -23,7 +23,7 @@ const VARIANT = {
 const GROUPS = [
   {
     v: 'primary',
-    label: 'Primary · Ink',
+    label: 'Primary \u00b7 Ink',
     note: 'The strongest action on a page. Hover shifts ink-900 to ink-700; active dims to 85%.',
     dark: false,
     btns: [
@@ -34,7 +34,7 @@ const GROUPS = [
   },
   {
     v: 'signal',
-    label: 'Signal · Brand',
+    label: 'Signal \u00b7 Brand',
     note: 'The one branded action, List Your Startup. Hover darkens to signal-hover.',
     dark: false,
     btns: [
@@ -45,7 +45,7 @@ const GROUPS = [
   },
   {
     v: 'secondary',
-    label: 'Secondary · Outline',
+    label: 'Secondary \u00b7 Outline',
     note: 'Lowest visual weight. White fill, mist border; hover warms to off-white with a fog border.',
     dark: false,
     btns: [
@@ -56,7 +56,7 @@ const GROUPS = [
   },
   {
     v: 'ghost',
-    label: 'Ghost · Dark surfaces',
+    label: 'Ghost \u00b7 Dark surfaces',
     note: 'For dark CTA sections. Transparent, with a translucent border that warms toward teal on hover.',
     dark: true,
     btns: [

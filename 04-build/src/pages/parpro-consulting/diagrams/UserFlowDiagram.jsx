@@ -10,10 +10,10 @@
  */
 
 const STAGES = [
-  { label: 'LANDING', note: 'hero · value prop' },
+  { label: 'LANDING', note: 'hero \u00b7 value prop' },
   { label: 'SERVICES', note: 'offering preview' },
   { label: 'ABOUT', note: 'trust building' },
-  { label: 'CONTACT', note: 'form · phone' },
+  { label: 'CONTACT', note: 'form \u00b7 phone' },
   { label: 'CONFIRMATION', note: 'booking confirmed' },
 ]
 
@@ -115,7 +115,7 @@ export default function UserFlowDiagram() {
         fontSize="11"
         letterSpacing="2"
       >
-        PERSISTENT CTA · BOOK CONSULTATION
+        PERSISTENT CTA &#xB7; BOOK CONSULTATION
       </text>
     </svg>
   )

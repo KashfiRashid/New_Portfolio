@@ -9,7 +9,7 @@ export default function Challenge() {
           Cullen Western Star came in with a clear brief: &ldquo;We have a loyal customer base, but it isn&rsquo;t growing because our online presence is outdated.&rdquo;
         </p>
         <p>
-          <Highlight>Our diagnosis after the field work was different. The real problem wasn&rsquo;t marketing — it was an industry-wide worker shortage.</Highlight> Trucking was losing the competition for Gen-Z talent, and no amount of website polish was going to bring drivers in. So the brief shifted: instead of redesigning the storefront, design the path into the trade.
+          <Highlight>Our diagnosis after the field work was different. The real problem wasn&rsquo;t marketing &#x2014; it was an industry-wide worker shortage.</Highlight> Trucking was losing the competition for Gen-Z talent, and no amount of website polish was going to bring drivers in. So the brief shifted: instead of redesigning the storefront, design the path into the trade.
         </p>
       </div>
     </section>

@@ -1,5 +1,5 @@
 /**
- * Exhibit 08 — Tags, Badges & Avatars.
+ * Exhibit 08 - Tags, Badges & Avatars.
  *
  * The Open Ground categorical and identity primitives, recreated live:
  * industry tags (color-coded pairs), status badges (semantic states),

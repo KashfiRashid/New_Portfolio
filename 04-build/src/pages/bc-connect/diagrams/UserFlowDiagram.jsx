@@ -1,5 +1,5 @@
 /**
- * UserFlowDiagram — three roles, progressive access.
+ * UserFlowDiagram - three roles, progressive access.
  *
  * Engineering-diagram register, Abdul-quality polish. Three stacked tiers
  * read top to bottom: Visitor, Member, Admin. Each tier carries a one-line

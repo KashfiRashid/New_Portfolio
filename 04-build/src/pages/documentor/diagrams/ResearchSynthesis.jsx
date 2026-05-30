@@ -1,5 +1,5 @@
 /**
- * ResearchSynthesis — funnel from breadth to focus.
+ * ResearchSynthesis - funnel from breadth to focus.
  *
  * Left side: 45 small dots representing the interviews, distributed
  * across a wider area (the breadth across 12+ countries). Middle: a
@@ -8,7 +8,7 @@
  */
 
 const MONO = '"JetBrains Mono", "Geist Mono", ui-monospace, monospace'
-const SANS = 'Inter, "Söhne", system-ui, sans-serif'
+const SANS = 'Inter, "S\u00f6hne", system-ui, sans-serif'
 
 const PAINS = [
   { label: 'INFORMATION OVERLOAD', sub: 'too much, all at once' },
@@ -54,7 +54,7 @@ export default function ResearchSynthesis() {
 
       {/* Left header */}
       <text x="120" y="22" fill="#71717a" fontFamily={MONO} fontSize="10" letterSpacing="1.6" textAnchor="middle">
-        45 INTERVIEWS · 12+ COUNTRIES
+        45 INTERVIEWS &#xB7; 12+ COUNTRIES
       </text>
 
       {/* Dots */}

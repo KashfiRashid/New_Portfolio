@@ -55,7 +55,7 @@ export default function SomethingLurkingPage() {
         // Inherit the portfolio's global font stack so the case study reads
         // as part of the same site. Stack mirrors tailwind.config.js.
         '--font-display': '"Editorial New", "Reckless Neue", Georgia, ui-serif, serif',
-        '--font-sans': 'Inter, "Söhne", "Geist Sans", system-ui, sans-serif',
+        '--font-sans': 'Inter, "S\u00f6hne", "Geist Sans", system-ui, sans-serif',
         '--font-mono': '"JetBrains Mono", "Geist Mono", ui-monospace, monospace',
       }}
     >

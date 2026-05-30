@@ -1,5 +1,5 @@
 /**
- * AISynesthesiaFlow — how the Claude layer turns sound into a creative
+ * AISynesthesiaFlow - how the Claude layer turns sound into a creative
  * brief. Four stages, left to right: the audio features get snapshotted,
  * Claude reads them as a synesthesia engine, returns a small creative
  * JSON payload, and the visualizer lerps toward it over a few seconds.
@@ -14,9 +14,9 @@ const MONO = '"DM Mono", ui-monospace, monospace'
 const SANS = '"DM Sans", system-ui, sans-serif'
 
 const STAGES = [
-  { label: 'AUDIO ANALYSIS', sub: 'bass 72 · mid 45', sub2: 'high 20 · beat 90' },
+  { label: 'AUDIO ANALYSIS', sub: 'bass 72 \u00b7 mid 45', sub2: 'high 20 \u00b7 beat 90' },
   { label: 'CLAUDE', sub: '"what should this', sub2: 'look like?"' },
-  { label: 'CREATIVE BRIEF', sub: 'palette · mood', sub2: 'spread · speed' },
+  { label: 'CREATIVE BRIEF', sub: 'palette \u00b7 mood', sub2: 'spread \u00b7 speed' },
   { label: 'SMOOTH APPLY', sub: 'eased blend', sub2: 'over 2 to 3 seconds' },
 ]
 

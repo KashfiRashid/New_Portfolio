@@ -6,7 +6,7 @@ export default function Impact() {
       <SectionHead kicker="IMPACT" title="Solve the cause, not the symptom." />
       <div className="mt-8 max-w-[720px] space-y-6 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-300 lg:text-xl">
         <p>
-          The brief asked for a marketing facelift. The field said the problem was further upstream. <Highlight>By running the workshops and trusting what the drivers said, we built a product that addresses the actual blocker — entry into the trade — instead of polishing the symptom.</Highlight>
+          The brief asked for a marketing facelift. The field said the problem was further upstream. <Highlight>By running the workshops and trusting what the drivers said, we built a product that addresses the actual blocker &#x2014; entry into the trade &#x2014; instead of polishing the symptom.</Highlight>
         </p>
         <p>
           Designed for: lower barriers to entry, faster skill development, real peer support, and a direct line between drivers and the employers who need them.

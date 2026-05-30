@@ -2,12 +2,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Reel from '../companion/Reel.jsx'
 
 /**
- * ReelHandoff — reel custody integration.
+ * ReelHandoff - reel custody integration.
  * Per character-spec.md Section 6:
  *   - Reel materializes adjacent to character when summoned
  *   - When carried, reel follows character and shrinks
  *   - When character exits, reel goes with it
- *   - Reel size: 240×160px desktop, 200×130px mobile
+ *   - Reel size: 240x160px desktop, 200x130px mobile
  *
  * The actual reel visuals come from the existing Reel.jsx component.
  * This component handles the custody choreography.

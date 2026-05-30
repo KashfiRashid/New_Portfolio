@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 /**
- * <CursorGlow /> — subtle radial glow that follows the cursor.
+ * <CursorGlow /> - subtle radial glow that follows the cursor.
  *
  * Per /01-brand-book/06-visual-direction.md:
  *   "Soft monitor-glow gradients behind hero or in select transition moments."
@@ -13,7 +13,7 @@ import { motion, useMotionValue, useSpring } from 'framer-motion'
  * Desktop fine-pointer only. Mobile gets nothing.
  *
  * @param {object} props
- * @param {string} props.className — className for the outer container
+ * @param {string} props.className - className for the outer container
  * @param {React.ReactNode} props.children
  */
 export default function CursorGlow({ className = '', children }) {

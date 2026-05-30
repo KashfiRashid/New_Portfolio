@@ -2,13 +2,13 @@ import { useMemo, useRef, useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 
 /**
- * CharacterSprite — pixel-art sprite renderer.
+ * CharacterSprite - pixel-art sprite renderer.
  *   - PNG sprites in /public/character/, image-rendering: pixelated
  *   - 96px desktop / 72px mobile (size from parent)
  *   - Walk frames walk-a / walk-b stay mounted for the whole session and
  *     swap by opacity, so the cycle can never stutter or "stick on walk-a".
  *   - Every other sprite change cross-fades (250ms) via AnimatePresence.
- *   - Vertical bob (±2px) on idle/walking, suppressed for seated postures.
+ *   - Vertical bob (+/-2px) on idle/walking, suppressed for seated postures.
  *   - Direction via scaleX(-1). Missing sprite: 404 -> falls back to idle.
  */
 
@@ -53,7 +53,7 @@ export default function CharacterSprite({
   const reduceMotion = useReducedMotion()
 
   const requested = getSpriteForPosture(posture)
-  // Track sprite files that 404'd this session — render idle in their place.
+  // Track sprite files that 404'd this session - render idle in their place.
   const missingRef = useRef(new Set())
   const [, force] = useState(0)
   const sprite = missingRef.current.has(requested) ? 'idle' : requested
@@ -121,7 +121,7 @@ export default function CharacterSprite({
           animate={cycle}
           transition={bobTransition}
         >
-          {/* Walk frames — walk-a and walk-b are BOTH mounted for the whole
+          {/* Walk frames - walk-a and walk-b are BOTH mounted for the whole
               session, so each decodes exactly once. Only the active frame is
               opaque; the swap is a pure opacity flip (no src change, no
               re-decode), so the walk cycle can never stutter or stick on one
@@ -144,7 +144,7 @@ export default function CharacterSprite({
             />
           ))}
 
-          {/* Non-walk sprites — 250ms cross-fade. Not rendered while walking. */}
+          {/* Non-walk sprites - 250ms cross-fade. Not rendered while walking. */}
           {!isWalkSprite && (
             <AnimatePresence mode="wait" initial={false}>
               <motion.img

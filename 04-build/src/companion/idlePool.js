@@ -2,18 +2,18 @@
 // Source of truth: /01-brand-book/05-wow-mechanics.md + /04-companion-spec.md
 //
 // Three types of idle content:
-//   'quip'  — short companion bubble (funny, observational, or factual)
-//   'fact'  — random fact about Kash
-//   'reel'  — surfaces a reel clip in the lower-right corner
+//   'quip'  - short companion bubble (funny, observational, or factual)
+//   'fact'  - random fact about Kash
+//   'reel'  - surfaces a reel clip in the lower-right corner
 //
 // The idle cycle shuffles through these every ~8s while the visitor
 // isn't moving. Movement at any point stops the cycle and dismisses everything.
 //
-// These are separate from the main bubbleLibrary — the idle pool is specifically
+// These are separate from the main bubbleLibrary - the idle pool is specifically
 // for the "the visitor went AFK" scenario. Voice is still Kash's, lowercase casual.
 
 const idlePool = [
-  // ─── QUIPS (funny / observational) ─────────────────────────────────────
+  // --- QUIPS (funny / observational) -------------------------------------
 
   { type: 'quip', text: "still here? okay. i respect the commitment." },
   { type: 'quip', text: "you stopped moving. either you're reading or you fell asleep." },
@@ -31,7 +31,7 @@ const idlePool = [
   { type: 'quip', text: "the site doesn't bite. you can scroll." },
   { type: 'quip', text: "i built this at 2am. you're viewing it at... whatever time it is for you." },
 
-  // ─── FACTS (random things about Kash) ──────────────────────────────────
+  // --- FACTS (random things about Kash) ----------------------------------
 
   { type: 'fact', text: "random fact: i play football (the real kind) every weekend." },
   { type: 'fact', text: "random fact: i moved from dhaka to delta in 2022. still adjusting to the rain." },
@@ -46,7 +46,7 @@ const idlePool = [
   { type: 'fact', text: "random fact: i'm graduating SFU SIAT june 10, 2026. if you're reading this after, i did it." },
   { type: 'fact', text: "random fact: my dad held two coffees the day i landed at YVR. he got my order right." },
 
-  // ─── REEL SURFACES ─────────────────────────────────────────────────────
+  // --- REEL SURFACES -----------------------------------------------------
 
   { type: 'reel', text: "want to see what i was working on at 2am last tuesday?", clip: null },
   { type: 'reel', text: "here's a clip from the desk. quiet one.", clip: 'desk-ambient' },
@@ -57,10 +57,10 @@ const idlePool = [
 
 /**
  * Get the next idle content item from a weighted random selection.
- * Reels get 3× weight so the character custody mechanic fires more often.
+ * Reels get 3x weight so the character custody mechanic fires more often.
  * First idle content per session is always a reel (if unseen reels remain).
  *
- * @param {Set} seenIds — indices already shown this session
+ * @param {Set} seenIds - indices already shown this session
  * @returns {{ type: string, text: string, clip?: string, index: number } | null}
  */
 export function getNextIdleContent(seenIds) {
@@ -69,11 +69,11 @@ export function getNextIdleContent(seenIds) {
     .filter(item => !seenIds.has(item.index))
 
   if (available.length === 0) {
-    // Pool exhausted — reset and start over
+    // Pool exhausted - reset and start over
     return { ...idlePool[Math.floor(Math.random() * idlePool.length)], index: -1, poolReset: true }
   }
 
-  // First idle in session → always pick a reel if available
+  // First idle in session -> always pick a reel if available
   if (seenIds.size === 0) {
     const reels = available.filter(item => item.type === 'reel')
     if (reels.length > 0) {
@@ -81,7 +81,7 @@ export function getNextIdleContent(seenIds) {
     }
   }
 
-  // Weighted selection: reels get 3× weight
+  // Weighted selection: reels get 3x weight
   const weighted = []
   for (const item of available) {
     const weight = item.type === 'reel' ? 3 : 1

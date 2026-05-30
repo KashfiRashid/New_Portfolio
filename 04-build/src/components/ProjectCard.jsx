@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 /**
- * <ProjectCard /> — one project, rendered as an image card.
+ * <ProjectCard /> - one project, rendered as an image card.
  * Single category-label treatment across the archive. Scales to any
  * number of projects/categories.
  */
@@ -65,7 +65,7 @@ export default function ProjectCard({ project, onHover }) {
             {name}
           </h3>
           <span className="text-text-muted group-hover:text-accent-glow arrow-slide transition-colors duration-200">
-            →
+            &#x2192;
           </span>
         </div>
         <p className="text-text-muted text-sm leading-snug max-w-prose mt-2">{blurb}</p>

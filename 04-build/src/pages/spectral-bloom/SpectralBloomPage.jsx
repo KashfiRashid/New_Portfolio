@@ -15,7 +15,7 @@ import Reflection from './sections/Reflection.jsx'
 import Credits from './sections/Credits.jsx'
 
 // Section ids tracked by the side-nav IntersectionObserver. Hero has no
-// id — the nav only lists scrollable destinations below the fold.
+// id - the nav only lists scrollable destinations below the fold.
 const SECTION_IDS = [
   'overview',
   'problem',
@@ -58,7 +58,7 @@ export default function SpectralBloomPage() {
         // as part of the same site, not its own typographic island. Stack
         // mirrors tailwind.config.js (font-display / font-sans / font-mono).
         '--font-display': '"Editorial New", "Reckless Neue", Georgia, ui-serif, serif',
-        '--font-sans': 'Inter, "Söhne", "Geist Sans", system-ui, sans-serif',
+        '--font-sans': 'Inter, "S\u00f6hne", "Geist Sans", system-ui, sans-serif',
         '--font-mono': '"JetBrains Mono", "Geist Mono", ui-monospace, monospace',
       }}
     >

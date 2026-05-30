@@ -41,7 +41,7 @@ export default function Credits() {
       </div>
 
       <p className="mt-12 text-center font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">
-        UX Case Study · Mobile App · 8-Week Timeline
+        UX Case Study &#xB7; Mobile App &#xB7; 8-Week Timeline
       </p>
     </section>
   )

@@ -3,7 +3,7 @@ import { SectionHead } from '../primitives.jsx'
 const TEAM = [
   {
     name: 'Kashfi Pranta',
-    role: 'Team Lead · Designer · Developer',
+    role: 'Team Lead \u00b7 Designer \u00b7 Developer',
     contribution:
       'Set team direction two hours in: assigned roles, scoped the build, held the foundation the rest of the team worked from. Worked across design and development through the night.',
   },
@@ -21,7 +21,7 @@ const TEAM = [
   },
   {
     name: 'Sadab Khan',
-    role: 'Planning · Frontend Coordination',
+    role: 'Planning \u00b7 Frontend Coordination',
     contribution:
       'Drove planning and coordinated the frontend, keeping the build aligned across the team.',
   },
@@ -58,7 +58,7 @@ export default function Credits() {
         ))}
       </div>
       <p className="mt-12 text-center font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">
-        Mentored by Hamzah Alshawwaf · SillyHacks 2026, SFU Surge
+        Mentored by Hamzah Alshawwaf &#xB7; SillyHacks 2026, SFU Surge
       </p>
     </section>
   )

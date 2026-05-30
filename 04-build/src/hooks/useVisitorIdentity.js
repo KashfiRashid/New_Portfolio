@@ -5,7 +5,7 @@ import { DEFAULT_COLOR, findColor } from '../lib/visitorColors.js'
 const STORAGE_KEY = 'kr.identity.v1'
 
 /**
- * useVisitorIdentity — reads/writes the visitor's identity to localStorage.
+ * useVisitorIdentity - reads/writes the visitor's identity to localStorage.
  *
  * Per /01-brand-book/05-wow-mechanics.md (recommended persistence option):
  *   - localStorage stores name + color + visit metadata
@@ -42,7 +42,7 @@ export function useVisitorIdentity() {
         })
       }
     } catch (err) {
-      // localStorage may be unavailable in private mode / disabled — fail open
+      // localStorage may be unavailable in private mode / disabled - fail open
       console.warn('useVisitorIdentity hydrate failed:', err)
     } finally {
       setIsLoaded(true)
@@ -77,7 +77,7 @@ export function useVisitorIdentity() {
 
   /**
    * Set a new identity from onboarding submission.
-   * @param {string} rawName — what the visitor typed (or '' for skip)
+   * @param {string} rawName - what the visitor typed (or '' for skip)
    */
   const setName = useCallback((rawName) => {
     const name = normalizeName(rawName) || 'stranger'
@@ -99,7 +99,7 @@ export function useVisitorIdentity() {
   }, [])
 
   /**
-   * Reset — clears localStorage identity and triggers re-onboarding.
+   * Reset - clears localStorage identity and triggers re-onboarding.
    */
   const reset = useCallback(() => {
     try {

@@ -1,10 +1,10 @@
 /**
  * One-liners when the visitor releases the character after a grab.
- * Voice: dry, 2am-studio, self-aware — swap or extend anytime.
+ * Voice: dry, 2am-studio, self-aware - swap or extend anytime.
  */
 const LINES = [
   'okay okay i can walk on my own',
-  'that was… a choice.',
+  'that was\u2026 a choice.',
   'the conductor does NOT throw the orchestra.',
   'i\'m freelance gravity-wise. let\'s not.',
   'you treat pixels like stress balls and i respect the honesty.',

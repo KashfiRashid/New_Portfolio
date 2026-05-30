@@ -1,8 +1,8 @@
 import { SectionHead } from '../primitives.jsx'
 
 const TOOLS = [
-  { label: 'Rendering', value: 'Three.js — 3D graphics, running in the browser' },
-  { label: 'Audio', value: "Web Audio API — the browser's built-in sound analysis" },
+  { label: 'Rendering', value: 'Three.js \u2014 3D graphics, running in the browser' },
+  { label: 'Audio', value: "Web Audio API \u2014 the browser's built-in sound analysis" },
   { label: 'AI layer', value: "Anthropic's Claude as the synesthesia engine" },
 ]
 
@@ -37,7 +37,7 @@ export default function Credits() {
               rel="noreferrer"
               className="font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.14em] text-[#FF7DA3] underline-offset-4 hover:underline"
             >
-              GitHub repo →
+              GitHub repo &#x2192;
             </a>
           </div>
         </div>
@@ -71,7 +71,7 @@ export default function Credits() {
       </div>
 
       <p className="mt-14 text-center font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-zinc-500">
-        Generative AI · SFU SIAT · Spring 2026
+        Generative AI &#xB7; SFU SIAT &#xB7; Spring 2026
       </p>
     </section>
   )

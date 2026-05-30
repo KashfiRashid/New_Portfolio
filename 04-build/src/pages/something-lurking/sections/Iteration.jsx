@@ -44,7 +44,7 @@ export default function Iteration() {
         {FEEDBACK.map((f) => (
           <article key={f.name} className="bg-[#0F1216] p-6">
             <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-[#9268E0]">
-              {f.name} · {f.role}
+              {f.name} &#xB7; {f.role}
             </p>
             <p className="mt-3 font-[family-name:var(--font-sans)] text-[15px] italic leading-relaxed text-zinc-300">
               &ldquo;{f.note}&rdquo;

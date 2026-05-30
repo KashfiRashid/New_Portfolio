@@ -1,12 +1,12 @@
 import { MetaBlock, LinkButton } from '../primitives.jsx'
 
 const LINKS = [
-  { label: 'Devpost ↗', href: 'https://devpost.com/software/us-among-ai' },
+  { label: 'Devpost \u2197', href: 'https://devpost.com/software/us-among-ai' },
   {
-    label: 'LinkedIn post ↗',
+    label: 'LinkedIn post \u2197',
     href: 'https://www.linkedin.com/posts/kashfi-rashid_we-lost-so-bad-oh-wait-april-fools-we-ugcPost-7446434517290070016-NA5V/',
   },
-  { label: 'SillyHacks 2026 ↗', href: 'https://sillyhacks.sfusurge.com/' },
+  { label: 'SillyHacks 2026 \u2197', href: 'https://sillyhacks.sfusurge.com/' },
 ]
 
 export default function Hero() {
@@ -27,11 +27,11 @@ export default function Hero() {
         <MetaBlock
           rows={[
             { label: 'Team', value: 'Kashfi Pranta, Brett Rodrigues, Tawheed Sarker Aakash, Sadab Khan' },
-            { label: 'My Role', value: 'Team Lead · Designer · Developer' },
-            { label: 'Hackathon', value: 'SillyHacks 2026 (SFU Surge × MLH)' },
+            { label: 'My Role', value: 'Team Lead \u00b7 Designer \u00b7 Developer' },
+            { label: 'Hackathon', value: 'SillyHacks 2026 (SFU Surge \u00d7 MLH)' },
             { label: 'Result', value: 'Winner, Best UI' },
             { label: 'Stack', value: 'Next.js, Zustand, Socket.IO, Gemini API' },
-            { label: 'Format', value: 'Browser game · built in 12 hours' },
+            { label: 'Format', value: 'Browser game \u00b7 built in 12 hours' },
           ]}
         />
         <div className="flex flex-wrap gap-3">

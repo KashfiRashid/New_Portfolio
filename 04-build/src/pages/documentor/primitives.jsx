@@ -2,16 +2,16 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 /**
- * DocuMentor — case study primitives.
+ * DocuMentor - case study primitives.
  *
  * Shares the dark-canvas register with the other case studies but
  * carries its own accent: marigold orange #E8A53B with a bright
- * variant #F4C26B. The marigold reads warm and welcoming — matches
+ * variant #F4C26B. The marigold reads warm and welcoming - matches
  * the actual DocuMentor app's primary brand color, so the case
  * study theme echoes the product the visitor will see embedded in
  * the diagrams and screenshots. Distinct from bc-connect green,
  * spectral-bloom magenta, blu cyan, something-lurking purple, and
- * parpro coral — none of these warm tones overlap.
+ * parpro coral - none of these warm tones overlap.
  */
 export {
   MonoKicker,

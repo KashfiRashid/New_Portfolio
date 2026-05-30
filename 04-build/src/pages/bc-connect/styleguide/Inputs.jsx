@@ -1,10 +1,10 @@
 /**
- * Exhibit 07 — Inputs & Filters.
+ * Exhibit 07 - Inputs & Filters.
  *
  * The Open Ground search bar and filter pills, recreated as real, working
- * controls inside a white ExhibitPanel. The search bar moves cloud → white
+ * controls inside a white ExhibitPanel. The search bar moves cloud -> white
  * on focus; the filter pills use the black active-state pattern from the
- * Jobs section — the selected pill inverts to solid black for contrast.
+ * Jobs section - the selected pill inverts to solid black for contrast.
  */
 import { useState } from 'react'
 import { ExhibitBlock, PanelHeader } from './primitives.jsx'

@@ -1,5 +1,5 @@
 /**
- * Exhibit 02 — Color System.
+ * Exhibit 02 - Color System.
  *
  * The Open Ground palette, recreated live as token swatches inside a white
  * ExhibitPanel. Grouped Ground / Ink / Signal / Data / Semantic so the

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { MetaBlock } from '../primitives.jsx'
 
 /**
- * Hero video — auto-plays when visible, pauses when scrolled off-screen,
+ * Hero video - auto-plays when visible, pauses when scrolled off-screen,
  * and defers loading the src until the visitor actually reaches it. The
  * poster paints instantly so the figure never goes empty. Mirrors the
  * LazyVideo pattern used in sections/FiveModes.jsx so the entire case
@@ -12,7 +12,7 @@ import { MetaBlock } from '../primitives.jsx'
  * no IntersectionObserver, so the browser kept decoding + compositing
  * the video for the full length of the case study even after the
  * visitor scrolled past. This pauses it once the hero leaves the
- * viewport — frees decode + paint cost for the rest of the page.
+ * viewport - frees decode + paint cost for the rest of the page.
  *
  * Keeps `controls` so the visitor can scrub. Threshold 0.25 matches
  * FiveModes' LazyVideo.
@@ -73,20 +73,20 @@ export default function Hero() {
 
         <MetaBlock
           rows={[
-            { label: 'Context', value: 'Generative AI · SFU SIAT · Spring 2026' },
-            { label: 'Stack', value: 'Three.js · Web Audio API · Claude · vanilla JavaScript' },
+            { label: 'Context', value: 'Generative AI \u00b7 SFU SIAT \u00b7 Spring 2026' },
+            { label: 'Stack', value: 'Three.js \u00b7 Web Audio API \u00b7 Claude \u00b7 vanilla JavaScript' },
             { label: 'Role', value: 'Solo: concept, engine, AI layer, interface, design' },
-            { label: 'Duration', value: 'Spring 2026 · 6 weeks' },
+            { label: 'Duration', value: 'Spring 2026 \u00b7 6 weeks' },
           ]}
         />
 
-        {/* Hero video — the 1-minute walkthrough. Plays when visible,
+        {/* Hero video - the 1-minute walkthrough. Plays when visible,
             pauses when scrolled off-screen. No music in the demo so the
             visualizer speaks for itself. */}
         <figure className="space-y-3">
           <LazyHeroVideo />
           <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-600">
-            One-minute capture · live mic and file playback across all five modes
+            One-minute capture &#xB7; live mic and file playback across all five modes
           </figcaption>
         </figure>
       </div>

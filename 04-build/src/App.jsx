@@ -20,8 +20,8 @@ import GridBackground from './components/GridBackground.jsx'
 import ErrorBoundary from './components/ErrorBoundary.jsx'
 
 // Route pages are code-split: each is its own lazy() chunk, fetched only
-// when its route is first visited. This pulls all 9 pages — plus every case
-// study (see pages/projects.js) — out of the initial bundle. <Suspense>
+// when its route is first visited. This pulls all 9 pages - plus every case
+// study (see pages/projects.js) - out of the initial bundle. <Suspense>
 // inside AppRoutes covers the load.
 const Home = lazy(() => import('./sections/Home.jsx'))
 const Work = lazy(() => import('./sections/Work.jsx'))
@@ -31,17 +31,17 @@ const HallOfFame = lazy(() => import('./sections/HallOfFame.jsx'))
 // Case studies are routed through one shared route, /projects/:slug, which
 // reads the project registry (pages/projects.js) and renders the matching
 // case study component. ProjectRoute is itself a lazy chunk, and each case
-// study inside the registry is lazy too — see pages/projects.js.
+// study inside the registry is lazy too - see pages/projects.js.
 const ProjectRoute = lazy(() => import('./pages/ProjectRoute.jsx'))
 
 /**
- * App — top-level shell.
+ * App - top-level shell.
  *
  * Composition order:
- *   1. useVisitorIdentity (hook) — hydrates from localStorage
- *   2. CharacterProvider — provides autonomous character state machine
- *   3. CompanionProvider — provides fire() to all children (reads character for distance gating)
- *   4. <AppShell /> — runs companion-aware effects (returning visitor, idle, exit-intent)
+ *   1. useVisitorIdentity (hook) - hydrates from localStorage
+ *   2. CharacterProvider - provides autonomous character state machine
+ *   3. CompanionProvider - provides fire() to all children (reads character for distance gating)
+ *   4. <AppShell /> - runs companion-aware effects (returning visitor, idle, exit-intent)
  *
  * Spawn timing (per character-spec answers):
  *   - First-time visitor: character enters after onboarding completes
@@ -62,7 +62,7 @@ export default function App() {
       const t = setTimeout(() => setShowOnboarding(true), 1200)
       return () => clearTimeout(t)
     } else {
-      // Returning visitor or already has identity — onboarding is "done"
+      // Returning visitor or already has identity - onboarding is "done"
       setOnboardingDone(true)
     }
   }, [isLoaded, identity])
@@ -113,7 +113,7 @@ export default function App() {
 }
 
 /* -----------------------------------------------------------------------
-   AppShell — the actual rendered app, inside both providers so we can
+   AppShell - the actual rendered app, inside both providers so we can
    call useCompanion().fire() and useCharacter() for idle/reel routing.
    ----------------------------------------------------------------------- */
 
@@ -147,7 +147,7 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [identity?.visitCount, isReturning])
 
-  // Idle detection — continuous cycling system
+  // Idle detection - continuous cycling system
   // First idle fires at 12s, then every 8s with quips/facts/reels from the pool
   // Movement dismisses everything immediately
   // Now routes through the character system for speech + reel custody
@@ -158,21 +158,21 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
     onIdle: () => {
       // Signal character that visitor is idle
       setIdleState(true)
-      // First idle hit — fire the first content from the pool
+      // First idle hit - fire the first content from the pool
       const content = getNextIdleContent(idleSeenRef.current)
       if (content && content.index >= 0) idleSeenRef.current.add(content.index)
       if (content?.poolReset) idleSeenRef.current.clear()
       fireIdle(content)
     },
     onIdleCycle: () => {
-      // Subsequent idle ticks — keep cycling through the pool
+      // Subsequent idle ticks - keep cycling through the pool
       const content = getNextIdleContent(idleSeenRef.current)
       if (content && content.index >= 0) idleSeenRef.current.add(content.index)
       if (content?.poolReset) idleSeenRef.current.clear()
       fireIdle(content)
     },
     onActivity: () => {
-      // Movement detected — dismiss everything and signal character
+      // Movement detected - dismiss everything and signal character
       setIdleState(false)
       dismissAll()
     },
@@ -189,17 +189,17 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
 
   return (
     <>
-      {/* Ambient drifting blueprint grid — pure ground layer, behind all
+      {/* Ambient drifting blueprint grid - pure ground layer, behind all
           content and the character. See components/GridBackground.jsx. */}
       <GridBackground />
 
       {/* Thin scroll-progress line, fixed at the top of the viewport. */}
       <ScrollProgress />
 
-      {/* Persistent top navigation — Work / About me / Resume. */}
+      {/* Persistent top navigation - Work / About me / Resume. */}
       <SiteNav />
 
-      {/* Routed page tree — isolated behind React.memo so the character's
+      {/* Routed page tree - isolated behind React.memo so the character's
           per-frame context updates can't reconcile it. See AppRoutes. */}
       <AppRoutes location={location} />
 
@@ -219,7 +219,7 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
           blacks out the site renders inside here (character, speech
           bubbles, reels). If it throws, this boundary catches it: the
           companion vanishes, the console logs the exact error + component,
-          and the rest of the site keeps working — no black screen. */}
+          and the rest of the site keeps working - no black screen. */}
       <ErrorBoundary label="companion" fallback={null}>
         <Companion />
       </ErrorBoundary>
@@ -228,12 +228,12 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
 }
 
 /* -----------------------------------------------------------------------
-   AppRoutes — the routed page tree, isolated behind React.memo.
+   AppRoutes - the routed page tree, isolated behind React.memo.
 
    AppShell consumes character context, which changes on every frame while
    the character is walking. Without this boundary each of those updates
    would reconcile the entire routed page (hundreds of nodes, every SVG
-   diagram) — the root cause of the site-wide scroll / mouse jank. memo +
+   diagram) - the root cause of the site-wide scroll / mouse jank. memo +
    the stable `location` object means the page tree re-renders only on a
    real navigation, never from the character loop.
 

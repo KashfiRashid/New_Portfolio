@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { getProject } from './projects.js'
 
 /**
- * ProjectRoute — renders the case study for /projects/<slug>.
+ * ProjectRoute - renders the case study for /projects/<slug>.
  *
  * One route for every project. Looks the slug up in the project registry
  * (pages/projects.js). If that project has a real case study component,
