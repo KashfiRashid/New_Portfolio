@@ -40,6 +40,7 @@ const ForeseePage = lazy(() => import('./foresee/index.jsx'))
 const TruckingAcademyPage = lazy(() => import('./trucking-academy/index.jsx'))
 const AslExpressPage = lazy(() => import('./asl-express/index.jsx'))
 const PharmaBoticsPage = lazy(() => import('./pharmabotics/index.jsx'))
+const MarketBasketPage = lazy(() => import('./market-basket/index.jsx'))
 
 export const PROJECTS = [
   {
@@ -65,6 +66,18 @@ export const PROJECTS = [
     featured: true,
     bubbleId: 'H30',
     component: PharmaBoticsPage,
+  },
+  {
+    slug: 'market-basket',
+    name: 'Market Basket Analysis',
+    category: 'Machine Learning / Data Science',
+    kind: 'engineering',
+    blurb: 'A retail-intelligence system that predicts high-value customers and the next item in a cart. We over-engineered the recommender to a 3-4% dead end, then a simple KNN model hit a 38.75% next-item hit rate. The story is the retreat from complexity.',
+    image: '/market-basket/demo-hero.jpg',
+    color: '#E8B86A',
+    featured: true,
+    bubbleId: 'H36',
+    component: MarketBasketPage,
   },
   {
     slug: 'bc-connect',

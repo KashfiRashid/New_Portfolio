@@ -103,6 +103,8 @@ const bubbles = [
     text: "this updates when i ship something. it's not a flex; it's accountability." },
   { id: 'H35', trigger: 'hover', context: 'footer-reset',
     text: "reset wipes your name and color. won't break anything." },
+  { id: 'H36', trigger: 'hover', context: 'project-market-basket',
+    text: "the one where simpler won. forty-plus features lost to ten neighbors." },
 
   // --- CLICK (C) ---------------------------------------------------------
   { id: 'C1', trigger: 'click', context: 'voice-entry',
