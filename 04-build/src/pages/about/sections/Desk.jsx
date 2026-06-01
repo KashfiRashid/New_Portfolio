@@ -89,7 +89,7 @@ export default function Desk() {
               >
                 {p.name}
               </Link>
-              {i < OTHERS.length - 1 ? <span aria-hidden=" \u00b7 "> &#xB7; </span> : null}
+              {i < OTHERS.length - 1 ? <span aria-hidden={" \u00b7 "}> &#xB7; </span> : null}
             </span>
           ))}
         </p>

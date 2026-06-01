@@ -135,6 +135,20 @@ export function CompanionProvider({ visitor, children }) {
   }, [visitor, character])
 
   /**
+   * fireGuide - the docent line for the current page/section. Bypasses the
+   * library + cooldown/cap (the scroll controller paces it). Shows above the
+   * head on desktop and in the bottom toast on mobile.
+   */
+  const fireGuide = useCallback((text, key) => {
+    if (!text) return
+    const rendered = renderBubbleText(text, visitor)
+    if (character?.speakBubble) character.speakBubble(rendered, key || 'guide')
+    if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current)
+    setActive({ id: key || `guide-${Date.now()}`, text: rendered, anchor: null, firedAt: Date.now(), isIdle: true })
+    dismissTimerRef.current = setTimeout(() => setActive(null), 6000)
+  }, [character, visitor])
+
+  /**
    * dismiss - cancel the active bubble manually.
    */
   const dismiss = useCallback(() => {
@@ -163,11 +177,12 @@ export function CompanionProvider({ visitor, children }) {
     activeReel,
     fire,
     fireIdle,
+    fireGuide,
     dismiss,
     dismissReel,
     dismissAll,
     visitor,
-  }), [active, activeReel, fire, fireIdle, dismiss, dismissReel, dismissAll, visitor])
+  }), [active, activeReel, fire, fireIdle, fireGuide, dismiss, dismissReel, dismissAll, visitor])
 
   return (
     <CompanionContext.Provider value={value}>

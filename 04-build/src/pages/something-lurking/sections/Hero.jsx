@@ -33,7 +33,7 @@ export default function Hero() {
 
         <img
           src="/something-lurking/poster.png"
-          alt="Something Lurking comic poster \u2014 an astronaut in a green-smeared helmet against a dark starfield, with the title set above."
+          alt={"Something Lurking comic poster \u2014 an astronaut in a green-smeared helmet against a dark starfield, with the title set above."}
           loading="eager"
           className="w-full rounded-xl border border-white/[0.08]"
         />

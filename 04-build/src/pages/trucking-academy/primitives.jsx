@@ -13,6 +13,7 @@ export const TA_NAV = [
   { id: 'features', label: 'App Features' },
   { id: 'final-design', label: 'Final Design' },
   { id: 'impact', label: 'Impact' },
+  { id: 'credits', label: 'Credits' },
 ]
 
 export function SideNav({ activeId = '' }) {

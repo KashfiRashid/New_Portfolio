@@ -41,7 +41,7 @@ export default function ResearchSynthesis() {
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       aria-labelledby="synth-title synth-desc"
-      className="mx-auto block h-auto w-full max-w-[760px]"
+      className="mx-auto block h-auto w-full max-w-[920px]"
       shapeRendering="geometricPrecision"
     >
       <title id="synth-title">45 interviews funneled into three pain points</title>
@@ -53,7 +53,7 @@ export default function ResearchSynthesis() {
       </desc>
 
       {/* Left header */}
-      <text x="120" y="22" fill="#71717a" fontFamily={MONO} fontSize="10" letterSpacing="1.6" textAnchor="middle">
+      <text x="120" y="22" fill="#71717a" fontFamily={MONO} fontSize="12" letterSpacing="1.6" textAnchor="middle">
         45 INTERVIEWS &#xB7; 12+ COUNTRIES
       </text>
 
@@ -71,7 +71,7 @@ export default function ResearchSynthesis() {
       </g>
 
       {/* Right header */}
-      <text x="600" y="22" fill="#E8A53B" fontFamily={MONO} fontSize="10" letterSpacing="1.6" textAnchor="middle" fontWeight="700">
+      <text x="600" y="22" fill="#E8A53B" fontFamily={MONO} fontSize="12" letterSpacing="1.6" textAnchor="middle" fontWeight="700">
         THREE PAIN POINTS
       </text>
 
@@ -81,17 +81,17 @@ export default function ResearchSynthesis() {
         return (
           <g key={p.label}>
             <rect x="450" y={y} width="320" height="58" rx="6" fill="#E8A53B14" stroke="#E8A53B" strokeWidth="1" />
-            <text x="466" y={y + 24} fill="#F4C26B" fontFamily={MONO} fontSize="11" letterSpacing="1.4">
+            <text x="466" y={y + 24} fill="#F4C26B" fontFamily={MONO} fontSize="13" letterSpacing="1.4">
               {p.label}
             </text>
-            <text x="466" y={y + 44} fill="#a1a1aa" fontFamily={SANS} fontSize="11" fontStyle="italic">
+            <text x="466" y={y + 44} fill="#a1a1aa" fontFamily={SANS} fontSize="12" fontStyle="italic">
               {p.sub}
             </text>
           </g>
         )
       })}
 
-      <text x="400" y="290" fill="#71717a" fontFamily={SANS} fontSize="11" textAnchor="middle" fontStyle="italic">
+      <text x="400" y="290" fill="#71717a" fontFamily={SANS} fontSize="12" textAnchor="middle" fontStyle="italic">
         45 conversations. Three patterns that appeared in nearly all of them.
       </text>
     </svg>

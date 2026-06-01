@@ -29,7 +29,7 @@ export default function Hero() {
 
         <img
           src="/trucking-academy/hero.png"
-          alt="Trucking Academy \u2014 the final mobile app screens composited together."
+          alt={"Trucking Academy \u2014 the final mobile app screens composited together."}
           loading="eager"
           className="w-full rounded-xl border border-white/[0.08]"
         />

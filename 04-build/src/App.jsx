@@ -27,6 +27,7 @@ const Home = lazy(() => import('./sections/Home.jsx'))
 const Work = lazy(() => import('./sections/Work.jsx'))
 const About = lazy(() => import('./pages/about/AboutPage.jsx'))
 const HallOfFame = lazy(() => import('./sections/HallOfFame.jsx'))
+import PageGuide from './companion/PageGuide.jsx'
 
 // Case studies are routed through one shared route, /projects/:slug, which
 // reads the project registry (pages/projects.js) and renders the matching
@@ -222,6 +223,7 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
           and the rest of the site keeps working - no black screen. */}
       <ErrorBoundary label="companion" fallback={null}>
         <Companion />
+        <PageGuide />
       </ErrorBoundary>
     </>
   )

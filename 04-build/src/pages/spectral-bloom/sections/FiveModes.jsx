@@ -87,7 +87,7 @@ function ModeMedia({ media }) {
         kind="MEDIA"
         slotId={media.slotId}
         filename={media.filename}
-        dimensions="1920 \u00d7 1080 \u00b7 16:9 \u00b7 image or video"
+        dimensions={"1920 \u00d7 1080 \u00b7 16:9 \u00b7 image or video"}
         description={media.description}
         className="aspect-video min-h-0"
       />

@@ -1,4 +1,4 @@
-import { SectionHead, AssetPlaceholder, Highlight } from '../primitives.jsx'
+import { SectionHead, Highlight } from '../primitives.jsx'
 
 const RESULTS = [
   '2,847 startups unified from fragmented municipal open data',
@@ -30,15 +30,6 @@ export default function Results() {
         <p>
           BC Connect demoed live to the cohort, on time. <Highlight>Every flow in the proposal shipped, on one design system.</Highlight> The directory carries startups from eight regions behind one interface, with three roles and a full admin moderation surface.
         </p>
-      </div>
-      <div className="mt-10">
-        <AssetPlaceholder
-          kind="SCREENSHOT OR VIDEO"
-          slotId="Slot 2: Shipped directory"
-          filename="/bc-connect/directory-shipped.png  (or .mp4)"
-          dimensions="2400 x 1500, 16:10, still or short clip"
-          description="The directory in use: the card grid, the filter pills, the search bar, the map toggle. A short screen recording of filtering in action is stronger than a still, because it shows the product working."
-        />
       </div>
       <ul className="mt-12 max-w-[720px] space-y-2 font-[family-name:var(--font-sans)] text-base leading-relaxed text-zinc-300">
         {RESULTS.map((result, i) => (

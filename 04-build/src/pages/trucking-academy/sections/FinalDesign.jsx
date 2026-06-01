@@ -11,7 +11,7 @@ export default function FinalDesign() {
       </div>
 
       <figure className="mt-12 space-y-3">
-        <img src="/trucking-academy/final-screens.png" alt="Final mobile app design \u2014 all screens composited together." loading="lazy" className="w-full rounded-xl border border-white/[0.08]" />
+        <img src="/trucking-academy/final-screens.png" alt={"Final mobile app design \u2014 all screens composited together."} loading="lazy" className="w-full rounded-xl border border-white/[0.08]" />
         <figcaption className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">
           <span className="text-[#FF6B6B]">Final screens</span> &#xB7; the full app at a glance
         </figcaption>

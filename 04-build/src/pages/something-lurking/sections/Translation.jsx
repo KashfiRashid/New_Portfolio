@@ -20,7 +20,7 @@ export default function Translation() {
         src="/something-lurking/fig-grab-interactions.png"
         alt="Three in-game screenshots showing the grab-based puzzle interactions."
         label="Figure 2"
-        caption="Grab-based puzzles \u00b7 fusebox fuses (1:100) \u00b7 manual sliding door \u00b7 chip-grid wire puzzle (1:1000)"
+        caption={"Grab-based puzzles \u00b7 fusebox fuses (1:100) \u00b7 manual sliding door \u00b7 chip-grid wire puzzle (1:1000)"}
       />
     </section>
   )

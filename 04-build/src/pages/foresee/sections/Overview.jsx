@@ -16,7 +16,7 @@ export default function Overview() {
       <figure className="mt-12 space-y-3">
         <img
           src="/foresee/interface.png"
-          alt="ForeSee Spouse Board \u2014 an event timeline with actual and predicted spending traces."
+          alt={"ForeSee Spouse Board \u2014 an event timeline with actual and predicted spending traces."}
           loading="lazy"
           className="w-full rounded-xl border border-white/[0.08]"
         />

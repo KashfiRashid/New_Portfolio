@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { useLocation } from 'react-router-dom'
 import { useCharacter } from './CharacterContext.jsx'
 import CharacterSprite from './CharacterSprite.jsx'
 import CharacterBubble from './CharacterBubble.jsx'
@@ -85,7 +86,12 @@ export default function Character() {
 
   // patch v1.4: grab eligibility - desktop only, not while a higher-priority
   // moment owns the character.
-  const grabbable = !isMobile && !GRAB_SUPPRESSION_LIST.has(state)
+  // Drag-and-drop is allowed only on home / work / about - not on case
+  // studies, the build log, or nightshift (those are read, not play).
+  const { pathname } = useLocation()
+  const dragAllowed =
+    pathname === '/' || pathname === '/work' || pathname.startsWith('/about')
+  const grabbable = !isMobile && dragAllowed && !GRAB_SUPPRESSION_LIST.has(state)
   const isGrabbed = state === 'grabbed'
   const isThrown = state === 'thrown'
   const allowSubpixel = isGrabbed || isThrown

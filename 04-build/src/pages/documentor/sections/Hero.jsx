@@ -30,7 +30,7 @@ export default function Hero() {
         <AppShot
           src="/documentor/App.png"
           alt="The DocuMentor mobile app interface."
-          caption="DocuMentor \u00b7 the shipped interface"
+          caption={"DocuMentor \u00b7 the shipped interface"}
         />
       </div>
     </section>

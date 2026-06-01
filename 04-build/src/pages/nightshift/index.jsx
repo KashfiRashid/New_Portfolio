@@ -109,7 +109,7 @@ export default function NightshiftPage() {
     <section
       className="relative w-full overflow-hidden"
       style={{ minHeight: '100svh', backgroundColor: SURFACE_DEEP }}
-      aria-label="Nightshift \u2014 coming soon"
+      aria-label={"Nightshift \u2014 coming soon"}
     >
       {/* Layer 0 - poster (instant paint, and the whole picture on
           reduced-motion / narrow surfaces where the video never mounts) */}

@@ -28,7 +28,6 @@ const CHANGES = [
 
 const SHAPERS = [
   { who: 'Tazwar', note: 'The writing here is downstream of his.' },
-  { who: 'Sazzad', note: 'Longest collaborator. BLU would not sound like BLU without him.' },
   { who: 'Family', note: 'The part that is hard to write in one line.' },
 ]
 

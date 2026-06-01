@@ -83,7 +83,7 @@ export default function Results() {
         src="/something-lurking/fig-art-collage.png"
         alt="The full 3D asset collage from the project report."
         label="Figure 5"
-        caption="The full art set Eric modeled \u00b7 seven scaled environments \u00b7 armband \u00b7 escape pod \u00b7 astronaut"
+        caption={"The full art set Eric modeled \u00b7 seven scaled environments \u00b7 armband \u00b7 escape pod \u00b7 astronaut"}
       />
     </section>
   )

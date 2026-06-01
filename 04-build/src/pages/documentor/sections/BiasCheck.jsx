@@ -32,7 +32,7 @@ export default function BiasCheck() {
         <AppShot
           src="/documentor/PainPoints.png"
           alt="Research synthesis showing the three pain points that emerged from 45 interviews: information overload, unclear progress, complex navigation."
-          caption="45 interviews \u00b7 12+ countries \u00b7 three pain points held"
+          caption={"45 interviews \u00b7 12+ countries \u00b7 three pain points held"}
         />
       </div>
 

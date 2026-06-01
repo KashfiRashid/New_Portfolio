@@ -9,10 +9,11 @@ import Journey from './sections/Journey.jsx'
 import Features from './sections/Features.jsx'
 import FinalDesign from './sections/FinalDesign.jsx'
 import Impact from './sections/Impact.jsx'
+import Credits from './sections/Credits.jsx'
 
 const SECTION_IDS = [
   'challenge', 'research', 'insights', 'journey',
-  'solution', 'features', 'final-design', 'impact',
+  'solution', 'features', 'final-design', 'impact', 'credits',
 ]
 
 export default function TruckingAcademyPage() {
@@ -64,6 +65,7 @@ export default function TruckingAcademyPage() {
         <Features />
         <FinalDesign />
         <Impact />
+        <Credits />
       </main>
     </div>
   )

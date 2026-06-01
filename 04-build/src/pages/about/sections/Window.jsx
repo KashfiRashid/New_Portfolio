@@ -52,7 +52,7 @@ export default function Window() {
       <div className="mx-auto max-w-[680px]">
         <CopyPlaceholder
           targetWords="two short sentences"
-          note="Intro copy for the top of the page. Kash to write \u2014 no constraints from the previous brief. Anything you want the reader to know up top before the desk / work / wall / door blocks land."
+          note={"Intro copy for the top of the page. Kash to write \u2014 no constraints from the previous brief. Anything you want the reader to know up top before the desk / work / wall / door blocks land."}
         />
       </div>
     </WideShell>

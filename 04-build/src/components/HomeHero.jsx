@@ -113,8 +113,8 @@ function PhotoPlaceholder() {
         font-mono text-[9px] uppercase tracking-[0.16em] text-text-faint
         select-none
       "
-      aria-label="Photo placeholder \u2014 pending /home/kash.jpg"
-      title="/home/kash.jpg pending \u2014 square, face crop"
+      aria-label={"Photo placeholder \u2014 pending /home/kash.jpg"}
+      title={"/home/kash.jpg pending \u2014 square, face crop"}
     >
       <span>photo</span>
       <span className="text-text-faint/60 mt-0.5 normal-case tracking-normal text-[8px]">pending</span>
@@ -376,7 +376,7 @@ export default function HomeHero({ children } = {}) {
       ref={wrapperRef}
       className="relative w-full"
       style={sectionStyle}
-      aria-label="Kashfi Rashid \u2014 designer and developer"
+      aria-label={"Kashfi Rashid \u2014 designer and developer"}
     >
       {/* Sticky top header (z-30) - clock + scene status pinned to
           viewport top for the entire section scroll. Lives OUTSIDE the

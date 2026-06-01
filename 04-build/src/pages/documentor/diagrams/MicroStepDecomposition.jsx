@@ -30,7 +30,7 @@ export default function MicroStepDecomposition() {
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       aria-labelledby="micro-title micro-desc"
-      className="mx-auto block h-auto w-full max-w-[760px]"
+      className="mx-auto block h-auto w-full max-w-[920px]"
       shapeRendering="geometricPrecision"
     >
       <title id="micro-title">One process broken into a sequence of steps</title>
@@ -43,10 +43,10 @@ export default function MicroStepDecomposition() {
       {/* Large source block */}
       <g>
         <rect x="30" y="60" width="200" height="140" rx="8" fill="none" stroke="#3f3f46" strokeWidth="1.2" />
-        <text x="130" y="92" fill="#71717a" fontFamily={MONO} fontSize="11" letterSpacing="1.6" textAnchor="middle">
+        <text x="130" y="92" fill="#71717a" fontFamily={MONO} fontSize="12" letterSpacing="1.6" textAnchor="middle">
           STUDY PERMIT
         </text>
-        <text x="130" y="108" fill="#71717a" fontFamily={MONO} fontSize="11" letterSpacing="1.6" textAnchor="middle">
+        <text x="130" y="108" fill="#71717a" fontFamily={MONO} fontSize="12" letterSpacing="1.6" textAnchor="middle">
           PROCESS
         </text>
         {/* visual density inside the block */}
@@ -65,7 +65,7 @@ export default function MicroStepDecomposition() {
         <line x1="232" y1="130" x2="272" y2="130" />
         <path d="M 272 130 l -6 -4 m 6 4 l -6 4" />
       </g>
-      <text x="252" y="120" fill="#71717a" fontFamily={MONO} fontSize="8" letterSpacing="1" textAnchor="middle">
+      <text x="252" y="96" fill="#71717a" fontFamily={MONO} fontSize="10" letterSpacing="1" textAnchor="middle">
         DECOMPOSED
       </text>
 
@@ -87,14 +87,23 @@ export default function MicroStepDecomposition() {
               stroke={stroke}
               strokeWidth="1"
             />
-            <text x={x + STEP_W / 2} y={STEP_Y + 22} fill={done ? '#F4C26B' : active ? '#F4C26B' : '#71717a'} fontFamily={MONO} fontSize="9" letterSpacing="1" textAnchor="middle" fontWeight={active ? '700' : '400'}>
+            <text x={x + STEP_W / 2} y={STEP_Y + 22} fill={done ? '#F4C26B' : active ? '#F4C26B' : '#71717a'} fontFamily={MONO} fontSize="11" letterSpacing="1" textAnchor="middle" fontWeight={active ? '700' : '400'}>
               {String(i + 1).padStart(2, '0')}
             </text>
-            <text x={x + STEP_W / 2} y={STEP_Y + 40} fill="#d4d4d8" fontFamily={SANS} fontSize="11" textAnchor="middle">
+            <text
+              x={x + STEP_W / 2}
+              y={STEP_Y + 40}
+              fill="#d4d4d8"
+              fontFamily={SANS}
+              fontSize="11"
+              textAnchor="middle"
+              textLength={label.length > 9 ? STEP_W - 14 : undefined}
+              lengthAdjust="spacingAndGlyphs"
+            >
               {label}
             </text>
             {done ? (
-              <text x={x + STEP_W - 12} y={STEP_Y + 14} fill="#E8A53B" fontFamily={MONO} fontSize="10" textAnchor="middle">
+              <text x={x + STEP_W - 12} y={STEP_Y + 14} fill="#E8A53B" fontFamily={MONO} fontSize="12" textAnchor="middle">
                 &#x2713;
               </text>
             ) : null}
@@ -105,11 +114,11 @@ export default function MicroStepDecomposition() {
       {/* Progress bar beneath */}
       <line x1={STEP_X0} y1={STEP_Y + 76} x2={STEP_X0 + STEPS.length * (STEP_W + STEP_GAP) - STEP_GAP} y2={STEP_Y + 76} stroke="#3f3f46" strokeWidth="2" />
       <line x1={STEP_X0} y1={STEP_Y + 76} x2={STEP_X0 + 2.5 * (STEP_W + STEP_GAP)} y2={STEP_Y + 76} stroke="#E8A53B" strokeWidth="2" />
-      <text x={STEP_X0} y={STEP_Y + 92} fill="#71717a" fontFamily={MONO} fontSize="9" letterSpacing="1">
+      <text x={STEP_X0} y={STEP_Y + 92} fill="#71717a" fontFamily={MONO} fontSize="11" letterSpacing="1">
         2 OF 6 COMPLETE
       </text>
 
-      <text x="400" y="240" fill="#71717a" fontFamily={SANS} fontSize="11" textAnchor="middle" fontStyle="italic">
+      <text x="400" y="240" fill="#71717a" fontFamily={SANS} fontSize="12" textAnchor="middle" fontStyle="italic">
         The wall becomes a sequence. The sequence shows progress.
       </text>
     </svg>

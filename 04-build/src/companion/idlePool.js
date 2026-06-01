@@ -13,38 +13,35 @@
 // for the "the visitor went AFK" scenario. Voice is still Kash's, lowercase casual.
 
 const idlePool = [
-  // --- QUIPS (funny / observational) -------------------------------------
+  // --- QUIPS (AFK / bored - funny, in character) -------------------------
 
+  { type: 'quip', text: "Boisha thakte bhalo lage tai na?" },
   { type: 'quip', text: "still here? okay. i respect the commitment." },
+  { type: 'quip', text: "you've been still so long i started naming the pixels." },
+  { type: 'quip', text: "three hackathon wins and i still can't get you to scroll. tough crowd." },
   { type: 'quip', text: "you stopped moving. either you're reading or you fell asleep." },
-  { type: 'quip', text: "are you lost? that's fine. the site's small." },
+  { type: 'quip', text: "i'm a guide, not a screensaver. though, right now, debatable." },
   { type: 'quip', text: "hmm. too boring, i see." },
-  { type: 'quip', text: "i'll just... wait here then." },
-  { type: 'quip', text: "this is the longest anyone's stared at this section." },
-  { type: 'quip', text: "if you're on your phone right now, i get it." },
   { type: 'quip', text: "the cursor's just sitting there. very zen of you." },
-  { type: 'quip', text: "i'm not going anywhere. take your time." },
-  { type: 'quip', text: "you know there's more below, right?" },
+  { type: 'quip', text: "i'll just... wait here then." },
+  { type: 'quip', text: "i built this at 2am. you're viewing it at whatever hour this is. solidarity." },
   { type: 'quip', text: "at this point we're just hanging out. i'm fine with that." },
-  { type: 'quip', text: "this silence is kind of nice, actually." },
   { type: 'quip', text: "...you good?" },
-  { type: 'quip', text: "the site doesn't bite. you can scroll." },
-  { type: 'quip', text: "i built this at 2am. you're viewing it at... whatever time it is for you." },
+  { type: 'quip', text: "you know there's more below, right?" },
+  { type: 'quip', text: "longest anyone's stared at this section. you win nothing, but you win." },
 
-  // --- FACTS (random things about Kash) ----------------------------------
+  // --- FACTS (about Kash - no origin story) ------------------------------
 
+  { type: 'fact', text: "random fact: i won three hackathons - best hardware, best ui, best use of elevenlabs. yes, i'm counting." },
+  { type: 'fact', text: "random fact: i'm a design engineer. i design the thing, then i build it." },
   { type: 'fact', text: "random fact: i play football (the real kind) every weekend." },
-  { type: 'fact', text: "random fact: i moved from dhaka to delta in 2022. still adjusting to the rain." },
   { type: 'fact', text: "random fact: BLU's sound at 0:42 took three takes. the first two were worse." },
-  { type: 'fact', text: "random fact: this site was rewritten three times in my head before i started this version." },
-  { type: 'fact', text: "random fact: my friend sazzad is in dhaka. nine years of friendship." },
-  { type: 'fact', text: "random fact: i work on the FIC IT Squad. tuesday afternoons disappear into incident triage." },
-  { type: 'fact', text: "random fact: the companion you're reading right now is powered by claude. for real." },
+  { type: 'fact', text: "random fact: this site was rewritten three times in my head before i wrote a line of it." },
+  { type: 'fact', text: "random fact: the companion you're reading is powered by claude. for real." },
   { type: 'fact', text: "random fact: i built spectral bloom to make visuals listen to audio. it worked." },
-  { type: 'fact', text: "random fact: the word 'executioneery' isn't real. that's the point." },
+  { type: 'fact', text: "random fact: i mentored at youCode 2026 - teaching is the fastest way to learn twice." },
+  { type: 'fact', text: "random fact: SFU SIAT, class of 2026. design engineer, soon for hire." },
   { type: 'fact', text: "random fact: the football pitch taught me about space before any design class did." },
-  { type: 'fact', text: "random fact: i'm graduating SFU SIAT june 10, 2026. if you're reading this after, i did it." },
-  { type: 'fact', text: "random fact: my dad held two coffees the day i landed at YVR. he got my order right." },
 
   // --- REEL SURFACES -----------------------------------------------------
 

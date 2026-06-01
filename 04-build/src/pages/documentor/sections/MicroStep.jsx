@@ -11,7 +11,7 @@ export default function MicroStep() {
       />
       <div className="max-w-[720px] space-y-5 font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-200 lg:text-xl">
         <p>
-          A government process is intimidating because it presents every requirement at once. <Highlight>DocuMentor presents one step, confirms it, then reveals the next.</Highlight>
+          A government process is intimidating because its information and requirements arrive cluttered and out of order. <Highlight>DocuMentor presents one step, confirms it, then reveals the next.</Highlight>
         </p>
       </div>
 

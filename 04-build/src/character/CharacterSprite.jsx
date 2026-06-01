@@ -33,7 +33,10 @@ const POSTURE_TO_SPRITE = {
 const WALKING_POSTURES = new Set(['walking1', 'walking2', 'running'])
 const SEATED_POSTURES = new Set(['sitting', 'laptop_open', 'contemplating', 'peeking'])
 const WALK_SPRITES = new Set(['walk-a', 'walk-b'])
-const NO_BOB_POSTURES = new Set(['coffee_hold', 'coffee_sip', 'coffee_sipoff'])
+// Coffee postures now keep the gentle idle breathing-bob (they used to be
+// dead-static, which read as rigid next to the walk cycle). Only truly
+// seated poses stay still.
+const NO_BOB_POSTURES = new Set()
 // Both walk frames are kept mounted (see render below) so they decode once.
 const WALK_FRAMES = ['walk-a', 'walk-b']
 

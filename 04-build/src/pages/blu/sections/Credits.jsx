@@ -43,6 +43,12 @@ export default function Credits() {
   return (
     <section id="credits" className="scroll-mt-28 py-20 lg:py-32">
       <SectionHead kicker="CREDITS" title="Team and attribution." />
+      <figure className="mb-12 max-w-2xl">
+        <div className="overflow-hidden rounded-lg border border-white/[0.08]" style={{ aspectRatio: '16 / 9' }}>
+          <img src="/blu/team.jpg" alt="The BLU team at SFU SIAT." loading="lazy" decoding="async" className="h-full w-full object-cover object-center" />
+        </div>
+        <figcaption className="mt-3 font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.16em] text-zinc-500">The BLU team - IAT 343, SFU</figcaption>
+      </figure>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {TEAM.map((member) => (
           <div key={member.name}>
