@@ -21,7 +21,7 @@ import { NavLink, Link } from 'react-router-dom'
  * Layout: fixed 48px tall (h-12) - load-bearing, do not change.
  */
 
-const RESUME_URL = 'https://drive.google.com/file/d/1Xkc3TBm40Nrc7kQFNv8FEMYcAeOPt0xg/view?usp=sharing'
+const RESUME_URL = 'https://drive.google.com/file/d/1ImK5hPzpbQG3AbjY1k5Qz8_LM1tm6tS2/view?usp=sharing'
 
 export default function SiteNav() {
   return (
@@ -75,7 +75,7 @@ export default function SiteNav() {
         </Link>
 
         {/* Nav links */}
-        <div className="flex items-center gap-6 md:gap-8">
+        <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
           <NavItem to="/work" label="work" />
           <NavItem to="/about" label="about me" />
           <ResumeLink />

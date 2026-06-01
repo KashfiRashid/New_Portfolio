@@ -41,7 +41,7 @@ export default {
         // stack for display, JetBrains Mono (monospace), Hind Siliguri (Bangla).
         // Reckless Neue / Editorial New are paid — system serif fallback in their place.
         sans: ['Inter', 'Söhne', 'Geist Sans', 'system-ui', 'sans-serif'],
-        display: ['Editorial New', 'Reckless Neue', 'Georgia', 'ui-serif', 'serif'],
+        display: ['Instrument Serif', 'Georgia', 'ui-serif', 'serif'],
         mono: ['JetBrains Mono', 'Geist Mono', 'ui-monospace', 'monospace'],
         bangla: ['Hind Siliguri', 'Tiro Bangla', 'Noto Sans Bengali', 'serif'],
       },

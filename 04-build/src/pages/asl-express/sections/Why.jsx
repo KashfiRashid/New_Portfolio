@@ -1,4 +1,4 @@
-import { SectionHead, Prose, Figure } from '../primitives.jsx'
+import { SectionHead, Prose, Figure, Highlight } from '../primitives.jsx'
 
 export default function Why() {
   return (
@@ -7,11 +7,11 @@ export default function Why() {
       <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <Prose>
           <p>
-            I have a cousin who is mute. I am an international student, so for years a video
-            call has been the only way we talk. and every call has the same gap in it: he
-            signs, and I don&rsquo;t know ASL. I can read his face, his energy, the half of
-            it I&rsquo;ve learned to guess. but the language itself doesn&rsquo;t cross the
-            screen.
+            I have <Highlight>a cousin who is mute</Highlight>. I am an international student,
+            so for years a video call has been the only way we talk. and every call has the
+            same gap in it: <Highlight>he signs, and I don&rsquo;t know ASL</Highlight>. I can
+            read his face, his energy, the half of it I&rsquo;ve learned to guess. but{' '}
+            <Highlight>the language itself doesn&rsquo;t cross the screen</Highlight>.
           </p>
           <p>
             That gap is small and constant. it is also the most ordinary thing in the world

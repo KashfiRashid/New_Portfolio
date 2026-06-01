@@ -28,6 +28,9 @@ import { pickThrowQuip } from './throwQuips.js'
 
 const CharacterContext = createContext(null)
 
+// Console logging only when ?debug=character is in the URL (keeps prod console clean).
+const CHAR_DEBUG = typeof window !== 'undefined' && window.location.search.includes('debug=character')
+
 /* -- Speeds & constants ---------------------------------------------- */
 const CHASE_SPEED_THRESHOLD = 600 // px/s
 const CHASE_DISTANCE_THRESHOLD = 150 // px
@@ -285,12 +288,12 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   const fireContextualReel = useCallback(({ triggerType, section: sec }) => {
     const clip = pickReel(triggerType, sec, seenReelsRef.current)
     if (!clip) {
-      console.log(`[CHARACTER] reel trigger ${triggerType} fired but pool exhausted`)
+      CHAR_DEBUG && console.log(`[CHARACTER] reel trigger ${triggerType} fired but pool exhausted`)
       return
     }
     seenReelsRef.current.add(clip)
     pendingReelClipRef.current = clip
-    console.log(`[CHARACTER] reel trigger: ${triggerType} (${sec || '-'}) \u2192 ${clip}`)
+    CHAR_DEBUG && console.log(`[CHARACTER] reel trigger: ${triggerType} (${sec || '-'}) \u2192 ${clip}`)
     // transition is stable (defined below); refer through ref-less reference
     // is fine because useCallback below has empty deps for the same reason.
     transitionRef.current?.('summoning_reel')
@@ -330,7 +333,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
 
     // Debug log
     const entry = `${prevName} \u2192 ${nextStateName}`
-    console.log(`[CHARACTER] ${entry}`)
+    CHAR_DEBUG && console.log(`[CHARACTER] ${entry}`)
     setDebugLog(prev => [...prev.slice(-19), entry])
   }, [])
 
@@ -816,12 +819,12 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
   // a real `mouseup` after ~600ms so the natural release path runs.
   const forceGrab = useCallback(() => {
     if (isMobileRef.current) {
-      console.log('[CHARACTER DEBUG] Grab disabled on mobile.')
+      CHAR_DEBUG && console.log('[CHARACTER DEBUG] Grab disabled on mobile.')
       return
     }
     const stateName = stateModuleRef.current?.name
     if (stateName && GRAB_SUPPRESSION_LIST.has(stateName)) {
-      console.log(`[CHARACTER DEBUG] Grab blocked: state '${stateName}' is in suppression list.`)
+      CHAR_DEBUG && console.log(`[CHARACTER DEBUG] Grab blocked: state '${stateName}' is in suppression list.`)
       return
     }
     const { x, y } = cursorPosRef.current
@@ -837,7 +840,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     if (typeof document === 'undefined') return
     const card = document.querySelector('a.card-lift[href^="/work/"]')
     if (!card) {
-      console.log('[CHARACTER DEBUG] No project card on page. Navigate to /work first.')
+      CHAR_DEBUG && console.log('[CHARACTER DEBUG] No project card on page. Navigate to /work first.')
       return
     }
     const rect = card.getBoundingClientRect()
@@ -887,7 +890,7 @@ export function CharacterProvider({ children, identity, isReturning, onboardingD
     const [postureName, props] = postureMap[activityName]
     ctx.posture = postureName
     ctx.activeProps = props
-    console.log(`[CHARACTER DEBUG] Forced activity: ${activityName}`)
+    CHAR_DEBUG && console.log(`[CHARACTER DEBUG] Forced activity: ${activityName}`)
   }, [transition])
 
   const value = useMemo(() => ({

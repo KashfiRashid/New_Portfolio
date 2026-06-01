@@ -126,6 +126,18 @@ export default function Character() {
     }
   }
 
+  // Compact screens: pin the character to the top-right corner facing
+  // center instead of letting it roam (roaming overlaps content on narrow
+  // viewports). The state machine keeps running - the idle bob and
+  // reactions still play in place. Speech is routed to the bottom toast
+  // (see Companion) so the above-head bubble can never clip the top edge.
+  const PIN_MARGIN = 16
+  if (isMobile && typeof window !== 'undefined') {
+    charLeft = Math.round(window.innerWidth - size - PIN_MARGIN)
+    charTop = 60 // clear the fixed top nav (h-12 = 48px) + a little air
+  }
+  const renderFacing = isMobile ? 'left' : facing
+
   const handleGrabStart = (e) => {
     if (e.button !== 0) return
     if (!grabbable) return
@@ -240,7 +252,7 @@ export default function Character() {
               <VanishEffect
                 key={projectPhase}
                 reverse={reappearing}
-                facing={facing}
+                facing={renderFacing}
                 size={size}
                 mobile={isMobile}
               />
@@ -263,7 +275,7 @@ export default function Character() {
 
                 <CharacterSprite
                   posture={posture}
-                  facing={facing}
+                  facing={renderFacing}
                   size={size}
                   pixelInspect={pixelInspect}
                   rotation={swayRotation}
@@ -277,7 +289,7 @@ export default function Character() {
       </AnimatePresence>
 
       {/* Speech bubble anchored to character (patch v1.3 SecC). */}
-      {showSprite && charBubble && (
+      {showSprite && charBubble && !isMobile && (
         <CharacterBubble
           text={charBubble.text}
           id={charBubble.id}

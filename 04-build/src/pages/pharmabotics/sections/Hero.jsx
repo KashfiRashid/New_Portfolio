@@ -14,7 +14,7 @@ export default function Hero() {
           <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.2em] text-[#5EEAD4]">
             15/15 dispenses &middot; SFU SIAT Showcase 2024
           </p>
-          <h1 className="font-[family-name:var(--font-display)] text-[56px] font-normal text-white lg:text-[96px]" style={{ letterSpacing: '-0.03em', lineHeight: '0.95' }}>
+          <h1 className="font-[family-name:var(--font-display)] text-[40px] sm:text-[56px] font-normal text-white lg:text-[96px]" style={{ letterSpacing: '-0.03em', lineHeight: '0.95' }}>
             PharmaBotics
           </h1>
           <p className="max-w-[680px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-300 lg:text-xl">

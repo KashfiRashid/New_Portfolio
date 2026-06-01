@@ -52,7 +52,7 @@ export default function About() {
           </h2>
           <p className="text-text-muted leading-relaxed max-w-prose">
             Currently on the IT Squad at FIC, and graduating from SFU&apos;s
-            School of Interactive Arts &amp; Technology (SIAT) on June 10, 2026.
+            School of Interactive Arts &amp; Technology (SIAT), class of 2026.
             {/* [NEEDS KASH INPUT - confirm role title + anything else current] */}
           </p>
         </section>

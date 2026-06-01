@@ -17,7 +17,7 @@ export default function Hero() {
             Winner, Best Hardware &middot; StormHacks 2025
           </p>
           <h1
-            className="font-[family-name:var(--font-display)] text-[56px] font-normal text-white lg:text-[96px]"
+            className="font-[family-name:var(--font-display)] text-[40px] sm:text-[56px] font-normal text-white lg:text-[96px]"
             style={{ letterSpacing: '-0.03em', lineHeight: '0.95' }}
           >
             ASL Express
@@ -47,13 +47,6 @@ export default function Hero() {
             <LinkButton key={link.href} href={link.href}>{link.label}</LinkButton>
           ))}
         </div>
-
-        <img
-          src="/asl-express/asl-hero.png"
-          alt="ASL Express - a translucent glowing hand forming the ASL sign for I love you, inside a glass orb."
-          loading="eager"
-          className="w-full rounded-xl border border-white/[0.08]"
-        />
       </div>
     </section>
   )

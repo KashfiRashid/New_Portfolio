@@ -88,7 +88,7 @@ export default function Work() {
               onClick={() => setKind(k.id)}
             />
           ))}
-          <span className="ml-auto font-mono text-[11px] uppercase tracking-[0.18em] text-text-faint tabular-nums">
+          <span className="w-full sm:w-auto sm:ml-auto mt-2 sm:mt-0 font-mono text-[11px] uppercase tracking-[0.18em] text-text-faint tabular-nums">
             {filtered.length} {filtered.length === 1 ? 'project' : 'projects'}
           </span>
         </div>

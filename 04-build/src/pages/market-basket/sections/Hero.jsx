@@ -13,7 +13,7 @@ export default function Hero() {
           <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.2em] text-[#F4D6A6]">
             Machine learning &middot; IAT 461 &middot; Summer 2025
           </p>
-          <h1 className="font-[family-name:var(--font-display)] text-[52px] font-normal text-white lg:text-[88px]" style={{ letterSpacing: '-0.03em', lineHeight: '0.95' }}>
+          <h1 className="font-[family-name:var(--font-display)] text-[36px] sm:text-[52px] font-normal text-white lg:text-[88px]" style={{ letterSpacing: '-0.03em', lineHeight: '0.95' }}>
             Predictive Market Basket Analysis
           </h1>
           <p className="max-w-[680px] font-[family-name:var(--font-sans)] text-lg leading-relaxed text-zinc-300 lg:text-xl">

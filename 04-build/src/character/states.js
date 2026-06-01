@@ -342,7 +342,7 @@ export const idling = {
           ctx.stateData.activeActivity = activity
           ctx.stateData.activityElapsed = 0
           applyActivity(ctx, activity)
-          console.log(`[CHARACTER] activity: ${activity.name} (${activity.duration.toFixed(1)}s)`)
+          if (typeof window !== 'undefined' && window.location.search.includes('debug=character')) console.log(`[CHARACTER] activity: ${activity.name} (${activity.duration.toFixed(1)}s)`)
         } else {
           // No valid activity - retry later
           ctx.stateData.nextActivityAt = randomBetween(8, 15)

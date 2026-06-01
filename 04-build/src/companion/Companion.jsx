@@ -38,6 +38,15 @@ import CharacterDebug from '../character/debug/CharacterDebug.jsx'
 export default function Companion() {
   const { active, dismiss, visitor } = useCompanion()
   const [isFinePointer, setIsFinePointer] = useState(true)
+  const [compact, setCompact] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768)
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+    const mq = window.matchMedia('(max-width: 767px)')
+    const u = () => setCompact(mq.matches)
+    u()
+    mq.addEventListener('change', u)
+    return () => mq.removeEventListener('change', u)
+  }, [])
   const [reducedMotion, setReducedMotion] = useState(false)
 
   // Cursor state - the dot's CONTEXT and REACTIONS, never its position.
@@ -322,7 +331,7 @@ export default function Companion() {
 
       {/* Mobile toast fallback - coarse pointers get bottom-anchored bubbles */}
       <AnimatePresence>
-        {active && !isFinePointer && (
+        {active && (!isFinePointer || compact) && (
           <ToastBubble key={active.id} active={active} visitor={visitor} onDismiss={dismiss} />
         )}
       </AnimatePresence>

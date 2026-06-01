@@ -125,7 +125,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.6, ease: [0.22, 0.61, 0.36, 1] }}
             className="text-text-faint text-sm font-mono"
           >
-            Currently at FIC IT Squad &middot; graduating SFU SIAT June 10 &middot; Delta, BC
+            SFU SIAT, class of 2026 &middot; Delta, BC
           </motion.p>
         </section>
 
@@ -204,8 +204,8 @@ export default function Home() {
           >
             <div className="flex items-baseline justify-between">
               <div>
-                <h2 className="text-display-md font-display mb-2">Hall of Fame</h2>
-                <p className="text-text-muted text-sm">the site got better because these people showed up.</p>
+                <h2 className="text-display-md font-display mb-2">Build Log</h2>
+                <p className="text-text-muted text-sm">how this site got made, and who shaped it.</p>
               </div>
               <span className="text-text-muted group-hover:text-accent-glow arrow-slide transition-colors duration-200 ease-kash-out">&rarr;</span>
             </div>
@@ -217,9 +217,9 @@ export default function Home() {
       <Reveal delay={0.2}>
         <section className="relative z-10 px-6 py-8 max-w-3xl mx-auto w-full">
           <p className="text-text-faint text-sm leading-relaxed">
-            the site updates when someone helps make it better.{' '}
+            this site changes in the open.{' '}
             <Link to="/hall-of-fame" className="hover:text-text-muted underline-offset-4 hover:underline transition-colors duration-200 ease-kash-out">
-              see what&apos;s shipped
+              see the build log
             </Link>
           </p>
         </section>

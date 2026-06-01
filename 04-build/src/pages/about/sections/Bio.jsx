@@ -17,17 +17,12 @@ export default function Bio() {
           </BodyText>
 
           <BodyText>
-            I grew up in Dhaka and have been building things in Delta, BC since
-            2022. Right now I run the IT Squad at{' '}
-            <QuietLink href="https://www.fraseric.ca/" external>
-              Fraser International College
-            </QuietLink>
-            , where my afternoons disappear into live incident triage, and
-            I&apos;m finishing my final year at{' '}
+            I work as a design engineer, finishing my BSc at{' '}
             <QuietLink href="https://www.sfu.ca/siat.html" external>
               SFU&apos;s School of Interactive Arts &amp; Technology
             </QuietLink>
-            .
+            . I design the thing, then build it - I&apos;ve never been good at
+            picking a side.
           </BodyText>
 
           <BodyText>

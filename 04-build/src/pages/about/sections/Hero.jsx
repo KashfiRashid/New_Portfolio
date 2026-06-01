@@ -65,7 +65,7 @@ export default function Hero() {
         </SerifHeadline>
         <MonoLine size="md" className="mt-6 max-w-[560px]">
           <span style={{ color: 'rgba(255,255,255,0.75)' }}>
-            final-year SFU SIAT. graduating June 10, 2026. Delta, BC.
+            SFU SIAT, class of 2026. Delta, BC.
           </span>
         </MonoLine>
       </div>

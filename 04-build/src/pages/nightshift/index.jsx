@@ -65,7 +65,8 @@ export default function NightshiftPage() {
     }
   }, [])
 
-  const shouldMountVideo = !reducedMotion && !isNarrow
+  // Video plays on mobile too (1.7MB, muted, playsInline, poster fallback).
+  const shouldMountVideo = !reducedMotion
 
   // Video element - autoplay after canplay, opacity fade-in. Includes
   // the cached-asset shim from HomeHero: if readyState is already high
@@ -116,7 +117,7 @@ export default function NightshiftPage() {
         src={POSTER_SRC}
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover object-left lg:object-center"
         draggable={false}
         decoding="async"
       />
@@ -129,10 +130,10 @@ export default function NightshiftPage() {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload={isNarrow ? 'metadata' : 'auto'}
           autoPlay
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
+          className="absolute inset-0 h-full w-full object-cover object-left lg:object-center transition-opacity duration-700"
           style={{ opacity: videoReady ? 1 : 0 }}
         />
       )}
@@ -163,7 +164,7 @@ export default function NightshiftPage() {
           The two mono labels bracket the name, echoing the home hero's
           mono chrome around the display serif. */}
       <div className="relative z-10 flex min-h-[100svh] items-center">
-        <div className="mx-auto w-full max-w-3xl px-6 py-20 md:px-10 md:py-28">
+        <div className="w-full max-w-3xl px-6 py-20 md:px-10 md:py-28 lg:mx-auto">
           {/* Coming-soon kicker - the hype tag, in the accent color */}
           <motion.p
             {...fadeUp(0.15)}

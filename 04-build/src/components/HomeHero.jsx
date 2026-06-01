@@ -145,7 +145,10 @@ export default function HomeHero({ children } = {}) {
     }
   }, [])
 
-  const shouldMountVideo = !reducedMotion && !isNarrow
+  // Hero video plays on mobile too: it is small (1.5MB), muted, playsInline,
+  // and falls back to the poster if autoplay is blocked (iOS low-power mode).
+  // Still suppressed for reduced-motion users. (isNarrow kept for other use.)
+  const shouldMountVideo = !reducedMotion
 
   // -------------------------------------------------------------------
   // Active scene - re-evaluated every minute (covers boundary crossings
@@ -313,11 +316,10 @@ export default function HomeHero({ children } = {}) {
       <span className="text-accent-glow font-semibold whitespace-nowrap">
         Design engineer
       </span>{' '}
-      who loves designing{' '}
-      <br className="hidden md:block" />
-      creative solutions for{' '}
-      <span className="text-accent-glow font-semibold whitespace-nowrap">
-        user experience
+      turning ideas into real products{' '}
+      with creative solutions and a{' '}
+      <span className="text-accent-glow font-semibold">
+        better user experience
       </span>
       .
     </>
@@ -410,7 +412,7 @@ export default function HomeHero({ children } = {}) {
                 without needing a visible dark backdrop band. */}
             <div className="flex flex-col items-start leading-none">
               <span
-                className="font-mono text-[2.75rem] md:text-[3rem] lg:text-[3.25rem] font-semibold text-text-primary leading-none text-hero-legible"
+                className="font-mono text-[2.25rem] sm:text-[2.75rem] md:text-[3rem] lg:text-[3.25rem] font-semibold text-text-primary leading-none text-hero-legible"
                 style={{
                   fontVariantNumeric: 'tabular-nums',
                   letterSpacing: '0',
@@ -430,7 +432,7 @@ export default function HomeHero({ children } = {}) {
             </div>
             {/* Scene status - Caption, right-aligned, subordinate to clock.
                 Same legibility halo so it doesn't dissolve on bright frames. */}
-            <span className="font-mono text-[11px] md:text-xs uppercase tracking-[0.18em] text-text-faint text-right pt-2 max-w-[14rem] text-hero-legible">
+            <span className="hidden sm:block font-mono text-[11px] md:text-xs uppercase tracking-[0.18em] text-text-faint text-right pt-2 max-w-[10rem] md:max-w-[14rem] text-hero-legible">
               {scene.status}
             </span>
           </div>
@@ -473,6 +475,7 @@ export default function HomeHero({ children } = {}) {
               muted
               loop
               playsInline
+              preload={isNarrow ? 'metadata' : 'auto'}
               preload="metadata"
               autoPlay
               aria-hidden="true"
@@ -568,7 +571,7 @@ export default function HomeHero({ children } = {}) {
                   legibility halo carries it on bright video frames. */}
               <motion.h1
                 {...fadeUp(0.22)}
-                className="font-display tracking-[-0.01em] text-text-primary leading-[0.95] mb-12 text-[clamp(5.5rem,13vw,9.75rem)] text-hero-legible"
+                className="font-display tracking-[-0.01em] text-text-primary leading-[0.95] mb-12 text-[clamp(3.25rem,13vw,9.75rem)] text-hero-legible"
                 style={{ fontVariantLigatures: 'none' }}
               >
                 Kash<span style={{ letterSpacing: '0.04em' }}>f</span>i
@@ -585,7 +588,8 @@ export default function HomeHero({ children } = {}) {
                   roughly 60-65 characters per line. */}
               <motion.p
                 {...fadeUp(0.38)}
-                className="text-text-primary text-[1.375rem] md:text-[1.625rem] lg:text-[1.75rem] tracking-[-0.01em] leading-[1.55] max-w-prose"
+                style={{ textWrap: 'balance' }}
+                className="text-text-primary text-[1.375rem] md:text-[1.625rem] lg:text-[1.75rem] tracking-[-0.01em] leading-[1.55] max-w-[34ch]"
               >
                 {identityLine}
               </motion.p>

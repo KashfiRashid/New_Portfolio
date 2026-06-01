@@ -2,8 +2,8 @@ import { ArchiveBlock, ArchiveRow } from '../primitives.jsx'
 import Reveal from '../../../components/Reveal.jsx'
 
 /**
- * Awards - hackathon wins, confirmed from kash-fact-sheet.md. Each row links
- * to its case study. [KASH TO ADD] other hackathons. Pure ASCII source.
+ * Awards - hackathon wins + the FIC community-engagement scholarship.
+ * [KASH TO CONFIRM] exact scholarship name + year. Pure ASCII source.
  */
 const AWARDS = [
   {
@@ -17,6 +17,17 @@ const AWARDS = [
     sub: 'Us Among AI, SillyHacks 2026 / reverse Turing-test browser game',
     meta: '2026',
     href: '/projects/us-among-ai',
+  },
+  {
+    title: 'Best Hardware',
+    sub: 'ASL Express, StormHacks 2025 / front-end + computer vision',
+    meta: '2025',
+    href: '/projects/asl-express',
+  },
+  {
+    title: 'Community Engagement Scholarship',
+    sub: 'Fraser International College',
+    meta: '',
   },
 ]
 

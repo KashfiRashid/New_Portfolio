@@ -25,8 +25,8 @@ export default function Footer({ identity, onReset, lastUpdate }) {
   const handleChangelogHover = () => fire('H34', { elementId: 'footer-changelog-hover' })
 
   const changelogText = lastUpdate
-    ? `last shipped ${lastUpdate}. the site updates when someone helps make it better.`
-    : 'nothing shipped yet - the site updates when someone helps make it better. you could be first.'
+    ? `last updated ${lastUpdate}. built in the open - what changed, and who shaped it.`
+    : 'built in the open - what changed, and who shaped it.'
 
   return (
     <footer className="relative mt-32 border-t border-surface-raised pt-20 pb-16">
@@ -61,7 +61,7 @@ export default function Footer({ identity, onReset, lastUpdate }) {
             to="/hall-of-fame"
             className="text-text-primary underline decoration-[1px] underline-offset-4 transition-colors duration-250 hover:text-accent-glow"
           >
-            see the hall of fame &rarr;
+            the build log &rarr;
           </Link>
         </p>
 

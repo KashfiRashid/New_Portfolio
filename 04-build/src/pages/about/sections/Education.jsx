@@ -10,8 +10,8 @@ export default function Education() {
     <ArchiveBlock id="education" label="education">
       <Reveal>
         <ArchiveRow
-          title="Interactive Arts & Technology (SIAT)"
-          sub="Simon Fraser University / graduating June 10, 2026"
+          title="BSc, Interactive Arts & Technology (SIAT)"
+          sub="Simon Fraser University / class of 2026"
           meta="2026"
           last
         />

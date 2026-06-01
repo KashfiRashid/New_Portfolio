@@ -10,7 +10,7 @@ const LINKS = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/kashfi-rashid', external: true },
   { label: 'GitHub',   href: 'https://github.com/KashfiRashid',           external: true },
   { label: 'Email',    href: 'mailto:mailkashfirashid@gmail.com',            external: false },
-  { label: 'Resume',   href: 'https://drive.google.com/file/d/1Xkc3TBm40Nrc7kQFNv8FEMYcAeOPt0xg/view?usp=sharing', external: true },
+  { label: 'Resume',   href: 'https://drive.google.com/file/d/1ImK5hPzpbQG3AbjY1k5Qz8_LM1tm6tS2/view?usp=sharing', external: true },
 ]
 
 export default function Contact() {
@@ -18,8 +18,8 @@ export default function Contact() {
     <ArchiveBlock id="contact" label="say hi">
       <Reveal>
         <BodyText>
-          Graduating June 10, 2026, and open to design-engineer roles. The{' '}
-          <QuietLink href="https://drive.google.com/file/d/1Xkc3TBm40Nrc7kQFNv8FEMYcAeOPt0xg/view?usp=sharing" external>resume</QuietLink> is here if
+          Open to design-engineer roles. The{' '}
+          <QuietLink href="https://drive.google.com/file/d/1ImK5hPzpbQG3AbjY1k5Qz8_LM1tm6tS2/view?usp=sharing" external>resume</QuietLink> is here if
           it&apos;s useful. Otherwise, the work speaks first.
         </BodyText>
 

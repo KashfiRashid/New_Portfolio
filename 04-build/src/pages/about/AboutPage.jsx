@@ -1,4 +1,4 @@
-import { ArchiveBlock, MonoLine } from './primitives.jsx'
+import { ArchiveBlock } from './primitives.jsx'
 
 import Hero from './sections/Hero.jsx'
 import Bio from './sections/Bio.jsx'
@@ -34,7 +34,6 @@ export default function AboutPage() {
 
 const BANGLA = '\u09ad\u09be\u09b2\u09cb\u09ac\u09be\u09b8\u09be \u09b8\u09b9'
 const LAND = 'Built and lived on the unceded ancestral territories of the x\u02b7m\u0259\u03b8k\u02b7\u0259y\u0313\u0259m (Musqueam), S\u1e35wx\u0331w\u00fa7mesh (Squamish), and S\u0259lilw\u0259ta\u026c (Tsleil-Waututh) Nations.'
-const SIGNATURE = 'designed & built by Kashfi Rashid \u2014 in Antigravity, Stitch, Figma & Claude.'
 
 function PageFoot() {
   return (
@@ -49,10 +48,6 @@ function PageFoot() {
           {LAND}
         </p>
 
-        <MonoLine size="xs" className="mt-6 text-text-faint">{SIGNATURE}</MonoLine>
-        <MonoLine size="xs" className="mt-2 text-text-faint">
-          v1, May 2026. v2 ships May 2027.
-        </MonoLine>
       </div>
     </ArchiveBlock>
   )

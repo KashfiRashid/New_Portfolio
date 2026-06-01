@@ -103,8 +103,8 @@ export function ArchiveRow({ title, sub, meta, href, external = false, last = fa
     <div className={`group flex items-baseline justify-between gap-4 py-4 ${last ? '' : 'border-b'}`}
       style={last ? undefined : { borderColor: 'rgba(232,230,225,0.1)' }}>
       <div className="min-w-0 transition-transform duration-200 ease-kash-out group-hover:translate-x-1">
-        <p className="font-sans text-[16px] text-text-primary transition-colors duration-200 ease-kash-out group-hover:text-accent-glow md:text-[17px]">
-          {href ? <span className="mr-2 text-accent-glow opacity-0 transition-opacity duration-200 group-hover:opacity-100">&rarr;</span> : null}
+        <p className="relative font-sans text-[16px] text-text-primary transition-colors duration-200 ease-kash-out group-hover:text-accent-glow md:text-[17px]">
+          {href ? <span aria-hidden="true" className="absolute right-full mr-2 text-accent-glow opacity-0 transition-opacity duration-200 group-hover:opacity-100">&rarr;</span> : null}
           {title}
         </p>
         {sub ? <p className="font-sans mt-1 text-[14px] leading-[1.5] text-text-muted">{sub}</p> : null}
