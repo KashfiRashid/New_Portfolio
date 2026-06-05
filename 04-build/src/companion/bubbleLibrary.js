@@ -105,6 +105,8 @@ const bubbles = [
     text: "reset wipes your name and color. won't break anything." },
   { id: 'H36', trigger: 'hover', context: 'project-market-basket',
     text: "the one where simpler won. forty-plus features lost to ten neighbors." },
+  { id: 'H37', trigger: 'hover', context: 'project-clicker-forge',
+    text: "my first real OOP project. a whole forge, built in java by hand." },
 
   // --- CLICK (C) ---------------------------------------------------------
   { id: 'C1', trigger: 'click', context: 'voice-entry',

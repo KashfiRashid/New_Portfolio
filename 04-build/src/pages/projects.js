@@ -41,8 +41,21 @@ const TruckingAcademyPage = lazy(() => import('./trucking-academy/index.jsx'))
 const AslExpressPage = lazy(() => import('./asl-express/index.jsx'))
 const PharmaBoticsPage = lazy(() => import('./pharmabotics/index.jsx'))
 const MarketBasketPage = lazy(() => import('./market-basket/index.jsx'))
+const ClickerForgePage = lazy(() => import('./clicker-forge/index.jsx'))
 
 export const PROJECTS = [
+  {
+    slug: 'clicker-forge',
+    name: 'Clicker Forge',
+    category: 'Creative Coding / Java',
+    kind: 'engineering',
+    blurb: 'A hand-drawn blacksmith simulation built in pure Java - smelt, hammer, and forge a sword. Where I learned object-oriented design for real.',
+    image: '/clicker-forge/shot-molten.png',
+    color: '#C8A24B',
+    featured: true,
+    bubbleId: 'H37',
+    component: ClickerForgePage,
+  },
   {
     slug: 'asl-express',
     name: 'ASL Express',
