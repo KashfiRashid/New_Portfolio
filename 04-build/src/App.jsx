@@ -26,7 +26,7 @@ import ErrorBoundary from './components/ErrorBoundary.jsx'
 const Home = lazy(() => import('./sections/Home.jsx'))
 const Work = lazy(() => import('./sections/Work.jsx'))
 const About = lazy(() => import('./pages/about/AboutPage.jsx'))
-const HallOfFame = lazy(() => import('./sections/HallOfFame.jsx'))
+const Arcade = lazy(() => import('./sections/Arcade.jsx'))
 import PageGuide from './companion/PageGuide.jsx'
 
 // Case studies are routed through one shared route, /projects/:slug, which
@@ -184,7 +184,7 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
     const path = location.pathname
     if (path === '/')                          fire('X1', { elementId: 'exit-home' })
     else if (path.startsWith('/work'))         fire('X4', { elementId: 'exit-work' })
-    else if (path.startsWith('/hall-of-fame')) fire('X6', { elementId: 'exit-hof' })
+    else if (path.startsWith('/arcade'))       fire('X6', { elementId: 'exit-arcade' })
     else                                        fire('X1', { elementId: 'exit-default' })
   }, !!identity && !showOnboarding)
 
@@ -257,7 +257,7 @@ const AppRoutes = memo(function AppRoutes({ location }) {
             <Route path="/work"           element={<Work />} />
             <Route path="/projects/:slug" element={<ProjectRoute />} />
             <Route path="/about"          element={<About />} />
-            <Route path="/hall-of-fame"   element={<HallOfFame />} />
+            <Route path="/arcade"         element={<Arcade />} />
             <Route path="*"               element={<NotFound />} />
           </Routes>
         </Suspense>

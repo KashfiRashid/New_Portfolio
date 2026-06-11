@@ -24,9 +24,7 @@ export default function Footer({ identity, onReset, lastUpdate }) {
   const handleResetHover = () => fire('H35', { elementId: 'footer-reset-hover' })
   const handleChangelogHover = () => fire('H34', { elementId: 'footer-changelog-hover' })
 
-  const changelogText = lastUpdate
-    ? `last updated ${lastUpdate}. built in the open - what changed, and who shaped it.`
-    : 'built in the open - what changed, and who shaped it.'
+  const changelogText = 'a space shooter i built in first year. think you can beat the high score?'
 
   return (
     <footer className="relative mt-32 border-t border-surface-raised pt-20 pb-16">
@@ -51,17 +49,17 @@ export default function Footer({ identity, onReset, lastUpdate }) {
           </p>
         </div>
 
-        {/* Changelog -> hall of fame */}
+        {/* Arcade */}
         <p
           className="mt-12 max-w-prose font-sans text-[14px] leading-relaxed text-text-muted"
           onMouseEnter={handleChangelogHover}
         >
           {changelogText}{' '}
           <Link
-            to="/hall-of-fame"
+            to="/arcade"
             className="text-text-primary underline decoration-[1px] underline-offset-4 transition-colors duration-250 hover:text-accent-glow"
           >
-            the build log &rarr;
+            play the arcade &rarr;
           </Link>
         </p>
 

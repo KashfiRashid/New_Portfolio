@@ -53,7 +53,7 @@ const PERCH_SETS = {
     { id: 'org-tr', x: 94, y: 25 },
     { id: 'org-br', x: 94, y: 78 },
   ],
-  'hall-of-fame': [
+  'arcade': [
     { id: 'hof-br', x: 92, y: 78 },
     { id: 'hof-bl', x: 4, y: 78 },
     { id: 'hof-tr', x: 92, y: 20 },
@@ -75,7 +75,7 @@ export function sectionFromPath(pathname) {
     'process': 'process',
     'people': 'people',
     'origin': 'origin',
-    'hall-of-fame': 'hall-of-fame',
+    'arcade': 'arcade',
   }
   return map[p] || 'home'
 }

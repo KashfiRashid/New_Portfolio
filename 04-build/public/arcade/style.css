@@ -1,0 +1,20 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #05060a;
+  overflow: hidden;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* The sketch creates an 800x800 canvas; scale it to fill the square frame. */
+main canvas {
+  display: block;
+  width: 100vmin !important;
+  height: 100vmin !important;
+  max-width: 100%;
+  max-height: 100%;
+}

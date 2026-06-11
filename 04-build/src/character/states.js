@@ -140,7 +140,7 @@ const SECTION_BIAS = {
   work:           { laptop_session:  2.0 },
   process:        { laptop_session:  2.0 },
   people:         { beverage:        1.5 },
-  'hall-of-fame': { beverage:        1.5 },
+  'arcade': { beverage:        1.5 },
   eye:            {},
 }
 

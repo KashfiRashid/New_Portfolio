@@ -6,6 +6,7 @@ import Reveal, { RevealGroup } from '../components/Reveal.jsx'
 import HomeHero from '../components/HomeHero.jsx'
 import ProjectCard from '../components/ProjectCard.jsx'
 import { PROJECTS } from '../pages/projects.js'
+import ArcadeGame from '../components/ArcadeGame.jsx'
 
 /**
  * <Home /> - landing surface.
@@ -194,22 +195,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Hall of Fame */}
-      <section className="relative z-10 px-6 py-12 max-w-6xl mx-auto w-full">
+      {/* The Last Stand - live, playable right here */}
+      <section id="arcade" className="relative z-10 px-6 pt-20 pb-12 max-w-6xl mx-auto w-full">
+        <div onMouseEnter={() => fire('H8', { elementId: 'home-arcade' })}>
+          <h2 className="text-display-md font-display tracking-tight text-text-primary">The Last Stand</h2>
+          <SectionRule />
+          <p className="text-text-muted text-sm mt-4 max-w-md">
+            The Last Stand was my first game, developed in p5.js. Click in and fly &mdash; live high scores.
+          </p>
+        </div>
         <Reveal delay={0.1}>
-          <Link
-            to="/hall-of-fame"
-            className="card-lift block bg-surface-mid hover:bg-surface-raised px-6 py-8 rounded-sm border border-surface-raised group"
-            onMouseEnter={() => fire('H8', { elementId: 'home-card-hof' })}
-          >
-            <div className="flex items-baseline justify-between">
-              <div>
-                <h2 className="text-display-md font-display mb-2">Build Log</h2>
-                <p className="text-text-muted text-sm">how this site got made, and who shaped it.</p>
-              </div>
-              <span className="text-text-muted group-hover:text-accent-glow arrow-slide transition-colors duration-200 ease-kash-out">&rarr;</span>
-            </div>
-          </Link>
+          <div className="mt-10">
+            <ArcadeGame />
+          </div>
         </Reveal>
       </section>
 
@@ -217,9 +215,9 @@ export default function Home() {
       <Reveal delay={0.2}>
         <section className="relative z-10 px-6 py-8 max-w-3xl mx-auto w-full">
           <p className="text-text-faint text-sm leading-relaxed">
-            this site changes in the open.{' '}
-            <Link to="/hall-of-fame" className="hover:text-text-muted underline-offset-4 hover:underline transition-colors duration-200 ease-kash-out">
-              see the build log
+            built it in first year, still proud of it.{' '}
+            <Link to="/arcade" className="hover:text-text-muted underline-offset-4 hover:underline transition-colors duration-200 ease-kash-out">
+              open it full-page
             </Link>
           </p>
         </section>

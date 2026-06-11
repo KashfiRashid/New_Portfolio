@@ -8,7 +8,7 @@ const home = [
   "this is home. the line up top isn't a typo - read it twice.",
   "featured first. the strongest stuff leads, on purpose.",
   "everything past the fold is the rest of the work.",
-  "still scrolling? respect. the build log's near the bottom.",
+  "still scrolling? respect. there is a space shooter to play near the bottom.",
 ]
 
 const work = [
@@ -23,9 +23,9 @@ const about = [
   "experience, awards, education - then say hi at the bottom.",
 ]
 
-const buildLog = [
-  "the build log. how this site got made, out in the open.",
-  "spot something worth changing? if it ships, you land here too.",
+const arcade = [
+  "the arcade. a space shooter i built in first year.",
+  "click to start, then survive. your best score sticks around.",
 ]
 
 const pharmabotics = [
@@ -134,7 +134,7 @@ export function guideForPath(pathname) {
   if (pathname === '/') return home
   if (pathname === '/work') return work
   if (pathname.startsWith('/about')) return about
-  if (pathname.startsWith('/hall-of-fame')) return buildLog
+  if (pathname.startsWith('/arcade')) return arcade
   if (pathname.startsWith('/projects/')) {
     const slug = pathname.split('/')[2] || ''
     if (slug === 'nightshift') return null

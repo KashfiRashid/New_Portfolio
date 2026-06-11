@@ -32,7 +32,7 @@ const POOLS = {
     process: [],
     people: [],
     origin: [],
-    'hall-of-fame': [],
+    'arcade': [],
   },
 }
 

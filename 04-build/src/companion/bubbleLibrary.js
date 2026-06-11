@@ -179,7 +179,7 @@ const bubbles = [
   { id: 'X1', trigger: 'exit-intent', context: 'home',
     text: "leaving? cool. tell a friend, or don't." },
   { id: 'X2', trigger: 'exit-intent', context: 'voice',
-    text: "the hall of fame's at the bottom if you have ten more seconds. it's where the site evolves." },
+    text: "there is a space shooter at the bottom if you have ten more seconds. the high score is up for grabs." },
   { id: 'X3', trigger: 'exit-intent', context: 'footer-region',
     text: "you're at the bottom. that's where the small things live." },
   { id: 'X4', trigger: 'exit-intent', context: 'work',
