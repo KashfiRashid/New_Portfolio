@@ -32,14 +32,14 @@ const idlePool = [
 
   // --- FACTS (about Kash - no origin story) ------------------------------
 
-  { type: 'fact', text: "random fact: i won three hackathons - best hardware, best ui, best use of elevenlabs. yes, i'm counting." },
+  { type: 'fact', text: "random fact: i won three hackathons. best hardware, best ui, best use of elevenlabs. yes, i'm counting." },
   { type: 'fact', text: "random fact: i'm a design engineer. i design the thing, then i build it." },
   { type: 'fact', text: "random fact: i play football (the real kind) every weekend." },
   { type: 'fact', text: "random fact: BLU's sound at 0:42 took three takes. the first two were worse." },
   { type: 'fact', text: "random fact: this site was rewritten three times in my head before i wrote a line of it." },
   { type: 'fact', text: "random fact: the companion you're reading is powered by claude. for real." },
   { type: 'fact', text: "random fact: i built spectral bloom to make visuals listen to audio. it worked." },
-  { type: 'fact', text: "random fact: i mentored at youCode 2026 - teaching is the fastest way to learn twice." },
+  { type: 'fact', text: "random fact: i mentored at youCode 2026. teaching is the fastest way to learn twice." },
   { type: 'fact', text: "random fact: SFU SIAT, class of 2026. design engineer, soon for hire." },
   { type: 'fact', text: "random fact: the football pitch taught me about space before any design class did." },
 

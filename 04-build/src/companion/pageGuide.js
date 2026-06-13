@@ -1,128 +1,130 @@
 // Page Guide content - the companion's "docent" mode.
 // One ordered array per route: index 0 is the greeting (fired on entry),
-// the rest are scroll beats (one fires as the visitor crosses each segment).
+// the rest are scroll beats (one fires as each section comes on screen).
 // Scoped per page - the guide only ever talks about where you are.
-// Voice: Kash, lowercase, in character. Pure ASCII (formatter-safe).
+// Voice: Kash, lowercase, dry, specific, "2am studio." No dashes. Pure ASCII.
 
 const home = [
-  "this is home. the line up top isn't a typo - read it twice.",
-  "featured first. the strongest stuff leads, on purpose.",
-  "everything past the fold is the rest of the work.",
-  "still scrolling? respect. there is a space shooter to play near the bottom.",
+  "this is home. the line up top isn't a typo. read it twice.",
+  "featured first. the strongest work leads, on purpose.",
+  "past the fold is everything else i've made.",
+  "still scrolling? respect. there's a space shooter to play down here.",
 ]
 
 const work = [
-  "the archive. strongest projects first, not alphabetical.",
-  "filter by kind up top if you're hunting for something specific.",
-  "every card's a real thing i shipped. click in.",
+  "the archive. strongest projects first, never alphabetical.",
+  "filter by kind up top if you're hunting something specific.",
+  "every card is a real thing i shipped. click in.",
 ]
 
 const about = [
   "the about page. less resume, more who i actually am.",
-  "the wall up there is the hobbies. the rows are the receipts.",
-  "experience, awards, education - then say hi at the bottom.",
+  "the wall up there is the hobbies. the rows below are the receipts.",
+  "experience, then awards, then education. say hi at the bottom.",
 ]
 
 const arcade = [
-  "the arcade. a space shooter i built in first year.",
+  "the arcade. a space shooter i built in my first year.",
   "click to start, then survive. your best score sticks around.",
 ]
 
-const pharmabotics = [
-  "pharmabotics. the one i'm proudest of the hardware on.",
-  "the problem first - why a pill dispenser even needs to exist.",
-  "this stretch is the part i built: the mechanism and the embedded code.",
-  "the honest bit - what broke, and the water feature we cut.",
-  "15 out of 15 dispenses at the showcase. it actually worked.",
+const clickerForge = [
+  "clicker forge. my first real java project. a blacksmith you actually operate.",
+  "i pitched a full weaponsmith sim, then cut it to one blade done well.",
+  "every sprite here is hand drawn. i was the artist and the engineer.",
+  "the rooms walk you through it. smelt the copper, hammer it true, dress the blade.",
+  "i built it in stages. each one earned a real mechanic.",
+  "under the hood sits a base class, a factory, and a decorator chain. oop finally clicked.",
+  "the smoke and the shockwaves aren't sprites. they're perlin noise and recursion.",
 ]
 
 const aslExpress = [
-  "asl express. won best hardware - and it started personal.",
-  "the gap on a video call with my cousin. that's the why.",
-  "i handled the front end. the recognition model too.",
-  "honest demo framing here - what's real, what's staged.",
+  "asl express. won best hardware, and it started personal.",
+  "the gap was a video call with my cousin. that's the why.",
+  "you order food with hand signs. you never touch anything.",
+  "i handled the front end and the recognition model both.",
+  "honest framing here. what's real, and what we staged for the demo.",
   "it grew out of a research project called signify.",
 ]
 
-const marketBasket = [
-  "market basket. the data-science one. the story is restraint.",
-  "we over-engineered the recommender first. 3-4% accuracy. ouch.",
-  "then a plain knn model hit 38.75%. simpler won.",
-  "the demo runs both models live. have a look.",
+const pharmabotics = [
+  "pharmabotics. the build i'm proudest of on the hardware side.",
+  "the problem first. why a fingerprint locked pill dispenser even needs to exist.",
+  "this stretch is the part i built. the mechanism and the embedded code.",
+  "the honest bit. what broke, and the water feature we cut.",
+  "fifteen out of fifteen dispenses at the showcase. it actually worked.",
 ]
 
 const bcConnect = [
-  "bc connect. the one i built a whole design system for.",
-  "open ground - white, forest green, no dark-mode cop-out.",
-  "six production frontend features, all from that one system.",
+  "bc connect. the one where i built a whole design system first.",
+  "open ground. white, forest green, no dark mode cop out.",
+  "six production frontend features, all grown from that one system.",
 ]
 
 const foresee = [
-  "foresee. the voice orb that won best use of elevenlabs.",
-  "talk to it, it helps you spend smarter. that's the pitch.",
-  "the orb was the iconic feature - that's why it's the thumbnail.",
-]
-
-const generic = [
-  "this one's a real project. take your time scrolling it.",
-  "the side nav up top jumps between sections if you want.",
+  "foresee. a finance app that thinks in events, not just transactions.",
+  "it sorts your spending into social boards you can actually share.",
+  "the ai predicts what an upcoming event will cost before it hits.",
+  "the voice orb is the signature feature. it won best use of elevenlabs.",
 ]
 
 const parpro = [
-  "parpro consulting. a 3-day interaction design sprint.",
+  "parpro consulting. a three day interaction design sprint.",
   "redesigning the site for a canadian bookkeeping firm.",
   "tight timeline, real client, real constraints.",
-  "the rebuild: clearer, calmer, easier to trust.",
+  "the rebuild came out clearer, calmer, easier to trust.",
 ]
 
 const documentor = [
   "documentor. a mobile guide for settling into a new city.",
-  "built from lived experience - i knew this problem firsthand.",
+  "built from lived experience. i knew this problem firsthand.",
   "for international students, the part nobody warns you about.",
   "small, careful, human. that was the whole goal.",
 ]
 
+const marketBasket = [
+  "market basket. the data project. the real story is restraint.",
+  "we over engineered the recommender first. three percent accuracy. ouch.",
+  "then a plain knn model hit thirty eight percent. simpler won.",
+  "the demo runs both models live. see it for yourself.",
+]
+
 const blu = [
-  "blu. a 3-act CG animated short film.",
-  "the twist: sound carries the story, not the visuals.",
+  "blu. a three act cg animated short.",
+  "the twist is that sound carries the story, not the visuals.",
   "listen at 0:42. that part took three takes.",
 ]
 
 const spectralBloom = [
-  "spectral bloom. visuals that actually listen to audio.",
-  "browser-based, real-time webgl - no pre-rendering.",
-  "five modes, each reacting to the sound a different way.",
+  "spectral bloom. visuals that actually listen to the audio.",
+  "browser based, real time webgl. nothing pre rendered.",
+  "an ai layer reads the track's mood, not just its volume.",
   "this one taught me to design for ears, not just eyes.",
 ]
 
 const somethingLurking = [
   "something lurking. the brief said calm. i shipped quietly unsettling.",
-  "the tension lives in the sound and the diegetic ui, not jump scares.",
-  "translating coursework into an actual puzzle was the hard part.",
+  "vr horror on a failing space station. the antagonist is the sound.",
+  "the tension lives in the audio and the diegetic ui. no jump scares.",
 ]
 
 const usAmongAi = [
   "us among ai. a reverse turing test.",
-  "pretend to be the machine while an ai auditor watches for anything human.",
-  "won best ui at sillyhacks. the interface IS the game.",
+  "pretend to be the machine while an ai auditor hunts for anything human.",
+  "won best ui at sillyhacks. the interface is the game.",
 ]
 
 const truckingAcademy = [
-  "trucking academy. a ux deep-dive into driver training and hiring.",
+  "trucking academy. a ux deep dive into driver training and hiring.",
   "the challenge: getting a commercial license is a maze.",
-  "key insight - drivers couldn't see how a course moved them toward a license.",
-  "the fix: one path, bite-sized modules, a job board, and a forum.",
-  "ben's journey to a class 3 - the whole flow, end to end.",
+  "ten driver interviews, three personas, one workshop. all real research.",
+  "the insight was that drivers couldn't see how a course moved them toward a license.",
+  "so the fix is one path, bite size modules, a job board, and a forum.",
 ]
 
-const clickerForge = [
-  "clicker forge. my first real java project - a blacksmith you actually operate.",
-  "i pitched a whole weaponsmith sim, then cut it to one blade done well.",
-  "every sprite here is hand-drawn. i was the artist and the engineer.",
-  "the rooms: smelt the copper, hammer it true, dress the blade.",
-  "i built it in stages - each one added a real mechanic.",
-  "under the hood: a base class, a factory, a decorator chain. oop finally clicked.",
-  "the smoke and shockwaves aren't sprites - they're perlin noise and recursion.",
+const generic = [
+  "this one's a real project. take your time with it.",
+  "the side nav up top jumps between sections if you want.",
 ]
 
 const GUIDES = {
@@ -153,3 +155,4 @@ export function guideForPath(pathname) {
   }
   return null
 }
+// end pageGuide.js

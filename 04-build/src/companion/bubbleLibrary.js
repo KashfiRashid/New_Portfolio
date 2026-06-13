@@ -26,7 +26,7 @@
 const bubbles = [
   // --- ENTRY (E) ---------------------------------------------------------
   { id: 'E1', trigger: 'entry', context: 'session-entry',
-    text: "hey. i'm the little guy who lives here - kashfi's guide. i'll flag the good parts as you scroll, and pipe up when you go quiet." },
+    text: "hey. i'm the little guy who lives here, kashfi's guide. i'll flag the good parts as you scroll, and pipe up when you go quiet." },
   { id: 'E2', trigger: 'entry', context: 'session-entry-alt',
     text: "welcome in. i point out the good bits and otherwise stay out of your way." },
   { id: 'E3', trigger: 'entry', context: 'home-after-3s',
@@ -84,7 +84,7 @@ const bubbles = [
   { id: 'H21', trigger: 'hover', context: 'work-card-pitchflow',
     text: "the deck that won the room." },
   { id: 'H22', trigger: 'hover', context: 'work-card-foresee',
-    text: "the voice orb that won the room - best use of elevenlabs." },
+    text: "the voice orb that won the room. best use of elevenlabs." },
   { id: 'H28', trigger: 'hover', context: 'work-card-nightshift',
     text: "can't show this one yet. still building it after hours." },
   { id: 'H25', trigger: 'hover', context: 'process-chair-antigravity',
@@ -124,7 +124,7 @@ const bubbles = [
   { id: 'C7', trigger: 'click', context: 'process-entry',
     text: "this is the framing i argue for. tools are tools. the conducting matters." },
   { id: 'C8', trigger: 'click', context: 'people-entry',
-    text: "this page exists because the alternative - pretending - is worse." },
+    text: "this page exists because the alternative, pretending, is worse." },
   { id: 'C10', trigger: 'click', context: 'hof-entry',
     text: "this is what i replaced the contact form with. start at the bottom, scroll up." },
   { id: 'C11', trigger: 'click', context: 'hof-empty-state',
