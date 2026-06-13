@@ -53,7 +53,10 @@ export default function PageGuide() {
         sections.forEach((el, i) => {
           if (el.getBoundingClientRect().top <= trigger) idx = i
         })
-        return Math.min(lineCount - 1, idx)
+        // spread the available lines evenly across every section, so a long
+        // page keeps talking the whole way down instead of only up top
+        const ratio = sections.length > 1 ? idx / (sections.length - 1) : 0
+        return Math.round(ratio * (lineCount - 1))
       }
       // Fallback: scroll percentage buckets.
       const doc = document.documentElement
