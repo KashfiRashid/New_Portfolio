@@ -1,5 +1,11 @@
 import { VISITOR_COLORS, DEFAULT_COLOR } from './visitorColors.js'
 
+// Pick a random color from the palette (used when no name is collected - the
+// visitor still gets a stable, persisted tint without being asked anything).
+export function randomColor() {
+  return VISITOR_COLORS[Math.floor(Math.random() * VISITOR_COLORS.length)]
+}
+
 // Deterministic name -> color via DJB2-like hash, modulo palette size.
 // Same name produces same color across sessions / devices. This is intentional -
 // per /01-brand-book/05-wow-mechanics.md: a returning visitor whose persistent

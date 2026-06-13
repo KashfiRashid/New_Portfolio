@@ -102,16 +102,16 @@ export default function Footer({ identity, onReset, lastUpdate }) {
         <div className="mt-12 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-surface-raised pt-8 font-mono text-[11px] tracking-[0.02em] text-text-faint">
           {identity ? (
             <span>
-              you&apos;re here as{' '}
-              <span className="text-text-muted">{identity.name}</span>{' '}
+              you&apos;re here in{' '}
               <span
                 aria-hidden="true"
                 className="inline-block h-2 w-2 rounded-full align-middle"
                 style={{ backgroundColor: identity.color.hex }}
               />{' '}
+              <span className="text-text-muted">{identity.color?.label}</span>{' '}
               <button
                 onClick={() => {
-                  if (confirm('reset your name and color? this re-triggers the welcome.')) {
+                  if (confirm('shuffle your color? gives the cursor a new tint.')) {
                     onReset()
                   }
                 }}

@@ -12,7 +12,6 @@ import { CharacterProvider, useCharacter } from './character/CharacterContext.js
 import { CompanionProvider, useCompanion } from './companion/CompanionContext.jsx'
 import Companion from './companion/Companion.jsx'
 
-import OnboardingModal from './components/OnboardingModal.jsx'
 import Footer from './components/Footer.jsx'
 import ScrollProgress from './components/ScrollProgress.jsx'
 import SiteNav from './components/SiteNav.jsx'
@@ -52,39 +51,12 @@ const ProjectRoute = lazy(() => import('./pages/ProjectRoute.jsx'))
  * selection / cursor / accent borders can pick it up site-wide.
  */
 export default function App() {
-  const { identity, isLoaded, isReturning, setName, reset } = useVisitorIdentity()
-  const [showOnboarding, setShowOnboarding] = useState(false)
-  const [onboardingDone, setOnboardingDone] = useState(false)
-
-  // Show onboarding if no identity exists, after hydrate completes
-  useEffect(() => {
-    if (!isLoaded) return
-    if (!identity) {
-      const t = setTimeout(() => setShowOnboarding(true), 1200)
-      return () => clearTimeout(t)
-    } else {
-      // Returning visitor or already has identity - onboarding is "done"
-      setOnboardingDone(true)
-    }
-  }, [isLoaded, identity])
-
+  const { identity, isLoaded, isReturning, reset } = useVisitorIdentity()
   // Publish visitor color to CSS variable for site-wide tinting
   useEffect(() => {
     const color = identity?.color?.hex || '#6B7B8C' // default slate
     document.documentElement.style.setProperty('--visitor-color', color)
   }, [identity])
-
-  const handleOnboardingSubmit = (name) => {
-    setName(name)
-    setShowOnboarding(false)
-    setOnboardingDone(true)
-    // E1 fires inside AppShell once visitor identity is set
-  }
-  const handleOnboardingSkip = () => {
-    setName('')
-    setShowOnboarding(false)
-    setOnboardingDone(true)
-  }
 
   // Don't render anything before localStorage hydration completes
   if (!isLoaded) {
@@ -96,15 +68,12 @@ export default function App() {
       <CharacterProvider
         identity={identity}
         isReturning={isReturning}
-        onboardingDone={onboardingDone}
+        onboardingDone={true}
       >
         <CompanionProvider visitor={identity}>
           <AppShell
             identity={identity}
             isReturning={isReturning}
-            showOnboarding={showOnboarding}
-            onOnboardingSubmit={handleOnboardingSubmit}
-            onOnboardingSkip={handleOnboardingSkip}
             onReset={reset}
           />
         </CompanionProvider>
@@ -118,25 +87,19 @@ export default function App() {
    call useCompanion().fire() and useCharacter() for idle/reel routing.
    ----------------------------------------------------------------------- */
 
-function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, onOnboardingSkip, onReset }) {
+function AppShell({ identity, isReturning, onReset }) {
   const { fire, fireIdle, dismissAll } = useCompanion()
   const { setIdleState } = useCharacter()
   const location = useLocation()
   const idleSeenRef = useRef(new Set())
 
-  // E1 / E2 fire once when identity becomes available (post-onboarding)
+  // One clean entry greeting for first-time visitors (returning visitors get
+  // R1/R2/R3 instead). No name is collected anymore - the greeting reflects that.
   useEffect(() => {
     if (!identity) return
-    if (identity.name === 'stranger') {
-      fire('E2', { elementId: 'session-entry-skipped' })
-    } else {
-      // Skip E1 if this is a returning visitor (R1/R2/R3 are better fits)
-      if (!isReturning) {
-        fire('E1', { elementId: 'session-entry-named' })
-      }
-    }
+    if (!isReturning) fire('E1', { elementId: 'session-entry' })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [identity?.name])
+  }, [identity ? true : false])
 
   // Returning visitor recognition
   useEffect(() => {
@@ -153,9 +116,9 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
   // Movement dismisses everything immediately
   // Now routes through the character system for speech + reel custody
   useIdleDetection({
-    idleMs: 12_000,
-    cycleMs: 8_000,
-    enabled: !!identity && !showOnboarding,
+    idleMs: 18_000,
+    cycleMs: 12_000,
+    enabled: !!identity,
     onIdle: () => {
       // Signal character that visitor is idle
       setIdleState(true)
@@ -186,7 +149,7 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
     else if (path.startsWith('/work'))         fire('X4', { elementId: 'exit-work' })
     else if (path.startsWith('/arcade'))       fire('X6', { elementId: 'exit-arcade' })
     else                                        fire('X1', { elementId: 'exit-default' })
-  }, !!identity && !showOnboarding)
+  }, !!identity)
 
   return (
     <>
@@ -208,12 +171,6 @@ function AppShell({ identity, isReturning, showOnboarding, onOnboardingSubmit, o
         identity={identity}
         onReset={onReset}
         lastUpdate={null /* server-side, placeholder for v1 */}
-      />
-
-      <OnboardingModal
-        open={showOnboarding}
-        onSubmit={onOnboardingSubmit}
-        onSkip={onOnboardingSkip}
       />
 
       {/* Companion in its own silent boundary. The idle-cycle crash that

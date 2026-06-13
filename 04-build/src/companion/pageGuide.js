@@ -115,7 +115,18 @@ const truckingAcademy = [
   "ben's journey to a class 3 - the whole flow, end to end.",
 ]
 
+const clickerForge = [
+  "clicker forge. my first real java project - a blacksmith you actually operate.",
+  "i pitched a whole weaponsmith sim, then cut it to one blade done well.",
+  "every sprite here is hand-drawn. i was the artist and the engineer.",
+  "the rooms: smelt the copper, hammer it true, dress the blade.",
+  "i built it in stages - each one added a real mechanic.",
+  "under the hood: a base class, a factory, a decorator chain. oop finally clicked.",
+  "the smoke and shockwaves aren't sprites - they're perlin noise and recursion.",
+]
+
 const GUIDES = {
+  'clicker-forge': clickerForge,
   pharmabotics,
   'asl-express': aslExpress,
   'market-basket': marketBasket,

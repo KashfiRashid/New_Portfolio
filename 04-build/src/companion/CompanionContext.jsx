@@ -21,8 +21,8 @@ import { getBubble, renderBubbleText } from './bubbleLibrary.js'
 
 const CompanionContext = createContext(null)
 
-const SESSION_BUBBLE_CAP = 8
-const COOLDOWN_MS = 8000
+const SESSION_BUBBLE_CAP = 6
+const COOLDOWN_MS = 12000
 
 export function CompanionProvider({ visitor, children }) {
   const character = useCharacter()

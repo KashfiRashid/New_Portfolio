@@ -25,10 +25,10 @@
 
 const bubbles = [
   // --- ENTRY (E) ---------------------------------------------------------
-  { id: 'E1', trigger: 'entry', context: 'onboarding-complete',
-    text: "hey {name}. i'm the little guy who lives on this site - kashfi's guide. i'll point out the good parts as you scroll, and get chatty when you go quiet. (you're {color}, by the way.)" },
-  { id: 'E2', trigger: 'entry', context: 'onboarding-skipped',
-    text: "no name? bold. i'm your guide here either way - i flag the good bits as you scroll. you're {color} by default." },
+  { id: 'E1', trigger: 'entry', context: 'session-entry',
+    text: "hey. i'm the little guy who lives here - kashfi's guide. i'll flag the good parts as you scroll, and pipe up when you go quiet." },
+  { id: 'E2', trigger: 'entry', context: 'session-entry-alt',
+    text: "welcome in. i point out the good bits and otherwise stay out of your way." },
   { id: 'E3', trigger: 'entry', context: 'home-after-3s',
     text: "the line's not a typo. read it again." },
   { id: 'E4', trigger: 'entry', context: 'voice-page',
@@ -102,7 +102,7 @@ const bubbles = [
   { id: 'H34', trigger: 'hover', context: 'footer-changelog',
     text: "this updates when i ship something. it's not a flex; it's accountability." },
   { id: 'H35', trigger: 'hover', context: 'footer-reset',
-    text: "reset wipes your name and color. won't break anything." },
+    text: "reset in the footer shuffles your color. won't break anything." },
   { id: 'H36', trigger: 'hover', context: 'project-market-basket',
     text: "the one where simpler won. forty-plus features lost to ten neighbors." },
   { id: 'H37', trigger: 'hover', context: 'project-clicker-forge',
@@ -228,7 +228,7 @@ export function getBubblesByTrigger(trigger) {
  * @param {{name: string, color: {label: string}}} visitor
  */
 export function renderBubbleText(text, visitor) {
-  const name = visitor?.name || 'stranger'
+  const name = visitor?.name || 'there'
   const colorLabel = visitor?.color?.label || 'slate'
   return text
     .replaceAll('{name}', name)
